@@ -45,7 +45,7 @@ $ pip3 install pipenv
 Next, make sure there is a Pipfile in your current directory and run
 
 ```sh
-$p ipenv shell
+$ pipenv shell
 ```
 Finally, to run the web instance, you should have a file in the directory called maange.py
 
