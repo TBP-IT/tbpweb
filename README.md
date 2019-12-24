@@ -33,31 +33,31 @@ See [Development](#development) for how to run the Django web server.
 From here, run
 
 ```sh
-$cd tbpweb
+$ cd tbpweb
 ```
 
 Make sure pipenv is installed in your virtual machine. To do this, run 
 
 ```sh
-$pip3 install pipenv
+$ pip3 install pipenv
 ```
 
 Next, make sure there is a Pipfile in your current directory and run
 
 ```sh
-$pipenv shell
+$p ipenv shell
 ```
 Finally, to run the web instance, you should have a file in the directory called maange.py
 
 Run the command
 
 ```sh
-$python3 manage.py runserver
+$ python3 manage.py runserver
 ```
 To exit out of the pipenv shell, run 
 
 ```sh
-exit
+$ exit
 ```
 The same command can be used to exit out of the virtual machine ssh connection.
 
