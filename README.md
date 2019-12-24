@@ -39,7 +39,7 @@ $cd tbpweb
 Make sure pipenv is installed in your virtual machine. To do this, run 
 
 ```sh
-$pip install pipenv
+$pip3 install pipenv
 ```
 
 Next, make sure there is a Pipfile in your current directory and run
