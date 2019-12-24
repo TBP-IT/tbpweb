@@ -47,13 +47,24 @@ Next, make sure there is a Pipfile in your current directory and run
 ```sh
 $ pipenv shell
 ```
+
+To install django, run
+
+```sh
+$ pipenv install django
+```
+There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
+
 Finally, to run the web instance, you should have a file in the directory called maange.py
 
 Run the command
 
 ```sh
-$ python3 manage.py runserver
+$ python3 ./manage.py runserver 0.0.0.0:3000
 ```
+
+If you go into your webbrowser and access localhost:3000, you should be able to see the site now!
+
 To exit out of the pipenv shell, run 
 
 ```sh
