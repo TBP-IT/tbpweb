@@ -75,6 +75,7 @@ Vagrant.configure("2") do |config|
     dpkg-reconfigure -f noninteractive tzdata
 
     apt-get update && apt-get install -y \
+        build-essential \
         curl \
         git \
         libmysqlclient-dev \
@@ -87,6 +88,19 @@ Vagrant.configure("2") do |config|
         python3-pip \
         tmux \
         vim
+
+    # Set up MySQL database and development user
+    mysql -e "CREATE DATABASE IF NOT EXISTS tbpweb;"
+    mysql -e "GRANT ALL PRIVILEGES ON tbpweb.* TO 'tbp'@'localhost' IDENTIFIED BY 'tbpit';"
+    
+    #Set IP and PORT environment variables for `make run`
+    printf "\n\nexport IP='[::]'\nexport PORT='3000'\n" >> /home/vagrant/.bashrc
+
+    cat <<-EOF > ~/.my.cnf
+    [client]
+    user=tbp
+    password=tbpit
+    EOF
   SHELL
   # Setup pipenv and virtualenv
   config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make setup"

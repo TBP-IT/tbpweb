@@ -55,15 +55,23 @@ $ pipenv install django
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
-Finally, to run the web instance, you should have a file in the directory called maange.py
-
-Run the command
-
+If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below.
 ```sh
-$ python3 ./manage.py runserver 0.0.0.0:3000
+$ make migrations
+$ make migrate
 ```
 
-If you go into your webbrowser and access localhost:3000, you should be able to see the site now!
+If you would like to access the admin interface, create a superuser using the command
+```sh
+$ make superuser
+```
+
+Finally, to run the web instance, simply run the command
+
+```sh
+$ make run
+```
+This will start the development server at http://0.0.0.0:3000/. If you go into your web browser and access localhost:3000, you should be able to see the site now!
 
 To exit out of the pipenv shell, run 
 
