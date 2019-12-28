@@ -73,6 +73,8 @@ $ make run
 ```
 This will start the development server at http://0.0.0.0:3000/. If you go into your web browser and access localhost:3000, you should be able to see the site now!
 
+To access the admin site, access http://0.0.0.0:3000/admin. Use the credentials you created for your superuser to login.
+
 To exit out of the pipenv shell, run 
 
 ```sh
