@@ -55,7 +55,7 @@ $ pipenv install django
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
-If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below.
+If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below. If there were changes to database models made by other developers and you pulled those changes, you just have to run make migrate.
 ```sh
 $ make migrations
 $ make migrate
