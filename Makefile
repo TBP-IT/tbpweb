@@ -12,10 +12,10 @@ run:
 superuser:
 	pipenv run python3 ./manage.py createsuperuser
 
-.PHONY: migrate
-migrate:
-	pipenv run python3 ./manage.py migrate
-
 .PHONY: migrations
 migrations:
 	pipenv run python3 ./manage.py makemigrations
+
+.PHONY: migrate
+migrate:
+	pipenv run python3 ./manage.py migrate

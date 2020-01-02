@@ -91,4 +91,3 @@ Vagrant.configure("2") do |config|
   # Setup pipenv and virtualenv
   config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make setup"
 end
-

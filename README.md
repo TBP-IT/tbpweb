@@ -55,26 +55,25 @@ $ pipenv install django
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
-If you edit any database models, you will have to create and apply migrations. You can do so with the following commands:
-
+If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below. If there were changes to database models made by other developers and you pulled those changes, you just have to run make migrate.
 ```sh
 $ make migrations
 $ make migrate
 ```
 
-Finally, to run the web instance, enter the command
+If you would like to access the admin interface, create a superuser using the command
+```sh
+$ make superuser
+```
+
+Finally, to run the web instance, simply run the command
 
 ```sh
 $ make run
 ```
-or alternatively
+This will start the development server at http://0.0.0.0:3000/. If you go into your web browser and access localhost:3000, you should be able to see the site now!
 
-```sh
-$ make
-```
-(since run is the first recipe in the Makefile).
-
-If you go into your web browser and access localhost:3000, you should be able to see the site now!
+To access the admin site, access http://0.0.0.0:3000/admin. Use the credentials you created for your superuser to login.
 
 To exit out of the pipenv shell, run 
 
