@@ -17,18 +17,25 @@ Open terminal, and cd into the cloned directory. Check to make sure there is a V
 ```sh
 $ vagrant up
 ```
+which will download and boot a Linux virtual machine, then run setup. If you need to force setup again, run 
 
-which will download and boot a Linux virtual machine, then run setup.
+```sh
+$ vagrant provision
+```
+Do not do this if `vagrant up` works as intended (i.e. you can properly follow the below steps to generate a web instance).
+
+You can check the state of the VM by running
+
+```sh
+$ vagrant status
+```
 
 To access the environment, run
 
 ```sh
 $ vagrant ssh
 ```
-
-which will `ssh` your terminal into the virtual machine.
-
-See [Development](#development) for how to run the Django web server.
+which will `ssh` into the virtual machine.
 
 From here, run
 
@@ -55,9 +62,13 @@ $ pipenv install django
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
-If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below. If there were changes to database models made by other developers and you pulled those changes, you just have to run make migrate.
+If you make any Django changes (to the database models, for instance) you will have to create migrations to reflect them. You can do so with the command
 ```sh
 $ make migrations
+```
+
+After, you should migrate the migrations. If there were changes to database models made by other developers and you pulled those changes, you have to apply the migrations as well. This can be done with the command:
+```sh
 $ make migrate
 ```
 
@@ -65,6 +76,7 @@ If you would like to access the admin interface, create a superuser using the co
 ```sh
 $ make superuser
 ```
+You will be prompted to enter a username and password which can be used to log in to the admin interface. 
 
 Finally, to run the web instance, simply run the command
 
@@ -87,7 +99,6 @@ To turn off the virtual machine, run
 ```sh
 $ vagrant halt
 ```
-
 which will attempt to safely shutdown the virtual machine, or kill it otherwise.
 
 
