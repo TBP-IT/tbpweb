@@ -7,8 +7,7 @@ TBP CA-A website rework, build in Django
 setup for developing `hknweb`.
 
 Install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/wiki/Download_Old_Builds_6_0)
-Make sure you install Virtual Box 6.0.14, as Vagrant is not compatible with newer versions of Virtual Box.
-
+Try to install Virtual Box 6.0.14, as there have been some issues in the past with other versions of Virtual Box in terms of compatibility of Vagrant.
 
 Fork the tbpweb repository and clone your fork to your local machine 
 
