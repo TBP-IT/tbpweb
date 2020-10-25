@@ -7,8 +7,7 @@ TBP CA-A website rework, build in Django
 setup for developing `hknweb`.
 
 Install [Vagrant](https://www.vagrantup.com/) and [VirtualBox](https://www.virtualbox.org/wiki/Download_Old_Builds_6_0)
-Make sure you install Virtual Box 6.0.14, as Vagrant is not compatible with newer versions of Virtual Box.
-
+Try to install Virtual Box 6.0.14, as there have been some issues in the past with other versions of Virtual Box in terms of compatibility of Vagrant.
 
 Fork the tbpweb repository and clone your fork to your local machine 
 
@@ -55,7 +54,7 @@ $ pipenv install django
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
-If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below.
+If you make any Django changes (to the database models, for instance) you will have to create and migrate migrations. You can do so with the command below. If there were changes to database models made by other developers and you pulled those changes, you just have to run make migrate.
 ```sh
 $ make migrations
 $ make migrate
@@ -72,6 +71,8 @@ Finally, to run the web instance, simply run the command
 $ make run
 ```
 This will start the development server at http://0.0.0.0:3000/. If you go into your web browser and access localhost:3000, you should be able to see the site now!
+
+To access the admin site, access http://0.0.0.0:3000/admin. Use the credentials you created for your superuser to login.
 
 To exit out of the pipenv shell, run 
 
