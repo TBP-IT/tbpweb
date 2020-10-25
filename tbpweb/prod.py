@@ -14,4 +14,4 @@ STATIC_ROOT = '/home/t/tb/tbp/public_html/tbpweb/static'
 # Media files (user-uploaded files)
 # https://docs.djangoproject.com/en/2.1/topics/files/
 MEDIA_URL = 'https://www.ocf.berkeley.edu/~tbp/media/'
-MEDIA_ROOT = '/home/t/tb/tbp/public_html/tbpweb/static'
+MEDIA_ROOT = '/home/t/tb/tbp/public_html/tbpweb/media'
