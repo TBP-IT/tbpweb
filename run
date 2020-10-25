@@ -1,0 +1,9 @@
+#!/bin/bash -e
+export MODE=prod
+
+cd ~/public_html/tbpweb
+source ~/public_html/tbpweb/venv/bin/activate
+PYTHONPATH=~/public_html/tbpweb/src:$PYTHONPATH \
+
+exec gunicorn -w 2 -b unix:/srv/apps/tbp/tbp.sock \
+    --log-file - tbpweb.wsgi:application
