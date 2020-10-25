@@ -5,7 +5,13 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tbpweb.settings')
+    try:
+        MODE = os.environ['MODE'].lower()
+        if (MODE == 'prod'):
+            os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tbpweb.prod')
+        else: os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tbpweb.dev')
+    except KeyError:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tbpweb.dev')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
