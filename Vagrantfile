@@ -85,9 +85,10 @@ Vagrant.configure("2") do |config|
         python3 \
         python3-dev \
         python3-pip \
+        python3-venv \
         tmux \
         vim
   SHELL
-  # Setup pipenv and virtualenv
-  config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make setup"
+  # Setup virtualenv
+  config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make venv"
 end
