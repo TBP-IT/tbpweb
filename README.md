@@ -35,22 +35,22 @@ From here, run
 $ cd tbpweb
 ```
 
-Make sure pipenv is installed in your virtual machine. To do this, run 
+Developing on `tbpweb` requires a virtual environment so that every developer has the exact same development environment i.e. any errors that a developer has is not due to difference in configuration. We will be using Python's built-on [`venv`](https://docs.python.org/3/library/venv.html) to make our virtual environment. This command creates our virtual environment.
 
 ```sh
-$ pip3 install pipenv
+$ make venv
 ```
 
-Next, make sure there is a Pipfile in your current directory and run
+Next, we need to have our current terminal/shell use the virtual environment we just created. We do this through:
 
 ```sh
-$ pipenv shell
+$ source .venv/bin/activate
 ```
 
-To install django, run
+To install all dependencies (including django), run
 
 ```sh
-$ pipenv install django
+$ make install
 ```
 There may be warnings that installation of some packages failed, but as long as you can run the command below successfully you are good to go.
 
