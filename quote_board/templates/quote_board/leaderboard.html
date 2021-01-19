@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Quote Leaderboard{% endblock title %}
+
+{% block intro %}
+<p><a href="{% url 'quote_board:list' %}">&laquo; Quote Board</a></p>
+<h1>Quote Leaderboard</h1>
+{% endblock intro %}
+
+{% block content %}
+
+<ul class="leaderboard">
+  {% for entry in leader_list %}
+  <li>
+    {# Spaceless to fix whitespace issues with inline-block css style #}
+    {% spaceless %}
+    <div class="name {% cycle 'odd' 'even' %}
+      {% if entry.user == user %}self{% endif %}">
+        {{ entry.rank }}. <a href="{% url 'quote-board:speaker' entry.user.id %}">{{ entry.user.userprofile.get_common_name }}</a>
+    </div>
+    <span class="score-container {% cycle 'odd' 'even' %}"
+      style="width: {{ entry.factor }}%;">
+      <span class="score">{{ entry.user.score }}</span>
+    </span>
+    {% endspaceless %}
+  </li>
+  {% empty %}
+  <p>Nobody has any achievements yet! :(</p>
+  {% endfor %}
+</ul>
+
+{% include '_pagination.html' %}
+
+{% endblock content %}

@@ -1,0 +1,9 @@
+<h2>
+  {{ syllabus.term.verbose_name }} for
+  <a href="{{ syllabus.course.get_absolute_url }}">{{ syllabus.course }}</a>{% if syllabus.instructors %}, taught by{% endif %}
+  {% for instructor in syllabus.instructors %}
+  <a href="{{ instructor.get_absolute_url }}">{{ instructor.last_name }}</a>{% if not forloop.last %}, {% endif %}
+  {% empty %}
+  (Instructors Unknown)
+  {% endfor %}
+</h2>

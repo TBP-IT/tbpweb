@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load settings_values %}
+
+{% block intro %}
+<h1>
+  {% block title %}Log In{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<form method="post" action="{{ request.path }}" class="form-narrow">
+  {% csrf_token %}
+  {% include '_form.html' %}
+
+  <input type="submit" value="Log In">
+  <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'home' %}{% endif %}">
+</form>
+
+<p>Forgot your password? <a href="{% url 'accounts:password-reset' %}">Reset it</a>!</p>
+{% settings_assign 'IT_ADDRESS' as it_addr %}
+<p>If you've initiated with TBP CA-A but don't have an account, you can request one by emailing IT at <a href="mailto:{{ it_addr }}">{{ it_addr }}</a>.</p>
+
+{% endblock content %}

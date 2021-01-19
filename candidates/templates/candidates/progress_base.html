@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+
+<h1>
+{% block title %}
+Candidate Progress Tracking
+{% endblock title %}
+</h1>
+
+{% url 'candidates:progress' as progress_url %}
+{% url 'candidates:progress-stats' as progress_stats_url %}
+{% url 'candidates:progress-by-req' as progress_by_req_url %}
+<div class="btn-group">
+  {% if request.path == progress_url %}
+  <div class="btn btn-sm selected">By Candidate</div>
+  {% else %}
+  <a href="{{ progress_url }}?term={{ display_term.get_url_name }}" class="btn btn-sm">By Candidate</a>
+  {% endif %}
+
+  {% if request.path == progress_by_req_url %}
+  <div class="btn btn-sm selected">By Requirement</div>
+  {% else %}
+  <a href="{{ progress_by_req_url }}?term={{ display_term.get_url_name }}" class="btn btn-sm">By Requirement</a>
+  {% endif %}
+
+  {% if request.path == progress_stats_url %}
+  <div class="btn btn-sm selected">Statistics</div>
+  {% else %}
+  <a href="{{ progress_stats_url }}?term={{ display_term.get_url_name }}" class="btn btn-sm">Statistics</a>
+  {% endif %}
+</div>
+
+{% include '_term_selection.html' %}
+
+{% block selectors %}
+{% endblock selectors %}
+
+<p>
+  <a href="{% url 'candidates:list' %}?term={{ display_term.get_url_name }}"><strong>Back to {{ display_term.verbose_name }} Candidates</strong></a>
+</p>
+{% endblock intro %}

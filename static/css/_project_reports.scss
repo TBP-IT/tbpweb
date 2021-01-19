@@ -1,0 +1,33 @@
+/* _project_reports.scss */
+// Styles for the project reports app
+
+@import 'base';
+
+// Project Report Table
+#project-reports {
+  tr {
+    &.incomplete {
+      background-color: #f2bbbb;
+    }
+  }
+
+  td {
+    vertical-align: middle;
+
+    div {
+      font-size: 0.8em;
+    }
+  }
+}
+
+// Project Report Markdown
+
+.pr-markdown {
+  ol > li {
+    list-style-type: decimal;
+  }
+
+  ul > li {
+    list-style-type: circle;
+  }
+}

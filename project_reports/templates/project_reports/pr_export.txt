@@ -1,0 +1,49 @@
+__The Tau Beta Pi Association__ \hfill Chapter: CA-A\
+Chapter Project Report \hfill Project Number: {{ pr.id }}
+
+### Project Name:
+
+## {{ pr.title }}
+
+### Project Summary Table
+
+Date of project|Project area|Members involved|Electees involved
+-|-|-|-
+{{ pr.date }}|Chapter/Social|{{ pr.member_list.count }}|{{ pr.candidate_list.count }}
+
+Organization hours|Participation hours|New project?|Other groups
+-|-|-|-
+{{ pr.organize_hours }}|{{ pr.participate_hours }}|{% if pr.is_new %}Yes{% else %}No{% endif %}|{{ pr.other_group }}
+
+### Description
+
+{{ pr.description }}
+
+### Purpose
+
+{{ pr.purpose }}
+
+### Organization
+
+{{ pr.organization }}
+
+### Cost
+
+{{ pr.cost }}
+
+### Problems
+
+{{ pr.problems }}
+
+### Results
+
+{{ pr.results }}
+
+### Participants
+
+* Officers: {% for u in pr.officer_list.all %}{{ u.userprofile.get_full_name }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+* Members: {% for u in pr.member_list.all %}{{ u.userprofile.get_full_name }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+* Candidates: {% for u in pr.candidate_list.all %}{{ u.userprofile.get_full_name }}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+{% if pr.non_tbp %}* Non-TBP: {{ pr.non_tbp }}{% endif %}
+
+\break

@@ -1,0 +1,5 @@
+- fields:
+    name: TBP
+    domain: tbp.berkeley.edu
+  model: sites.Site
+  pk: 1

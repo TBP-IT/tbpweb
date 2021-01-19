@@ -1,0 +1,12 @@
+# President's Letter
+
+Dear Reader,
+
+{{ text }}
+
+
+Sincerely,
+
+{{ president.user.userprofile.get_full_name }}\newline
+Tau Beta Pi, California Alpha\newline
+President, {{ president.term.verbose_name }}

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load markup static %}
+
+{% block title %}{{ event.name }} - Events{% endblock %}
+
+{% block intro %}
+<h1>
+  Details for {{ event.name }}{% if perms.events.change_event %} (<a href="{% url 'events:edit' event.pk %}">Edit</a>){% endif %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% if not event.is_upcoming %}
+<h2>
+  {% if event.cancelled %}
+  Event was cancelled
+  {% else %}
+  Event has ended
+  {% endif %}
+</h2>
+{% endif %}
+
+{% url 'events:attendance' event.pk as event_attendance_url %}
+
+<dl class="event-info">
+  <dt>When</dt>
+    <dd>
+    <div>{{ event.view_datetime }} (
+      <a href="{{ event.get_gcal_event_url }}" target="_blank">
+        <img src="{% static 'images/google-calendar.gif' %}" class="google-cal" alt="Add to Google Calendar"></a> |
+      <a href="{% url 'events:event-ical' event.pk %}">iCal</a>)</div>
+      {% if user.is_authenticated %}
+      <div>
+        (<em>{% if perms.events.add_eventattendance %}<a href="{{ event_attendance_url }}">Attendance</a>{% else %}Attendance{% endif %}
+          {% if event.attendance_submitted %}was submitted{% else %}not yet submitted{% endif %}</em>)
+      </div>
+      {% endif %}
+    </dd>
+
+  <dt>Where</dt>
+    <dd>{{ event.location }}</dd>
+
+  {% if event.tagline %}
+  <dt>Tagline</dt>
+    <dd>{{ event.tagline }}</dd>
+  {% endif %}
+
+  {% if event.description %}
+  <dt>Description</dt>
+    <dd>{{ event.description|markdown }}</dd>
+  {% endif %}
+
+  {% if event.requirements_credit > 0 %}
+  <dt>Candidate Requirements</dt>
+    <dd>
+      This event satisfies <span class="event-credit event-type {{ event.event_type|slugify }}">{{ event.requirements_credit }} {{ event.event_type|lower }}</span> event requirement{{ event.requirements_credit|pluralize }}.
+    </dd>
+  {% endif %}
+
+  {% ifnotequal event.signup_limit 0 %}
+  <dt>Signup Limit</dt>
+    <dd>{{ event.signup_limit }}</dd>
+  {% endifnotequal %}
+</dl>
+
+{% if form %}
+{% include 'events/_signup.html' %}
+{% endif %}
+
+<h3>
+  Who's signed up?
+  {% if perms.events.add_eventattendance %}
+  (<a href="{{ event_attendance_url }}">Submit Attendance</a>)
+  {% endif %}
+</h3>
+
+{# TODO(sjdemartini): Improve styles and readability of event signups #}
+{% if signup_list %}
+{% spaceless %}
+  <ul class="signup-list">
+  {% for signup in signup_list %}
+    <li>
+    {% include 'events/_signup_detail.html' %}
+    </li>
+  {% endfor %}
+  </ul>
+{% endspaceless %}
+{% else %}
+  <div>No one has signed up.{% if form %} Be the first!{% endif %}</div>
+{% endif %}
+
+<div>
+  <p>Participants: {{ num_signups|add:num_guests }}
+    {% if num_guests > 0 %}({{ num_signups }} signup{{ num_signups|pluralize }} + {{ num_guests }} guest{{ num_guests|pluralize }}){% endif %}
+  </p>
+  {% if event.needs_drivers and perms.events.view_driving_numbers %}
+    <p>Total Seats With Drivers: {{ total_seats }}</p>
+    {% if available_seats >= 0 %}
+    <p>Remaining Available Seats: {{ available_seats }}</p>
+    {% else %}
+    <p>Current Seat Deficit: {{ available_seats }}</p>
+    {% endif %}
+  {% endif %}
+</div>
+
+{% if num_signups and perms.events.contact_participants %}
+<h3>Email Participants</h3>
+<p>Email people who signed up <a href="{% url 'events:email' event.pk %}">from within your browser</a>.</p>
+<p>{% include 'events/_signup_email_list.html' with event_signups=signup_list %}</p>
+
+{# TODO(sjdemartini): text participants information #}
+{% endif %}
+
+{% comment %}
+TODO(sjdemartini): Handle scenario when event is open and has no signups. Will
+need to implement event restriction levels.
+{% endcomment %}
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+$('#signup-form').submit(function(e) {
+  e.preventDefault();
+  var self = $(this);
+  var url = self.attr('action');
+  // Clear the form of any existing errors (useful on re-submitting the form,
+  // so that prior errors are cleared):
+  clearFormFieldErrors(self);
+  req = $.ajax({
+    url: url,
+    type: self.attr('method'),
+    data: self.serialize()
+  });
+  req.done(function(data, textStatus, jqXHR) {
+    // Refresh the page for success
+    window.location.href = '{{ request.path }}';
+  });
+  req.fail(function(data, textStatus, jqXHR) {
+    // The form errors will be in the "data" key of the response
+    var errors = $.parseJSON(data.responseText).data;
+    showFormErrors(self, errors);
+  });
+});
+$('#unsignup-form').submit(function(e) {
+  e.preventDefault();
+  var self = $(this);
+  // Clear the signup form (since it is used for unsignup) of any existing
+  // errors
+  clearFormFieldErrors('#signup-form');
+  req = $.ajax({
+    url: self.attr('action'),
+    type: self.attr('method'),
+    data: $('#id_email').serialize()
+  });
+  req.done(function(data, textStatus, jqXHR) {
+    // Refresh the page for success
+    window.location.href = '{{ request.path }}';
+  });
+  req.fail(function(data, textStatus, jqXHR) {
+    // The form errors will be in the "data" key of the response
+    var errors = $.parseJSON(data.responseText).data;
+    showFormErrors(self, errors);
+  });
+});
+</script>
+{% endblock extra_js %}

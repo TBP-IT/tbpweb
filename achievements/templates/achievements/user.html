@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ display_user.userprofile.get_common_name }}'s Achievements
+{% endblock title %}
+
+{% block intro %}
+<p><a href="{% url 'achievements:leaderboard' %}">&laquo; Leaderboard</a></p>
+<h1>Achievements for <a href="{% url 'user_profiles:detail' display_user.username %}">{{ display_user.userprofile.get_common_name }}</a></h1>
+<h3>
+  {{ user_points }} point{{ user_points|pluralize }} from
+  {{ user_num_achievements }} achievement{{ user_num_achievements|pluralize }}
+</h3>
+{% endblock intro %}
+
+{% block content %}
+
+<h2>Unlocked Achievements</h2>
+<ul class="achievements-list unlocked">
+{% include 'achievements/_user_achievements_list.html' with list=unlocked_list empty_message="No achievements found for this user!" %}
+</ul>
+
+<h2>Locked Achievements</h2>
+<ul class="achievements-list locked">
+{% include 'achievements/_user_achievements_list.html' with list=locked_list unacquired=True empty_message="This user has every achievement!" %}
+</ul>
+
+{% endblock content %}

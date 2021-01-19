@@ -1,0 +1,6 @@
+---
+title: Annual Project Reports
+author: Tau Beta Pi CA-A
+date: {{ first_term.verbose_name }}--{{ last_term.verbose_name }}
+rfoot: {{ first_term.year }}--{{ last_term.year }} Annual Report
+---

@@ -1,0 +1,9 @@
+{%load template_utils%}
+<p>Hello there,</p>
+
+<p>{{ event.name}} has been cancelled. Please check out the event page <a href="{% full_url 'events:detail' event.pk %}">{{ event.name}}</a> for more information.</p>
+
+
+<p>Thanks,</p>
+
+{{ author }}

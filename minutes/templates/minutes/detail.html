@@ -1,0 +1,20 @@
+{% extends 'minutes/base.html' %}
+
+{% block content %}
+<h2>
+  {% block title %}{{ minutes.name }} - {{ minutes.term.verbose_name }}{% endblock title %}
+</h2>
+
+{% if perms.minutes.change_minutes %}
+<div><a href="{% url 'minutes:edit' minutes.id %}">Edit</a></div>
+{% endif %}
+
+<p>
+  <div>Date: {{ minutes.date }}</div>
+  <div>Meeting Type: {{ minutes.get_meeting_type_display }}</div>
+  <div>Author: {{ minutes.author.userprofile.get_common_name }}</div>
+</p>
+
+<div>Notes:</div>
+<pre>{{ minutes.notes }}</pre>
+{% endblock content %}

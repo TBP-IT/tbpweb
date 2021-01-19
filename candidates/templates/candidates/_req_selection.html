@@ -1,0 +1,12 @@
+{% if progresses_by_req %}
+<p{% if float_right %} style="float: right;"{% endif %}>
+  Requirement:
+  <select class="req-select"
+    onchange="window.location.search = jQuery.query.set('req', $(this).val());">
+    <option value=""{% if not display_req %} selected="selected"{% endif %}>All</option>
+  {% for req_name, req_info, _ in progresses_by_req %}
+    <option value="{{ req_info.req_obj.id }}"{% ifequal req_info.req_obj display_req %} selected="selected"{% endifequal %}>{{ req_name }}</option>
+  {% endfor %}
+  </select>
+</p>
+{% endif %}

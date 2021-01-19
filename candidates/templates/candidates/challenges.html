@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Challenges{% endblock title %}
+
+{% block intro %}
+<h1>Verify Challenges for {{ display_term_name }}</h1>
+{% endblock intro %}
+
+{% block content %}
+{% include '_term_selection.html' %}
+
+<form method="post" class="form-narrow">
+  {% csrf_token %}
+  {{ form.management_form }}
+
+  {% if form|length != 0 %}
+  <table class="footable stylized bordered">
+    <thead>
+      <tr>
+        <th>Challenge Description</th>
+        <th>Candidate</th>
+        <th data-hide="phone">Type</th>
+        <th>Verified</th>
+        <th data-hide="phone,tablet">Reason (Optional)</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for challenge_form in form %}
+    <tr>
+      {% with challenge=challenge_form.instance %}
+      <td>{{ challenge.description }}</td>
+      <td><a href="{% url 'candidates:edit' challenge.candidate.pk %}">{{ challenge.candidate.user.userprofile.get_common_name }}</a></td>
+      <td>{{ challenge.challenge_type }}</td>
+      <td>{{ challenge_form.verified }}</td>
+      <td>{{ challenge_form.reason }}</td>
+      {% endwith challenge %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <div>
+    <input type="submit" value="Save">
+  </div>
+  {% else %}
+  <p>You have no pending challenges.</p>
+  {% endif %}
+</form>
+
+<p>
+  <a href="{% url 'candidates:list' %}?term={{ display_term_url_name }}"><strong>{{ display_term_name }} Candidates</strong></a>
+</p>
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' %}
+{% endblock extra_js %}

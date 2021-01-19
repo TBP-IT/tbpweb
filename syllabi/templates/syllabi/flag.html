@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Flag Syllabus{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% include 'syllabi/_syllabus_display.html' %}
+<div>Is there a problem with this syllabus? Let us know how we can fix it!</div>
+
+<form method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+{% if perms.syllabi.change_syllabus %}
+<div>
+  <a href="{{ syllabus.get_absolute_url }}"><strong>Edit syllabus</strong></a>
+</div>
+{% endif %}
+
+{% endblock content %}

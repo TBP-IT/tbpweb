@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+
+<h1>
+  {% block title %}Houses for {{ display_term }}{% endblock title %}
+</h1>
+
+{% url 'houses:list' as list_houses %}
+{% include '_term_selection.html' with float_right=False url_base=list_houses %}
+{% endblock intro %}
+
+{% block content %}
+
+<p>Below are the <strong>house leaders</strong>, <i>candidates</i>, and officers that make up each house in {{ display_term_name}}.</p>
+
+{% regroup house_members by house as houses %}
+{% for house in houses %}
+<div class="house-section">
+  <h3>{{ house.grouper }}</h3>
+  <ul id="{{ house.grouper.mailing_list }}-members-list" class="{{ house.grouper.mailing_list }} members-list">
+    {% for house_member in house.list %}
+    <li id="user_{{ house_member.user.pk}}" class="house-member {{house.grouper.mailing_list }}">
+      <div class="avatar">
+        {% include '_user_thumbnail.html' with user_profile=house_member.user.userprofile %}
+      </div>
+      <div class="user-name
+        {% if house_member.is_leader %} house-leader
+        {% elif house_member.user in candidates %} candidate
+        {% endif %}">
+        <a href="{% url 'user-profiles:detail' house_member.user.username %}">{{ house_member.user.userprofile.get_common_name }}</a>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endfor %}
+
+{% if perms.houses.add_housemember %}
+<p>
+  <a href="{% url 'houses:edit' %}?term={{ display_term_url_name }}" class="btn">
+    <i class="fa fa-edit"></i> Edit Houses
+  </a>
+</p>
+{% endif %}
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% comment %}
+Include this template into the extra_js block to use basic footable responsive
+design.
+
+To include sorting and/or filtering abilities with the footable, pass to the
+template in the include statement the additional context variables
+"include_sort" and/or "include_filter" set to True, respectively. The default is
+to not include sorting or filtering, as these require additional JS files.
+
+To make a table act as a footable, simply add the "footable" class to any
+table and include this template. See http://fooplugins.com/footable-demos/ for
+further documentation on footable usage.
+{% endcomment %}
+{% load static compress %}
+<script src="{% static 'footable/dist/footable.min.js' %}"></script>
+{% compress js %}
+{% if include_sort %}
+<script src="{% static 'footable/dist/footable.sort.min.js' %}"></script>
+{% endif %}
+{% if include_filter %}
+<script src="{% static 'footable/dist/footable.filter.min.js' %}"></script>
+{% endif %}
+{% if include_pagination %}
+<script src="{% static 'footable/dist/footable.paginate.min.js' %}"></script>
+{% endif %}
+<script>
+$(function() {
+  var table = $('.footable');
+
+  // Set the icon used for toggling the visibility of hidden info:
+  table.addClass('toggle-arrow-small toggle-large');
+
+  // Activate the footable
+  table.footable({
+    // These breakpoints override the default FooTable breakpoints
+    // to match the small and medium breakpoints of our css
+    breakpoints: {
+      phone: 480,
+      tablet: 820
+    },
+
+    calculateWidthAndHeightOverride: function(table, info) {
+      info.width = info.viewportWidth;
+      info.height = info.viewportHeight;
+      return info;
+    }
+  });
+});
+</script>
+{% endcompress %}

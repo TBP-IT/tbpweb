@@ -1,0 +1,111 @@
+{% load ancestor %}
+
+<div id="navigation-container">
+  {# The nav-menubar is used on mobile to expand the nav options #}
+  <div id="nav-menubar">
+    <div class="nav-menubar-content">
+      Menu
+      <div class="nav-menubar-icon">
+        <i class="fa fa-bars"></i>
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    {% spaceless %}
+    <ul>
+      <li>
+        {% url 'about' as about_url %}
+        {% url 'contact' as contact_url %}
+        {% url 'eligibility' as eligibility_url %}
+        {% url 'project-reports:list' as proj_reports_url %}
+        <a href="{{ about_url }}" class="{% ancestor about_url %} {% ancestor proj_reports_url %}">About</a>
+        <ul>
+          <li><a href="{{ contact_url }}" class="{% ancestor contact_url %}">Contact Us</a></li>
+          <li><a href="{{ eligibility_url }}" class="{% ancestor eligibility_url %}">Eligibility</a></li>
+          {% if perms.project_reports.view_project_reports %}
+          <li><a href="{{ proj_reports_url }}" class="{% ancestor proj_reports_url %}">Project Reports</a></li>
+          {% endif %}
+        </ul>
+      </li>
+
+      <li>
+        <a href="https://www.flickr.com/photos/126742707@N03/sets/">Gallery</a>
+        <ul>
+          <li><a href="https://www.flickr.com/photos/126742707@N03/sets/">Current Gallery</a></li>
+          <li><a href="/gallery/">Gallery Archives</a></li>
+        </ul>
+      </li>
+
+      <li>
+        {% url 'officers' as officers_url %}
+        {% url 'committees' as committees_url %}
+        {% url 'past-presidents:list' as past_pres_url %}
+        {% url 'houses:list' as houses_url %}
+        {% url 'alumni:list' as alumni_url %}
+        <a href="{{ officers_url }}" class="{% ancestor officers_url %} {% ancestor past_pres_url %}">People</a>
+        <ul>
+          <li><a href="{{ officers_url }}" class="{% ancestor officers_url %}">Officers</a></li>
+          <li><a href="{{ committees_url }}" class="{% ancestor committees_url %}">Committees</a></li>
+          {% if perms.houses.view_housemember %}
+          <li><a href="{{ houses_url }}" class="{% ancestor houses_url %}">Houses</a></li>
+          {% endif %}
+          {% if perms.alumni.view_alumnus %}
+          <li><a href="{{ alumni_url }}" class="{% ancestor alumni_url %}">Alumni Database</a></li>
+          {% endif %}
+          <li><a href="{{ past_pres_url }}" class="{% ancestor past_pres_url %}">Past Presidents</a></li>
+        </ul>
+      </li>
+
+      <li>
+        {% url 'events:list' as events_url %}
+        {% url 'events:calendar' as events_cal_url %}
+        {% url 'events:builder' as events_builder_url %}
+        <a href="{{ events_url }}" class="{% ancestor events_url %}">Events</a>
+        <ul>
+          <li><a href="{{ events_url }}"{% if request.path == events_url %} class="selected"{% endif %}>Events List</a></li>
+          <li><a href="{{ events_cal_url }}" class="{% ancestor events_cal_url %}">Events Calendar</a></li>
+          <li><a href="{{ events_builder_url }}" class="{% ancestor events_builder_url %}">Events Scheduler</a></li>
+          {# TODO <li><a href="">Ad-Hoc Events</a></li> #}
+        </ul>
+      </li>
+
+      <li>
+        {% url 'student-resources' as students_url %}
+        {% url 'courses:course-department-list' as courses_url %}
+        {% url 'exams:review' as exam_review_url %}
+        {% url 'emailer:helpdesk' as helpdesk_url %}
+        {% url 'mock-interviews' as mock_url %}
+        {% url 'resume-critique' as resume_url %}
+        <a href="{{ students_url }}" class="{% ancestor students_url %} {% ancestor courses_url %}">Student&nbsp;Resources</a>
+        <ul>
+          <li><a href="{{ courses_url }}"{% if request.path == courses_url %} class="selected"{% endif %}>Exams and Syllabi</a></li>
+          <li><a href="{{ mock_url }}" {% if request.path == mock_url %} class="selected"{% endif %}>Mock Interviews</a></li>
+          <li><a href="{{ resume_url }}" {% if request.path == resume_url %} class="selected"{% endif %}>Resume Critique</a></li>
+          <li><a href="{{ helpdesk_url }}" class = "{% ancestor helpdesk_url %}">Helpdesk</a></li>
+        </ul>
+      </li>
+
+      <li>
+        {% url 'companies:landing' as industry_url %}
+        {% url 'companies:resumes' as resume_database_url %}
+        {% url 'resumes:list' as resume_management_url %}
+        {% url 'companies:list' as company_management_url %}
+        <a href="{{ industry_url }}" class="{% ancestor industry_url %}">Industrial&nbsp;Relations</a>
+        <ul>
+          {# TODO <li><a href="">Company Sponsors</a></li> #}
+          {% if perms.resumes.view_resumes %}
+          <li><a href="{{ resume_database_url }}" class="{% ancestor resume_database_url %}">Resume Database</a></li>
+          {% endif %}
+          {% if perms.resumes.change_resume %}
+          <li><a href="{{ resume_management_url }}" class="{% ancestor resume_management_url %}">Resume Management</a></li>
+          {% endif %}
+          {% if perms.companies.view_companies %}
+          <li><a href="{{ company_management_url }}" class="{% ancestor company_management_url %}">Company Management</a></li>
+          {% endif %}
+        </ul>
+      </li>
+    </ul>
+    {% endspaceless %}
+  </nav>
+</div>

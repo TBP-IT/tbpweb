@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load template_utils %}
+
+{% block title %}Candidate Portal{% endblock title %}
+
+{% block intro %}
+<h1>Candidate Portal</h1>
+{% endblock intro %}
+
+{% block content %}
+<h2>Event Requirements</h2>
+{% for entry in req_types.event %}
+{% if entry.requirement.get_name != 'Elective' %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+<ul>
+  {% with event_type=entry.requirement.eventcandidaterequirement.event_type.name %}
+  {% if attended_events|get_item:event_type|length == 0 and past_signup_events|get_item:event_type|length == 0 and future_signup_events|get_item:event_type|length == 0 %}
+  No signups or attendance for {{ event_type }} events.
+  {% else %}
+  {% for event in past_signup_events|get_item:event_type %}
+  <li><del><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></del></li>
+  {% endfor %}
+  {% for event in attended_events|get_item:event_type %}
+  <li><strong><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></strong></li>
+  {% endfor %}
+  {% for event in future_signup_events|get_item:event_type %}
+  <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></li>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+</ul>
+{% else %}
+  {% if entry.credits_needed > 0 %}
+  <h3>Elective</h3>
+  <div><strong>[{{ attended_elective_events|length }} / {{ entry.credits_needed }}]</strong></div>
+  <ul>
+    {% if attended_elective_events|length == 0 and future_signup_elective_events|length == 0 %}
+    No signups or attendance for Elective events. If you attend more than the required number of events in any event category, those additional events will count as Elective events.
+    {% else %}
+    {% for event in attended_elective_events %}
+    <li><strong><a href="{{ event.get_absolute_url }}">{{ event.name }}</a></strong> ({{ event.event_type.name }})</li>
+    {% endfor %}
+    {% for event in future_signup_elective_events %}
+    <li><a href="{{ event.get_absolute_url }}">{{ event.name }}</a> ({{ event.event_type.name }})</li>
+    {% endfor %}
+    {% endif %}
+  </ul>
+  {% endif %}
+{% endif %}
+{% empty %}
+There are no Event requirements.
+{% endfor %}
+
+<h2>Challenge Requirements</h2>
+{% for entry in req_types.challenge %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+{% with challenge_type=entry.requirement.challengecandidaterequirement.challenge_type.name %}
+{% if challenges|get_item:challenge_type %}
+{% include 'candidates/_challenge_table.html' %}
+{% else %}
+No {{ challenge_type }} challenges submitted.
+{% endif %}
+{% endwith challenge_type %}
+{% empty %}
+There are no Challenge requirements.
+{% endfor %}
+
+<h3>Request Challenges</h3>
+<form method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+
+<h2>Exam File Requirements</h2>
+{% for entry in req_types.exam %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+
+<h3>Approved Exams Uploaded</h3>
+<ul>
+  {% for exam in approved_exams %}
+  <li><em>{{ exam }}</em></li>
+  {% empty %}
+  No approved exams uploaded.
+  {% endfor %}
+</ul>
+
+<h3>Uploaded Exams Awaiting Verification</h3>
+<ul>
+  {% for exam in unverified_exams %}
+  <li><em>{{ exam }}</em></li>
+  {% empty %}
+  No uploaded exams awaiting verification.
+  {% endfor %}
+</ul>
+<p>Note: all exams need to be verified by officers to check that they are valid.</p>
+
+<h3>Blacklisted Exams Uploaded</h3>
+<ul>
+  {% for exam in blacklisted_exams %}
+  <li><em>{{ exam }}</em></li>
+  {% empty %}
+  No blacklisted exams uploaded.
+  {% endfor %}
+</ul>
+<p>Note: uploaded exams from blacklisted professors DO NOT count towards candidate requirements.</p>
+
+{% empty %}
+No exams uploaded.
+{% endfor %}
+<p>You can upload exams <a href="{% url 'exams:upload' %}"><strong>here</strong></a>.</p>
+
+<h2>Syllabi Requirements</h2>
+{% for entry in req_types.syllabus %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+
+<h3>Approved Syllabi Uploaded</h3>
+<ul>
+  {% for syllabus in approved_syllabi %}
+  <li><em>{{ syllabus }}</em></li>
+  {% empty %}
+  No approved syllabi uploaded.
+  {% endfor %}
+</ul>
+
+<h3>Uploaded Syllabi Awaiting Verification</h3>
+<ul>
+  {% for syllabus in unverified_syllabi %}
+  <li><em>{{ syllabus }}</em></li>
+  {% empty %}
+  No uploaded exams awaiting verification.
+  {% endfor %}
+</ul>
+<p>Note: all exams need to be verified by officers to check that they are valid.</p>
+
+<h3>Blacklisted Syllabi Uploaded</h3>
+<ul>
+  {% for syllabus in blacklisted_syllabi %}
+  <li><em>{{ syllabus }}</em></li>
+  {% empty %}
+  No blacklisted syllabi uploaded.
+  {% endfor %}
+</ul>
+<p>Note: uploaded exams from blacklisted professors DO NOT count towards candidate requirements.</p>
+{% empty %}
+No syllabi uploaded.
+
+{% endfor %}
+<p>You can upload syllabi <a href="{% url 'syllabi:upload' %}"><strong>here</strong></a>.</p>
+
+<h2>Resume Requirements</h2>
+{% for entry in req_types.resume %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+<p><strong>Resume status</strong>: {{ resume_status }}</p>
+{% empty %}
+There are no Resume requirements.
+{% endfor %}
+<p>You can upload your resume <a href="{% url 'resumes:edit' %}"><strong>here</strong></a>.</p>
+
+<h2>Manual Requirements</h2>
+{% for entry in req_types.manual %}
+{% include 'candidates/_individual_portal_progress.html' with entry=entry %}
+{% empty %}
+There are no Manual requirements.
+{% endfor %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' %}
+{% endblock extra_js %}

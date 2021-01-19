@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Alumnus{% endblock title %}
+
+{% block intro %}
+<p><a href="{% url 'alumni:list' %}">&laquo; Alumni List</a></p>
+<h1>
+  Edit {{ alumnus.user.userprofile.get_common_name }}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<form action="{{ request.path }}" method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+{% endblock content %}

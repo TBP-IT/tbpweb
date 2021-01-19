@@ -1,0 +1,91 @@
+{% load static thumbnail %}
+<div id="login">
+  <ul>
+    {% if user.is_authenticated %}
+    {% with user_profile=user.userprofile %}
+    {% with is_officer=user_profile.is_officer %}
+    {% with is_member=user_profile.is_member %}
+    {% with is_candidate=user_profile.is_candidate %}
+    {% with has_alumnus_profile=user_profile.has_alumnus_profile%}
+    <li>
+      <a href="javascript:void(0)" class="dropdown-title">
+        <div class="user-pic">
+          {% include '_user_thumbnail.html' %}
+        </div>
+        <i class="fa fa-user profile-user-icon"></i>
+        <span>{{ user_profile.preferred_name }}</span>
+        <i class="fa fa-sort-desc login-arrow"></i>
+      </a>
+      <ul class="dropdown">
+        <li><a href="{% url 'user-profiles:edit' %}">Edit Your Info</a></li>
+
+        <li><a href="{% url 'user-profiles:edit-pic' %}">Edit Profile Picture</a></li>
+
+        {% if perms.resumes.add_resume %}
+        <li><a href="{% url 'resumes:edit' %}">Edit Resume</a></li>
+        {% endif %}
+
+        {% if has_alumnus_profile %}
+        {% with alumnus_profile=user_profile.get_alumnus_profile %}
+        <li><a href="{% url 'alumni:edit-alumnus' alumnus_profile.pk %}">Edit Alumni Profile</a></li>
+        {% endwith alumnus_profile %}
+        {% endif %}
+
+        <li><a href="{% url 'accounts:password-change' %}">Change Password</a></li>
+
+        <li><a href="{% url 'events:individual-attendance' user.get_username %}">Attendance</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="dropdown-title">
+        <i class="fa fa-cog"></i>
+        <span>Tools</span>
+        <i class="fa fa-sort-desc login-arrow"></i>
+      </a>
+      <ul class="dropdown">
+        {% if is_officer %}
+        <li><a href="{% url 'officer-portal' %}">Officer Portal</a></li>
+        {% endif %}
+
+        {% if perms.candidates.change_candidate %}
+        <li><a href="{% url 'candidates:list' %}">Candidate Admin</a></li>
+        {% endif %}
+
+        {% if is_member and not is_officer %}
+        {# Give members access to Minutes via "Tools". Officers have portal. #}
+        <li><a href="{% url 'minutes:list' %}">Meeting Minutes</a></li>
+        {% endif %}
+
+        {% if is_candidate %}
+        <li><a href="{% url 'candidates:portal' %}">Candidate Portal</a></li>
+        {% endif %}
+
+        <li><a href="{% url 'procrastination' %}">Procrastination</a></li>
+
+        {% if user.is_staff %}
+        <li><a href="{% url 'it-tools' %}">IT Tools</a></li>
+        {% endif %}
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'accounts:logout' %}?next={{ request.path }}">
+        <i class="fa fa-sign-out"></i>
+        <span>Log Out</span>
+      </a>
+    </li>
+    {% endwith has_alumnus_profile %}
+    {% endwith is_candidate %}
+    {% endwith is_member %}
+    {% endwith is_officer %}
+    {% endwith user_profile %}
+
+    {% else %} {# if not authenticated #}
+    <li>
+      <a href="{% url 'accounts:login' %}?next={{ request.path }}">
+        <i class="fa fa-sign-in"></i>
+        Log In
+      </a>
+    </li>
+    {% endif %}
+  </ul>
+</div>

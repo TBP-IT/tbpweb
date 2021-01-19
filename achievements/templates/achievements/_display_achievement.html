@@ -1,0 +1,61 @@
+{% comment %}
+This template is included in user.html to display each achievement in users'
+lists. hidden_from_viewer is defined in user.html as true if the achievement
+is secret and not also unlocked by the page viewer.
+{% endcomment %}
+
+{% load static %}
+
+<li class="achievement{% if hidden_from_viewer %} hidden{% endif %}">
+  <div class="icon">
+    {% if hidden_from_viewer %}
+    <img{% if unacquired %} class="grayscale"{% endif %} src="{% get_static_prefix %}images/achievements/hidden.png"/>
+    {% else %}
+    <a href="{% url 'achievements:detail' achievement.short_name %}">
+      <img{% if unacquired %} class="grayscale"{% endif %} src="{% firstof achievement.icon.image.url '/static/images/missing.jpg' %}">
+    </a>
+    {% endif %}
+  </div>
+  <div class="info">
+    {% if hidden_from_viewer %}
+    <div class="name">&lt;Secret Achievement&gt;</div>
+    <div class="description">This achievement is hidden until unlocked.</div>
+    {% elif achievement.privacy != 'private' or user == display_user %}
+    <div class="name">
+      <a href="{% url 'achievements:detail' achievement.short_name %}">{{ achievement.name }}</a>
+    </div>
+    <div class="description">{{ achievement.description }}</div>
+    <div class="explanation">{{ explanation }}</div>
+    {% endif %}
+  </div>
+  <div class="metadata">
+    {% if not hidden_from_viewer %}
+    {% if achievement.privacy != 'private' or user == display_user %}
+    <div class="type">
+      {% if achievement.privacy == 'secret' %}Secret Achievement!
+      {% elif achievement.privacy == 'private' %}Private Achievement!
+      {% endif %}
+    </div>
+    <div class="points">
+      {{ achievement.points }}
+      point{{ achievement.points|pluralize }}
+    </div>
+    {% if term %}
+    <div class="term">
+      Acquired {{ term.verbose_name }}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% if achievement.goal > 0 and progress > 0 %}
+    <span class="progress-bar-container">
+      <span class="progress-bar"
+        style="width: {% widthratio progress achievement.goal 100 %}%;">
+        <span class="progress">
+          {{ progress }}/{{ achievement.goal }}
+        </span>
+      </span>
+    </span>
+    {% endif %}
+  </div>
+</li>

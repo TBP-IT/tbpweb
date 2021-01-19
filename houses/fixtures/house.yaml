@@ -1,0 +1,20 @@
+- fields:
+    name: Bodi
+    mailing_list: bodi
+  model: houses.House
+  pk: 1
+- fields:
+    name: Delphini
+    mailing_list: delphini
+  model: houses.House
+  pk: 2
+- fields:
+    name: Kastoras
+    mailing_list: kastoras
+  model: houses.House
+  pk: 3
+- fields:
+    name: Skylos
+    mailing_list: skylos
+  model: houses.House
+  pk: 4

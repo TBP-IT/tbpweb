@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Companies{% endblock title %}
+
+{% block intro %}
+<h1>Companies</h1>
+{% endblock intro %}
+
+{% block content %}
+<p>
+  {% if perms.companies.add_company %}
+  <a href="{% url 'companies:company-create' %}" class="btn">
+    <i class="fa fa-plus"></i> Company
+  </a>
+  {% endif %}
+  {% if perms.companies.add_companyrep %}
+  <a href="{% url 'companies:rep-create' %}" class="btn">
+    <i class="fa fa-plus"></i> Company Representative
+  </a>
+  {% endif %}
+</p>
+{% if companies %}
+<ul>
+{% for company in companies %}
+  <li>
+    <a href="{% url 'companies:company-detail' company.pk %}">{{ company.name }}</a>  (<a href="{{ company.website }}">Website</a>)
+    <div class="subtext">
+      Created {{ company.created|date:'M j, Y' }}
+      {% if perms.companies.change_company %}
+        | <a href="{% url 'companies:company-edit' company.pk %}">Edit</a>
+      {% endif %}
+    </div>
+  </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No companies have been added.</p>
+{% endif %}
+{% endblock content %}

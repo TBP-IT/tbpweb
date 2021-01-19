@@ -1,0 +1,31 @@
+{% comment %}
+This template is embedded into the events detail page to show the sign-up
+form. It works for both standard signups and anonymous (not-logged-in) signups.
+{% endcomment %}
+<h2>Sign Up</h2>
+
+{% if not user.is_authenticated %}
+<p>
+  <strong>If you have a user account, PLEASE use that. Otherwise, sign up anonymously here.</strong>
+</p>
+{% endif %}
+
+<form action="{% url 'events:signup' event.pk %}" method="post" id="signup-form">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="{% if user_signed_up %}Update {% endif %}Sign Up">
+  </div>
+</form>
+
+{% if user_signed_up or not user.is_authenticated %}
+<form action="{% url 'events:unsignup' event.pk %}" method="post" id="unsignup-form">
+  {% csrf_token %}
+  <div class="form-input-message">
+    or{% if not user.is_authenticated %} enter your email address and{% endif %}
+  </div>
+  <div>
+    <input type="submit" value="Unsign Up">
+  </div>
+</form>
+{% endif %}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+
+{% load thumbnail %}
+
+{% block intro %}
+<h1>
+  {% block title %}Alumni Database{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% if perms.alumni.add_alumnus %}
+<p>
+  <a href="{% url 'alumni:add-alumnus' %}" class="btn">
+    <i class="fa fa-plus"></i> Alumnus</a>
+</p>
+{% endif %}
+
+<div>
+{% if alumni %}
+<p>
+  <h4>Search <input id="filter-input" type="text">
+  Filter by Major: <select class="filter-content">
+    <option></option>
+    {% for major in majors %}
+      <option>{{ major.long_name }}</option>
+    {% endfor %}
+    </select>
+  </h4>
+
+  <h4>Filter by Discussion Topic</h4>
+    {% for discussion_topic in discussion_topics %}
+    <div class="discussion-topic-entry">
+      <label class="discussion-checkbox"><input type="checkbox" name="discuss-check" value="{{ discussion_topic.name }}"> {{ discussion_topic.name }} (<i class="fa fa-{{ discussion_topic.icon }}"></i>)</input></label>
+    </div>
+    {% endfor %}
+
+  <h4>Filter by Time Investment</h4>
+    {% for time_investment in time_investment %}
+    <div class="discussion-topic-entry">
+      <label class="discussion-checkbox"><input type="checkbox" name="discuss-check" value="{{ time_investment.short_name }}"> {{ time_investment.short_name }} (<i class="fa fa-{{ time_investment.icon }}"></i>)</input></label>
+    </div>
+    {% endfor %}
+</p>
+  <table class="footable stylized bordered" id="alumni-table">
+    <thead>
+      <tr>
+        <th data-sort-initial="true" style="width:25%">Name</th>
+        <th data-sort-ignore="true" style="width:75%">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for alumnus in alumni %}
+    {% with student_info=alumnus.user.collegestudentinfo %}
+    {% with alumnus_user_profile=alumnus.user.userprofile %}
+    <tr id="{{alumnus_user_profile.user.username}}---{% for discussion_topic in alumnus.discussion_topics.all %}{{ discussion_topic }}---{% endfor %}{% for time_investment in alumnus.time_investment.all %}{{ time_investment.short_name}}---{% endfor %}{% for major in student_info.major.all %}{{ major.long_name }}{% if not forloop.last %}---{% endif %}{% endfor %}">
+      <td>
+        {% if alumnus_user_profile.picture %}
+          <div class="officers-img">
+            <img src="{{ alumnus_user_profile.picture|thumbnail_url:'officericon' }}"
+              alt="{{ alumnus_user_profile.get_common_name }}">
+          </div>
+        {% endif %}
+
+        <p>
+        <div class="alumni-name"><a href="{% url 'user-profiles:detail' alumnus_user_profile.user.username %}">{{ alumnus_user_profile.get_common_name }}</a></div>
+        <div><em>{% for major in student_info.major.all %}{{ major.short_name|upper }}{% if not forloop.last %} {% endif %}{% endfor %}, {{ student_info.grad_term }}</em></div>
+        </p>
+
+        <p>
+        <div>{{ alumnus.occupation }}</div>
+        <div>{{ alumnus.location }}</div>
+        </p>
+
+        <p>
+        <div>{{ alumnus.user.email }}</div>
+        </p>
+
+        {% if perms.alumni.change_alumnus or request.user == alumnus.user %}
+        <div class="edit"><a href="{{ alumnus.get_absolute_url }}">Edit</a></div>
+        {% endif %}
+      </td>
+      <td>
+        <div class="alumni-description">
+        {{ alumnus.description|linebreaks }}
+        {% if alumnus.dream %}
+          <p><span class="alumni-descriptor">Undergrad Dream: </span>{{ alumnus.dream }}</p>
+        {% endif %}
+        {% if alumnus.college_activities %}
+          <p><span class="alumni-descriptor">Activities in College: </span>{{ alumnus.college_activities }}</p>
+        {% endif %}
+        {% if alumnus.hobbies %}
+          <p><span class="alumni-descriptor">Hobbies: </span>{{ alumnus.hobbies }}</p>
+        {% endif %}
+        {% if alumnus.discussion_topics.all %}
+          <p><span class="alumni-descriptor">Discussion topics: </span>
+          {% for discussion_topic in alumnus.discussion_topics.all %}
+            <i class="fa fa-{{ discussion_topic.icon }}" title="{{ discussion_topic.name }}"></i>
+          {% endfor %}</p>
+        {% endif %}
+        {% if alumnus.time_investment %}
+          <p><span class="alumni-descriptor">Time Investment: </span>
+          {% for time_investment in alumnus.time_investment.all %}
+            {{ time_investment.name }}{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+          </p>
+        {% endif %}
+        </div>
+      </td>
+      {% endwith student_info %}
+      {% endwith alumnus_user_profile %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>There are no alumni yet. :(</p>
+  {% endif %}
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+var dt_dict = {};
+$(document).ready(function () {
+  rows = $('#alumni-table')[0].rows;
+  for (var i = 0; i < rows.length; i++) {
+    row_content = rows[i].id.split('---');
+    if (row_content.length > 1) {
+      user = row_content[0];
+      topics = {}
+      for (var j = 1; j < row_content.length; j++) {
+        topics[row_content[j]] = true;
+      }
+      dt_dict[user] = topics;
+      rows[i].id = user;
+    }
+    console.log(row_content);
+  };
+});
+
+function filter_table() {
+  var checked = $('input[name="discuss-check"]:checked');
+  var filter_terms = []
+  checked.each(function() {
+    filter_terms.push($(this).val());
+  });
+  var major = $('.filter-content').val();
+  if (major) {
+    filter_terms.push(major);
+  }
+
+  var rows = $('#alumni-table')[0].rows;
+  for (var index = 1; index < rows.length; index++) {
+    current_row = rows[index];
+    $(current_row).show();
+    user = current_row.id;
+    has_filter_terms = true;
+    for (var i = 0; i < filter_terms.length; i++) {
+      filter_term = filter_terms[i];
+      if (!dt_dict[user][filter_term]) {
+        $(current_row).hide();
+        has_filter_terms = false;
+        break;
+      }
+    }
+    if (!has_filter_terms) continue;
+
+    filter_string = $('#filter-input').val();
+    if (filter_string) {
+      has_filter_string = false;
+      for (var i = 0; i < current_row.cells.length; i++) {
+        cell_text = $(current_row.cells[i]).text();
+        if (cell_text.match(new RegExp(filter_string, 'i'))) {
+          has_filter_string = true;
+          break;
+        }
+      }
+      if (!has_filter_string) $(current_row).hide();
+    }
+  }
+}
+
+$('#filter-input').on('input', function (eventObj) {
+  filter_table();
+});
+
+$('input[name="discuss-check"]').change(function() {
+  filter_table();
+});
+
+$('.filter-content').change(function (eventObj) {
+  filter_table();
+});
+</script>
+{% include '_footable.html' with include_sort=True include_filter=True%}
+{% endblock extra_js %}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load compress static %}
+{% load thumbnail %}
+
+{% block title %}{{ profile.get_common_name }}{% endblock title %}
+
+{% block intro %}
+  <h1>
+    {{ profile.get_common_name }}
+    <span class="email">
+      {{ profile.user.get_username }}@tbp
+    </span>
+  </h1>
+    <h3 class="profile-detail"><span class="profile-property">Current Status</span>: {{ status }}
+      {% if status == 'Officer' %}
+        ({{ positions|join:", " }})
+      {% endif %}
+    </h3>
+    <h3 class="profile-detail"><span class="profile-property">Major</span>: {{ majors|join:", " }}</h3>
+    {% if init_term %}<h3 class="profile-detail"><span class="profile-property">Initiation Term</span>: {{ init_term }}</h3>{% endif %}
+    <h3 class="profile-detail"><span class="profile-property">Graduation Term</span>: {{ grad_term }}</h3>
+
+{% endblock intro %}
+
+{% block content %}
+  {% if profile.picture %}
+    <div class="officers-img">
+    <p class="bio">
+    <img class="current-pic" src="{{ profile.picture|thumbnail_url:'officericon' }}"
+      alt="{{ profile.get_common_name }}">
+    </p>
+    </div>
+  {% endif %}
+
+  <h3 class="profile-detail">
+    {{ profile.get_student_org_user_profile.bio }}
+  </h3>
+
+  {% if past_positions %}
+  <h2 class="profile-detail">Officer History</h2>
+  <ul class="positions-list">
+    {% for past_position in past_positions %}
+    <li><h3 class="profile-detail">{{ past_position.position_name }} - {{ past_position.term }}</h3></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if achievements %}
+  <h2 class="profile-detail">Achievements</h2>
+  <h3 class="profile-detail">
+    {{ user_points }} point{{ user_points|pluralize }} from
+    {{ num_achievements }} achievement{{ num_achievements|pluralize }}
+  </h3>
+  <ul class="achievements-list">
+  {% include 'achievements/_user_achievements_list.html' with list=achievements empty_message="No achievements found for this user!" %}
+  </ul>
+  <a href="{% url 'achievements:user' profile.user.id %}">All Achievements</a>
+  {% endif %}
+
+  <h2 class="profile-detail">Attendance</h2>
+  <h3 class="profile-detail">
+    Lifetime attendance: {{ total_attendance }}
+  </h3>
+
+  <h3 class="profile-detail">Recent Attendance</h3>
+  <p>
+    <div class="user-event-attendance">
+      {% for event in events %}
+      <div class="event-type {{ event.event_type|slugify }}">
+        <a href="{{ event.get_absolute_url }}">{{ event.name }}</a>
+      </div>
+      {% empty %}
+      <div>No events attended this term.</div>
+      {% endfor %}
+      <p>
+        <a href="{% url 'events:individual-attendance' profile.user.get_username %}">Event History</a>
+      </p>
+    </div>
+  </p>
+
+  {% if quotes %}
+  <h2 class="profile-detail">Quotes</h2>
+  <ul class="user-quotes">
+    {% for quote in quotes %}
+    {% include 'quote_board/_quote_detail.html' with show_link=True %}
+    {% endfor %}
+  </ul>
+  <a href="{% url 'quote-board:speaker' profile.user.id %}">All Quotes</a>
+  {% endif %}
+ 
+{% endblock content %}

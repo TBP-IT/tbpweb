@@ -1,0 +1,62 @@
+// The main scss file to be compiled to css for the website
+
+// normalize.css - css to reduce browser-specific quirks (i.e., reset css)
+@import 'normalize';
+
+// _common.scss - css that is common to every page (e.g. the navigation bar)
+@import 'common';
+
+
+///// Page Specific Setup /////
+// _home.scss - the home page
+@import 'home';
+
+
+///// Feature Specific Setup /////
+// _slideshow.scss - the jQuery slideshow
+@import 'slideshow';
+
+// _achievements.scss - achievements app
+@import 'achievements';
+
+// _alumni.scss - alumni app
+@import 'alumni';
+
+// _candidates.scss - candidates app
+@import 'candidates';
+
+// _events.scss - events app
+@import 'events';
+
+// _course_files.scss - exams/syllabi apps
+@import '_course_files';
+
+// _houses.scss - houses app
+@import '_houses';
+
+// _industry.scss - indrel page
+@import '_industry';
+
+// _leaderboard.scss - leaderboard (e.g., achievements leaderboard)
+@import 'leaderboard';
+
+// _newsreel.scss - newsreel app
+@import 'newsreel';
+
+// _notifications.scss - notifications app
+@import 'notifications';
+
+// _officers.scss - officers list
+@import 'officers';
+
+// _profiles.scss - user profiles
+@import 'profiles';
+
+// _project_reports.scss - project reports
+@import 'project_reports';
+
+// _quote_board.scss
+@import 'quote_board';
+
+// _videos.scss
+@import 'videos';

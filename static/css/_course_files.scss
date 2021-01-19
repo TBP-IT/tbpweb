@@ -1,0 +1,13 @@
+/* _course_files.scss */
+@import 'base';
+
+// Course file iframe preview
+.course-file-preview {
+  height: 500px;
+  margin-top: 30px;
+  width: 100%;
+
+  @include respond-to(medium) {
+    display: none;
+  }
+}

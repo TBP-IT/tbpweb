@@ -1,0 +1,1177 @@
+/* _common.scss */
+// Defines the styles common to most of the site, like essential layouts,
+// typography, forms, navigation styles, and more
+
+@import 'base';
+
+// BASIC STYLING
+html,
+body {
+  background-color: #fff;
+  height: 100%;
+}
+
+p {
+  line-height: 1.15;
+}
+
+a img {
+  border: 0;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.bulleted,
+ul.bulleted li {
+  list-style-type: disc;
+  margin-left: 15px;
+}
+
+body,
+div {
+  margin: 0;
+  padding: 0;
+}
+
+// Table styling
+.spaced-out,
+.stylized {
+  th,
+  td {
+    padding: 5px;
+    vertical-align: top;  // Align the cell to the top
+    & > * {
+      // Make all direct children in tables vertically aligned to the middle
+      vertical-align: middle;
+    }
+  }
+}
+
+// Create a table style that matches styles of the rest of the site
+.stylized {
+  margin: 10px 0;
+  width: 100%;
+
+  th,
+  td {
+    border: 0;
+  }
+
+  th {
+    border-bottom: 2px solid #666;
+    color: #c7aa36;
+    font-weight: 600;
+    text-align: left;
+  }
+
+  td {
+    border-bottom: 1px dashed #666;
+  }
+}
+
+// Bordered table:
+.bordered,
+.bordered th,
+.bordered td {
+  border: 1px solid #000;
+}
+
+// Make the footable's detail cells not use a solid border
+.bordered {
+  .footable-row-detail,
+  .footable-row-detail-cell {
+    border-top: 1px dashed;
+  }
+}
+
+// Hack to make footable sorting use proper up vs. down arrows (per common
+// convention), since footable by default uses up arrow when currently in
+// descending order (and down for ascending). They are reversed below.
+.footable > thead > tr > th.footable-sorted > span.footable-sort-indicator:before {
+  content: '\e012' !important;
+}
+
+.footable > thead > tr > th.footable-sorted-desc > span.footable-sort-indicator:before {
+  content: '\e013' !important;
+}
+
+
+// Input Styling
+// btn and btn-group adapted from Bootstrap
+.btn {
+  background-color: #fff;
+  border: solid 1px #adadad;
+  display: inline-block;
+  padding: 0.45em 0.7em;
+  text-decoration: none;
+
+  @include border-radius(0.2em);
+
+  &.selected,
+  &:hover {
+    background-color: #ebebeb;
+    text-decoration: none;
+  }
+
+  &:active {
+    @include box-shadow(inset 0 3px 5px rgba(0, 0, 0, 0.125));
+  }
+}
+
+// Small button:
+.btn-sm {
+  font-size: 0.9em;
+  line-height: 1em;
+  padding: 0.35em 0.55em;
+  @include border-radius(0.15em);
+}
+
+.btn-group {
+  @include clearfix;
+
+  & > .btn {
+    float: left;
+    margin-left: -1px;
+    padding-bottom: 0.35em;
+    padding-top: 0.35em;
+    position: relative;
+  }
+
+  & > .btn:first-child {
+    margin-left: 0;
+  }
+
+  & > .btn:first-child:not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  & > .btn:not(:first-child):not(:last-child) {
+    border-radius: 0;
+  }
+
+  & > .btn:last-child:not(:first-child) {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+}
+
+// Padding around loading icons, and ensure inline-block to support animation
+.loading {
+  display: inline-block;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+// Form
+#content form {
+  .form-entry {
+    margin: 1em 0;
+    padding: 0 0.5em;
+    position: relative;
+    @include clearfix;
+    @include respond-to(small-med) {
+      margin-top: 1.3em;  // Increase the top margin with narrow viewport
+    }
+
+    & > label,
+    & > legend {
+      float: left;
+      text-align: right;
+      width: $form-label-width;
+
+      @include respond-to(medium) {
+        text-align: left;
+      }
+
+      @include respond-to(small-med) {
+        width: 100%;
+        float: none;
+      }
+    }
+
+    // Container for input fields and their associated help-text and errors:
+    .form-input {
+      float: right;
+      width: $form-input-width;
+
+      @include respond-to(small-med) {
+        width: 100%;
+        float: none;
+      }
+
+      @include respond-to(small-med) {
+        input[type=text],
+        input[type=email],
+        input[type=file],
+        input[type=number],
+        input[type=password],
+        input[type=url],
+        select,
+        textarea {
+          width: 100%;
+        }
+      }
+
+      textarea {
+        resize: both;
+
+        @include respond-to(small-med) {
+          resize: vertical;
+        }
+      }
+
+      .help-text,
+      .form-errors {
+        display: block;
+        font-size: 0.9em;
+        margin-top: 2px;
+      }
+    }
+
+    &.form-entry-required > label:after {
+      // Append an asterisk after labels for required fields
+      color: #f00;
+      content: '*';
+      font-size: 75%;
+      margin-left: 5px;
+      position: absolute;
+
+      @include respond-to(large-only) {
+        // Since the large viewport has labels right-aligned, the asterisk
+        // should be positioned to the top of text, whereas for left-aligned
+        // labels, it should just appear at the end of the label.
+        top: 2px;
+      }
+    }
+
+    &.form-entry-error {
+      background: $error-bg-color;
+      padding: 0.5em;
+      @include border-radius(0.3em);
+    }
+  }
+
+  input[type=submit],
+  .form-input-message {
+    margin-left: $form-label-width + $form-sep;
+
+    @include respond-to(small-med) {
+      margin-left: 0;
+    }
+  }
+
+  input[type=submit] {
+    @extend .btn;
+    background-color: #fff;
+  }
+
+  .form-input-message {
+    margin-bottom: 0.3em;
+    margin-top: 0.3em;
+  }
+}
+
+#content form.form-narrow {
+  .form-entry {
+    & > label,
+    & > legend {
+      text-align: left;
+      width: 100%;
+    }
+
+    .form-input {
+      width: 100%;
+    }
+
+    &.form-entry-required label:after {
+      // Don't denote required fields, since this form is meant to be simple
+      content: '';
+    }
+  }
+
+  input[type='submit'],
+  .form-input-message {
+    margin-left: 0;
+  }
+}
+
+.form-required-message {
+  color: #f00;
+  font-size: 90%;
+}
+
+#pagination {
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.error,
+.errorlist {
+  color: $error-text-color;
+  font-weight: 400;
+}
+
+.message {
+  @include border-radius(0.3em);
+  color: #000;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  padding: 0.5em;
+
+  &.success {
+    background: $success-bg-color;
+    border: 1px solid $success-border-color;
+  }
+
+  &.error {
+    background: $error-bg-color;
+    border: 1px solid $error-border-color;
+  }
+
+  &.info {
+    background: $info-bg-color;
+    border: 1px solid $info-border-color;
+  }
+
+  .fa-times {
+    cursor: pointer;
+    float: right;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.grayscale {
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);  // Chrome 19+, Safari 6+, iOS Safari 6+
+  filter: grayscale(100%);
+  filter: url("data:image/svg+xml;utf8,<svg%20xmlns=\'http://www.w3.org/2000/svg\'><filter%20id=\'grayscale\'><feColorMatrix%20type=\'matrix\'%20values=\'0.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200.3333%200.3333%200.3333%200%200%200%200%200%201%200\'/></filter></svg>#grayscale");  // Firefox 10+, Firefox on Android
+  filter: gray; // IE 6-9
+}
+
+/* TYPOGRAPHY */
+body {
+  font: {
+    family: 'Lora', 'Times New Roman', Times, serif;
+    weight: 300;
+  }
+
+  a {
+    color: $link-blue;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+
+h1 {
+  color: $dark-blue;
+  font-size: 1.875em;
+  margin: 0.67em 0 0.34em;
+}
+
+h2 {
+  color: $gold;
+  font-size: 1.5em;
+  margin: 0.83em 0 0.42em;
+}
+
+h3 {
+  color: #666;
+  font-size: 1.2em;
+  margin: 1em 0 0.5em;
+}
+
+h4 {
+  font-size: 1.05em;
+  margin: 1.33em 0 0.67em;
+}
+
+h5 {
+  font-size: 0.83em;
+  margin: 1.67em 0 0.84em;
+}
+
+h6 {
+  font-size: 0.67em;
+  margin: 2.33em 0 1.67em;
+}
+
+.small {
+  font-size: .8em;
+}
+
+.subtext {
+  @extend .small;
+  color: #888;
+}
+
+pre {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+label,
+dt {
+  font-weight: 400;
+}
+
+blockquote {
+  border-left: 10px solid #ccc;
+  margin: {
+    left: 20px;
+    right: 20px;
+  }
+  padding-left: 8px;
+}
+
+// BASE LAYOUT
+$header-height: 90px;
+
+header {
+  @include background-light;
+  margin: auto;
+
+  #header-focus {
+    height: $header-height;
+    margin: auto;
+    max-width: 1000px;
+    position: relative;
+
+    @include respond-to(small) { height: auto; }
+  }
+}
+
+// Logo
+#logo-group {
+  @include respond-to(small) { height: 42px; }
+}
+
+#logo-link {
+  border: 0;
+  color: #000;
+
+  #logo {
+    @include absolute-position(5px, 15px, $width:60px, $height:60px);
+
+    @include respond-to(small) {
+      position: relative;
+      top: 3px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  #logo-name {
+    display: inline;
+    font-size: 32px;
+    font-weight: 600;
+    white-space: nowrap;
+    @include absolute-position(75px, 15px);
+    @include respond-to(small) {
+      position: relative;
+      left: 10px;
+      top: 1px;
+    }
+  }
+
+  #logo-location {
+    display: inline;
+    font-size: 16px;
+    white-space: nowrap;
+    @include absolute-position(78px, 52px);
+
+    @include respond-to(small) {
+      display: none;
+    }
+  }
+}
+
+#logo-overlay {
+  z-index: 1;
+  @include absolute-position(0, $width: 260px, $height: $header-height);
+  @include respond-to(small) {
+    // 28px is the height of #login, which is a function of font-size.
+    @include absolute-position(0, $width: 220px,
+        $height: $header-height - 28px);
+  }
+}
+
+// Login/Options menu
+#login {
+  float: right;
+  font-size: .9em;
+  font-weight: 400;
+  margin-top: 25px;
+  position: relative;
+  text-align: right;
+  z-index: 100;  // Raise above logo-group
+
+  @include respond-to(small) {
+    float: none;
+    background: $ultra-light-gray;  // In case rgba not supported
+    background: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid #ccc;
+    margin-top: 0;
+    padding-right: 10px;
+  }
+
+  // Show the user-pic above medium width, and show the profile-user-icon below
+  // that width
+  .user-pic {
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+
+    @include respond-to(medium) {
+      display: none;
+    }
+
+    img {
+      display: block;
+    }
+  }
+
+  .profile-user-icon {
+    display: none;
+
+    @include respond-to(medium) {
+      display: inherit;
+    }
+  }
+
+  [class*='fa-'] {
+    font-size: 20px;
+    vertical-align: middle;
+  }
+
+  .fa-sign-in {
+    margin-right: 4px;
+  }
+
+  a {
+    color: #000;
+
+    &:hover {
+      color: $link-blue;
+      text-decoration: none;
+    }
+
+    & > span {
+      // Remove text labels below small-medium width
+      @include respond-to(small-med) {
+        display: none;
+      }
+    }
+  }
+
+  & > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    $login-height: 40px;
+    $login-height-mobile: 27px;
+
+    & > li {
+      display: inline-block;
+      height: $login-height;
+      margin-right: 30px;
+      position: relative;
+      text-align: left;
+      vertical-align: middle;
+
+      @include respond-to(small) {
+        height: $login-height-mobile;
+        margin-right: 40px;
+      }
+
+      &:last-child {
+        margin-right: 10px;
+      }
+
+      & > a {
+        font-weight: 600;
+        // Force text to be middle-aligned since same height as parent:
+        line-height: $login-height;
+
+        @include respond-to(small) {
+          line-height: $login-height-mobile;
+        }
+      }
+    }
+  }
+
+
+  .login-arrow {
+    font-size: 15px;
+    position: relative;
+    top: -5px;
+  }
+
+  ul.dropdown {
+    background-color: #fff;
+    border: 1px solid #000;
+    display: none;
+    margin-top: 5px;
+    max-width: 180px;
+    min-width: 130px;
+    padding: 5px 10px;
+    z-index: 100;
+    @include border-radius(.3em);
+    @include box-shadow(0 0 0.4em rgba(0, 0, 0, 0.3), inset 0 0 0 #000);
+    @include absolute-position($top: 100%, $right: -11px);
+
+    // Make the dropdowns shift to the right of where it normally would be at
+    // narrower viewports to ensure its lined up and onscreen
+    @include respond-to(small-med) {
+      right: -28px;
+      margin-top: 0;
+    }
+
+    @include respond-to(small) {
+      right: -70px;
+      margin-top: 5px;
+      display: none !important;
+    }
+
+    // Add an updward triange/arrow above the dropdown (where the :after element
+    // is the triangle, the :before element is used as its border):
+    &:after,
+    &:before {
+      border-style: solid;
+      border-width: 9px;
+      content: '';
+      display: block;
+      @include absolute-position($top: -17px, $right: 30px, $width: 0,
+        $height: 0);
+      @include respond-to(small) {
+        right: 80px;
+      }
+    }
+
+    &:after {
+      border-color: transparent transparent #fff;
+    }
+
+    &:before {
+      border-color: transparent transparent #000;
+      top: -18px;
+    }
+
+    li {
+      display: block;
+      margin: 0;
+      padding: 0;
+
+      a {
+        display: block;
+        margin: 0 -10px;  // Extend link to the edges of the dropdown container
+        padding: 3px 10px;
+
+        &:hover {
+          background-color: $light-gray;
+        }
+      }
+    }
+  }
+}
+
+.user-avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.autocomplete-pic {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+// If a user's photo hasn't been uploaded, the default icon is used instead:
+.default-avatar {
+  background: $medium-gray;
+  display: inline-block;
+  text-align: center;
+
+  .fa-user {
+    color: #fff !important;
+    font-size: 35px !important;
+    line-height: 40px !important;
+  }
+}
+
+#login-narrow {
+  display: none;
+}
+
+@include respond-to(small) {
+  #login-narrow {
+    background: $ultra-light-gray;  // In case rgba not supported
+    background: rgba(255, 255, 255, 0.5);
+    display: inherit;
+    margin-top: 0;
+
+    >div {
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+
+      li {
+        padding: 4px;
+
+        &:hover {
+          background: $medium-gray;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+// Navigation
+#navigation-container {
+  /* min-height: 48px; */
+  @include background-gray;
+}
+
+// Navigation menu toggler (expands/collapses the nav links for narrow viewport)
+#nav-menubar {
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #f2f2f2;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  font-size: 1.225em;
+  padding: 10px 5%;
+  text-decoration: none;
+  @include transition(all 125ms ease-in);
+
+  @include respond-to(medium) {
+    display: block;
+  }
+
+  .nav-menubar-content {
+    position: relative;
+  }
+
+  .nav-menubar-icon {
+    color: #fff;
+    cursor: pointer;
+    font-size: 21px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+nav,
+#subnav {
+  max-width: none;
+  text-align: center;
+
+  li {
+    display: inline;
+
+    @include respond-to(medium) {
+      display: block;
+    }
+  }
+}
+
+// Height for top-level nav links (with non-large viewport):
+$nav-link-height: 38px;
+// Light and dark transparent overlays to use for nav links:
+$background-light-overlay: rgba(255, 255, 255, 0.3);
+$background-dark-overlay: rgba(0, 0, 0, 0.15);
+
+nav {
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #f2f2f2;
+  display: block;
+
+  @include respond-to(medium) {
+    // Initially hide the nav options for narrower viewports. JS will open the
+    // nav and close the nav as needed. Hiding the nav options by default
+    // ensures that when the page loads with a narrow viewport, the nav doesn't
+    // start open and suddenly collapse when the JS runs.
+    display: none;
+    text-align: left;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0;
+
+    @include respond-to(medium) {
+      padding: 0;
+      top: 0;
+    }
+
+    ul {
+      border: 1px solid #333;
+      border-top: 0;
+      display: block;
+      font-size: .85em;
+      height: 0;
+      left: 0;
+      margin-top: 11px;
+      opacity: 0;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      text-align: left;
+      top: 100%;
+      z-index: 80;
+      @include background-gray;
+      @include border-bottom-radius(3px);
+      @include transition(all 125ms ease-in);
+
+      @include respond-to(medium) {
+        border: 0;
+        height: auto;
+        margin: 0;
+        opacity: 1;
+        position: static;
+        @include border-radius(0);
+        @include transition(none);
+      }
+
+      li {
+        display: block;
+        position: relative;
+        top: 100%;
+        width: 215px;
+
+        @include respond-to(medium) {
+          background-color: $background-dark-overlay;
+          width: 100%;
+
+          &:hover {
+            // Make sure the link hover looks the same as the nav ul li elements
+            // by removing the ul ul li background color on hover
+            background: none;
+          }
+        }
+      }
+
+      a {
+        display: block;
+        @include transition(all 125ms);
+
+        @include respond-to(medium) {
+          // Increase the horizontal margins on submenu items to differentiate
+          // them
+          padding-left: 7%;
+          padding-right: 7%;
+        }
+      }
+    }
+
+    li {
+      position: relative;  // Necessary for submenu positioning
+
+      &:hover > ul {
+        // Show the dropdown submenus
+        height: auto;
+        opacity: 1;
+      }
+    }
+  }
+
+  a {
+    color: #fff;
+    display: inline;
+    font-size: 1.175em;
+    font-weight: 400;
+    padding: 10px 20px;
+    text-decoration: none;
+    @include box-sizing(border-box);
+    @include transition(all 125ms ease-in);
+
+    @include respond-to(medium) {
+      display: block;
+      padding: 6px 5%;
+    }
+
+    &.selected {
+      color: #000;
+      font-weight: 600;
+
+      // For large viewport, highlight the selected nav link.
+      @include respond-to(large-only) {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    &:active,
+    &:hover {
+      background-color: $background-light-overlay !important;
+      color: #000;
+      text-decoration: none;
+    }
+  }
+
+  // Top-level links (does not include submenu links)
+  & > ul > li > a {
+    @include respond-to(medium) {
+      height: $nav-link-height;
+    }
+
+    &.selected {
+      // For large viewport and top-level links, highlight the selected nav link
+      // using a lighter overlay than for links that will be in dropdown menus.
+      @include respond-to(large-only) {
+        background-color: rgba(255, 255, 255, .23);
+      }
+    }
+  }
+}
+
+.nav-child-arrow-container {
+  // Ensure arrow container hidden by default. The container is used only for
+  // narrow viewports.
+  display: none;
+
+  @include respond-to(medium) {
+    background-color: $background-dark-overlay;
+    cursor: pointer;
+    display: table;
+    height: $nav-link-height;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 65px;
+    z-index: 80;
+
+    &:hover {
+      background-color: $background-light-overlay;
+    }
+
+    .nav-child-arrow {
+      display: table-cell;
+      font-size: 25px;
+      vertical-align: middle;
+
+      &.fa-caret-right {
+        padding-left: 3px;
+      }
+    }
+  }
+}
+
+#subnav {
+  background-color: $light-gray;
+  border-bottom: 1px solid gray;
+  @include box-shadow(inset 0 0 5px #999);
+
+  a {
+    color: #333;
+    font-size: 1em;
+    padding: 5px 15px;
+
+    &:hover,
+    &.selected {
+      background-color: #fff;
+      color: #000;
+      text-decoration: none;
+      @include border-radius(.3em);
+    }
+
+    &.selected {
+      font-weight: 600;
+    }
+  }
+
+  @include respond-to(large-only) {
+    .selected > a {
+      background-color: #fff;
+      color: #000;
+      font-weight: 600;
+      text-decoration: none;
+      @include border-radius(.3em);
+    }
+  }
+
+  @include respond-to(medium) {
+    display: none;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px 0;
+  }
+}
+
+// Remaining content
+#container {
+  margin: 0 auto;
+  max-width: 1000px;
+}
+
+#content {
+  margin: 0 15px;
+  position: relative;
+  @include clearfix;
+
+  // Override styles for content_class
+  &.content-no-margin {
+    margin: 0;
+  }
+}
+
+#bubble {
+  background-color: #fff;
+  border: {
+    bottom: 1px solid #bbb;
+    left: 1px solid #ddd;
+  }
+  margin: 15px;
+  overflow: hidden;
+  padding: 15px;
+  @include border-bottom-radius(1em);
+}
+
+// content banners
+.content-banner {
+  div {
+    padding: 0 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+    }
+  }
+}
+
+.content-banner-large {
+  height: 250px;
+}
+
+.content-banner-small {
+  height: 75px;
+}
+
+// wrapper with :after element used to make footer stick to bottom of window.
+// See http://css-tricks.com/snippets/css/sticky-footer/
+
+$footer-height: 5em;
+$footer-vertical-pad: 1.667em;
+$footer-border-size: 0.08em;
+$footer-font-size: 0.8em;
+// Calculate the footer total height in ems, considering that a relative font
+// size proportionally affects the total height
+$footer-total-height: ($footer-font-size / 1em) * (
+    $footer-height + 2*$footer-vertical-pad + $footer-border-size);
+
+#wrapper {
+  margin-bottom: -$footer-total-height;
+  min-height: 100%;
+}
+
+#wrapper:after {
+  content: '';
+  display: block;
+  // Leave 2em of extra space just as a spacial buffer above footer. Note that
+  // this is done instead of giving the footer a margin-top, since a margin-top
+  // on the footer would push the footer below the screen even if the content
+  // would otherwise fit within the window.
+  height: $footer-total-height + 2em;
+}
+
+footer {
+  background-color: $light-gray;
+  border-top: $footer-border-size solid #999;
+  color: #666;
+  font-size: $footer-font-size;
+  height: $footer-height;
+  padding: $footer-vertical-pad 0;
+  @include box-shadow(inset 0 30px 30px -30px #999);
+
+  a {
+    color: #33c;
+  }
+
+  p {
+    margin: .5em 0;
+  }
+}
+
+#footer-focus {
+  margin: auto;
+  max-width: 1000px;
+}
+
+#socialmedia {
+  float: right;
+  margin: 15px 15px 0;
+  z-index: 100;
+}
+
+.sm-facebook {
+  color: #4c66a4;
+  font-size: 29px;
+
+  &:link {
+    text-decoration: none;
+  }
+}
+
+#copyright {
+  margin: 0 15px;
+  text-align: left;
+}
+
+#width-test-small {
+  @include respond-to(small) {
+    display: none;
+  }
+}
+
+#width-test-small-med {
+  @include respond-to(small-med) {
+    display: none;
+  }
+}
+
+#width-test-medium {
+  @include respond-to(medium) {
+    display: none;
+  }
+}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Exam and Syllabus Database{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<body>
+<p>A database of student-submitted syllabi, exams, and solutions, intended for use as a source of practice problems, exam preparation, and historical perspective. This database is not organized or maintained by the course instructors, so all materials should be recognized as incomplete and potentially obsolete. Many instructors maintain a current course website, which should be consulted first.</p>
+<p>Students: Keep in mind that the materials here are student-submitted, potentially incomplete, out-of date, and may contain errors. If errors are found, please use the flags to inform us.</p>
+<p>Instructors: Instructors are encouraged to provide a link to this database in their course syllabus along with appropriate guidance about how best to benefit from the additional practice materials that might be found here.</p>
+</body>
+
+{% include 'courses/_course_header.html' %}
+
+{% include 'courses/_course_search.html' %}
+
+<h2>Browse by Department</h2>
+<ul>
+  {% for department in departments %}
+  <li><a href="{{ department.get_absolute_url }}">{{ department.long_name }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock content %}

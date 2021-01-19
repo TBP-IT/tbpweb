@@ -1,0 +1,26 @@
+## Term: {{ term.verbose_name }}
+
+Total Number of Officers at Start of Term: {{ officer_counts|length }}
+
+Total Number of Candidates at Start of Term: {{ candidate_counts|length }}
+
+### Officer participation
+
+Officer name|Projects participated
+-|-
+{% for user, count in officer_counts %}{{ user.userprofile.get_full_name }}|{{ count }}
+{% endfor %}
+
+### Candidate participation
+
+Candidate name|Projects participated
+-|-
+{% for user, count in candidate_counts %}{{ user.userprofile.get_full_name }}|{{ count }}
+{% endfor %}
+
+### Member participation
+
+Member name|Projects participated
+-|-
+{% for user, count in member_counts %}{{ user.userprofile.get_full_name }}|{{ count }}
+{% endfor %}

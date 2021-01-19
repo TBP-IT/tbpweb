@@ -1,0 +1,170 @@
+/* _achievements.scss */
+@import 'base';
+
+// User Achievement List Page
+.achievements-list.locked {
+  color: #888;
+
+  .points {
+    display: none;
+  }
+
+  .type {
+    display: none;
+  }
+}
+
+.achievement {
+  padding: 0.5%;
+
+  .icon {
+    display: inline-block;
+    padding: 0 2% 0 0;
+
+    img {
+      height: 64px;
+      width: 64px;
+    }
+
+    @include respond-to(small) {
+      display: none;
+    }
+  }
+
+  .info {
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+
+    a {
+      color: inherit;
+    }
+
+    .name {
+      font-size: 1.1em;
+      font-weight: bold;
+
+      @include respond-to(small) {
+        font-size: 1em;
+      }
+    }
+
+    .description {
+      font-size: 0.9em;
+    }
+
+    .explanation {
+      font-size: 0.8em;
+      font-style: italic;
+    }
+
+    @include respond-to(small) {
+      width: 60%;
+    }
+  }
+
+  .metadata {
+    float: right;
+    text-align: center;
+    vertical-align: top;
+    width: 30%;
+
+    @include respond-to(small) {
+      display: inline-block;
+      float: none;
+      text-align: right;
+
+      .type {
+        display: none;
+      }
+    }
+  }
+}
+
+.designer-credit {
+  font-size: 0.9em;
+}
+
+/* Achievement Progress Bars */
+
+.progress-bar-container {
+  background-color: #aaa;
+  border: 1px solid #000;
+  display: inline-block;
+  width: 100%;
+
+  .progress-bar {
+    background-color: rgb(95, 230, 20);
+    border-right: 1px solid #888;
+    float: left;
+
+    .progress {
+      color: #000;
+      font-weight: 400;
+
+      @include respond-to(small) {
+        display: none;
+      }
+    }
+
+    @include respond-to(small) {
+      height: 1em;
+    }
+  }
+
+  @include respond-to(small) {
+    height: 1em;
+    vertical-align: bottom;
+  }
+}
+
+.users-with-achievement {
+  li {
+    background: $ultra-light-gray;
+    border: 1px solid #eee;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 3px;
+    vertical-align: middle;
+    width: 31%;
+    @include border-radius(3px);
+
+    @include respond-to(medium) {
+      width: 46%;
+    }
+
+    @include respond-to(small) {
+      width: 100%;
+    }
+
+    .user-pic {
+      display: table-cell;
+      padding-right: 5px;
+
+      img {
+        display: block;
+      }
+    }
+
+    .user-details {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .user-name {
+      color: $dark-blue;
+      font-weight: 400;
+      margin-top: -3px;
+    }
+
+    .user-achievement-term {
+      font-size: 0.8em;
+      font-style: italic;
+    }
+
+    .user-achievement-info {
+      font-size: 0.8em;
+    }
+  }
+}

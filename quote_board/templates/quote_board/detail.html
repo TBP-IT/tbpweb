@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Quote Board{% endblock title %}
+
+{% block intro %}
+<p><a href="{% url 'quote_board:list' %}">&laquo; Quote Board</a></p>
+<h1>Quote</h1>
+{% endblock intro %}
+
+{% block content %}
+
+{% include 'quote_board/_quote_detail.html' %}
+
+{% endblock content %}

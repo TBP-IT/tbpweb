@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Industrial Relations{% endblock title %}
+
+{% block content_class %}content-no-margin{% endblock content_class %}
+
+{% block content %}
+{% load static %}
+<div id="industry-banner" class="content-banner content-banner-large">
+<div>
+<h1>Welcome!</h1>
+Tau Beta Pi (TBP), as the nation&rsquo;s oldest engineering honor society, is
+dedicated to fostering integrity and excellence in engineering. We are in the
+unique position to help connect your company with our members.
+</div>
+<img src="{% static 'images/industry/banner.jpg' %}">
+</div>
+
+<div id="industry-banner-contact" class="content-banner content-banner-small">
+<div>
+Reach out to us to find out what TBP can offer your company.
+<a href="mailto:indrel@tbp.berkeley.edu" class="btn">Contact Us</a>
+</div>
+</div>
+
+<div class="industry-section industry-section-right">
+<img src="{% static 'images/industry/side_1.jpg' %}">
+<h3>Strong Connections on Campus</h3>
+<p>
+TBP has strong ties to the most influential of campus engineering
+organizations, including other engineering student societies, the College of
+Engineering, the major Engineering departments, and the Career Center. As a
+diverse organization, our connections on campus span all majors in the College
+of Engineering, allowing us to reach a large or very specific audience.
+</p>
+</div>
+
+<div class="industry-section industry-section-left">
+<img src="{% static 'images/industry/side_2.jpg' %}">
+<h3>Experience Serving Industry</h3>
+<p>
+TBP has a great deal of experience in collaborating with recruiters and
+corporations. We provide a complete, successful, and personal recruiting
+experience to 10-15 companies per semester. These range from large technology
+companies, to top-tier consulting companies, to smaller ones looking to expand
+their presence on campus. Our unique positioning on campus allows us to cater
+to the needs of most recruiters.
+</p>
+</div>
+
+<div class="industry-section industry-section-right">
+<img src="{% static 'images/industry/side_3.jpg' %}">
+<h3>Unique and High-Caliber Organization</h3>
+<p>
+Hailing from the top eighth of engineering juniors and the top fifth of
+seniors, our highly skilled and motivated members are experienced, reliable,
+and professional. As the engineering honor society on campus, TBP can offer
+your company a unique combination of valuable resources, dependable services,
+and dedicated people ready to meet your campus relations and recruitment needs.
+</p>
+</div>
+
+<div class="industry-section industry-section-left">
+<img src="{% static 'images/industry/side_4.jpg' %}">
+<h3>Strong Reputation of UC Berkeley Engineers</h3>
+<p>
+Cal engineers are among the most talented students in the nation. According to
+the U.S. News & World Report, UC Berkeley consistently ranks as the top public
+university for engineering. The College of Engineering boasts a broad range of
+highly ranked graduate and undergraduate departments, with an extremely diverse
+student population.
+</p>
+</div>
+
+<div class="industry-sponsor-list">
+<h3>Current Sponsors</h3>
+<a href="https://www.atkearney.com/"><div><img src="{% static 'images/industry/logo_Kearney.png'%}"></div></a>
+<a href="https://www.centro.net/"><div><img src="{% static 'images/industry/logo_centro_charcoal.png' %}"></div></a>
+<a href="https://www.concur.com/"><div><img src="{% static 'images/industry/logo_concur.jpg'%}"></div></a>
+<a href="http://www.gm.com/"><div><img src="{% static 'images/industry/logo_gm.jpg' %}"></div></a>
+<a href="https://www.guidewire.com/"><div><img src="{% static 'images/industry/logo_guidewire.png' %}"></div></a>
+<a href="https://www.ixl.com/"><div><img src="{% static 'images/industry/logo_ixl.png' %}"></div></a>
+<a href="https://www.microsoft.com/"><div><img src="{% static 'images/industry/logo_msft.png' %}"></div></a>
+<a href="http://www.shapeways.com/"><div><img src="{% static 'images/industry/logo_shapeways.svg' %}"></div></a>
+</div>
+
+<div class="industry-spacer"></div>
+
+<div id="industry-banner-contact" class="content-banner content-banner-small">
+<div>
+Contact us to find out how you and TBP can work together.
+<a href="mailto:indrel@tbp.berkeley.edu" class="btn">Contact Us</a>
+</div>
+</div>
+{% endblock content %}

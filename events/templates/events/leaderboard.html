@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+  <h1>
+    {% block title %}
+    {% if is_all_time %}All-Time {% endif %}Events Leaderboard
+    {% endblock title %}
+  </h1>
+{% endblock intro %}
+
+{% block content %}
+{% if is_all_time %}
+{% url 'events:leaderboard' as leaderboard_url %}
+{% include '_term_selection.html' with url_base=leaderboard_url %}
+{% else %}
+{% include '_term_selection.html' %}
+{% endif %}
+
+{% if not is_all_time %}
+<p>
+  <a href="{% url 'events:all-time-leaderboard' %}">View All-Time Leaderboard</a>
+</p>
+{% endif %}
+
+<ul class="leaderboard">
+  {% for entry in leader_list %}
+  <li>
+    {# Spaceless to fix whitespace issues with inline-block css style #}
+{% spaceless %}
+<div class="name {% cycle 'odd' 'even' %}{% if entry.position == 'officer' %} officer{% endif %}{% if entry.position == 'candidate' %} candidate{% endif %}{% if entry.position == 'advisor' %} advisor{% endif %}{% if is_all_time and entry.user == user %} self{% endif %}">
+        {{ entry.rank }}. <a href="{% url 'events:individual-attendance' entry.user.username %}?term={{ display_term_url_name }}">{{ entry.user.userprofile.get_common_name }}</a>
+    </div>
+    <span class="score-container {% cycle 'odd' 'even' %}" style="width: {{ entry.factor }}%;">
+      <span class="score">{{ entry.user.score }}</span>
+    </span>
+    {% endspaceless %}
+  </li>
+  {% empty %}
+  <p>Nobody has attended any events yet in {{ display_term_name }}. </p>
+  {% endfor %}
+</ul>
+
+{% include '_pagination.html' %}
+
+{% if not is_all_time %}
+<div class="event-statistics">
+  <h2>Event Attendance Statistics for {{ display_term_name }}</h2>
+  <h3>Officer Attendance</h3>
+  <div>{{ officer_aggregate.attendees }} officers {% if is_current %}have{% endif %} attended {{ officer_aggregate.attendance }} total events for an average of {{ officer_aggregate.ratio|floatformat:2 }} events per officer.</div>
+  {% if top_officer %}
+  <div>The officer with the highest attendance {% if is_current %}is{% else %}was{% endif %} {{ top_officer.userprofile.get_common_name }} with {{ top_officer.score }} events.</div>
+  {% endif %}
+
+  <h3>Candidate Attendance</h3>
+  <div>{{ candidate_aggregate.attendees }} candidates {% if is_current %}have{% endif %} attended {{ candidate_aggregate.attendance }} total events for an average of {{ candidate_aggregate.ratio|floatformat:2 }} events per candidate.</div>
+  {% if top_candidate %}
+  <div>The candidate with the highest attendance {% if is_current %}is{% else %}was{% endif %} {{ top_candidate.userprofile.get_common_name }} with {{ top_candidate.score }} events.</div>
+  {% endif %}
+
+  <h3>Member Attendance</h3>
+  <div>{{ member_aggregate.attendees }} members {% if is_current %}have{% endif %} attended {{ member_aggregate.attendance }} total events for an average of {{ member_aggregate.ratio|floatformat:2 }} events per active member.</div>
+  {% if top_member %}
+  <div>The active member with the highest attendance {% if is_current %}is{% else %}was{% endif %} {{ top_member.userprofile.get_common_name }} with {{ top_member.score }} events.</div>
+  {% endif %}
+</div>
+{% endif %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% if is_all_time %}
+<script>
+// Add a blank term option above the other term options and select it
+var selectedOption = $('.term-select > :selected')
+selectedOption.removeAttr('selected');
+var blankOption = $('<option>').attr('selected', 'selected');
+selectedOption.before(blankOption);
+</script>
+{% endif %}
+{% endblock %}

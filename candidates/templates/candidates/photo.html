@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Candidate Photo{% endblock title %}
+
+{% block intro %}
+<h1>Upload Candidate Photo for {{ candidate.user.userprofile.get_common_name }}</h1>
+{% endblock intro %}
+
+{% block content %}
+<div>
+  <p>Current photo:</p>
+  {% if candidate.photo %}
+  <img src="{{ candidate.photo.url }}" alt="{{ candidate.user.userprofile.get_common_name }}" class="candidate-photo">
+  {% else %}
+  No photo uploaded yet.
+  {% endif %}
+</div>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.photo }}
+  <div>
+    <input type="submit" value="Upload">
+  </div>
+</form>
+
+<div>
+  <a href=" {% url 'candidates:edit' candidate.pk %}"><strong>Candidate Management for {{ candidate.user.userprofile.get_common_name }}</strong></a>
+</div>
+{% endblock content %}

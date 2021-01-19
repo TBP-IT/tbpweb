@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{# For displaying the total word count with comma thousand separators. #}
+{% load humanize %}
+
+{% block intro %}
+{% url 'project-reports:list' as list_prs %}
+{% include '_term_selection.html' with float_right=True url_base=list_prs %}
+
+<h1>
+  {% block title %}{{ display_term_name }} Project Reports{% endblock title %}
+</h1>
+
+{% endblock intro %}
+
+{% block content %}
+<p>
+{% if perms.project_reports.add_projectreport %}
+  <a href="{% url 'project-reports:add' %}" class="btn">
+    <i class="fa fa-plus"></i> New Report
+  </a>
+  <a href="{% url 'project-reports:export-book' %}" class="btn">
+    <i class="fa fa-download"></i> Export Project Report Book
+  </a>
+{% endif %}
+</p>
+
+{# TODO(natebailey): Add links to view PRs across all semesters, probably by committee. #}
+
+<p>In {{ display_term_name }}, TBP CA-A has written {{ num_finished_prs }} project report{{ num_finished_prs|pluralize }} (out of {{ num_due_prs }} completed event{{ num_due_prs|pluralize }}) with a total of {{ total_word_count|intcomma }} word{{ total_word_count|pluralize }}.</p>
+<p class="warning">[Note to Recording Secretary: Do not use these totals for the Chapter Survey!]</p>
+
+<p>
+  Filter project reports: <input id="filter-input" type="text">
+  <a href="javascript:void(0)" class="clear-filter">[clear]</a>
+</p>
+
+{% if project_reports %}
+
+<table class="footable stylized bordered" data-filter="#filter-input" data-filter-text-only="true" id="project-reports">
+  <thead>
+    <tr>
+      <th style="width:30%">Event Name</th>
+      <th data-type="numeric" data-sort-initial="true" style="width:13%">Date</th>
+      <th data-hide="phone" style="width:18%">Committee</th>
+      <th data-hide="phone" style="width:15%">Author</th>
+      <th style="width:12%">Status</th>
+      <th data-sort-ignore="true" style="width:12%">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project_report in project_reports %}
+    {% with committee_short_name=project_report.committee.short_name|slugify %}
+    {% with author=project_report.author.userprofile %}
+    <tr class="project-report-row{% if project_report.is_past_due %} incomplete{% endif %}">
+      <td data-value="{{ project_report.title|lower }}"><a href="{{ project_report.get_absolute_url }}"><strong>{{ project_report.title }}</strong></a><div>{{ project_report.word_count }} Words</div></td>
+      <td data-value="{{ project_report.date|date:'U' }}">{{ project_report.date|date:'M j, Y'|safe }}</td>
+      <td data-value="{{ committee_short_name }}">{{ project_report.committee.long_name }}</td>
+      <td data-value="{{ author.get_common_name|lower }}">{{ author.get_common_name }}</td>
+      <td>
+        {% if project_report.complete %}<i class="fa fa-check"></i> Complete
+        {% elif display_term and project_report.is_past_due %}<i class="fa fa-exclamation"></i> Incomplete
+        {% endif %}
+      </td>
+      <td>
+        {% if perms.project_reports.change_projectreport or project_report.author == user %}
+        <div>
+          <a href="{% url 'project-reports:edit' project_report.pk %}">
+            <i class="fa fa-edit"></i> Edit
+          </a>
+        </div>
+        {% endif %}
+        {% if perms.project_reports.delete_projectreport %}
+        <div>
+          <a href="{% url 'project-reports:delete' project_report.pk %}">
+            <i class="fa fa-times"></i> Delete
+          </a>
+        </div>
+        {% endif %}
+      </td>
+    </tr>
+    {% endwith author %}
+    {% endwith committee_short_name %}
+    {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>No project reports are available.</p>
+{% endif %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True include_filter=True %}
+<script>
+  $('.clear-filter').click(function(eventObj) {
+    $('#project-reports').trigger('footable_clear_filter');
+  });
+</script>
+{% endblock extra_js %}

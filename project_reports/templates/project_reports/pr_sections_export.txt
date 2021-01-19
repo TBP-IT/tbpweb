@@ -1,0 +1,21 @@
+{% for area_name, prs_by_term in prs_by_area_name.items %}
+
+# {{ area_name }} Projects
+
+\newpage
+
+{% for term, prs in prs_by_term %}
+
+# {{ term.verbose_name }}
+
+\newpage
+
+{% for pr in prs %}
+
+{% include 'project_reports/pr_export.txt' %}
+
+{% endfor %}
+
+{% endfor %}
+
+{% endfor %}

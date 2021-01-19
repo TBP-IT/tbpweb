@@ -1,0 +1,58 @@
+{% extends 'candidates/progress_base.html' %}
+
+{% block selectors %}
+{% include 'candidates/_house_selection.html' %}
+{% endblock selectors %}
+
+{% block content %}
+
+<p>Below is a list of all candidates who have not attended and are not signed up for enough events to complete their requirements.</p>
+
+<p>A red warning indicates that there aren't enough events remaining for this candidate to complete that requirement.</p>
+
+<table class="footable bordered stylized">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Requirements</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for candidate, progress_dict in progress.items %}
+      {% if not progress_dict.all_requirements_complete %}
+      <tr>
+        <td><a href="{% url 'candidates:edit' candidate.pk %}">{{ candidate.user.first_name }}</a></td>
+        <td><a href="{% url 'candidates:edit' candidate.pk %}">{{ candidate.user.last_name }}</a></td>
+        <td>
+          <ul>
+          {% for req in progress_dict.requirements %}
+            {% if req.completed < req.required %}
+              {% if req.requirement.requirement_type == req.requirement.EVENT %}
+                <li class="candidate-progress-entry"><span class="candidate-progress-requirement">{{ req.requirement.get_name }}:</span> {{ req.completed }}/{{ req.required }} completed (signed up for {{ req.signed_up }})
+                  {% if req.warning %}
+                    {% if req.remaining > 0 %}
+                      <div class="candidate-progress-warning">Warning: Only {{ req.remaining }} event{{ req.remaining|pluralize }} remaining.</div>
+                    {% else %}
+                      <div class="candidate-progress-warning">Warning: No events remaining.</div>
+                    {% endif %}
+                  {% endif %}
+                </li>
+              {% else %}
+                <li class="candidate-progress-entry"><span class="candidate-progress-requirement">{{ req.requirement.get_name }}:</span> {{ req.completed }}/{{ req.required }}</li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+{% endblock extra_js %}

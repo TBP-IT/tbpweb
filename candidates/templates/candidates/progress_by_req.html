@@ -1,0 +1,23 @@
+{% extends 'candidates/progress_base.html' %}
+
+{% block selectors %}
+{% include 'candidates/_req_selection.html' %}
+{% include 'candidates/_house_selection.html' %}
+{% endblock selectors %}
+
+{% block content %}
+
+{% for req_name, req_info, progresses in progresses_by_req %}
+
+{% if not display_req or req_info.req_obj = display_req %}
+    <h2>{{ req_name }} {% if req_info.is_event_req %}({{ req_info.remaining }} event{{ req_info.remaining|pluralize }} left){% endif %}</h2>
+    {% include 'candidates/_req_progress.html' %}
+{% endif %}
+
+{% endfor %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+{% endblock extra_js %}

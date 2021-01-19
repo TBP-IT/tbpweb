@@ -1,0 +1,41 @@
+<table class="footable bordered stylized">
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th data-type="numeric" data-sort-initial="descending">Unfinished</th>
+      {% if req_info.is_event_req %}
+      <th data-type="numeric">Signed up for</th>
+      {% endif %}
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for candidate, req, num_unfinished in progresses %}
+    {% if req.completed < req.required %}
+      <tr>
+        <td><a href="{% url 'candidates:edit' candidate.pk %}">{{ candidate.user.first_name }}</a></td>
+        <td><a href="{% url 'candidates:edit' candidate.pk %}">{{ candidate.user.last_name }}</a></td>
+        <td data-value="{{ num_unfinished }}">
+          {% if req_info.is_event_req %}
+            <li class="candidate-progress-entry">{{ num_unfinished }}
+              {% if req.warning %}
+                {% if req.remaining > 0 %}
+                  <div class="candidate-progress-warning">Warning: Only {{ req.remaining }} event{{ req.remaining|pluralize }} remaining.</div>
+                {% else %}
+                  <div class="candidate-progress-warning">Warning: No events remaining.</div>
+                {% endif %}
+              {% endif %}
+            </li>
+          {% else %}
+            <li class="candidate-progress-entry">{{ num_unfinished }}</li>
+          {% endif %}
+        </td>
+        {% if req_info.is_event_req %}
+        <td data-value="{{ req.signed_up }}">{{ req.signed_up }}</td>
+        {% endif %}
+      </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>

@@ -1,0 +1,30 @@
+{% comment %}
+This template is included in various course templates to display buttons for
+uploading and reviewing exams and syllabi
+{% endcomment %}
+
+<p>
+{% if perms.exams.add_exam %}
+  <a href="{% url 'exams:upload' %}" class="btn">
+    <i class="fa fa-upload"></i> Upload Exam</a>
+{% endif %}
+{% if perms.exams.change_exam %}
+  <a href="{% url 'exams:review' %}" class="btn">
+    <i class="fa fa-table"></i> Exam Review</a>
+{% endif %}
+
+{% if perms.syllabi.add_syllabus %}
+  <a href="{% url 'syllabi:upload' %}" class="btn">
+    <i class="fa fa-upload"></i> Upload Syllabus</a>
+{% endif %}
+{% if perms.syllabi.change_syllabus %}
+  <a href="{% url 'syllabi:review' %}" class="btn">
+    <i class="fa fa-table"></i> Syllabus Review</a>
+{% endif %}
+
+{% if perms.courses.add_course %}
+  <a href="{% url 'courses:add-course' %}" class="btn">
+    <i class="fa fa-plus"></i> Add Course</a>
+{% endif %}
+
+</p>

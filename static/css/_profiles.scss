@@ -1,0 +1,64 @@
+/* _profiles.scss */
+// Styles for user profiles
+@import 'base';
+
+.profile-picture {
+  float: left;
+  margin-bottom: 1em;
+  margin-right: 15px;
+
+  img {
+    width: 200px;
+  }
+}
+
+.profile-body {
+  clear: left;
+}
+
+.profile-entry {
+  border-top: 1px solid #aaa;
+  clear: left;
+}
+
+.profile-summary {
+  color: #132988;
+}
+
+h3.profile-detail {
+  color: black;
+}
+
+h2.profile-detail {
+  clear: both;
+}
+
+li .profile-detail {
+  margin: 0;
+}
+
+p.bio {
+  clear: left;
+  float: left;
+}
+
+.email {
+  float: right;
+  font-size: smaller;
+}
+
+.profile-property {
+  font-weight: bold;
+}
+
+.current-pic {
+  margin: 0 10px;
+  margin-bottom: 15px;
+  width: 200px;
+}
+
+.current-pic,
+#preview-img {
+  max-height: 400px;
+  max-width: 100%;
+}

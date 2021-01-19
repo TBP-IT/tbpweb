@@ -1,0 +1,81 @@
+{% comment %}
+This template is included in syllabi/review.html and courses/course_detail.html
+to display a table for syllabi.
+
+If show_course is set to True, then the course will be displayed as the first
+column; otherwise instructors will be displayed as the first column.
+
+Any template that includes this must include footable.html to activate the
+footable.
+{% endcomment %}
+
+<table class="footable bordered stylized">
+  {% with permission=perms.syllabi.change_syllabus %}
+  <thead>
+    <tr>
+      {% if show_course %}
+      <th data-sort-initial="true">Course</th>
+      <th data-hide="phone,tablet">Instructors</th>
+      {% else %}
+      <th data-sort-initial="true">Instructors</th>
+      {% endif %}
+      <th data-type="numeric">Term</th>
+      <th data-hide="phone" data-sort-ignore="true">Download</th>
+      <th data-hide="phone" data-sort-ignore="true">Flag</th>
+      {% if permission %}
+      <th data-hide="phone">Verified</th>
+      <th data-hide="phone,tablet" data-sort-ignore="true">Actions</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for syllabus in syllabi %}
+    <tr>
+      {% if show_course %}
+      <td><a href="{{ syllabus.course.get_absolute_url }}">{{ syllabus.course }}</a></td>
+      {% endif %}
+      <td>
+        {% for instructor in syllabus.instructors %}
+          {% if show_instructor_full_name %}
+            <a href="{{ instructor.get_absolute_url }}">{{ instructor.first_name }} {{ instructor.last_name }}</a>{% if not forloop.last %}, {% endif %}
+          {% else %}
+            <a href="{{ instructor.get_absolute_url }}">{{ instructor.last_name }}</a>{% if not forloop.last %}, {% endif %}
+          {% endif %}
+        {% empty %}
+        &mdash;
+        {% endfor %}
+      </td>
+      <td data-value="{{ syllabus.term.pk }}">{{ syllabus.term.verbose_name }}</td>
+      <td>
+        <a class="syllabus-download-link"
+          id="{% for instructor in syllabus.instructors %}{{ instructor.last_name|lower }}-{% endfor %}{{ syllabus.course.get_url_name }}-{{ syllabus.term.get_url_name }}"
+          href="{% url 'syllabi:download' syllabus_pk=syllabus.pk %}">
+          <i class="fa fa-download"></i> Download</a>
+      </td>
+      <td>
+        <a href="{% url 'syllabi:flag' syllabus_pk=syllabus.pk %}">
+          <i class="fa fa-flag"></i> Flag</a>
+        {% if permission %}
+        (<a href="{{ syllabus.get_absolute_url }}">{{ syllabus.flags }}</a>)
+        {% endif %}
+      </td>
+      {% if permission %}
+      <td data-value="{{ syllabus.verified }}">
+        {% if syllabus.verified %}
+        <i class="fa fa-check success" title="Yes"></i>
+        {% else %}
+        <i class="fa fa-times error" title="No"></i>
+        {% endif %}
+      </td>
+      <td>
+        <a href="{{ syllabus.get_absolute_url }}" title="Edit">
+          <i class="fa fa-pencil-square-o"></i></a>
+        | <a href="{% url 'syllabi:delete' syllabus_pk=syllabus.pk %}" title="Delete">
+          <i class="fa fa-trash-o"></i></a>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endwith %}
+</table>

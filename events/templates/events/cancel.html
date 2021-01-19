@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block intro %}
+<h1>
+{% block title %}Cancel Event{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+    <p>You want to cancel {{ form.event }}.</p>
+    <p>Are you sure?</p>
+  {% if form.event.project_report %}
+    {{ form.as_p }}
+  {% endif %}
+  <div><input type="submit" value="Confirm"></div>
+</form>
+{% endblock content %}

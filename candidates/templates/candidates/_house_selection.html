@@ -1,0 +1,12 @@
+{% if houses %}
+<p{% if float_right %} style="float: right;"{% endif %}>
+  House:
+  <select class="house-select"
+    onchange="window.location.search = jQuery.query.set('house', $(this).val());">
+    <option value="" {% if not display_house %} selected="selected"{% endif %}>All</option>
+  {% for house in houses %}
+    <option value="{{ house.id }}"{% ifequal house display_house %} selected="selected"{% endifequal %}>{{ house.name }}</option>
+  {% endfor %}
+  </select>
+</p>
+{% endif %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Edit Syllabus{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% include 'syllabi/_syllabus_display.html' %}
+
+<p>
+  <a href="{% url 'syllabi:download' syllabus.pk %}" class="btn">
+    <i class="fa fa-download"></i> Download</a>
+  <a href="{% url 'syllabi:delete' syllabus.pk %}" class="btn">
+    <i class="fa fa-trash-o"></i> Delete</a>
+</p>
+
+{% if flags %}
+<h3>Flags for this Syllabus: {{ flags|length }}</h3>
+<ul>
+  {% for flag in flags %}
+  <li>
+    <div>
+      <strong>Reason:</strong> {{ flag.reason }} - {{ flag.created }}
+    </div>
+    {% if flag.resolved %}
+    <div>
+      <strong>Resolution:</strong> {{ flag.resolution }} - {{ flag.updated }}
+    </div>
+    {% else %}
+    <strong><a href="{% url 'syllabi:flag-resolve' syllabus_pk=syllabus.pk flag_pk=flag.pk %}">Resolve</a></strong>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+{% if permissions %}
+<h3>Permissions for this Syllabus</h3>
+<ul>
+  {% for permission in permissions %}
+  <li>
+    <a href="{% url 'courses:edit-instructor' permission.instructor.pk %}"><strong>{{ permission.instructor.full_name }}</strong></a> - Permission allowed: {{ permission.permission_allowed }}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<h3>Edit Details</h3>
+<form method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Update">
+  </div>
+</form>
+
+{% comment %}
+TODO(ericdwang): address automatic syllabus download issue with iframe on mobile
+devices
+{% endcomment %}
+{% if is_pdf %}
+<iframe id="course-file-preview" src="{% url 'syllabi:download' syllabus.pk %}" class="course-file-preview">
+  <div>Your browser does not support iframes.</div>
+</iframe>
+{% endif %}
+{% endblock content %}

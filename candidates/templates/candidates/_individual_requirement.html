@@ -1,0 +1,11 @@
+{# This template is included in edit_requirements.html to edit an individual candidate requirement. #}
+<h2>{{ display_req_type }}</h2>
+
+{% for entry in entries %}
+{{ entry.form.errors.credits_needed }}
+<div>
+  {{ entry.requirement }} {{ entry.form.credits_needed }}
+</div>
+{% empty %}
+There are no {{ display_req_type }} requirements.
+{% endfor %}

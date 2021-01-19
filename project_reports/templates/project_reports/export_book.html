@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Export Project Report Book{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<p>
+    Use this form to export a project report book for submission to Nationals.
+</p>
+
+<p>
+    The book will be generated as a Markdown file that can be converted to PDF
+    using <a href="http://pandoc.org/">Pandoc</a>.
+</p>
+
+<form method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div><input type="submit" value="Submit"></div>
+</form>
+{% endblock content %}

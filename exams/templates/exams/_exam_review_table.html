@@ -1,0 +1,78 @@
+{% comment %}
+This template is included in exams/review.html to display a table for exams.
+
+If show_course is set to True, then the course will be displayed as the first
+column; otherwise instructors will be displayed as the first column.
+
+Any template that includes this must include footable.html to activate the
+footable.
+{% endcomment %}
+
+<table class="footable bordered stylized">
+  {% with permission=perms.exams.change_exam %}
+  <thead>
+    <tr>
+      {% if show_course %}
+      <th data-sort-initial="true">Course</th>
+      <th data-hide="phone,tablet">Instructors</th>
+      {% else %}
+      <th data-sort-initial="true">Instructors</th>
+      {% endif %}
+      <th data-hide="phone">Exam</th>
+      <th data-hide="phone">Type</th>
+      <th data-type="numeric">Term</th>
+      <th data-hide="phone" data-sort-ignore="true">Download</th>
+      <th data-hide="phone" data-sort-ignore="true">Flag</th>
+      {% if permission %}
+      <th data-hide="phone">Verified</th>
+      <th data-hide="phone,tablet" data-sort-ignore="true">Actions</th>
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+    {% for exam in exams %}
+    <tr>
+      {% if show_course %}
+      <td><a href="{{ exam.course.get_absolute_url }}">{{ exam.course }}</a></td>
+      {% endif %}
+      <td>
+        {% for instructor in exam.instructors %}
+        <a href="{{ instructor.get_absolute_url }}">{{ instructor.last_name }}</a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+        &mdash;
+        {% endfor %}
+      </td>
+      <td>{{ exam.get_exam_number_display }}</td>
+      <td>{{ exam.get_exam_type_display }}</td>
+      <td data-value="{{ exam.term.pk }}">{{ exam.term.verbose_name }}</td>
+      <td>
+        <a href="{% url 'exams:download' exam_pk=exam.pk %}">
+          <i class="fa fa-download"></i> Download</a>
+      </td>
+      <td>
+        <a href="{% url 'exams:flag' exam_pk=exam.pk %}">
+          <i class="fa fa-flag"></i> Flag</a>
+        {% if permission %}
+        (<a href="{{ exam.get_absolute_url }}">{{ exam.flags }}</a>)
+        {% endif %}
+      </td>
+      {% if permission %}
+      <td data-value="{{ exam.verified }}">
+        {% if exam.verified %}
+        <i class="fa fa-check success" title="Yes"></i>
+        {% else %}
+        <i class="fa fa-times error" title="No"></i>
+        {% endif %}
+      </td>
+      <td>
+        <a href="{{ exam.get_absolute_url }}" title="Edit">
+          <i class="fa fa-pencil-square-o"></i></a>
+        | <a href="{% url 'exams:delete' exam_pk=exam.pk %}" title="Delete">
+          <i class="fa fa-trash-o"></i></a>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+  {% endwith %}
+</table>

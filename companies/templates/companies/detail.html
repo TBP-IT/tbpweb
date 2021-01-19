@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ company.name }}{% endblock title %}
+
+{% block intro %}
+<h1>{{ company.name }}</h1>
+{% endblock intro %}
+
+{% block content %}
+{% if company.logo %}<div><img src="{{ company.logo.url }}" alt="{{ company.name }} logo"></div>{% endif %}
+<div>
+  {{ company.website|urlize }}
+</div>
+<div>
+  Account creation date: {{ company.created }}
+</div>
+<div>
+  Account subscription expiration date: {{ company.expiration_date }}
+</div>
+{% if perms.companies.view_companyreps %}
+<h2>Representatives</h2>
+{% if reps %}
+<ul>
+  {% for rep in reps %}
+  {% comment %}
+  TODO(ehy): add a "rep detail" page to check activity, delete the rep, etc.
+  {% endcomment %}
+  <li>
+    {{ rep.user.get_full_name }}
+    ({{ rep.user.username }})
+    <div class="subtext">
+      {{ rep.user.email }}
+      {% if perms.companies.delete_companyrep %}
+        | <a href="{% url 'companies:rep-delete' rep.pk %}">Delete</a>
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+No representatives.
+{% endif %}
+{% endif %}
+{% endblock content %}

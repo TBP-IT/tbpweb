@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Exam Review{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<h3>Number of Unverified Exams: {{ unverified_exam_count }}</h3>
+<h3>Number of Blacklisted Exams: {{ blacklisted_exams|length }}</h3>
+
+<div>
+  <h2>Non-Blacklisted Exams</h2>
+  {% if exams %}
+  {% include 'exams/_exam_review_table.html' with exams=exams show_course=True show_instructor_full_name=True %}
+  {% else %}
+  <p>There are currently no non-blacklisted exams that need to be reviewed.</p>
+  {% endif %}
+</div>
+
+<div>
+  <h2>Blacklisted Exams</h2>
+  {% if blacklisted_exams %}
+  {% include 'exams/_exam_review_table.html' with exams=blacklisted_exams show_course=True show_instructor_full_name=True %}
+  {% else %}
+  <p>There are currently no blacklisted exams.</p>
+  {% endif %}
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+{% endblock extra_js %}

@@ -1,0 +1,32 @@
+{% extends 'candidates/progress_base.html' %}
+
+{% block selectors %}
+{% include 'candidates/_house_selection.html' %}
+{% endblock selectors %}
+
+{% block content %}
+<table class="footable bordered stylized">
+  <thead>
+    <tr>
+      <th data-sort-initial="true">Requirement</th>
+      <th data-type="numeric">Average remaining per candidate</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for req_name, progress in progress_by_req.items %}
+    <tr>
+      <td>{{ req_name }}</td>
+      <td>{{ progress.unfinished|floatformat }}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td><strong>Total</strong></td>
+      <td><strong>{{ total_unfinished|floatformat }}</strong></td>
+    </tr>
+  </tbody>
+</table>
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+{% endblock extra_js %}

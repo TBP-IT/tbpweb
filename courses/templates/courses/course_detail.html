@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static template_utils %}
+
+{% block title %}{{ course.get_display_name }}{% endblock title %}
+
+{% block intro %}
+<h1>
+  <a href="{{ course.department.get_absolute_url }}">{{ course.department.long_name }}</a> {{ course.number }}
+</h1>
+{% if course.title %}<div>{{ course.title }}</div>{% endif %}
+{% if course.description %}<div>{{ course.description }}</div>{% endif %}
+{% endblock intro %}
+
+{% block content %}
+{% include 'courses/_course_header.html' %}
+
+{% include 'courses/_course_search.html' %}
+
+<h2>Exams</h2>
+{% if exams %}
+{% include 'exams/_exam_table.html' with exams=exams p_exams=paired_exams show_course=False show_instructor_full_name=False %}
+{% else %}
+There are currently no exams for this course.
+{% endif %}
+
+<h2>Syllabi</h2>
+{% if syllabi %}
+{% include 'syllabi/_syllabus_table.html' with syllabi=syllabi show_course=False show_instructor_full_name=False %}
+{% else %}
+There are currently no syllabi for this course.
+{% endif %}
+
+{% comment %}
+# TODO(ericdwang): re-add course ratings
+<h2>Average Course Rating: {{ total_course_ratings_avg }}</h2>
+{% for inst in instructors %}
+<div class="avg-rating">
+  <h3><a href="{{ inst.get_absolute_url }}">{{ inst.full_name }}</a></h3>
+  <div class="rating-number"><strong>Teaching Effectivenss</strong> {{ prof_ratings_avg|get_item:inst.pk }}</div>
+  <div class="rating-number"><strong>Course Quality</strong> {{ course_ratings_avg|get_item:inst.pk }}</div>
+</div>
+{% endfor %}
+{% endcomment %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+<script>
+$('.exam-download-link').click(function() {
+  ga('send', 'event', 'exams', 'download', $(this).attr('id'));
+});
+
+$('.syllabus-download-link').click(function() {
+  ga('send', 'event', 'syllabi', 'download', $(this).attr('id'));
+});
+</script>
+
+{% endblock extra_js %}

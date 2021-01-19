@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load template_utils %}
+
+{% block intro %}
+<h1>
+  {% block title %}Houses for {{ display_term }}{% endblock title %}
+</h1>
+
+{% url 'houses:edit' as houses_edit %}
+{% include '_term_selection.html' with float_right=False url_base=houses_edit %}
+{% endblock intro %}
+
+
+{% block content %}
+<p>
+  <a href="{% url 'houses:list' %}?term={{ display_term_url_name }}" class="btn">
+    <i class="fa fa-check-circle"></i> Done Editing
+  </a>
+</p>
+
+<p>Drag and drop the users below to assign or unassign them to houses. Changes will be saved automatically, and users will appear sorted on the main houses page independently of their order here.</p>
+
+{% for house in houses %}
+<div class="house-section">
+  <h3>{{ house.name }}</h3>
+    <ul id="{{ house.mailing_list }}-members-list" class="sortable-list ui-sortable {{ house.mailing_list }} members-list">
+    </ul>
+  </h3>
+</div>
+{% endfor %}
+
+{% if eligible_house_members %}
+<h3>Unassigned Users</h3>
+<div class="unassigned-section">
+  <ul id="unassigned-list" class="sortable-list ui-sortable">
+    {% for entry in eligible_house_members %}
+    <li id="user-{{ entry.pk }}" class="sortable-item house-member {{ user_houses|get_item:entry.id }}">
+      <div class="avatar">
+        {% include '_user_thumbnail.html' with user_profile=entry.userprofile %}
+      </div>
+      <div class="user-name
+        {% if entry in house_leaders %} house-leader
+        {% elif entry in candidates %} candidate
+        {% endif %}">{{ entry.userprofile.get_common_name }}
+      </div>
+    </li>
+    {% endfor %}
+  </div>
+</ul>
+{% endif %}
+
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+  $('ul.sortable-list').sortable({
+    connectWith: 'ul.sortable-list',
+    update: function(event, ui) {
+      var self = ui.item;
+      // Get user id and house name from element ids
+      var userID = self.attr('id').slice(5);
+      var houseName = self.parent().attr('id').split('-')[0];
+
+      var success;
+
+      // If the element has been dragged into a house container, add the
+      // user to the corresponding house. Otherwise they have been dragged
+      // out of a house, so remove them from their previous house.
+      if (houseName != 'unassigned') {
+        $.post('{% url 'houses:assign' %}', {
+          userPK: userID,
+          houseName: houseName,
+          term: '{{ display_term_url_name }}'
+        }).done(function() {
+          self.attr('class', 'sortable-item house-member ' + houseName);
+        }).fail(function() {
+          // If the post fails, put the user back in their previous house
+          var prevHouseName = self.attr('class').slice(27);
+          var prevHouseList;
+          if ((prevHouseName == 'None') || (prevHouseName == 'unassigned')) {
+            prevHouseList = $('#unassigned-list');
+          } else {
+            prevHouseList = $('#' + prevHouseName + '-members-list');
+          }
+          if (prevHouseList) {
+            self.detach();
+            prevHouseList.prepend(self);
+          }
+        });
+      } else {
+        $.post('{% url 'houses:unassign' %}', {
+          userPK: userID,
+          term: '{{ display_term_url_name }}'
+        }).done(function() {
+          self.attr('class', 'sortable-item house-member ' + houseName);
+        });
+      }
+   }
+  });
+
+  // On page load, move all users who are already in houses from the unassigned
+  // list to their house's list
+  $('li.sortable-item').each(function() {
+    var self = $(this);
+    var houseName = self.attr('class').slice(27);
+    var houseList = $('#' + houseName + '-members-list');
+    if (houseList && houseName != 'None') {
+      self.detach();
+      houseList.append(self);
+    }
+  });
+
+  // Reorder the lists: house leaders first, then candidates, then officers
+  $('.candidate').parent().each(function() {
+    $(this).parent().prepend(this);
+  });
+
+  $('.house-leader').parent().each(function() {
+    $(this).parent().prepend(this);
+  });
+});
+
+</script>
+{% endblock extra_js %}

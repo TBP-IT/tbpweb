@@ -1,0 +1,116 @@
+// Define colors for association with each house, which can be used to
+// consistently apply the same color to different elements associated with the
+// same house.
+$bodi-color: #f59678;
+$delphini-color: #96dbff;
+$kastoras-color: #c4ff9c;
+$skylos-color: #ffe190;
+
+// Apply a background-color. The shade depends on whether the element is a ul
+// or other. Useful for making the background of a list fainter than the list
+// elements.
+@mixin house-color($color) {
+  background-color: $color;
+
+  &.members-list {
+    // Mix the $color with #fff (white) to lighten the color shade
+    background-color: mix($color, #fff, 60%);
+  }
+}
+
+.bodi {
+  @include house-color($bodi-color);
+}
+
+.delphini {
+  @include house-color($delphini-color);
+}
+
+.kastoras {
+  @include house-color($kastoras-color);
+}
+
+.skylos {
+  @include house-color($skylos-color);
+}
+
+.house-section {
+  display: inline-block;
+  margin: 10px;
+  width: 22%;
+
+  @include respond-to(medium) {
+    width: 46%;
+  }
+
+  @include respond-to(small) {
+    margin: 0;
+    width: 100%;
+  }
+
+  ul {
+    border: 1px solid #ddd;
+    padding: 3px;
+
+    &.sortable-list {
+      min-height: 60px;
+    }
+  }
+
+}
+
+.unassigned-section {
+  ul.sortable-list {
+    min-height: 60px;
+  }
+
+  ul > li {
+    background: $ultra-light-gray;
+    display: inline-block;
+    margin-right: 5px;
+    width: 21%;
+
+    @include respond-to(medium) {
+      width: 46%;
+    }
+
+    @include respond-to(small) {
+      width: 100%;
+    }
+  }
+}
+
+.house-member {
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  padding: 3px;
+  vertical-align: middle;
+  @include border-radius(3px);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .avatar,
+  .user-name {
+    display: table-cell;
+    vertical-align: middle;
+
+    &.house-leader {
+      font-weight: 600;
+    }
+
+    &.candidate {
+      font-style: italic;
+    }
+  }
+
+  .user-avatar {
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  &.sortable-item:hover {
+    cursor: move;
+  }
+}

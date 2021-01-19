@@ -1,0 +1,62 @@
+<h2>Search Courses</h2>
+<div>
+  <input type="search" id="course-search">
+</div>
+
+{% block extra_js %}
+<script>
+var list = []
+
+window.onload = function(){
+  $.getJSON('/courses/list', {}, function(data){
+    list = data
+  });
+  $("#course-search").autocomplete({
+    focus: function(event, ui) {
+      event.preventDefault();
+    },
+    autoFocus: true,
+    select: function(event, ui) {
+      event.preventDefault();
+      var course = ui.item.value;
+      var link = course.toLowerCase().split(" ");
+      window.location = "/courses/" + link[0] + "/" + link[1];
+      ga('send', 'event', 'course', 'search', link[0] + link[1]);
+    },
+    minLength: 1,
+    source: function(req, resp) {
+      if(list.length == 0) {
+        resp(list);
+      } else {
+        var input = req.term.toLowerCase()
+        var output = []
+        for(var i = 0; i<list.length; i++){
+          var course = list[i];
+          var longDepartmentName = course[0];
+          var shortDepartmentName = course[1];
+          var courseNumber = course[2];
+          var queries = [longDepartmentName + " " + courseNumber,
+                         shortDepartmentName + courseNumber,
+                         shortDepartmentName + " " + courseNumber,
+                         courseNumber,
+                         courseNumber + " " + longDepartmentName,
+                         courseNumber + " " + shortDepartmentName];
+          var matched = false;
+          for(var j = 0; j<queries.length; j++){
+            var query = queries[j].toLowerCase()
+            if(query.indexOf(input) == 0){
+              matched = true;
+            }
+          }
+          if(matched){
+            output.push(shortDepartmentName + " " +
+                        courseNumber);
+          }
+        }
+        resp(output);
+      }
+    }
+  });
+}
+</script>
+{% endblock extra_js %}

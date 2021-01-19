@@ -1,0 +1,845 @@
+- pk: 1
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester01
+    name: I'll Make a Man Out of You
+    description: Be an officer for one semester.
+    category: elections
+    sequence: Tenure
+    points: 10
+    goal: 1
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.1
+- pk: 2
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester02
+    name: Welcome Back
+    description: Be an officer for two semesters.
+    category: elections
+    sequence: Tenure
+    points: 15
+    goal: 2
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.2
+- pk: 3
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester03
+    name: Try, Try, Try
+    description: Be an officer for three semesters.
+    category: elections
+    sequence: Tenure
+    points: 20
+    goal: 3
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.3
+- pk: 4
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester04
+    name: Back In My Day
+    description: Be an officer for four semesters.
+    category: elections
+    sequence: Tenure
+    points: 25
+    goal: 4
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.4
+- pk: 5
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester05
+    name: God Walking Amongst Mere Mortals
+    description: Be an officer for five semesters.
+    category: elections
+    sequence: Tenure
+    points: 30
+    goal: 5
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.5
+- pk: 6
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester06
+    name: Flawless Victory
+    description: Be an officer for six semesters.
+    category: elections
+    sequence: Tenure
+    points: 35
+    goal: 6
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.6
+- pk: 7
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester07
+    name: Unfrigginbelievable
+    description: Be an officer for seven semesters.
+    category: elections
+    sequence: Tenure
+    points: 40
+    goal: 7
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.7
+- pk: 8
+  model: achievements.Achievement
+  fields:
+    short_name: officersemester08
+    name: I'm Too Old For This Stuff
+    description: Be an officer for eight semesters.
+    category: elections
+    sequence: Tenure
+    points: 50
+    goal: 8
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 1.8
+- pk: 9
+  model: achievements.Achievement
+  fields:
+    short_name: chair1committee
+    name: Don't Sit On Me
+    description: Be the chair of a committee.
+    category: elections
+    sequence: Chairdom
+    points: 5
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 7.1
+- pk: 10
+  model: achievements.Achievement
+  fields:
+    short_name: chair2committees
+    name: Loveseat
+    description: Chair two different committees.
+    category: elections
+    sequence: Chairdom
+    points: 15
+    goal: 2
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 7.2
+- pk: 11
+  model: achievements.Achievement
+  fields:
+    short_name: three_unique_positions
+    name: Jack of Many Trades
+    description: Hold three or more different officer positions.
+    category: elections
+    points: 20
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 5.1
+- pk: 12
+  model: achievements.Achievement
+  fields:
+    short_name: twice_same_position
+    name: Double Tap
+    description: Be the same officer position twice in a row.
+    category: elections
+    sequence: Repeats
+    points: 10
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 6.1
+- pk: 13
+  model: achievements.Achievement
+  fields:
+    short_name: thrice_same_position
+    name: Hat Trick
+    description: Be the same officer position thrice in a row.
+    category: elections
+    sequence: Repeats
+    points: 30
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 6.2
+- pk: 14
+  model: achievements.Achievement
+  fields:
+    short_name: two_repeated_positions
+    name: Double Double
+    description: Hold two different officer positions twice in a row.
+    category: elections
+    sequence: Repeats
+    points: 25
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 6.3
+- pk: 15
+  model: achievements.Achievement
+  fields:
+    short_name: straighttothetop
+    name: Straight to the Top
+    description: Become VP in 2 semesters or President in 3.
+    category: elections
+    points: 25
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 11.2
+- pk: 16
+  model: achievements.Achievement
+  fields:
+    short_name: attend025events
+    name: Event Spree
+    description: Attend 25 TBP events.
+    category: event
+    sequence: Attendance
+    points: 5
+    goal: 25
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.1
+- pk: 17
+  model: achievements.Achievement
+  fields:
+    short_name: attend050events
+    name: Event Frenzy
+    description: Attend 50 TBP events.
+    category: event
+    sequence: Attendance
+    points: 10
+    goal: 50
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.2
+- pk: 18
+  model: achievements.Achievement
+  fields:
+    short_name: attend078events
+    name: Club 78 Platinum Member
+    description: Attend 78 TBP events.
+    category: event
+    sequence: Attendance
+    points: 10
+    goal: 78
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.3
+- pk: 19
+  model: achievements.Achievement
+  fields:
+    short_name: attend100events
+    name: Preventing Boredom
+    description: Attend 100 TBP events.
+    category: event
+    sequence: Attendance
+    points: 15
+    goal: 100
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.4
+- pk: 20
+  model: achievements.Achievement
+  fields:
+    short_name: attend150events
+    name: Approaching the Event Horizon
+    description: Attend 150 TBP events.
+    category: event
+    sequence: Attendance
+    points: 15
+    goal: 150
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.5
+- pk: 21
+  model: achievements.Achievement
+  fields:
+    short_name: attend200events
+    name: You Are A Bent
+    description: Attend 200 TBP events.
+    category: event
+    sequence: Attendance
+    points: 20
+    goal: 200
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.6
+- pk: 22
+  model: achievements.Achievement
+  fields:
+    short_name: attend300events
+    name: THIS. IS. TBP!
+    description: Attend 300 TBP events.
+    category: event
+    sequence: Attendance
+    points: 30
+    goal: 300
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 2.7
+- pk: 23
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_meetings
+    name: Generalissimo
+    description: Attend all meeting events in a semester.
+    category: event
+    sequence: Event Type
+    points: 5
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.1
+- pk: 24
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_big_socials
+    name: Socialist
+    description: Attend all big social events in a semester.
+    category: event
+    sequence: Event Type
+    points: 5
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.2
+- pk: 25
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_bent_polishings
+    name: Ooooh, Shiny
+    description: Attend all Bent polishing events in a semester.
+    category: event
+    sequence: Event Type
+    points: 5
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.3
+- pk: 26
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_infosessions
+    name: Unemployed
+    description: Attend all infosession events in a semester.
+    category: event
+    sequence: Event Type
+    points: 20
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.4
+- pk: 27
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_service
+    name: Call of Duty
+    description: Attend all service events in a semester.
+    category: event
+    sequence: Event Type
+    points: 25
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.5
+- pk: 28
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_efutures
+    name: E-Funtures
+    description: Attend all Engineering Futures events in a semester.
+    category: event
+    sequence: Event Type
+    points: 25
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.6
+- pk: 29
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_fun
+    name: Simply Not a Real Engineer
+    description: Attend all fun events in a semester.
+    category: event
+    sequence: Event Type
+    points: 40
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.7
+- pk: 30
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_prodev
+    name: MBA in Disguise
+    description: Attend all professional development events in a semester.
+    category: event
+    sequence: Event Type
+    points: 15
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.8
+- pk: 31
+  model: achievements.Achievement
+  fields:
+    short_name: attend_each_type
+    name: Salad Bowl
+    description: Attend at least one event of each type in a semester.
+    category: event
+    sequence: Event Type
+    points: 15
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 4.9
+- pk: 32
+  model: achievements.Achievement
+  fields:
+    short_name: attend_d15
+    name: Ambassador
+    description: Attend D15 Conference.
+    category: event
+    sequence: Conference
+    points: 10
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 10.1
+- pk: 33
+  model: achievements.Achievement
+  fields:
+    short_name: attend_convention
+    name: National Treasure
+    description: Attend National Convention.
+    category: event
+    sequence: Conference
+    points: 10
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 10.2
+- pk: 34
+  model: achievements.Achievement
+  fields:
+    short_name: alphabet_attendance
+    name: Alphabet Master
+    description: Attend events in a semester containing the letters A-Z in their titles.
+    category: event
+    points: 15
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 12.1
+- pk: 35
+  model: achievements.Achievement
+  fields:
+    short_name: berkeley_explosion
+    name: The Show Must Go On
+    description: Ignore warnMe and attend the Fall 2013 Candidate Meeting.
+    category: feats
+    points: 0
+    goal: 0
+    privacy: secret
+    manual: False
+    repeatable: False
+    rank: 40.9
+- pk: 36
+  model: achievements.Achievement
+  fields:
+    short_name: oots
+    name: Brush Your Teeth
+    description: Win the Officer of the Semester award.
+    category: awards
+    points: 30
+    goal: 0
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 20.1
+- pk: 37
+  model: achievements.Achievement
+  fields:
+    short_name: cots
+    name: Teacher's Pet
+    description: Win the Candidate of the Semester award.
+    category: awards
+    points: 30
+    goal: 0
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 20.2
+- pk: 38
+  model: achievements.Achievement
+  fields:
+    short_name: mots
+    name: You Really Didn't Have To
+    description: Win the Member of the Semester award.
+    category: awards
+    points: 30
+    goal: 0
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 20.3
+- pk: 39
+  model: achievements.Achievement
+  fields:
+    short_name: write_01_project_reports
+    name: Job's Finished
+    description: Submit a project report.
+    category: paperwork
+    sequence: pr_writing
+    points: 5
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 8.1
+- pk: 40
+  model: achievements.Achievement
+  fields:
+    short_name: write_05_project_reports
+    name: Paper Pusher
+    description: Submit five project reports.
+    category: paperwork
+    sequence: pr_writing
+    points: 10
+    goal: 5
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 8.2
+- pk: 41
+  model: achievements.Achievement
+  fields:
+    short_name: write_15_project_reports
+    name: Master of Bureaucracy
+    description: Submit 15 project reports.
+    category: paperwork
+    sequence: pr_writing
+    points: 20
+    goal: 15
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 8.3
+- pk: 42
+  model: achievements.Achievement
+  fields:
+    short_name: alphabet_project_report
+    name: Scrabble Withdrawal
+    description: Submit a project report with all the letters A-Z in its text.
+    category: paperwork
+    points: 10
+    goal: 0
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 8.7
+- pk: 43
+  model: achievements.Achievement
+  fields:
+    short_name: project_report_procrastination
+    name: Writer's Block
+    description: Submit a project report two months after its event.
+    category: paperwork
+    points: -30
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 30.1
+- pk: 44
+  model: achievements.Achievement
+  fields:
+    short_name: write_code
+    name: __init__()
+    description: Write non-trivial code that passes a code review.
+    category: website
+    points: 10
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 18.1
+- pk: 45
+  model: achievements.Achievement
+  fields:
+    short_name: lead_house_to_win
+    name: Cornerstone
+    description: Win House Cup as a house leader.
+    category: awards
+    points: 15
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 23.1
+- pk: 46
+  model: achievements.Achievement
+  fields:
+    short_name: beat_vps
+    name: Role Confusion
+    description: Attend more events than both VPs in a semester.
+    category: events
+    points: 50
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 24.1
+- pk: 47
+  model: achievements.Achievement
+  fields:
+    short_name: rock
+    name: Solid
+    description: Win The Rock.
+    category: awards
+    points: 15
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 23.3
+- pk: 48
+  model: achievements.Achievement
+  fields:
+    short_name: bowling_pin
+    name: Strike!
+    description: Win the Bowling Pin.
+    category: awards
+    points: 15
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 23.4
+- pk: 49
+  model: achievements.Achievement
+  fields:
+    short_name: tbp_romance
+    name: Engineers Make Better Lovers
+    description: Find romance within the ranks of TBP.
+    category: feats
+    points: 20
+    privacy: private
+    manual: True
+    repeatable: False
+    rank: 50.1
+- pk: 50
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_oms
+    name: OM NOM NOM
+    description: Attend all officer meetings in a semester.
+    category: paperwork
+    sequence: Meeting Attendance
+    points: 10
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 15.1
+- pk: 51
+  model: achievements.Achievement
+  fields:
+    short_name: attend_all_ems
+    name: Power Overwhelming
+    description: Attend all executive meetings in a semester.
+    category: paperwork
+    sequence: Meeting Attendance
+    points: 10
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 15.2
+- pk: 52
+  model: achievements.Achievement
+  fields:
+    short_name: banquet_errands
+    name: Fasting and Furious
+    description: Leave banquet to shuttle and/or run errands.
+    category: feats
+    points: 15
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 19.1
+- pk: 53
+  model: achievements.Achievement
+  fields:
+    short_name: reply_all
+    name: Reply to ALL the People
+    description: Mistakenly reply-all.
+    category: website
+    points: -10
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 30.2
+- pk: 54
+  model: achievements.Achievement
+  fields:
+    short_name: winning_bio
+    name: English Major
+    description: Write the winning creative biography.
+    category: awards
+    points: 20
+    privacy: public
+    manual: True
+    repeatable: False
+    rank: 23.2
+- pk: 55
+  model: achievements.Achievement
+  fields:
+    short_name: get_injured
+    name: Purple Heart
+    description: Obtain an injury in the line of duty.
+    category: feats
+    points: 15
+    privacy: secret
+    manual: True
+    repeatable: False
+    rank: 40.1
+- pk: 56
+  model: achievements.Achievement
+  fields:
+    short_name: acquire_15_achievements
+    name: Overachiever
+    description: Acquire 15 achievements.
+    category: website
+    points: 10
+    goal: 15
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 16.1
+- pk: 57
+  model: achievements.Achievement
+  fields:
+    short_name: create_01_icons
+    name: Iconic
+    description: Create an achievement icon.
+    category: website
+    sequence: Icon Creation
+    points: 5
+    goal: 1
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 16.2
+- pk: 58
+  model: achievements.Achievement
+  fields:
+    short_name: create_05_icons
+    name: Ctrl-C Ctrl-V
+    description: Create five achievement icons.
+    category: website
+    sequence: Icon Creation
+    points: 10
+    goal: 5
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 16.3
+- pk: 60
+  model: achievements.Achievement
+  fields:
+    short_name: upload_10_course_files
+    name: Study Buddy
+    description: Successfully submit 10 course files to TBP's database.
+    category: website
+    sequence: Course Files
+    points: 10
+    goal: 10
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 13.1
+- pk: 61
+  model: achievements.Achievement
+  fields:
+    short_name: upload_25_course_files
+    name: Tutoring Service
+    description: Successfully submit 25 course files to TBP's database.
+    category: website
+    sequence: Course Files
+    points: 15
+    goal: 25
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 13.2
+- pk: 62
+  model: achievements.Achievement
+  fields:
+    short_name: upload_50_course_files
+    name: Solutions Manual
+    description: Successfully submit 50 course files to TBP's database.
+    category: website
+    sequence: Course Files
+    points: 20
+    goal: 50
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 13.3
+- pk: 63
+  model: achievements.Achievement
+  fields:
+    short_name: attend_envelope_stuffing
+    name: Bloody Fingers
+    description: Attend an envelope stuffing
+    category: event
+    points: 5
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 10.3
+- pk: 64
+  model: achievements.Achievement
+  fields:
+    short_name: cots_mots_oots
+    name: Share the Love
+    description: Win COTS, OOTS, and MOTS.
+    category: awards
+    points: 75
+    privacy: secret
+    manual: False
+    repeatable: False
+    rank: 40.5

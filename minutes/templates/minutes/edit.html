@@ -1,0 +1,14 @@
+{% extends 'minutes/base.html' %}
+
+{% block content %}
+<h2>
+  {% block title %}Edit Meeting Minutes{% endblock title %}
+</h2>
+<form method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+{% endblock content %}

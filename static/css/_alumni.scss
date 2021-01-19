@@ -1,0 +1,30 @@
+/* _alumni.scss */
+// Styles for the alumni app
+
+@import 'base';
+
+.alumni-description p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.alumni-description p + p {
+  margin-top: 12px;
+}
+
+.alumni-descriptor {
+  font-weight: bold;
+}
+
+.alumni-occupation {
+  margin-bottom: 12px;
+}
+
+.alumni-name {
+  font-weight: bold;
+}
+
+.discussion-topic-entry {
+  display: inline-block;
+  margin: 5px;
+}

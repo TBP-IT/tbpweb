@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block intro %}
+<h1>
+  {% block title %}Delete Syllabus{% endblock title %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% include 'syllabi/_syllabus_display.html' %}
+<p>Are you SURE you want to delete this syllabus? THIS ACTION IS NOT REVERSIBLE.</p>
+
+<form method="post" class="form-narrow">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Delete">
+  </div>
+</form>
+
+<p>
+  <a href="{{ syllabi.get_absolute_url }}"><strong>Edit syllabus instead</strong></a>
+</p>
+{% endblock content %}

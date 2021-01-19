@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% load template_utils %}
+
+{% block title %}{{ instructor.full_name }}{% endblock title %}
+
+{% block intro %}
+<h1>
+  {{ instructor.full_name }}
+  (<a href="{% url 'courses:instructor-list' instructor.department.slug %}">{{ instructor.department }}</a>)
+</h1>
+{% endblock intro %}
+
+{% block content %}
+{% if perms.courses.change_instructor %}
+<a href="{% url 'courses:edit-instructor' instructor.pk %}" class="btn">
+  <i class="fa fa-pencil-square-o"></i> Edit</a>
+{% endif %}
+{% if perms.courses.delete_instructor %}
+<a href="{% url 'courses:delete-instructor' instructor.pk %}" class="btn">
+  <i class="fa fa-trash-o"></i> Delete</a>
+{% endif %}
+
+{% comment %}
+<h2>Average Rating: {{ total_prof_ratings_avg }}</h2>
+<h2>Average Ratings For Individual Courses</h2>
+{% for course in courses %}
+{% with name=course.abbreviation %}
+<div class="avg-rating">
+  <h3><a href="{{ course.get_absolute_url }}">{{ name }}</a></h3>
+  <div class="rating-number"><strong>Teaching Effectiveness</strong> {{ prof_ratings_avg|get_item:name }}</div>
+  <div class="rating-number"><strong>Course Quality</strong> {{ course_ratings_avg|get_item:name }}</div>
+</div>
+{% endwith %}
+{% endfor %}
+{% endcomment %}
+
+<h2>Exams</h2>
+{% if exams %}
+{% include 'exams/_exam_table.html' with exams=exams p_exams=paired_exams show_course=True show_instructor_full_name=False %}
+{% else %}
+There are currently no exams for this instructor.
+{% endif %}
+
+<h2>Syllabi</h2>
+{% if syllabi %}
+{% include 'syllabi/_syllabus_table.html' with syllabi=syllabi show_course=True show_instructor_full_name=False %}
+{% else %}
+There are currently no syllabi for this instructor.
+{% endif %}
+
+{% comment %}
+<h2>Course Surveys</h2>
+{% for survey in surveys %}
+  <div class="survey">
+    <h3>{{ survey.term.verbose_name }}
+      <a href="{{ survey.course.get_absolute_url }}">{{ survey.course.abbreviation }}</a>
+    </h3>
+    {% if survey.prof_rating %}
+    <div class="rating-number"><strong>Instructor Rating</strong> {{ survey.prof_rating }}</div>
+    {% endif %}
+    {% if survey.course_rating %}
+    <div class="rating-number"><strong>Course Rating</strong> {{ survey.course_rating }}</div>
+    {% endif %}
+    {% if survey.time_commitment %}
+    <div class="rating-number"><strong>Workload</strong> {{ survey.time_commitment }}</div>
+    {% endif %}
+    {% if survey.exam_difficulty %}
+    <div class="rating-number"><strong>Exam Difficulty</strong> {{ survey.exam_difficulty }}</div>
+    {% endif %}
+    {% if survey.hw_difficulty %}
+    <div class="rating-number"><strong>Assignment Difficulty</strong> {{ survey.hw_difficulty }}</div>
+    {% endif %}
+    {% if survey.comments %}
+    <p class="rating-comment"><strong>Comments</strong> {{ survey.comments }}</p>
+    {% endif %}
+  </div>
+{% empty %}
+There are currently no surveys for this instructor.
+{% endfor %}
+{% endcomment %}
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True %}
+
+<script>
+$('.exam-download-link').click(function() {
+  ga('send', 'event', 'exams', 'download', $('this').attr('id'));
+});
+
+$('.syllabus-download-link').click(function() {
+  ga('send', 'event', 'syllabi', 'download', $('this').attr('id'));
+});
+</script>
+
+{% endblock extra_js %}

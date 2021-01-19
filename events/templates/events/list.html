@@ -1,0 +1,71 @@
+{% extends 'events/list_base.html' %}
+
+{% load static settings_values template_utils %}
+
+{% block content %}
+{% settings_assign 'HOSTNAME' as hostname %}
+{% get_api_key_params user as api_params %}
+{% url 'events:ical' as ical_url %}
+<p>
+  {% comment %}
+  Note that Google Calendar does not accept https in the cid argument, but it
+  will still load the ics file if https is needed (e.g., if it is forced via
+  redirect).
+  {% endcomment %}
+  <a href="//www.google.com/calendar/render?cid=http%3A%2F%2F{{ hostname|urlencode:'' }}{{ ical_url|urlencode:'' }}{% if api_params %}%3F{{ api_params|urlencode:'' }}{% endif %}"
+    target="_blank"><img src="{% static 'images/google-calendar.gif' %}" class="google-cal" alt="Add to Google Calendar"></a> |
+  <a href="{{ ical_url }}?term={{ display_term_url_name }}{% if api_params %}&{{ api_params }}{% endif %}">Download iCal</a>
+</p>
+
+{% if events %}
+<p>
+  Filter events: <input id="filter-input" type="text">
+  <a href="javascript:void(0)" class="clear-filter">[clear]</a>
+</p>
+
+<table class="footable stylized bordered" data-filter="#filter-input" data-filter-text-only="true" id="events">
+  <thead>
+    <tr>
+      <th style="width:30%">Event Name</th>
+      <th data-type="numeric" data-sort-initial="true" style="width:15%">Date</th>
+      <th data-sort-ignore="true" style="width:20%">Time</th>
+      <th data-hide="phone" data-sort-ignore="true" style="width:15%">Location</th>
+      <th data-hide="phone" style="width:10%">Type</th>
+      <th data-hide="phone,tablet" style="width:10%">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for event in events %}
+    {% with event_type_slug=event.event_type|slugify %}
+    <tr class="event-row event-type {{ event_type_slug }}{% if not event.is_upcoming %} past-event{% endif %}">
+      <td data-value="{{ event.name|lower }}"><a href="{{ event.get_absolute_url }}"><strong>{{ event.name }}</strong></a><div>{{ event.tagline }}</div></td>
+      <td data-value="{{ event.start_datetime|date:'U' }}">{{ event.list_date|safe }}</td>
+      <td>{{ event.list_time|safe }}</td>
+      <td>{{ event.location }}</td>
+      <td class="event-type {{ event_type_slug }}">
+        {# TODO(sjdemartini): add link to filter by event type #}
+        {{ event.event_type.name }}
+      </td>
+      <td>
+        {% if event.committee.mailing_list %}<a href="mailto:{{ event.committee.mailing_list }}@{{ hostname }}">{% endif %}{{ event.committee.short_name }}{% if event.committee.mailing_list %}</a>{% endif %}
+      </td>
+    </tr>
+    {% endwith event_type_slug %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<p>No events are available.</p>
+{% endif %}
+
+{% endblock content %}
+
+{% block extra_js %}
+{% include '_footable.html' with include_sort=True include_filter=True %}
+<script>
+  $('.clear-filter').click(function(eventObj) {
+    $('#events').trigger('footable_clear_filter');
+  });
+</script>
+{% endblock extra_js %}

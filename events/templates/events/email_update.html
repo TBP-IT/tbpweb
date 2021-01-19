@@ -1,0 +1,4 @@
+{% load template_utils%}
+<p>{{author}} made an update to  <a href="{% full_url 'events:detail' event.pk %}">{{event.name}}</a> </p>
+
+<p>{{update_text}}</p>

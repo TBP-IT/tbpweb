@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ display_user.userprofile.get_common_name }}'s Quotes
+{% endblock title %}
+
+{% block intro %}
+<p><a href="{% url 'quote_board:list' %}">&laquo; Quote Board</a></p>
+<h1>
+  <a href="{% url 'user-profiles:detail' display_user.username %}">{{ display_user.userprofile.get_common_name }}</a>'s Quotes</h1>
+
+<h3>{{ num_quotes }} quote{{ num_quotes|pluralize }}</h3>
+{% endblock intro %}
+
+{% block content %}
+
+{% for quote in quote_list %}
+{% include 'quote_board/_quote_detail.html' with show_link=True %}
+{% endfor %}
+
+{% endblock content %}

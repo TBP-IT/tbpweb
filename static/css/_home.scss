@@ -1,0 +1,142 @@
+/* _home.scss */
+// Styles for the home page
+
+@import 'base';
+
+/* FRONT PAGE */
+#welcome {
+  font-weight: bold;
+  padding-right: 15px;
+}
+
+#banner {
+  background: url('../images/banner.jpg') black top center no-repeat;
+  margin: 0 auto;
+  max-width: none;
+  min-height: 338px;
+
+  @include respond-to(small) {
+    background: none;
+  }
+}
+
+#banner-focus {
+  // used to create a max-width on banner elements
+  margin: 0 auto;
+  max-width: 1000px;
+  position: relative;
+}
+
+#banner-text {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  margin-left: 43%;
+  margin-right: 2%;
+  padding: .3em 1em;
+  top: 1em;
+
+  h1 {
+    color: #fff;
+  }
+
+  h3 {
+    color: #fff;
+    font-size: 1.15em;
+    font-weight: 300;
+  }
+
+  @include respond-to(medium) {
+    background-color: rgba(0, 0, 0, 0.7);
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    top: 0.5em;
+  }
+
+  @include respond-to(small) {
+    background-color: rgba(0, 0, 0, 0.9);
+    margin: 0;
+    top: 0;
+  }
+}
+
+.home-background {
+  @include background-light;
+}
+
+#updates {
+  padding-bottom: 10px;
+
+  > div {
+    background-color: #fff;
+    float: left;
+    margin: 15px 1.667%;
+    padding-bottom: 0;
+    padding-top: 0;
+    position: relative;
+    text-align: center;
+    width: 30%;
+    @include border-radius(4px);
+    @include box-shadow(0 1px 5px rgba(0, 0, 0, 0.2));
+
+    &:hover {
+      @include box-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
+    }
+
+    @include respond-to(medium) {
+      margin-left: 10%;
+      margin-right: 10%;
+      width: 80%;
+    }
+
+    @include respond-to(small) {
+      margin-left: 2.5%;
+      margin-right: 2.5%;
+      width: 95%;
+    }
+
+    li {
+      padding-bottom: 10px;
+
+      &:hover {
+        background: $light-gray;
+      }
+
+      &:last-child:hover {
+        @include border-bottom-radius(4px);
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.updatedesc {
+  padding: .2em .5em;
+}
+
+.updatetitle {
+  font-weight: bold;
+  padding: .2em .5em;
+}
+
+.updatedesc {
+  color: #000;
+}
+
+#slideshow {
+  float: left;
+  margin: 15px 1.667%;
+  width: 60%;
+
+  @include respond-to(medium) {
+    margin: 15px 10% 0;
+    width: 80%;
+  }
+
+  @include respond-to(small) {
+    margin: 15px 2.5% 0;
+    width: 95%;
+  }
+}

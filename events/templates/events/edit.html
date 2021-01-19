@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Event{% endblock title %}
+
+{% block intro %}
+<h1>
+Edit <a href="{{ event.get_absolute_url }}">{{ event.name }}</a>
+{% if event.cancelled %}
+(<a href="{% url 'events:revive' event.pk %}">Revive</a>)
+{% else %}
+(<a href="{% url 'events:cancel' event.pk %}">Cancel Event</a>)
+{% endif %}
+</h1>
+{% endblock intro %}
+
+{% block content %}
+<form action="{% url 'events:edit' event.pk %}" method="post">
+  {% csrf_token %}
+  {% include '_form.html' %}
+  <div>
+    <input type="submit" value="Submit" onclick="return editConfirmation()">
+  </div>
+</form>
+{% endblock content %}
+
+{% block extra_js %}
+<script>
+function editConfirmation(form) {
+  sendConf = $('#id_send_update').is(':checked');
+  needsPR = $('#id_needs_pr').is(':checked');
+  confOk = true;
+  PROk = true;
+  if (sendConf) {
+    confOk = confirm(
+      'You are about to send an email update to ALL event participants. ' +
+      'Are you sure you want to continue? (not recommended for minor updates)');
+  }
+  if (!confOk) {
+    return confOk;
+  }
+  if (!needsPR) {
+    PROk = confirm(
+      'Marking the event as not needing a project report will delete any ' +
+      'existing project report for this event. Are you sure you want to ' +
+      'continue?');
+  }
+  return (confOk && PROk);
+}
+
+</script>
+{% endblock extra_js %}

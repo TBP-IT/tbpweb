@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Candidate Requirements{% endblock title %}
+
+{% block intro %}
+<h1>Edit Candidate Requirements for {{ term.verbose_name }}</h1>
+{% endblock intro %}
+
+{% block content %}
+{# TODO(ericdwang): add the rest of editing requirements #}
+NOTE: Only requirements that require more than zero credits will be displayed in candidate admin/portal!
+
+<form method="post" class="form-narrow">
+  {% csrf_token %}
+  {{ form.management_form }}
+
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Event' entries=req_types.event %}
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Challenge' entries=req_types.challenge %}
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Exam File' entries=req_types.exam %}
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Syllabus' entries=req_types.syllabus %}
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Resume' entries=req_types.resume %}
+  {% include 'candidates/_individual_requirement.html' with display_req_type='Manual' entries=req_types.manual %}
+  <a href="{% url 'candidates:add-requirement' %}">Add manual requirement</a>
+
+  <p>
+    <input type="submit" value="Update">
+  </p>
+</form>
+
+<p>
+  <a href="{% url 'candidates:list' %}?term={{ candidate.term.get_url_name }}"><strong>Back to {{ term.verbose_name }} Candidates</strong></a>
+</p>
+{% endblock content %}

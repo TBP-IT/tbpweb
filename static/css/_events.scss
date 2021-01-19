@@ -1,0 +1,283 @@
+/* _events.scss */
+// Styles for the events app
+
+@import 'base';
+
+// Define colors associated with event types, which can be used to consistently
+// apply color styling to different events
+$event-advising-color: #fffffc;
+$event-bentpolish-color: #f9f;
+$event-bigsocial-color: #f59678;
+$event-efutures-color: #fea;
+$event-fun-color: #c4ff9c;
+$event-general-color: #fff;
+$event-house-color: #9dbb61;
+$event-infosession-color: #fffffe;
+$event-mandatory-color: #0ff;
+$event-meeting-color: #96dbff;
+$event-odev-color: #fea;
+$event-prodev-color: #fc6;
+$event-service-color: #ff0;
+
+// Apply a background-color. The shade depends on whether the event has the
+// event-row or past-event class (or neither). Useful for making the background
+// color for a row in the events table have a lighter (fainter) version of the
+// color, or for making past events appear grayed-out.
+@mixin event-type-color($color) {
+  background-color: $color;
+
+  &.event-row {
+    // Mix the $color with #fff (white) to lighten the color shade
+    background-color: mix($color, #fff, 40%);
+  }
+
+  .past-event &,
+  &.past-event {
+    // Mix the $color with #ddd (gray) to gray out the color
+    background-color: mix($color, #ddd, 35%);
+  }
+}
+
+.event-type {
+  // Set the default background color for the event type as white
+  @include event-type-color(#fff);
+
+  &.advising {
+    @include event-type-color($event-advising-color);
+  }
+
+  &.bent-polishing {
+    @include event-type-color($event-bentpolish-color);
+  }
+
+  &.big-social {
+    @include event-type-color($event-bigsocial-color);
+  }
+
+  &.e-futures {
+    @include event-type-color($event-efutures-color);
+  }
+
+  &.fun {
+    @include event-type-color($event-fun-color);
+  }
+
+  &.general {
+    @include event-type-color($event-general-color);
+  }
+
+  &.house {
+    @include event-type-color($event-house-color);
+  }
+
+  &.infosession {
+    @include event-type-color($event-infosession-color);
+  }
+
+  &.mandatory {
+    @include event-type-color($event-mandatory-color);
+  }
+
+  &.meeting {
+    @include event-type-color($event-meeting-color);
+  }
+
+  &.officer-development {
+    @include event-type-color($event-odev-color);
+  }
+
+  &.professional-development {
+    @include event-type-color($event-prodev-color);
+  }
+
+  &.community-service {
+    @include event-type-color($event-service-color);
+  }
+}
+
+// Color the entire row for a past event as a light gray
+tr.past-event {
+  background-color: #fafafa;
+}
+
+.google-cal {
+  vertical-align: middle;
+}
+
+// Make paragraphs in event-info (resulting from markdown) have slimmer margins
+.event-info p {
+  margin: 0.5em 0;
+}
+
+// Event detail and signups
+.event-credit {
+  font-weight: 600;
+  padding: 2px 3px;
+  @include border-radius(2px);
+}
+
+.signup-list {
+  li {
+    background: $ultra-light-gray;
+    border: 1px solid #eee;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 3px;
+    vertical-align: middle;
+    width: 31%;
+    @include border-radius(3px);
+
+    @include respond-to(medium) {
+      width: 46%;
+    }
+
+    @include respond-to(small) {
+      width: 100%;
+    }
+
+    .signup-pic {
+      display: table-cell;
+      padding-right: 5px;
+
+      img {
+        display: block;
+      }
+    }
+
+    .signup-details {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .signup-name {
+      color: $dark-blue;
+      font-weight: 400;
+      margin-top: -3px;
+    }
+
+    .signup-info,
+    .signup-comments {
+      font-size: 0.8em;
+    }
+
+    .fa-road {
+      color: $dark-blue;
+    }
+
+    .fa-users {
+      color: $gold;
+    }
+
+    .signup-comments {
+      font-style: italic;
+    }
+  }
+}
+
+// Calendar display of events
+#calendar {
+  margin-top: 1em;
+
+  div {
+    position: static;
+  }
+}
+
+// Recording attendance
+#member-search {
+  @include respond-to(medium) {
+    display: block;
+  }
+}
+
+.attendance-group {
+  float: left;
+  margin: 10px;
+  width: 30%;
+
+  @include respond-to(medium) {
+    width: 45%;
+  }
+
+  @include respond-to(small) {
+    margin: 0;
+    width: 100%;
+  }
+
+  ul > li {
+    border: 1px dashed #ddd;
+    border-bottom: 0;
+    padding: 5px;
+    width: 100%;
+    @include box-sizing(border-box);
+
+    &:last-child {
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .avatar,
+    .user-name {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .user-avatar {
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .user-name {
+      width: 100%;
+    }
+
+    @include respond-to(small) {
+      // Increase vertical padding to make it more of a touch target
+      padding: {
+        top: 10px;
+        bottom: 10px;
+      }
+    }
+  }
+}
+
+$attended-highlight: #ff8;
+
+.checkable {
+  &:hover {
+    background-color: $success-bg-color;
+    cursor: pointer;
+  }
+}
+
+.attending {
+  background-color: $attended-highlight;
+
+  &:hover {
+    color: $error-text-color;
+    cursor: pointer;
+  }
+}
+
+.signed-up {
+  font-weight: 600;
+}
+
+// Individual attendance records
+.user-event-attendance {
+  .event-type {
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin: 0.2em 0.1em;
+    padding: 0.2em;
+
+    &.future {
+      border: 1px dashed #000;
+      opacity: 0.5;
+
+      a {
+        color: #333;
+      }
+    }
+  }
+}

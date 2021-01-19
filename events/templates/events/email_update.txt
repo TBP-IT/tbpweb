@@ -1,0 +1,5 @@
+{% load template_utils%}
+
+{{author}} made an update to {{event.name}}({% full_url 'events:detail' event.pk %})
+
+{{update_text}}
