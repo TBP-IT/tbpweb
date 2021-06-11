@@ -8,12 +8,12 @@ from django.views.generic import CreateView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from quark.alumni.forms import AlumnusForm
-from quark.alumni.forms import AlumnusEditForm
-from quark.alumni.models import Alumnus
-from quark.alumni.models import DiscussionTopic
-from quark.alumni.models import TimeInvestment
-from quark.base.models import Major
+from tbpweb.alumni.forms import AlumnusForm
+from tbpweb.alumni.forms import AlumnusEditForm
+from tbpweb.alumni.models import Alumnus
+from tbpweb.alumni.models import DiscussionTopic
+from tbpweb.alumni.models import TimeInvestment
+from tbpweb.base.models import Major
 
 
 class AlumnusListView(ListView):

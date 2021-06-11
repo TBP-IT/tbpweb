@@ -1,10 +1,10 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from quark.courses.models import Instructor
-from quark.courses.models import Course
-from quark.exams.models import InstructorPermission
-from quark.shortcuts import get_object_or_none
+from tbpweb.courses.models import Instructor
+from tbpweb.courses.models import Course
+from tbpweb.exams.models import InstructorPermission
+from tbpweb.shortcuts import get_object_or_none
 
 
 class InstructorForm(forms.ModelForm):

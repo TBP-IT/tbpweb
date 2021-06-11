@@ -1,11 +1,11 @@
 from chosen import widgets as ChosenWidgets
 from django import forms
 
-from quark.base.forms import ChosenTermMixin
-from quark.courses.models import Course
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.course_surveys.models import Survey
+from tbpweb.base.forms import ChosenTermMixin
+from tbpweb.courses.models import Course
+from tbpweb.courses.models import Department
+from tbpweb.courses.models import Instructor
+from tbpweb.course_surveys.models import Survey
 
 
 def courses_as_optgroups():

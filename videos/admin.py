@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from quark.videos.models import Video
-from quark.videos.models import VideoType
+from tbpweb.videos.models import Video
+from tbpweb.videos.models import VideoType
 
 
 class VideoAdmin(admin.ModelAdmin):

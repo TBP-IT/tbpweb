@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
 from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
@@ -20,14 +20,14 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 
-from quark.accounts.forms import PasswordResetForm
-from quark.base.models import Major
-from quark.companies.forms import CompanyFormWithExpiration
-from quark.companies.forms import CompanyRepCreationForm
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
-from quark.resumes.models import Resume
-from quark.user_profiles.models import UserProfile
+from tbpweb.accounts.forms import PasswordResetForm
+from tbpweb.base.models import Major
+from tbpweb.companies.forms import CompanyFormWithExpiration
+from tbpweb.companies.forms import CompanyRepCreationForm
+from tbpweb.companies.models import Company
+from tbpweb.companies.models import CompanyRep
+from tbpweb.resumes.models import Resume
+from tbpweb.user_profiles.models import UserProfile
 
 
 class IndustryLandingView(TemplateView):

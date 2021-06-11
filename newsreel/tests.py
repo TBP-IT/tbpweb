@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from quark.newsreel.models import News
+from tbpweb.newsreel.models import News
 
 
 class NewsTesting(TestCase):

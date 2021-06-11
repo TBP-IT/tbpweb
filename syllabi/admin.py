@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from quark.syllabi.models import Syllabus
-from quark.syllabi.models import SyllabusFlag
-from quark.syllabi.models import InstructorSyllabusPermission
+from tbpweb.syllabi.models import Syllabus
+from tbpweb.syllabi.models import SyllabusFlag
+from tbpweb.syllabi.models import InstructorSyllabusPermission
 
 
 class SyllabusAdmin(admin.ModelAdmin):

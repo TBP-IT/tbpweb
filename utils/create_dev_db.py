@@ -8,9 +8,9 @@ KEY_PATH = '/home/tbp/private'
 if KEY_PATH not in sys.path:
     sys.path.append(KEY_PATH)
 # pylint: disable=F0401
-from quark_keys import DEV_DB_PASSWORD as DB_PASSWORD
+from tbpweb_keys import DEV_DB_PASSWORD as DB_PASSWORD
 
-DB_USER = 'quark_dev'
+DB_USER = 'tbpweb_dev'
 
 
 def is_valid_db_name(name):

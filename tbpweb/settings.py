@@ -40,6 +40,36 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+PROJECT_APPS = [
+    'quark.accounts',
+    'quark.achievements',
+    'quark.alumni',
+    'quark.base',
+    'quark.candidates',
+    'quark.companies',
+    'quark.courses',
+    'quark.course_files',
+    'quark.course_surveys',
+    'quark.emailer',
+    'quark.events',
+    'quark.exams',
+    'quark.houses',
+    'quark.mailing_lists',
+    'quark.minutes',
+    'quark.newsreel',
+    'quark.notifications',
+    'quark.past_presidents',
+    'quark.project_reports',
+    'quark.qldap',
+    'quark.quote_board',
+    'quark.resumes',
+    'quark.syllabi',
+    'quark.user_profiles',
+    'quark.utils',
+    'quark.videos',
+    'quark.vote',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

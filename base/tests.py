@@ -12,15 +12,15 @@ from django.template import Template
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from quark.base import fields
-from quark.base.models import Major
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.base.models import University
-from quark.settings.dev import DATABASES as DEV_DB
-from quark.settings.production import DATABASES as PROD_DB
-from quark.settings.staging import DATABASES as STAGING_DB
+from tbpweb.base import fields
+from tbpweb.base.models import Major
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.base.models import University
+from tbpweb.settings.dev import DATABASES as DEV_DB
+from tbpweb.settings.production import DATABASES as PROD_DB
+from tbpweb.settings.staging import DATABASES as STAGING_DB
 
 
 class MajorTest(TestCase):
@@ -705,24 +705,24 @@ class SettingsTest(TestCase):
 
     def test_unset(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'dev')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('tbpweb_ENV', 'dev')
+            settings = import_fresh_module('tbpweb.settings')
 
             self.assertTrue(settings.DEBUG)
             self.assertEqual(settings.DATABASES, DEV_DB)
 
     def test_production(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'production')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('tbpweb_ENV', 'production')
+            settings = import_fresh_module('tbpweb.settings')
 
             self.assertFalse(settings.DEBUG)
             self.assertEqual(settings.DATABASES, PROD_DB)
 
     def test_staging(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'staging')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('tbpweb_ENV', 'staging')
+            settings = import_fresh_module('tbpweb.settings')
 
             self.assertFalse(settings.DEBUG)
             self.assertEqual(settings.DATABASES, STAGING_DB)

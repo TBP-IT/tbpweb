@@ -3,14 +3,14 @@ from django import forms
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from quark.base.fields import VisualSplitDateTimeField
-from quark.base.forms import ChosenTermMixin
-from quark.events.models import Event
-from quark.events.models import EventSignUp
-from quark.events.models import EventType
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.fields import UserCommonNameChoiceField
+from tbpweb.base.fields import VisualSplitDateTimeField
+from tbpweb.base.forms import ChosenTermMixin
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventSignUp
+from tbpweb.events.models import EventType
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.user_profiles.fields import UserCommonNameChoiceField
 
 
 class EventForm(ChosenTermMixin, forms.ModelForm):

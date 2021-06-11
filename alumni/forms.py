@@ -1,6 +1,6 @@
 from chosen import forms as chosen_forms
 from django import forms
-from quark.alumni.models import Alumnus
+from tbpweb.alumni.models import Alumnus
 
 
 class AlumnusForm(forms.ModelForm):

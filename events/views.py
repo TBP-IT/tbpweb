@@ -12,8 +12,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.urlresolvers import reverse_lazy
-from django.core.urlresolvers import reverse
+from django.urls import reverse_lazy
+from django.urls import reverse
 from django.db.models import Q
 from django.db.models import Count
 from django.db.models import Sum
@@ -31,21 +31,21 @@ from django.views.generic import FormView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
-from quark.accounts.models import APIKey
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.candidates.models import Candidate
-from quark.events.forms import EventForm
-from quark.events.forms import EventSignUpAnonymousForm
-from quark.events.forms import EventSignUpForm
-from quark.events.forms import EventCancelForm
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventSignUp
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import create_leaderboard
-from quark.utils.ajax import AjaxFormResponseMixin
-from quark.utils.ajax import json_response
+from tbpweb.accounts.models import APIKey
+from tbpweb.base.models import Term
+from tbpweb.base.views import TermParameterMixin
+from tbpweb.candidates.models import Candidate
+from tbpweb.events.forms import EventForm
+from tbpweb.events.forms import EventSignUpAnonymousForm
+from tbpweb.events.forms import EventSignUpForm
+from tbpweb.events.forms import EventCancelForm
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventSignUp
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.shortcuts import create_leaderboard
+from tbpweb.utils.ajax import AjaxFormResponseMixin
+from tbpweb.utils.ajax import json_response
 
 
 user_model = get_user_model()

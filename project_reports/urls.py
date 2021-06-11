@@ -1,14 +1,14 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.project_reports.views import ProjectReportCreateView
-from quark.project_reports.views import ProjectReportDeleteView
-from quark.project_reports.views import ProjectReportDetailView
-from quark.project_reports.views import ProjectReportEditView
-from quark.project_reports.views import ProjectReportListAllView
-from quark.project_reports.views import ProjectReportListView
-from quark.project_reports.views import ProjectReportBookExportView
-from quark.project_reports.views import ProjectReportBookDownloadView
+from tbpweb.project_reports.views import ProjectReportCreateView
+from tbpweb.project_reports.views import ProjectReportDeleteView
+from tbpweb.project_reports.views import ProjectReportDetailView
+from tbpweb.project_reports.views import ProjectReportEditView
+from tbpweb.project_reports.views import ProjectReportListAllView
+from tbpweb.project_reports.views import ProjectReportListView
+from tbpweb.project_reports.views import ProjectReportBookExportView
+from tbpweb.project_reports.views import ProjectReportBookDownloadView
 
 
 urlpatterns = patterns(

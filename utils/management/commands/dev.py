@@ -4,8 +4,8 @@ import os
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
-from quark.utils.dev import DevServer
-import quark.utils as dev_utils
+from tbpweb.utils.dev import DevServer
+import tbpweb.utils as dev_utils
 
 
 class Command(BaseCommand):

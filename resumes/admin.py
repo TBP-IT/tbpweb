@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.resumes.models import Resume
+from tbpweb.resumes.models import Resume
 
 
 class ResumeAdmin(admin.ModelAdmin):

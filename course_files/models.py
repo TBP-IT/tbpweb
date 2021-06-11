@@ -5,8 +5,8 @@ from django.conf import settings
 from django.db import models
 from uuidfield import UUIDField
 
-from quark.courses.models import CourseInstance
-from quark.courses.models import Instructor
+from tbpweb.courses.models import CourseInstance
+from tbpweb.courses.models import Instructor
 
 
 def generate_courseitem_filepath(instance, filename):

@@ -1,8 +1,8 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.past_presidents.views import PastPresidentsListView
-from quark.past_presidents.views import PastPresidentsDetailView
+from tbpweb.past_presidents.views import PastPresidentsListView
+from tbpweb.past_presidents.views import PastPresidentsDetailView
 
 urlpatterns = patterns(
     '',

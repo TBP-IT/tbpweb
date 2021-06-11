@@ -1,20 +1,20 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.candidates.views import CandidateCreateView
-from quark.candidates.views import CandidateEditView
-from quark.candidates.views import CandidateExportView
-from quark.candidates.views import CandidateInitiationView
-from quark.candidates.views import CandidateListView
-from quark.candidates.views import CandidatePhotoView
-from quark.candidates.views import CandidatePortalView
-from quark.candidates.views import CandidateProgressView
-from quark.candidates.views import CandidateProgressByReqView
-from quark.candidates.views import CandidateProgressStatsView
-from quark.candidates.views import CandidateRequirementsEditView
-from quark.candidates.views import ChallengeVerifyView
-from quark.candidates.views import ManualCandidateRequirementCreateView
-from quark.candidates.views import update_candidate_initiation_status
+from tbpweb.candidates.views import CandidateCreateView
+from tbpweb.candidates.views import CandidateEditView
+from tbpweb.candidates.views import CandidateExportView
+from tbpweb.candidates.views import CandidateInitiationView
+from tbpweb.candidates.views import CandidateListView
+from tbpweb.candidates.views import CandidatePhotoView
+from tbpweb.candidates.views import CandidatePortalView
+from tbpweb.candidates.views import CandidateProgressView
+from tbpweb.candidates.views import CandidateProgressByReqView
+from tbpweb.candidates.views import CandidateProgressStatsView
+from tbpweb.candidates.views import CandidateRequirementsEditView
+from tbpweb.candidates.views import ChallengeVerifyView
+from tbpweb.candidates.views import ManualCandidateRequirementCreateView
+from tbpweb.candidates.views import update_candidate_initiation_status
 
 
 urlpatterns = patterns(

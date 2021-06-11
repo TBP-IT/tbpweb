@@ -2,9 +2,9 @@ import collections
 
 from django.db import models
 
-from quark.achievements.models import Achievement
-from quark.base.models import Officer
-from quark.shortcuts import get_object_or_none
+from tbpweb.achievements.models import Achievement
+from tbpweb.base.models import Officer
+from tbpweb.shortcuts import get_object_or_none
 
 
 # officership-related achievements

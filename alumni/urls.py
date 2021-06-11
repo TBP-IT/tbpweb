@@ -1,8 +1,8 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
-from quark.alumni.views import AlumnusCreateView
-from quark.alumni.views import AlumnusEditView
-from quark.alumni.views import AlumnusListView
+from tbpweb.alumni.views import AlumnusCreateView
+from tbpweb.alumni.views import AlumnusEditView
+from tbpweb.alumni.views import AlumnusListView
 
 urlpatterns = patterns(
     '',

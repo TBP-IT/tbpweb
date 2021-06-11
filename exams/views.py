@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -17,13 +17,13 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from quark.exams.forms import EditForm
-from quark.exams.forms import FlagForm
-from quark.exams.forms import FlagResolveForm
-from quark.exams.forms import UploadForm
-from quark.exams.models import Exam
-from quark.exams.models import ExamFlag
-from quark.exams.models import InstructorPermission
+from tbpweb.exams.forms import EditForm
+from tbpweb.exams.forms import FlagForm
+from tbpweb.exams.forms import FlagResolveForm
+from tbpweb.exams.forms import UploadForm
+from tbpweb.exams.models import Exam
+from tbpweb.exams.models import ExamFlag
+from tbpweb.exams.models import InstructorPermission
 
 
 class ExamUploadView(CreateView):

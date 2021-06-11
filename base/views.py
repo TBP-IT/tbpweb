@@ -11,11 +11,10 @@ from django.views.generic import ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.base import View
 
-from quark.base.models import Officer
-from quark.base.models import Term
-from quark.events.models import Event
-from quark.newsreel.models import News
-from quark.user_profiles.models import UserProfile
+from .models import Officer, Term
+from events.models import Event
+from newsreel.models import News
+from user_profiles.models import UserProfile
 
 
 class HomePageView(TemplateView):

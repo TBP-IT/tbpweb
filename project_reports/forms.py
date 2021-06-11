@@ -1,12 +1,12 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from quark.base.fields import VisualDateWidget
-from quark.base.forms import ChosenTermMixin
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
+from tbpweb.base.fields import VisualDateWidget
+from tbpweb.base.forms import ChosenTermMixin
+from tbpweb.base.models import Term
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.user_profiles.fields import UserCommonNameChoiceField
+from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class ProjectReportForm(ChosenTermMixin, forms.ModelForm):

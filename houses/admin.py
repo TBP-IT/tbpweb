@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from quark.houses.models import House
-from quark.houses.models import HouseMember
+from tbpweb.houses.models import House
+from tbpweb.houses.models import HouseMember
 
 
 class HouseAdmin(admin.ModelAdmin):

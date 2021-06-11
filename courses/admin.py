@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from quark.courses.models import Course
-from quark.courses.models import CourseInstance
-from quark.courses.models import Department
-from quark.courses.models import Instructor
+from tbpweb.courses.models import Course
+from tbpweb.courses.models import CourseInstance
+from tbpweb.courses.models import Department
+from tbpweb.courses.models import Instructor
 
 
 class CourseAdmin(admin.ModelAdmin):

@@ -1,24 +1,24 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.emailer.views import EventEmailerView
-from quark.events.views import AllTimeLeaderboardListView
-from quark.events.views import attendance_delete
-from quark.events.views import attendance_search
-from quark.events.views import attendance_submit
-from quark.events.views import AttendanceRecordView
-from quark.events.views import EventBuilderView
-from quark.events.views import EventCancelView
-from quark.events.views import EventCreateView
-from quark.events.views import EventDetailView
-from quark.events.views import EventListView
-from quark.events.views import EventSignUpView
-from quark.events.views import event_revive
-from quark.events.views import event_unsignup
-from quark.events.views import EventUpdateView
-from quark.events.views import ical
-from quark.events.views import IndividualAttendanceListView
-from quark.events.views import LeaderboardListView
+from tbpweb.emailer.views import EventEmailerView
+from tbpweb.events.views import AllTimeLeaderboardListView
+from tbpweb.events.views import attendance_delete
+from tbpweb.events.views import attendance_search
+from tbpweb.events.views import attendance_submit
+from tbpweb.events.views import AttendanceRecordView
+from tbpweb.events.views import EventBuilderView
+from tbpweb.events.views import EventCancelView
+from tbpweb.events.views import EventCreateView
+from tbpweb.events.views import EventDetailView
+from tbpweb.events.views import EventListView
+from tbpweb.events.views import EventSignUpView
+from tbpweb.events.views import event_revive
+from tbpweb.events.views import event_unsignup
+from tbpweb.events.views import EventUpdateView
+from tbpweb.events.views import ical
+from tbpweb.events.views import IndividualAttendanceListView
+from tbpweb.events.views import LeaderboardListView
 
 urlpatterns = patterns(
     '',

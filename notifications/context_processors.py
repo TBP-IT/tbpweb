@@ -1,10 +1,10 @@
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils import timesince
 from django.utils import timezone
 
-from quark.project_reports.models import ProjectReport
-from quark.notifications.models import Notification
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.notifications.models import Notification
 
 
 def notifications(request):

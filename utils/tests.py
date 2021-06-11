@@ -6,10 +6,10 @@ from django.test.utils import override_settings
 from mock import patch
 import mox
 
-from quark.utils import create_dev_db
-from quark.utils.dev import DevServer
-from quark.utils.management.commands import dev as dev_cmd
-import quark.utils as dev_utils
+from tbpweb.utils import create_dev_db
+from tbpweb.utils.dev import DevServer
+from tbpweb.utils.management.commands import dev as dev_cmd
+import tbpweb.utils as dev_utils
 
 
 class DevServerTest(TestCase):
@@ -52,13 +52,13 @@ class DevUtilsTest(TestCase):
         dev_utils.load_initial_data()
         self.assertFalse(mock_mgmt.called)
 
-    @override_settings(PROJECT_APPS=['quark.foo', 'thirdparty.bar'],
+    @override_settings(PROJECT_APPS=['tbpweb.foo', 'thirdparty.bar'],
                        WORKSPACE_ROOT='root')
     @patch('django.core.management.ManagementUtility')
     @patch('glob.glob')
     def test_load_initial_data(self, mock_glob, mock_mgmt):
         fake_glob = {
-            'root/quark/foo/fixtures/*.yaml': ['file1'],
+            'root/tbpweb/foo/fixtures/*.yaml': ['file1'],
             'root/thirdparty/bar/fixtures/*.yaml': ['file2', 'file3'],
         }
         mock_glob.side_effect = lambda x: fake_glob[x]
@@ -69,7 +69,7 @@ class DevUtilsTest(TestCase):
 
     @override_settings(PROJECT_APPS=[], WORKSPACE_ROOT='root')
     @patch('django.core.management.ManagementUtility')
-    @patch('quark.utils.load_initial_data')
+    @patch('tbpweb.utils.load_initial_data')
     def test_update_db(self, mock_data, mock_mgmt):
         """
         Ensure update_db goes through the 2 management steps, which assumes
@@ -87,7 +87,7 @@ class DevCommandTest(TestCase):
     @override_settings(PROJECT_APPS=[])
     @patch.dict(os.environ, {'RUN_MAIN': 'true'})
     @patch('getpass.getuser')
-    @patch('quark.utils.update_db')
+    @patch('tbpweb.utils.update_db')
     @patch.object(dev_cmd.DevServer, 'run_server')
     def test_handle(self, mock_server, mock_update, mock_user):
         """Running dev does not raise a KeyError or CommandError"""
@@ -110,10 +110,10 @@ class CreateDevDBTest(TestCase):
         self.mox.UnsetStubs()
 
     def test_is_valid_db_name(self):
-        self.assertTrue(create_dev_db.is_valid_db_name('quark_dev_panda'))
+        self.assertTrue(create_dev_db.is_valid_db_name('tbpweb_dev_panda'))
 
     def test_is_valid_db_name_false(self):
-        self.assertFalse(create_dev_db.is_valid_db_name('quark_dev_panda!'))
+        self.assertFalse(create_dev_db.is_valid_db_name('tbpweb_dev_panda!'))
 
     def test_create_dev_db(self):
         self.mox.StubOutWithMock(create_dev_db.MySQLdb, 'connect')
@@ -121,11 +121,11 @@ class CreateDevDBTest(TestCase):
 
         db = self.mox.CreateMockAnything()
         create_dev_db.MySQLdb.connect(
-            user='quark_dev', passwd='bar').AndReturn(db)
+            user='tbpweb_dev', passwd='bar').AndReturn(db)
 
         cursor = self.mox.CreateMockAnything()
         db.cursor().AndReturn(cursor)
-        cursor.execute('CREATE DATABASE IF NOT EXISTS quark_dev_foo'
+        cursor.execute('CREATE DATABASE IF NOT EXISTS tbpweb_dev_foo'
                        ' CHARACTER SET utf8'
                        ' COLLATE utf8_unicode_ci')
         cursor.close()
@@ -135,7 +135,7 @@ class CreateDevDBTest(TestCase):
         db.cursor().AndReturn(ex_cursor)
         ex_cursor.execute(
             ('SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA'
-             ' WHERE SCHEMA_NAME = %s'), ['quark_dev_foo'])
+             ' WHERE SCHEMA_NAME = %s'), ['tbpweb_dev_foo'])
         ex_cursor.fetchone().AndReturn('result')
         ex_cursor.close()
 
@@ -151,11 +151,11 @@ class CreateDevDBTest(TestCase):
 
         db = self.mox.CreateMockAnything()
         create_dev_db.MySQLdb.connect(
-            user='quark_dev', passwd='bar').AndReturn(db)
+            user='tbpweb_dev', passwd='bar').AndReturn(db)
 
         cursor = self.mox.CreateMockAnything()
         db.cursor().AndReturn(cursor)
-        cursor.execute('CREATE DATABASE IF NOT EXISTS quark_dev_foo'
+        cursor.execute('CREATE DATABASE IF NOT EXISTS tbpweb_dev_foo'
                        ' CHARACTER SET utf8'
                        ' COLLATE utf8_unicode_ci')
         cursor.close()
@@ -165,7 +165,7 @@ class CreateDevDBTest(TestCase):
         db.cursor().AndReturn(ex_cursor)
         ex_cursor.execute(
             ('SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA'
-             ' WHERE SCHEMA_NAME = %s'), ['quark_dev_foo'])
+             ' WHERE SCHEMA_NAME = %s'), ['tbpweb_dev_foo'])
         ex_cursor.fetchone().AndReturn(None)
         ex_cursor.close()
 
@@ -181,7 +181,7 @@ class CreateDevDBTest(TestCase):
 
         db = self.mox.CreateMockAnything()
         create_dev_db.MySQLdb.connect(
-            user='quark_dev', passwd='bar').AndReturn(db)
+            user='tbpweb_dev', passwd='bar').AndReturn(db)
 
         cursor = self.mox.CreateMockAnything()
         db.cursor().AndReturn(cursor)
@@ -198,7 +198,7 @@ class CreateDevDBTest(TestCase):
         create_dev_db.DB_PASSWORD = 'bar'
 
         create_dev_db.MySQLdb.connect(
-            user='quark_dev', passwd='bar').AndReturn(None)
+            user='tbpweb_dev', passwd='bar').AndReturn(None)
 
         self.mox.ReplayAll()
         self.assertRaises(Exception, create_dev_db.create_dev_db, 'foo')

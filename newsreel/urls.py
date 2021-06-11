@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.newsreel.views import news_reorder
-from quark.newsreel.views import NewsCreateView
-from quark.newsreel.views import NewsDeleteView
-from quark.newsreel.views import NewsEditView
-from quark.newsreel.views import NewsListView
+from tbpweb.newsreel.views import news_reorder
+from tbpweb.newsreel.views import NewsCreateView
+from tbpweb.newsreel.views import NewsDeleteView
+from tbpweb.newsreel.views import NewsEditView
+from tbpweb.newsreel.views import NewsListView
 
 
 urlpatterns = patterns(

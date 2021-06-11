@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.db.models import Sum
 from django.db.models.query import QuerySet
@@ -7,9 +7,9 @@ from django.template import defaultfilters
 from django.utils import timezone
 from django.utils.http import urlencode
 
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
+from base.models import OfficerPosition
+from base.models import Term
+from project_reports.models import ProjectReport
 
 
 class EventTypeManager(models.Manager):

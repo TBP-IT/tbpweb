@@ -3,15 +3,15 @@ from collections import OrderedDict
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic import ListView
 
-from quark.videos.forms import VideoForm
-from quark.videos.forms import VideoTypeForm
-from quark.videos.models import Video
-from quark.videos.models import VideoType
+from tbpweb.videos.forms import VideoForm
+from tbpweb.videos.forms import VideoTypeForm
+from tbpweb.videos.models import Video
+from tbpweb.videos.models import VideoType
 
 
 class VideoCreateView(CreateView):

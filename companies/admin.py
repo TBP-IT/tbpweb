@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
+from tbpweb.companies.models import Company
+from tbpweb.companies.models import CompanyRep
 
 
 class CompanyAdmin(admin.ModelAdmin):

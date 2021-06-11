@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.quote_board.views import QuoteCreateView
-from quark.quote_board.views import QuoteDetailView
-from quark.quote_board.views import QuoteLeaderboardListView
-from quark.quote_board.views import QuoteListView
-from quark.quote_board.views import SpeakerQuoteListView
+from tbpweb.quote_board.views import QuoteCreateView
+from tbpweb.quote_board.views import QuoteDetailView
+from tbpweb.quote_board.views import QuoteLeaderboardListView
+from tbpweb.quote_board.views import QuoteListView
+from tbpweb.quote_board.views import SpeakerQuoteListView
 
 
 urlpatterns = patterns(

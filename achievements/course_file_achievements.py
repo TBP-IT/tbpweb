@@ -1,9 +1,9 @@
 from django.db import models
 
-from quark.achievements.models import Achievement
-from quark.exams.models import Exam
-from quark.shortcuts import get_object_or_none
-from quark.syllabi.models import Syllabus
+from tbpweb.achievements.models import Achievement
+from tbpweb.exams.models import Exam
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.syllabi.models import Syllabus
 
 
 def course_file_achievements(sender, instance, created, **kwargs):

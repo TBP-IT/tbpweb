@@ -6,14 +6,14 @@ from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Sum
 
-from quark.base.models import Term
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventSignUp
-from quark.events.models import EventType
-from quark.exams.models import Exam
-from quark.syllabi.models import Syllabus
-from quark.resumes.models import Resume
+from tbpweb.base.models import Term
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventSignUp
+from tbpweb.events.models import EventType
+from tbpweb.exams.models import Exam
+from tbpweb.syllabi.models import Syllabus
+from tbpweb.resumes.models import Resume
 
 
 class Candidate(models.Model):
@@ -291,7 +291,7 @@ def candidate_post_save(sender, instance, created, **kwargs):
           initiate)
     """
     # Avoid circular dependency by importing here:
-    from quark.user_profiles.models import StudentOrgUserProfile
+    from tbpweb.user_profiles.models import StudentOrgUserProfile
 
     student_org_profile, _ = StudentOrgUserProfile.objects.get_or_create(
         user=instance.user)

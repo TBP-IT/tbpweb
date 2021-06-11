@@ -5,13 +5,13 @@ from django.core.management import BaseCommand
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
-from quark.project_reports.models import ProjectReportFromEmail
-from quark.settings import HOSTNAME
-from quark.shortcuts import get_object_or_none
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.project_reports.models import ProjectReportFromEmail
+from tbpweb.settings import HOSTNAME
+from tbpweb.shortcuts import get_object_or_none
 
 
 class Command(BaseCommand):

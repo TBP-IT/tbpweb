@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from quark.achievements.models import Achievement
-from quark.achievements.models import AchievementIcon
-from quark.achievements.models import UserAchievement
+from tbpweb.achievements.models import Achievement
+from tbpweb.achievements.models import AchievementIcon
+from tbpweb.achievements.models import UserAchievement
 
 
 class AchievementAdmin(admin.ModelAdmin):

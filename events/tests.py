@@ -2,24 +2,24 @@ import datetime
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.events.forms import EventForm
-from quark.events.forms import EventCancelForm
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventSignUp
-from quark.events.models import EventType
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.models import StudentOrgUserProfile
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.candidates.models import Candidate
+from tbpweb.events.forms import EventForm
+from tbpweb.events.forms import EventCancelForm
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventSignUp
+from tbpweb.events.models import EventType
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(USE_TZ=True)

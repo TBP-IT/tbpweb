@@ -1,7 +1,7 @@
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from quark.past_presidents.models import PastPresident
+from tbpweb.past_presidents.models import PastPresident
 
 
 class PastPresidentsListView(ListView):

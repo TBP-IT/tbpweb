@@ -1,15 +1,15 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.companies.views import CompanyCreateView
-from quark.companies.views import CompanyDetailView
-from quark.companies.views import CompanyEditView
-from quark.companies.views import CompanyListView
-from quark.companies.views import CompanyRepCreateView
-from quark.companies.views import CompanyRepDeleteView
-from quark.companies.views import IndustryLandingView
-from quark.companies.views import ResumeListView
-from quark.companies.views import ResumeZipView
+from tbpweb.companies.views import CompanyCreateView
+from tbpweb.companies.views import CompanyDetailView
+from tbpweb.companies.views import CompanyEditView
+from tbpweb.companies.views import CompanyListView
+from tbpweb.companies.views import CompanyRepCreateView
+from tbpweb.companies.views import CompanyRepDeleteView
+from tbpweb.companies.views import IndustryLandingView
+from tbpweb.companies.views import ResumeListView
+from tbpweb.companies.views import ResumeZipView
 
 
 urlpatterns = patterns(

@@ -1,13 +1,13 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.syllabi.views import SyllabusDeleteView
-from quark.syllabi.views import SyllabusDownloadView
-from quark.syllabi.views import SyllabusEditView
-from quark.syllabi.views import SyllabusFlagCreateView
-from quark.syllabi.views import SyllabusFlagResolveView
-from quark.syllabi.views import SyllabusReviewListView
-from quark.syllabi.views import SyllabusUploadView
+from tbpweb.syllabi.views import SyllabusDeleteView
+from tbpweb.syllabi.views import SyllabusDownloadView
+from tbpweb.syllabi.views import SyllabusEditView
+from tbpweb.syllabi.views import SyllabusFlagCreateView
+from tbpweb.syllabi.views import SyllabusFlagResolveView
+from tbpweb.syllabi.views import SyllabusReviewListView
+from tbpweb.syllabi.views import SyllabusUploadView
 
 
 urlpatterns = patterns(

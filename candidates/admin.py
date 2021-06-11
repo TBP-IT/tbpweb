@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from quark.candidates.models import Candidate
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import ChallengeCandidateRequirement
-from quark.candidates.models import EventCandidateRequirement
-from quark.candidates.models import ExamFileCandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import ManualCandidateRequirement
-from quark.candidates.models import SyllabusCandidateRequirement
+from tbpweb.candidates.models import Candidate
+from tbpweb.candidates.models import Challenge
+from tbpweb.candidates.models import ChallengeType
+from tbpweb.candidates.models import ChallengeCandidateRequirement
+from tbpweb.candidates.models import EventCandidateRequirement
+from tbpweb.candidates.models import ExamFileCandidateRequirement
+from tbpweb.candidates.models import CandidateRequirementProgress
+from tbpweb.candidates.models import ManualCandidateRequirement
+from tbpweb.candidates.models import SyllabusCandidateRequirement
 
 
 class CandidateModelAdmin(admin.ModelAdmin):

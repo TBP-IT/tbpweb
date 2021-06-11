@@ -4,10 +4,10 @@ from django.conf import settings
 from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
-from quark.base.models import Major
-from quark.base.models import Term
-from quark.qldap.utils import set_email
-from quark.user_profiles.models import UserProfile
+from tbpweb.base.models import Major
+from tbpweb.base.models import Term
+from tbpweb.qldap.utils import set_email
+from tbpweb.user_profiles.models import UserProfile
 
 
 class UserProfileForm(forms.ModelForm):

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.mailing_lists.views import MailingListsListAllView
+from tbpweb.mailing_lists.views import MailingListsListAllView
 
 
 urlpatterns = patterns(

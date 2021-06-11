@@ -1,11 +1,11 @@
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 
-from quark.base.models import Term
-from quark.notifications.models import Notification
-from quark.shortcuts import get_object_or_none
+from tbpweb.base.models import Term
+from tbpweb.notifications.models import Notification
+from tbpweb.shortcuts import get_object_or_none
 
 
 class Achievement(models.Model):
@@ -152,7 +152,7 @@ class AchievementIcon(models.Model):
                    'The image should be 64x64 pixels.'))
 
     creator = models.ForeignKey(
-        settings.AUTH_USER_MODEL, help_text='The creator of the icon image.')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, help_text='The creator of the icon image.')
 
     def __unicode__(self):
         return 'Icon for {}'.format(self.achievement.name)
@@ -166,8 +166,8 @@ class UserAchievement(models.Model):
     should only be awarded once per person at most, but that will be enforced
     at the app level and not the database level.
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    achievement = models.ForeignKey(Achievement)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE)
 
     acquired = models.BooleanField(
         default=False, db_index=True,
@@ -182,12 +182,12 @@ class UserAchievement(models.Model):
                    'out of 25 required for the achievement.)'))
 
     assigner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='assigner', null=True,
+        settings.AUTH_USER_MODEL, related_name='assigner', null=True, on_delete=models.CASCADE,
         blank=True, help_text=('The person who assigned this achievement. '
                                'Null if the system assigned it.'))
 
     term = models.ForeignKey(
-        Term, null=True, blank=True,
+        Term, null=True, blank=True, on_delete=models.CASCADE,
         help_text='The term in which this achievement was earned, or null.')
 
     explanation = models.CharField(

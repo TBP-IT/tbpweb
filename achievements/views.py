@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.db.models import Sum
 from django.forms import HiddenInput
 from django.shortcuts import get_object_or_404
@@ -11,10 +11,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView
 from django.views.generic import ListView
 
-from quark.achievements.forms import UserAchievementForm
-from quark.achievements.models import Achievement
-from quark.achievements.models import UserAchievement
-from quark.shortcuts import create_leaderboard
+from tbpweb.achievements.forms import UserAchievementForm
+from tbpweb.achievements.models import Achievement
+from tbpweb.achievements.models import UserAchievement
+from tbpweb.shortcuts import create_leaderboard
 
 
 class AchievementDetailView(FormView):

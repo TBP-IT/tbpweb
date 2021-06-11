@@ -2,9 +2,9 @@ import string
 
 from django.db import models
 
-from quark.achievements.models import Achievement
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import get_object_or_none
+from tbpweb.achievements.models import Achievement
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.shortcuts import get_object_or_none
 
 
 def project_report_achievements(sender, instance, created, **kwargs):

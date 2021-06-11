@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from quark.exams.models import Exam
-from quark.exams.models import ExamFlag
-from quark.exams.models import InstructorPermission
+from tbpweb.exams.models import Exam
+from tbpweb.exams.models import ExamFlag
+from tbpweb.exams.models import InstructorPermission
 
 
 class ExamAdmin(admin.ModelAdmin):

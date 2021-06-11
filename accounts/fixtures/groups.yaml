@@ -90,7 +90,7 @@
 
 # Note that other non-term-specific and term-specific groups will be
 # auto-generated based on Officers added to the database (refer to
-# quark/base/models.py), where the groups correspond to the officer positions
+# tbpweb/base/models.py), where the groups correspond to the officer positions
 # for those Officers.
 - model: auth.group
   pk: 7

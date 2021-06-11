@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.minutes.views import MinutesListView
-from quark.minutes.views import MinutesCreateView
-from quark.minutes.views import MinutesDetailView
-from quark.minutes.views import MinutesEditView
-from quark.minutes.views import MinutesUploadView
+from tbpweb.minutes.views import MinutesListView
+from tbpweb.minutes.views import MinutesCreateView
+from tbpweb.minutes.views import MinutesDetailView
+from tbpweb.minutes.views import MinutesEditView
+from tbpweb.minutes.views import MinutesUploadView
 
 
 urlpatterns = patterns(

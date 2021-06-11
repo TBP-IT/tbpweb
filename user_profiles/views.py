@@ -1,19 +1,19 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 
-from quark.achievements.models import Achievement
-from quark.base.models import Officer, Term
-from quark.events.models import Event
-from quark.quote_board.models import Quote
-from quark.user_profiles.forms import UserProfileForm
-from quark.user_profiles.forms import UserProfilePictureForm
-from quark.user_profiles.models import UserProfile
+from tbpweb.achievements.models import Achievement
+from tbpweb.base.models import Officer, Term
+from tbpweb.events.models import Event
+from tbpweb.quote_board.models import Quote
+from tbpweb.user_profiles.forms import UserProfileForm
+from tbpweb.user_profiles.forms import UserProfilePictureForm
+from tbpweb.user_profiles.models import UserProfile
 
 
 class UserProfileDetailView(DetailView):

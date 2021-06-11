@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from quark.base.models import Term
-from quark.courses.models import Course
-from quark.courses.models import CourseInstance
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.exams.models import Exam
-from quark.syllabi.models import Syllabus
+from tbpweb.base.models import Term
+from tbpweb.courses.models import Course
+from tbpweb.courses.models import CourseInstance
+from tbpweb.courses.models import Department
+from tbpweb.courses.models import Instructor
+from tbpweb.exams.models import Exam
+from tbpweb.syllabi.models import Syllabus
 
 
 def make_test_department():

@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import Http404
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -17,13 +17,13 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from quark.syllabi.forms import EditForm
-from quark.syllabi.forms import FlagForm
-from quark.syllabi.forms import FlagResolveForm
-from quark.syllabi.forms import UploadForm
-from quark.syllabi.models import Syllabus
-from quark.syllabi.models import SyllabusFlag
-from quark.syllabi.models import InstructorSyllabusPermission
+from tbpweb.syllabi.forms import EditForm
+from tbpweb.syllabi.forms import FlagForm
+from tbpweb.syllabi.forms import FlagResolveForm
+from tbpweb.syllabi.forms import UploadForm
+from tbpweb.syllabi.models import Syllabus
+from tbpweb.syllabi.models import SyllabusFlag
+from tbpweb.syllabi.models import InstructorSyllabusPermission
 
 
 class SyllabusUploadView(CreateView):

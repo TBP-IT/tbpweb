@@ -6,14 +6,14 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.houses.models import House
-from quark.houses.models import HouseMember
-from quark.shortcuts import get_object_or_none
-from quark.utils.ajax import json_response
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.base.views import TermParameterMixin
+from tbpweb.houses.models import House
+from tbpweb.houses.models import HouseMember
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.utils.ajax import json_response
 
 
 class HouseMembersEditView(TermParameterMixin, ListView):

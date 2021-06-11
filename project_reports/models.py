@@ -3,14 +3,14 @@ from datetime import date
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils import timezone
 
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.notifications.models import Notification
-from quark.shortcuts import get_object_or_none
+from base.models import OfficerPosition
+from base.models import Term
+from notifications.models import Notification
+from shortcuts import get_object_or_none
 
 from picklefield.fields import PickledObjectField
 import tblib.pickling_support

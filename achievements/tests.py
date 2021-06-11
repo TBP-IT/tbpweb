@@ -8,20 +8,20 @@ from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
-from quark.achievements.models import Achievement
-from quark.achievements.models import AchievementIcon
-from quark.achievements.models import UserAchievement
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.courses.models import CourseInstance
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventType
-from quark.exams.models import Exam
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import get_object_or_none
-from quark.syllabi.models import Syllabus
+from tbpweb.achievements.models import Achievement
+from tbpweb.achievements.models import AchievementIcon
+from tbpweb.achievements.models import UserAchievement
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.courses.models import CourseInstance
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventType
+from tbpweb.exams.models import Exam
+from tbpweb.project_reports.models import ProjectReport
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.syllabi.models import Syllabus
 
 
 class AchievementAssignmentTest(TestCase):

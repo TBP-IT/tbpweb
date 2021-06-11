@@ -1,8 +1,8 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from quark.videos.models import Video
-from quark.videos.models import VideoType
+from tbpweb.videos.models import Video
+from tbpweb.videos.models import VideoType
 
 
 class VideoForm(forms.ModelForm):

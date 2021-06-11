@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.notifications.models import Notification
+from tbpweb.notifications.models import Notification
 
 
 class NotificationAdmin(admin.ModelAdmin):

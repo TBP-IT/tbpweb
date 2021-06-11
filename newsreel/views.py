@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import CreateView
@@ -8,9 +8,9 @@ from django.views.generic import DeleteView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from quark.newsreel.forms import NewsForm
-from quark.newsreel.models import News
-from quark.utils.ajax import json_response
+from tbpweb.newsreel.forms import NewsForm
+from tbpweb.newsreel.models import News
+from tbpweb.utils.ajax import json_response
 
 
 class NewsCreateView(CreateView):

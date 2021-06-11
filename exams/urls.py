@@ -1,13 +1,13 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.exams.views import ExamDeleteView
-from quark.exams.views import ExamDownloadView
-from quark.exams.views import ExamEditView
-from quark.exams.views import ExamFlagCreateView
-from quark.exams.views import ExamFlagResolveView
-from quark.exams.views import ExamReviewListView
-from quark.exams.views import ExamUploadView
+from tbpweb.exams.views import ExamDeleteView
+from tbpweb.exams.views import ExamDownloadView
+from tbpweb.exams.views import ExamEditView
+from tbpweb.exams.views import ExamFlagCreateView
+from tbpweb.exams.views import ExamFlagResolveView
+from tbpweb.exams.views import ExamReviewListView
+from tbpweb.exams.views import ExamUploadView
 
 
 urlpatterns = patterns(

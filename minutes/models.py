@@ -3,7 +3,7 @@ import datetime
 from django.conf import settings
 from django.db import models
 
-from quark.base.models import Term
+from tbpweb.base.models import Term
 
 
 class Minutes(models.Model):

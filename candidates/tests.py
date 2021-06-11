@@ -5,30 +5,30 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.core.files import File
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.candidates.models import CandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeCandidateRequirement
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import EventCandidateRequirement
-from quark.candidates.models import ExamFileCandidateRequirement
-from quark.candidates.models import ManualCandidateRequirement
-from quark.courses.models import CourseInstance
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventType
-from quark.exams.models import Exam
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.models import StudentOrgUserProfile
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.candidates.models import Candidate
+from tbpweb.candidates.models import CandidateRequirement
+from tbpweb.candidates.models import CandidateRequirementProgress
+from tbpweb.candidates.models import Challenge
+from tbpweb.candidates.models import ChallengeCandidateRequirement
+from tbpweb.candidates.models import ChallengeType
+from tbpweb.candidates.models import EventCandidateRequirement
+from tbpweb.candidates.models import ExamFileCandidateRequirement
+from tbpweb.candidates.models import ManualCandidateRequirement
+from tbpweb.courses.models import CourseInstance
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventType
+from tbpweb.exams.models import Exam
+from tbpweb.shortcuts import get_object_or_none
+from tbpweb.user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(

@@ -1,15 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from quark.base.views import TermParameterMixin
-from quark.minutes.forms import InputForm, UploadForm
-from quark.minutes.models import Minutes
+from tbpweb.base.views import TermParameterMixin
+from tbpweb.minutes.forms import InputForm, UploadForm
+from tbpweb.minutes.models import Minutes
 
 
 class MinutesListView(TermParameterMixin, ListView):

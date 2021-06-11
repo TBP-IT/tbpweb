@@ -1,10 +1,10 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.achievements.views import AchievementDetailView
-from quark.achievements.views import LeaderboardListView
-from quark.achievements.views import UserAchievementAssignView
-from quark.achievements.views import UserAchievementListView
+from tbpweb.achievements.views import AchievementDetailView
+from tbpweb.achievements.views import LeaderboardListView
+from tbpweb.achievements.views import UserAchievementAssignView
+from tbpweb.achievements.views import UserAchievementListView
 
 
 urlpatterns = patterns(

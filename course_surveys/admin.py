@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.course_surveys.models import Survey
+from tbpweb.course_surveys.models import Survey
 
 
 class SurveyAdmin(admin.ModelAdmin):

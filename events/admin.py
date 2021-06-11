@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventSignUp
-from quark.events.models import EventType
+from tbpweb.events.models import Event
+from tbpweb.events.models import EventAttendance
+from tbpweb.events.models import EventSignUp
+from tbpweb.events.models import EventType
 
 
 class EventAdmin(admin.ModelAdmin):

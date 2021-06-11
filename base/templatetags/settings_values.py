@@ -1,13 +1,12 @@
 from django import template
-from django.views.debug import get_safe_settings
+from django.views.debug import SafeExceptionReporterFilter
 
 
 register = template.Library()
-safe_settings = get_safe_settings()
+safe_settings = SafeExceptionReporterFilter().get_safe_settings()
 
 
 @register.simple_tag
-@register.assignment_tag(name='settings_assign')
 def settings(name):
     """Returns the current value of a Django settings attribute.
 

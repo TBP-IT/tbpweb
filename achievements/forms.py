@@ -1,10 +1,10 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from quark.achievements.models import Achievement
-from quark.achievements.models import UserAchievement
-from quark.base.forms import ChosenTermMixin
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
+from tbpweb.achievements.models import Achievement
+from tbpweb.achievements.models import UserAchievement
+from tbpweb.base.forms import ChosenTermMixin
+from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class UserAchievementForm(ChosenTermMixin, forms.Form):

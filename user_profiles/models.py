@@ -6,18 +6,14 @@ from django.db import models
 from localflavor.us.models import PhoneNumberField
 from localflavor.us.models import USStateField
 
-from quark.alumni.models import Alumnus
-from quark.base.models import IDCodeMixin
-from quark.base.models import Major
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.qldap import utils as ldap_utils
-from quark.shortcuts import disable_for_loaddata
-
-
-USE_LDAP = getattr(settings, 'USE_LDAP', False)
+from tbpweb.alumni.models import Alumnus
+from tbpweb.base.models import IDCodeMixin
+from tbpweb.base.models import Major
+from tbpweb.base.models import Officer
+from tbpweb.base.models import OfficerPosition
+from tbpweb.base.models import Term
+from tbpweb.candidates.models import Candidate
+from tbpweb.shortcuts import disable_for_loaddata
 
 
 class UserProfile(models.Model):

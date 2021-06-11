@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.minutes.models import Minutes
+from tbpweb.minutes.models import Minutes
 
 
 class MinutesAdmin(admin.ModelAdmin):

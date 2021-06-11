@@ -1,11 +1,11 @@
 # pylint: disable=W0402
 import string
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from quark.base.models import Term
+from tbpweb.base.models import Term
 
 
 class Department(models.Model):

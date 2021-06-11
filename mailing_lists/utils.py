@@ -2,7 +2,7 @@
 from Mailman import MailList
 from Mailman import Utils
 
-from quark.base.models import OfficerPosition
+from tbpweb.base.models import OfficerPosition
 
 
 def get_lists():

@@ -1,19 +1,19 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from quark.courses.views import CourseDetailView
-from quark.courses.views import CourseListView
-from quark.courses.views import CourseDepartmentListView
-from quark.courses.views import CourseCreateView
-from quark.courses.views import CourseEditView
-from quark.courses.views import CourseDeleteView
-from quark.courses.views import InstructorCreateView
-from quark.courses.views import InstructorDepartmentListView
-from quark.courses.views import InstructorDeleteView
-from quark.courses.views import InstructorDetailView
-from quark.courses.views import InstructorEditView
-from quark.courses.views import InstructorListView
-from quark.courses.views import listCourses
+from tbpweb.courses.views import CourseDetailView
+from tbpweb.courses.views import CourseListView
+from tbpweb.courses.views import CourseDepartmentListView
+from tbpweb.courses.views import CourseCreateView
+from tbpweb.courses.views import CourseEditView
+from tbpweb.courses.views import CourseDeleteView
+from tbpweb.courses.views import InstructorCreateView
+from tbpweb.courses.views import InstructorDepartmentListView
+from tbpweb.courses.views import InstructorDeleteView
+from tbpweb.courses.views import InstructorDetailView
+from tbpweb.courses.views import InstructorEditView
+from tbpweb.courses.views import InstructorListView
+from tbpweb.courses.views import listCourses
 
 
 urlpatterns = patterns(

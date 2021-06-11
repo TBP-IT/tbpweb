@@ -1,11 +1,6 @@
 from django.contrib import admin
 
-from quark.base.models import Major
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.base.models import University
-
+from .models import Major, Officer, OfficerPosition, Term, University
 
 class MajorAdmin(admin.ModelAdmin):
     list_display = ('short_name', 'long_name', 'university')

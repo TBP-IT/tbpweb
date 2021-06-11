@@ -3,16 +3,16 @@ from django import forms
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 
-from quark.base.forms import ChosenTermMixin
-from quark.courses.models import Course
-from quark.courses.models import CourseInstance
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.syllabi.models import Syllabus
-from quark.syllabi.models import SyllabusFlag
-from quark.syllabi.models import InstructorSyllabusPermission
-from quark.shortcuts import get_file_mimetype
-from quark.shortcuts import get_object_or_none
+from tbpweb.base.forms import ChosenTermMixin
+from tbpweb.courses.models import Course
+from tbpweb.courses.models import CourseInstance
+from tbpweb.courses.models import Department
+from tbpweb.courses.models import Instructor
+from tbpweb.syllabi.models import Syllabus
+from tbpweb.syllabi.models import SyllabusFlag
+from tbpweb.syllabi.models import InstructorSyllabusPermission
+from tbpweb.shortcuts import get_file_mimetype
+from tbpweb.shortcuts import get_object_or_none
 
 
 class SyllabusForm(ChosenTermMixin, forms.ModelForm):

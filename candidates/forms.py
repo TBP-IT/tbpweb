@@ -5,20 +5,20 @@ from django.db import transaction
 from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
-from quark.accounts.forms import UserCreationForm
-from quark.base.models import Major
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.candidates.models import CandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import ManualCandidateRequirement
-from quark.events.models import EventType
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.forms import UserProfileForm
-from quark.user_profiles.models import CollegeStudentInfo
-from quark.user_profiles.models import UserProfile
+from tbpweb.accounts.forms import UserCreationForm
+from tbpweb.base.models import Major
+from tbpweb.base.models import Term
+from tbpweb.candidates.models import Candidate
+from tbpweb.candidates.models import CandidateRequirement
+from tbpweb.candidates.models import CandidateRequirementProgress
+from tbpweb.candidates.models import Challenge
+from tbpweb.candidates.models import ChallengeType
+from tbpweb.candidates.models import ManualCandidateRequirement
+from tbpweb.events.models import EventType
+from tbpweb.user_profiles.fields import UserCommonNameChoiceField
+from tbpweb.user_profiles.forms import UserProfileForm
+from tbpweb.user_profiles.models import CollegeStudentInfo
+from tbpweb.user_profiles.models import UserProfile
 
 
 class CandidateCreationForm(UserCreationForm):
@@ -42,7 +42,7 @@ class CandidateCreationForm(UserCreationForm):
 # TODO(ehy): find a way not to duplicate code with UserProfileForm
 class CandidateUserProfileForm(forms.ModelForm):
     """Form for creating a candidate's user profile. Similar to
-    quark.user_profiles.forms.UserProfileForm, but leaves out the fields that
+    tbpweb.user_profiles.forms.UserProfileForm, but leaves out the fields that
     clash with UserCreationForm, as well as the bio field (not very important
     for candidates)."""
 
