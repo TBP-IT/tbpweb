@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from tbpweb.companies.models import Company
-from tbpweb.companies.models import CompanyRep
+from companies.models import Company
+from companies.models import CompanyRep
 
 
 class CompanyAdmin(admin.ModelAdmin):

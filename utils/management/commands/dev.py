@@ -4,7 +4,7 @@ import os
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
-from tbpweb.utils.dev import DevServer
+from utils.dev import DevServer
 import tbpweb.utils as dev_utils
 
 

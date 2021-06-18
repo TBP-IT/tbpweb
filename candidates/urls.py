@@ -1,20 +1,20 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.candidates.views import CandidateCreateView
-from tbpweb.candidates.views import CandidateEditView
-from tbpweb.candidates.views import CandidateExportView
-from tbpweb.candidates.views import CandidateInitiationView
-from tbpweb.candidates.views import CandidateListView
-from tbpweb.candidates.views import CandidatePhotoView
-from tbpweb.candidates.views import CandidatePortalView
-from tbpweb.candidates.views import CandidateProgressView
-from tbpweb.candidates.views import CandidateProgressByReqView
-from tbpweb.candidates.views import CandidateProgressStatsView
-from tbpweb.candidates.views import CandidateRequirementsEditView
-from tbpweb.candidates.views import ChallengeVerifyView
-from tbpweb.candidates.views import ManualCandidateRequirementCreateView
-from tbpweb.candidates.views import update_candidate_initiation_status
+from candidates.views import CandidateCreateView
+from candidates.views import CandidateEditView
+from candidates.views import CandidateExportView
+from candidates.views import CandidateInitiationView
+from candidates.views import CandidateListView
+from candidates.views import CandidatePhotoView
+from candidates.views import CandidatePortalView
+from candidates.views import CandidateProgressView
+from candidates.views import CandidateProgressByReqView
+from candidates.views import CandidateProgressStatsView
+from candidates.views import CandidateRequirementsEditView
+from candidates.views import ChallengeVerifyView
+from candidates.views import ManualCandidateRequirementCreateView
+from candidates.views import update_candidate_initiation_status
 
 
 urlpatterns = patterns(

@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.utils import timesince
 from django.utils import timezone
 
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.notifications.models import Notification
+from project_reports.models import ProjectReport
+from notifications.models import Notification
 
 
 def notifications(request):

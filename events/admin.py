@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventSignUp
-from tbpweb.events.models import EventType
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventSignUp
+from events.models import EventType
 
 
 class EventAdmin(admin.ModelAdmin):

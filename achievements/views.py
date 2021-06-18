@@ -11,10 +11,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic import FormView
 from django.views.generic import ListView
 
-from tbpweb.achievements.forms import UserAchievementForm
-from tbpweb.achievements.models import Achievement
-from tbpweb.achievements.models import UserAchievement
-from tbpweb.shortcuts import create_leaderboard
+from achievements.forms import UserAchievementForm
+from achievements.models import Achievement
+from achievements.models import UserAchievement
+from shortcuts import create_leaderboard
 
 
 class AchievementDetailView(FormView):

@@ -7,15 +7,15 @@ from django.core.files import File
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from tbpweb.base.models import Term
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import CourseInstance
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.exams.forms import ExamForm
-from tbpweb.exams.models import Exam
-from tbpweb.exams.models import ExamFlag
-from tbpweb.exams.models import InstructorPermission
+from base.models import Term
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
+from exams.forms import ExamForm
+from exams.models import Exam
+from exams.models import ExamFlag
+from exams.models import InstructorPermission
 
 
 def make_test_exam(number):

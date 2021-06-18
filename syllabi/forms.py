@@ -3,16 +3,16 @@ from django import forms
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import CourseInstance
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.syllabi.models import Syllabus
-from tbpweb.syllabi.models import SyllabusFlag
-from tbpweb.syllabi.models import InstructorSyllabusPermission
-from tbpweb.shortcuts import get_file_mimetype
-from tbpweb.shortcuts import get_object_or_none
+from base.forms import ChosenTermMixin
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
+from syllabi.models import Syllabus
+from syllabi.models import SyllabusFlag
+from syllabi.models import InstructorSyllabusPermission
+from shortcuts import get_file_mimetype
+from shortcuts import get_object_or_none
 
 
 class SyllabusForm(ChosenTermMixin, forms.ModelForm):

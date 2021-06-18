@@ -1,9 +1,9 @@
 from django.db import models
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.achievements.models import AchievementIcon
-from tbpweb.achievements.models import UserAchievement
-from tbpweb.shortcuts import get_object_or_none
+from achievements.models import Achievement
+from achievements.models import AchievementIcon
+from achievements.models import UserAchievement
+from shortcuts import get_object_or_none
 
 
 # achievement-related achievements

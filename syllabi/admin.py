@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tbpweb.syllabi.models import Syllabus
-from tbpweb.syllabi.models import SyllabusFlag
-from tbpweb.syllabi.models import InstructorSyllabusPermission
+from syllabi.models import Syllabus
+from syllabi.models import SyllabusFlag
+from syllabi.models import InstructorSyllabusPermission
 
 
 class SyllabusAdmin(admin.ModelAdmin):

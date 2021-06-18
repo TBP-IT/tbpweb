@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import CourseInstance
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
 
 
 class CourseAdmin(admin.ModelAdmin):

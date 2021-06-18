@@ -6,14 +6,14 @@ from django.db import models
 from localflavor.us.models import PhoneNumberField
 from localflavor.us.models import USStateField
 
-from tbpweb.alumni.models import Alumnus
-from tbpweb.base.models import IDCodeMixin
-from tbpweb.base.models import Major
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.candidates.models import Candidate
-from tbpweb.shortcuts import disable_for_loaddata
+from alumni.models import Alumnus
+from base.models import IDCodeMixin
+from base.models import Major
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from shortcuts import disable_for_loaddata
 
 
 class UserProfile(models.Model):

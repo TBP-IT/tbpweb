@@ -8,9 +8,9 @@ from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from tbpweb.quote_board.forms import QuoteForm
-from tbpweb.quote_board.models import Quote
-from tbpweb.shortcuts import create_leaderboard
+from quote_board.forms import QuoteForm
+from quote_board.models import Quote
+from shortcuts import create_leaderboard
 
 
 class QuoteCreateView(CreateView):

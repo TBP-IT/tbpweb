@@ -1,9 +1,9 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.videos.views import VideoCreateView
-from tbpweb.videos.views import VideoListView
-from tbpweb.videos.views import VideoTypeCreateView
+from videos.views import VideoCreateView
+from videos.views import VideoListView
+from videos.views import VideoTypeCreateView
 
 
 urlpatterns = patterns(

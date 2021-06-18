@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.resumes.views import ResumeListView
-from tbpweb.resumes.views import ResumeCritiqueView
-from tbpweb.resumes.views import ResumeDownloadView
-from tbpweb.resumes.views import ResumeEditView
-from tbpweb.resumes.views import ResumeVerifyView
+from resumes.views import ResumeListView
+from resumes.views import ResumeCritiqueView
+from resumes.views import ResumeDownloadView
+from resumes.views import ResumeEditView
+from resumes.views import ResumeVerifyView
 
 
 urlpatterns = patterns(

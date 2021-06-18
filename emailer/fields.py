@@ -4,7 +4,7 @@ from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 from recaptcha.client import captcha
 
-from tbpweb.emailer.widgets import ReCaptcha
+from emailer.widgets import ReCaptcha
 
 
 class ReCaptchaField(forms.CharField):

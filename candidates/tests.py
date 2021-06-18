@@ -10,25 +10,25 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.candidates.models import Candidate
-from tbpweb.candidates.models import CandidateRequirement
-from tbpweb.candidates.models import CandidateRequirementProgress
-from tbpweb.candidates.models import Challenge
-from tbpweb.candidates.models import ChallengeCandidateRequirement
-from tbpweb.candidates.models import ChallengeType
-from tbpweb.candidates.models import EventCandidateRequirement
-from tbpweb.candidates.models import ExamFileCandidateRequirement
-from tbpweb.candidates.models import ManualCandidateRequirement
-from tbpweb.courses.models import CourseInstance
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventType
-from tbpweb.exams.models import Exam
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.user_profiles.models import StudentOrgUserProfile
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from candidates.models import CandidateRequirement
+from candidates.models import CandidateRequirementProgress
+from candidates.models import Challenge
+from candidates.models import ChallengeCandidateRequirement
+from candidates.models import ChallengeType
+from candidates.models import EventCandidateRequirement
+from candidates.models import ExamFileCandidateRequirement
+from candidates.models import ManualCandidateRequirement
+from courses.models import CourseInstance
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventType
+from exams.models import Exam
+from shortcuts import get_object_or_none
+from user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(

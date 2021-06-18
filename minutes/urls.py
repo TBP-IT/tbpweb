@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.minutes.views import MinutesListView
-from tbpweb.minutes.views import MinutesCreateView
-from tbpweb.minutes.views import MinutesDetailView
-from tbpweb.minutes.views import MinutesEditView
-from tbpweb.minutes.views import MinutesUploadView
+from minutes.views import MinutesListView
+from minutes.views import MinutesCreateView
+from minutes.views import MinutesDetailView
+from minutes.views import MinutesEditView
+from minutes.views import MinutesUploadView
 
 
 urlpatterns = patterns(

@@ -7,13 +7,13 @@ from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic import UpdateView
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.base.models import Officer, Term
-from tbpweb.events.models import Event
-from tbpweb.quote_board.models import Quote
-from tbpweb.user_profiles.forms import UserProfileForm
-from tbpweb.user_profiles.forms import UserProfilePictureForm
-from tbpweb.user_profiles.models import UserProfile
+from achievements.models import Achievement
+from base.models import Officer, Term
+from events.models import Event
+from quote_board.models import Quote
+from user_profiles.forms import UserProfileForm
+from user_profiles.forms import UserProfilePictureForm
+from user_profiles.models import UserProfile
 
 
 class UserProfileDetailView(DetailView):

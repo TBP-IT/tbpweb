@@ -6,9 +6,9 @@ from django.test.utils import override_settings
 from mock import patch
 import mox
 
-from tbpweb.utils import create_dev_db
-from tbpweb.utils.dev import DevServer
-from tbpweb.utils.management.commands import dev as dev_cmd
+from utils import create_dev_db
+from utils.dev import DevServer
+from utils.management.commands import dev as dev_cmd
 import tbpweb.utils as dev_utils
 
 

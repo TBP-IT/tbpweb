@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from tbpweb.base.fields import VisualSplitDateTimeField
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.user_profiles.fields import UserCommonNameChoiceField
-from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
-from tbpweb.vote.models import Poll
-from tbpweb.vote.models import Vote
-from tbpweb.vote.models import VoteReceipt
+from base.fields import VisualSplitDateTimeField
+from base.forms import ChosenTermMixin
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
+from vote.models import Poll
+from vote.models import Vote
+from vote.models import VoteReceipt
 
 
 class PollForm(ChosenTermMixin, forms.ModelForm):

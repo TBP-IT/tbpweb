@@ -1,14 +1,14 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.project_reports.views import ProjectReportCreateView
-from tbpweb.project_reports.views import ProjectReportDeleteView
-from tbpweb.project_reports.views import ProjectReportDetailView
-from tbpweb.project_reports.views import ProjectReportEditView
-from tbpweb.project_reports.views import ProjectReportListAllView
-from tbpweb.project_reports.views import ProjectReportListView
-from tbpweb.project_reports.views import ProjectReportBookExportView
-from tbpweb.project_reports.views import ProjectReportBookDownloadView
+from project_reports.views import ProjectReportCreateView
+from project_reports.views import ProjectReportDeleteView
+from project_reports.views import ProjectReportDetailView
+from project_reports.views import ProjectReportEditView
+from project_reports.views import ProjectReportListAllView
+from project_reports.views import ProjectReportListView
+from project_reports.views import ProjectReportBookExportView
+from project_reports.views import ProjectReportBookDownloadView
 
 
 urlpatterns = patterns(

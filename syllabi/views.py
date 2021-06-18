@@ -17,13 +17,13 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from tbpweb.syllabi.forms import EditForm
-from tbpweb.syllabi.forms import FlagForm
-from tbpweb.syllabi.forms import FlagResolveForm
-from tbpweb.syllabi.forms import UploadForm
-from tbpweb.syllabi.models import Syllabus
-from tbpweb.syllabi.models import SyllabusFlag
-from tbpweb.syllabi.models import InstructorSyllabusPermission
+from syllabi.forms import EditForm
+from syllabi.forms import FlagForm
+from syllabi.forms import FlagResolveForm
+from syllabi.forms import UploadForm
+from syllabi.models import Syllabus
+from syllabi.models import SyllabusFlag
+from syllabi.models import InstructorSyllabusPermission
 
 
 class SyllabusUploadView(CreateView):

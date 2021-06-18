@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from tbpweb.base.models import Term
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.course_surveys.forms import courses_as_optgroups
-from tbpweb.course_surveys.forms import SurveyForm
+from base.models import Term
+from courses.models import Course
+from courses.models import Department
+from courses.models import Instructor
+from course_surveys.forms import courses_as_optgroups
+from course_surveys.forms import SurveyForm
 
 
 class SurveyFormTest(TestCase):

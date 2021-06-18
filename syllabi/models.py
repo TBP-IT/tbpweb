@@ -6,11 +6,11 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.db.models.signals import post_save
 
-from tbpweb.course_files.models import generate_courseitem_filepath
-from tbpweb.course_files.models import GenericCourseFile
-from tbpweb.course_files.models import GenericFlag
-from tbpweb.course_files.models import GenericInstructorPermission
-from tbpweb.shortcuts import disable_for_loaddata
+from course_files.models import generate_courseitem_filepath
+from course_files.models import GenericCourseFile
+from course_files.models import GenericFlag
+from course_files.models import GenericInstructorPermission
+from shortcuts import disable_for_loaddata
 
 
 class SyllabusManager(models.Manager):

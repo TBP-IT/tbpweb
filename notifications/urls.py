@@ -1,7 +1,7 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.notifications.views import clear_notification
+from notifications.views import clear_notification
 
 
 urlpatterns = patterns(

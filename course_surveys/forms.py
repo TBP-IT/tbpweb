@@ -1,11 +1,11 @@
 from chosen import widgets as ChosenWidgets
 from django import forms
 
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.course_surveys.models import Survey
+from base.forms import ChosenTermMixin
+from courses.models import Course
+from courses.models import Department
+from courses.models import Instructor
+from course_surveys.models import Survey
 
 
 def courses_as_optgroups():

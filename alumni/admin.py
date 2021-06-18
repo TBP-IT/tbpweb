@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tbpweb.alumni.models import Alumnus
-from tbpweb.alumni.models import DiscussionTopic
-from tbpweb.alumni.models import TimeInvestment
+from alumni.models import Alumnus
+from alumni.models import DiscussionTopic
+from alumni.models import TimeInvestment
 
 
 class AlumnusAdmin(admin.ModelAdmin):

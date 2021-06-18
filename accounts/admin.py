@@ -3,11 +3,11 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from tbpweb.accounts.forms import AdminPasswordChangeForm
-from tbpweb.accounts.forms import UserChangeForm
-from tbpweb.accounts.forms import UserCreationForm
-from tbpweb.accounts.models import APIKey
-from tbpweb.user_profiles.models import UserProfile
+from accounts.forms import AdminPasswordChangeForm
+from accounts.forms import UserChangeForm
+from accounts.forms import UserCreationForm
+from accounts.models import APIKey
+from user_profiles.models import UserProfile
 
 
 class APIKeyAdmin(admin.ModelAdmin):

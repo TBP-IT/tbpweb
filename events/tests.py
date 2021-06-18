@@ -7,19 +7,19 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.candidates.models import Candidate
-from tbpweb.events.forms import EventForm
-from tbpweb.events.forms import EventCancelForm
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventSignUp
-from tbpweb.events.models import EventType
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.user_profiles.models import StudentOrgUserProfile
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from events.forms import EventForm
+from events.forms import EventCancelForm
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventSignUp
+from events.models import EventType
+from project_reports.models import ProjectReport
+from shortcuts import get_object_or_none
+from user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(USE_TZ=True)

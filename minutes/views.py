@@ -7,9 +7,9 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from tbpweb.base.views import TermParameterMixin
-from tbpweb.minutes.forms import InputForm, UploadForm
-from tbpweb.minutes.models import Minutes
+from base.views import TermParameterMixin
+from minutes.forms import InputForm, UploadForm
+from minutes.models import Minutes
 
 
 class MinutesListView(TermParameterMixin, ListView):

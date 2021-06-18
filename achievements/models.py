@@ -3,9 +3,9 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.db import models
 
-from tbpweb.base.models import Term
-from tbpweb.notifications.models import Notification
-from tbpweb.shortcuts import get_object_or_none
+from base.models import Term
+from notifications.models import Notification
+from shortcuts import get_object_or_none
 
 
 class Achievement(models.Model):

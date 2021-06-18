@@ -3,7 +3,7 @@ from django.conf import settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from tbpweb.accounts.models import APIKey
+from accounts.models import APIKey
 
 
 register = template.Library()

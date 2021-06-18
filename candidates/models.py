@@ -6,14 +6,14 @@ from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Sum
 
-from tbpweb.base.models import Term
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventSignUp
-from tbpweb.events.models import EventType
-from tbpweb.exams.models import Exam
-from tbpweb.syllabi.models import Syllabus
-from tbpweb.resumes.models import Resume
+from base.models import Term
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventSignUp
+from events.models import EventType
+from exams.models import Exam
+from syllabi.models import Syllabus
+from resumes.models import Resume
 
 
 class Candidate(models.Model):
@@ -291,7 +291,7 @@ def candidate_post_save(sender, instance, created, **kwargs):
           initiate)
     """
     # Avoid circular dependency by importing here:
-    from tbpweb.user_profiles.models import StudentOrgUserProfile
+    from user_profiles.models import StudentOrgUserProfile
 
     student_org_profile, _ = StudentOrgUserProfile.objects.get_or_create(
         user=instance.user)

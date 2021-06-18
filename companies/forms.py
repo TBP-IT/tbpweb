@@ -4,9 +4,9 @@ from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.forms.extras import SelectDateWidget
 
-from tbpweb.accounts.forms import UserCreationForm
-from tbpweb.companies.models import Company
-from tbpweb.companies.models import CompanyRep
+from accounts.forms import UserCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
 
 
 class CompanyForm(forms.ModelForm):

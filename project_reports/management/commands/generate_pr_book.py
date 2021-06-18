@@ -2,11 +2,11 @@ from django.core.files import File
 from django.core.management import BaseCommand
 from django.template.loader import render_to_string
 
-from tbpweb.base.models import Officer
-from tbpweb.candidates.models import Candidate
-from tbpweb.project_reports.exceptions import DelayedException
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.project_reports.models import ProjectReportBook
+from base.models import Officer
+from candidates.models import Candidate
+from project_reports.exceptions import DelayedException
+from project_reports.models import ProjectReport
+from project_reports.models import ProjectReportBook
 
 import codecs
 import collections

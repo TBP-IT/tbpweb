@@ -3,16 +3,16 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.candidates.models import Candidate
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.user_profiles.fields import UserCommonNameChoiceField
-from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
-from tbpweb.user_profiles.models import CollegeStudentInfo
-from tbpweb.user_profiles.models import StudentOrgUserProfile
-from tbpweb.user_profiles.models import UserProfile
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from shortcuts import get_object_or_none
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
+from user_profiles.models import CollegeStudentInfo
+from user_profiles.models import StudentOrgUserProfile
+from user_profiles.models import UserProfile
 
 
 # TODO(sjdemartini): Add tests for LDAP-specific testing in methods that use

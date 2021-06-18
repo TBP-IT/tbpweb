@@ -31,21 +31,21 @@ from django.views.generic import FormView
 from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
-from tbpweb.accounts.models import APIKey
-from tbpweb.base.models import Term
-from tbpweb.base.views import TermParameterMixin
-from tbpweb.candidates.models import Candidate
-from tbpweb.events.forms import EventForm
-from tbpweb.events.forms import EventSignUpAnonymousForm
-from tbpweb.events.forms import EventSignUpForm
-from tbpweb.events.forms import EventCancelForm
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventSignUp
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.shortcuts import create_leaderboard
-from tbpweb.utils.ajax import AjaxFormResponseMixin
-from tbpweb.utils.ajax import json_response
+from accounts.models import APIKey
+from base.models import Term
+from base.views import TermParameterMixin
+from candidates.models import Candidate
+from events.forms import EventForm
+from events.forms import EventSignUpAnonymousForm
+from events.forms import EventSignUpForm
+from events.forms import EventCancelForm
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventSignUp
+from project_reports.models import ProjectReport
+from shortcuts import create_leaderboard
+from utils.ajax import AjaxFormResponseMixin
+from utils.ajax import json_response
 
 
 user_model = get_user_model()

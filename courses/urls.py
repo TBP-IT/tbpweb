@@ -1,19 +1,19 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.courses.views import CourseDetailView
-from tbpweb.courses.views import CourseListView
-from tbpweb.courses.views import CourseDepartmentListView
-from tbpweb.courses.views import CourseCreateView
-from tbpweb.courses.views import CourseEditView
-from tbpweb.courses.views import CourseDeleteView
-from tbpweb.courses.views import InstructorCreateView
-from tbpweb.courses.views import InstructorDepartmentListView
-from tbpweb.courses.views import InstructorDeleteView
-from tbpweb.courses.views import InstructorDetailView
-from tbpweb.courses.views import InstructorEditView
-from tbpweb.courses.views import InstructorListView
-from tbpweb.courses.views import listCourses
+from courses.views import CourseDetailView
+from courses.views import CourseListView
+from courses.views import CourseDepartmentListView
+from courses.views import CourseCreateView
+from courses.views import CourseEditView
+from courses.views import CourseDeleteView
+from courses.views import InstructorCreateView
+from courses.views import InstructorDepartmentListView
+from courses.views import InstructorDeleteView
+from courses.views import InstructorDetailView
+from courses.views import InstructorEditView
+from courses.views import InstructorListView
+from courses.views import listCourses
 
 
 urlpatterns = patterns(

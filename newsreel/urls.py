@@ -1,11 +1,11 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.newsreel.views import news_reorder
-from tbpweb.newsreel.views import NewsCreateView
-from tbpweb.newsreel.views import NewsDeleteView
-from tbpweb.newsreel.views import NewsEditView
-from tbpweb.newsreel.views import NewsListView
+from newsreel.views import news_reorder
+from newsreel.views import NewsCreateView
+from newsreel.views import NewsDeleteView
+from newsreel.views import NewsEditView
+from newsreel.views import NewsListView
 
 
 urlpatterns = patterns(

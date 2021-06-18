@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tbpweb.vote.models import Poll
-from tbpweb.vote.models import Vote
-from tbpweb.vote.models import VoteReceipt
+from vote.models import Poll
+from vote.models import Vote
+from vote.models import VoteReceipt
 
 
 class PollAdmin(admin.ModelAdmin):

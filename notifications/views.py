@@ -1,7 +1,7 @@
 from django.views.decorators.http import require_POST
 
-from tbpweb.notifications.models import Notification
-from tbpweb.utils.ajax import json_response
+from notifications.models import Notification
+from utils.ajax import json_response
 
 
 @require_POST

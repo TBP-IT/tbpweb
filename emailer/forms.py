@@ -4,7 +4,7 @@ from django import forms
 from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
 
-from tbpweb.emailer.fields import ReCaptchaField
+from emailer.fields import ReCaptchaField
 
 
 class ContactForm(forms.Form):

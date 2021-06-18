@@ -5,20 +5,20 @@ from django.db import transaction
 from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
-from tbpweb.accounts.forms import UserCreationForm
-from tbpweb.base.models import Major
-from tbpweb.base.models import Term
-from tbpweb.candidates.models import Candidate
-from tbpweb.candidates.models import CandidateRequirement
-from tbpweb.candidates.models import CandidateRequirementProgress
-from tbpweb.candidates.models import Challenge
-from tbpweb.candidates.models import ChallengeType
-from tbpweb.candidates.models import ManualCandidateRequirement
-from tbpweb.events.models import EventType
-from tbpweb.user_profiles.fields import UserCommonNameChoiceField
-from tbpweb.user_profiles.forms import UserProfileForm
-from tbpweb.user_profiles.models import CollegeStudentInfo
-from tbpweb.user_profiles.models import UserProfile
+from accounts.forms import UserCreationForm
+from base.models import Major
+from base.models import Term
+from candidates.models import Candidate
+from candidates.models import CandidateRequirement
+from candidates.models import CandidateRequirementProgress
+from candidates.models import Challenge
+from candidates.models import ChallengeType
+from candidates.models import ManualCandidateRequirement
+from events.models import EventType
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.forms import UserProfileForm
+from user_profiles.models import CollegeStudentInfo
+from user_profiles.models import UserProfile
 
 
 class CandidateCreationForm(UserCreationForm):

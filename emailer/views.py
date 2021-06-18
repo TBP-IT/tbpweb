@@ -12,12 +12,12 @@ from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import Term
-from tbpweb.emailer.forms import ContactCaptcha
-from tbpweb.emailer.forms import ContactForm
-from tbpweb.emailer.forms import EventContactForm
-from tbpweb.events.models import Event
+from base.models import Officer
+from base.models import Term
+from emailer.forms import ContactCaptcha
+from emailer.forms import ContactForm
+from emailer.forms import EventContactForm
+from events.models import Event
 
 
 class EmailerView(FormView):

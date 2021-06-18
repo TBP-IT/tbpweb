@@ -1,9 +1,9 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.user_profiles.views import UserProfileDetailView
-from tbpweb.user_profiles.views import UserProfileEditView
-from tbpweb.user_profiles.views import UserProfilePictureEditView
+from user_profiles.views import UserProfileDetailView
+from user_profiles.views import UserProfileEditView
+from user_profiles.views import UserProfilePictureEditView
 
 
 urlpatterns = patterns(

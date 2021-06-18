@@ -8,10 +8,10 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic import ListView
 
-from tbpweb.videos.forms import VideoForm
-from tbpweb.videos.forms import VideoTypeForm
-from tbpweb.videos.models import Video
-from tbpweb.videos.models import VideoType
+from videos.forms import VideoForm
+from videos.forms import VideoTypeForm
+from videos.models import Video
+from videos.models import VideoType
 
 
 class VideoCreateView(CreateView):

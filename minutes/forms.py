@@ -1,9 +1,9 @@
 from django import forms
 
-from tbpweb.base.fields import VisualDateWidget
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.minutes.models import Minutes
-from tbpweb.shortcuts import get_file_mimetype
+from base.fields import VisualDateWidget
+from base.forms import ChosenTermMixin
+from minutes.models import Minutes
+from shortcuts import get_file_mimetype
 
 
 class MinutesForm(ChosenTermMixin, forms.ModelForm):

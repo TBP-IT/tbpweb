@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from tbpweb.base.models import Term
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import CourseInstance
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.exams.models import Exam
-from tbpweb.syllabi.models import Syllabus
+from base.models import Term
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
+from exams.models import Exam
+from syllabi.models import Syllabus
 
 
 def make_test_department():

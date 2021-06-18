@@ -18,16 +18,16 @@ from django.utils.encoding import smart_bytes
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.resumes.forms import ResumeForm
-from tbpweb.resumes.forms import ResumeListFormSet
-from tbpweb.resumes.forms import ResumeCritiqueFormSet
-from tbpweb.resumes.forms import ResumeVerifyFormSet
-from tbpweb.resumes.models import Resume
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.user_profiles.models import CollegeStudentInfo
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from resumes.forms import ResumeForm
+from resumes.forms import ResumeListFormSet
+from resumes.forms import ResumeCritiqueFormSet
+from resumes.forms import ResumeVerifyFormSet
+from resumes.models import Resume
+from shortcuts import get_object_or_none
+from user_profiles.models import CollegeStudentInfo
 
 
 class ResumeViewMixin(object):

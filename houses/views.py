@@ -6,14 +6,14 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.base.views import TermParameterMixin
-from tbpweb.houses.models import House
-from tbpweb.houses.models import HouseMember
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.utils.ajax import json_response
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from base.views import TermParameterMixin
+from houses.models import House
+from houses.models import HouseMember
+from shortcuts import get_object_or_none
+from utils.ajax import json_response
 
 
 class HouseMembersEditView(TermParameterMixin, ListView):

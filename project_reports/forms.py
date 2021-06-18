@@ -1,12 +1,12 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from tbpweb.base.fields import VisualDateWidget
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.base.models import Term
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.user_profiles.fields import UserCommonNameChoiceField
-from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
+from base.fields import VisualDateWidget
+from base.forms import ChosenTermMixin
+from base.models import Term
+from project_reports.models import ProjectReport
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class ProjectReportForm(ChosenTermMixin, forms.ModelForm):

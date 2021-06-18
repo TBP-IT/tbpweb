@@ -12,15 +12,15 @@ from django.template import Template
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from tbpweb.base import fields
-from tbpweb.base.models import Major
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.base.models import University
-from tbpweb.settings.dev import DATABASES as DEV_DB
-from tbpweb.settings.production import DATABASES as PROD_DB
-from tbpweb.settings.staging import DATABASES as STAGING_DB
+from base import fields
+from base.models import Major
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from base.models import University
+from settings.dev import DATABASES as DEV_DB
+from settings.production import DATABASES as PROD_DB
+from settings.staging import DATABASES as STAGING_DB
 
 
 class MajorTest(TestCase):

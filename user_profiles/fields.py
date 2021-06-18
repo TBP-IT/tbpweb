@@ -1,7 +1,7 @@
 from chosen import forms
 from django.contrib.auth import get_user_model
 
-from tbpweb.user_profiles.models import UserProfile
+from user_profiles.models import UserProfile
 
 
 user_model = get_user_model()

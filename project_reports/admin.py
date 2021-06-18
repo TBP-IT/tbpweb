@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.project_reports.models import ProjectReportFromEmail
+from project_reports.models import ProjectReport
+from project_reports.models import ProjectReportFromEmail
 
 
 class ProjectReportFromEmailAdmin(admin.ModelAdmin):

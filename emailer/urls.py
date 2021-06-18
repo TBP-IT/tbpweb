@@ -1,9 +1,9 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.emailer.views import CompanyEmailerView
-from tbpweb.emailer.views import EventEmailerView
-from tbpweb.emailer.views import HelpdeskEmailerView
+from emailer.views import CompanyEmailerView
+from emailer.views import EventEmailerView
+from emailer.views import HelpdeskEmailerView
 
 
 urlpatterns = patterns(

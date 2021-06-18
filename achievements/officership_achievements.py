@@ -2,9 +2,9 @@ import collections
 
 from django.db import models
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.base.models import Officer
-from tbpweb.shortcuts import get_object_or_none
+from achievements.models import Achievement
+from base.models import Officer
+from shortcuts import get_object_or_none
 
 
 # officership-related achievements

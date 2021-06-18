@@ -1,7 +1,7 @@
 from django import forms
 
-from tbpweb.quote_board.models import Quote
-from tbpweb.user_profiles.fields import UserCommonNameMultipleChoiceField
+from quote_board.models import Quote
+from user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class QuoteForm(forms.ModelForm):

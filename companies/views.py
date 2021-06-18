@@ -20,14 +20,14 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 
-from tbpweb.accounts.forms import PasswordResetForm
-from tbpweb.base.models import Major
-from tbpweb.companies.forms import CompanyFormWithExpiration
-from tbpweb.companies.forms import CompanyRepCreationForm
-from tbpweb.companies.models import Company
-from tbpweb.companies.models import CompanyRep
-from tbpweb.resumes.models import Resume
-from tbpweb.user_profiles.models import UserProfile
+from accounts.forms import PasswordResetForm
+from base.models import Major
+from companies.forms import CompanyFormWithExpiration
+from companies.forms import CompanyRepCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
+from resumes.models import Resume
+from user_profiles.models import UserProfile
 
 
 class IndustryLandingView(TemplateView):

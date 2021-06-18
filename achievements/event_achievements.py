@@ -3,11 +3,11 @@ import string
 
 from django.db import models
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.base.models import Term
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.shortcuts import get_object_or_none
+from achievements.models import Achievement
+from base.models import Term
+from events.models import Event
+from events.models import EventAttendance
+from shortcuts import get_object_or_none
 
 
 def event_achievements(sender, instance, created, **kwargs):

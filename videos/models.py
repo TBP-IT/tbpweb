@@ -2,7 +2,7 @@ import os
 
 from django.db import models
 
-from tbpweb.base.models import Term
+from base.models import Term
 
 
 class VideoType(models.Model):

@@ -3,14 +3,14 @@ from django import forms
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from tbpweb.base.fields import VisualSplitDateTimeField
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventSignUp
-from tbpweb.events.models import EventType
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.user_profiles.fields import UserCommonNameChoiceField
+from base.fields import VisualSplitDateTimeField
+from base.forms import ChosenTermMixin
+from events.models import Event
+from events.models import EventSignUp
+from events.models import EventType
+from project_reports.models import ProjectReport
+from shortcuts import get_object_or_none
+from user_profiles.fields import UserCommonNameChoiceField
 
 
 class EventForm(ChosenTermMixin, forms.ModelForm):

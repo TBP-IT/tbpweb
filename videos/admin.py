@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from tbpweb.videos.models import Video
-from tbpweb.videos.models import VideoType
+from videos.models import Video
+from videos.models import VideoType
 
 
 class VideoAdmin(admin.ModelAdmin):

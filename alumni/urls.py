@@ -1,8 +1,8 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
-from tbpweb.alumni.views import AlumnusCreateView
-from tbpweb.alumni.views import AlumnusEditView
-from tbpweb.alumni.views import AlumnusListView
+from alumni.views import AlumnusCreateView
+from alumni.views import AlumnusEditView
+from alumni.views import AlumnusListView
 
 urlpatterns = patterns(
     '',

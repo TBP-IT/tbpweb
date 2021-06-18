@@ -1,9 +1,9 @@
 from django.db import models
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.exams.models import Exam
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.syllabi.models import Syllabus
+from achievements.models import Achievement
+from exams.models import Exam
+from shortcuts import get_object_or_none
+from syllabi.models import Syllabus
 
 
 def course_file_achievements(sender, instance, created, **kwargs):

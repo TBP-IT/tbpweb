@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from uuidfield import UUIDField
 
-from tbpweb.base.models import Term
+from base.models import Term
 
 
 class Poll(models.Model):

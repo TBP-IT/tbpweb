@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from tbpweb.exams.models import Exam
-from tbpweb.exams.models import ExamFlag
-from tbpweb.exams.models import InstructorPermission
+from exams.models import Exam
+from exams.models import ExamFlag
+from exams.models import InstructorPermission
 
 
 class ExamAdmin(admin.ModelAdmin):

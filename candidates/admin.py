@@ -1,14 +1,14 @@
 from django.contrib import admin
 
-from tbpweb.candidates.models import Candidate
-from tbpweb.candidates.models import Challenge
-from tbpweb.candidates.models import ChallengeType
-from tbpweb.candidates.models import ChallengeCandidateRequirement
-from tbpweb.candidates.models import EventCandidateRequirement
-from tbpweb.candidates.models import ExamFileCandidateRequirement
-from tbpweb.candidates.models import CandidateRequirementProgress
-from tbpweb.candidates.models import ManualCandidateRequirement
-from tbpweb.candidates.models import SyllabusCandidateRequirement
+from candidates.models import Candidate
+from candidates.models import Challenge
+from candidates.models import ChallengeType
+from candidates.models import ChallengeCandidateRequirement
+from candidates.models import EventCandidateRequirement
+from candidates.models import ExamFileCandidateRequirement
+from candidates.models import CandidateRequirementProgress
+from candidates.models import ManualCandidateRequirement
+from candidates.models import SyllabusCandidateRequirement
 
 
 class CandidateModelAdmin(admin.ModelAdmin):

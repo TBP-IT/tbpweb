@@ -3,16 +3,16 @@ from django import forms
 from django.db.models import Count
 from django.utils.safestring import mark_safe
 
-from tbpweb.base.forms import ChosenTermMixin
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import CourseInstance
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.exams.models import Exam
-from tbpweb.exams.models import ExamFlag
-from tbpweb.exams.models import InstructorPermission
-from tbpweb.shortcuts import get_file_mimetype
-from tbpweb.shortcuts import get_object_or_none
+from base.forms import ChosenTermMixin
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
+from exams.models import Exam
+from exams.models import ExamFlag
+from exams.models import InstructorPermission
+from shortcuts import get_file_mimetype
+from shortcuts import get_object_or_none
 
 
 class ExamForm(ChosenTermMixin, forms.ModelForm):

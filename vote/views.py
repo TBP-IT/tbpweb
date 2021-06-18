@@ -12,11 +12,11 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from tbpweb.vote.forms import PollForm
-from tbpweb.vote.forms import VoteForm
-from tbpweb.vote.models import Poll
-from tbpweb.vote.models import Vote
-from tbpweb.vote.models import VoteReceipt
+from vote.forms import PollForm
+from vote.forms import VoteForm
+from vote.models import Poll
+from vote.models import Vote
+from vote.models import VoteReceipt
 
 
 class PollCreateView(CreateView):

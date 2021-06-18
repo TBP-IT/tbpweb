@@ -1,10 +1,10 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.vote.views import PollCreateView
-from tbpweb.vote.views import PollListView
-from tbpweb.vote.views import ResultsView
-from tbpweb.vote.views import VoteCreateView
+from vote.views import PollCreateView
+from vote.views import PollListView
+from vote.views import ResultsView
+from vote.views import VoteCreateView
 
 
 urlpatterns = patterns(

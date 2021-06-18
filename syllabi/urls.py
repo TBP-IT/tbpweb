@@ -1,13 +1,13 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.syllabi.views import SyllabusDeleteView
-from tbpweb.syllabi.views import SyllabusDownloadView
-from tbpweb.syllabi.views import SyllabusEditView
-from tbpweb.syllabi.views import SyllabusFlagCreateView
-from tbpweb.syllabi.views import SyllabusFlagResolveView
-from tbpweb.syllabi.views import SyllabusReviewListView
-from tbpweb.syllabi.views import SyllabusUploadView
+from syllabi.views import SyllabusDeleteView
+from syllabi.views import SyllabusDownloadView
+from syllabi.views import SyllabusEditView
+from syllabi.views import SyllabusFlagCreateView
+from syllabi.views import SyllabusFlagResolveView
+from syllabi.views import SyllabusReviewListView
+from syllabi.views import SyllabusUploadView
 
 
 urlpatterns = patterns(

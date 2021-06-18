@@ -8,12 +8,12 @@ from django.views.generic import CreateView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from tbpweb.alumni.forms import AlumnusForm
-from tbpweb.alumni.forms import AlumnusEditForm
-from tbpweb.alumni.models import Alumnus
-from tbpweb.alumni.models import DiscussionTopic
-from tbpweb.alumni.models import TimeInvestment
-from tbpweb.base.models import Major
+from alumni.forms import AlumnusForm
+from alumni.forms import AlumnusEditForm
+from alumni.models import Alumnus
+from alumni.models import DiscussionTopic
+from alumni.models import TimeInvestment
+from base.models import Major
 
 
 class AlumnusListView(ListView):

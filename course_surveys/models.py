@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 
-from tbpweb.base.models import Term
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import Instructor
+from base.models import Term
+from courses.models import Course
+from courses.models import Instructor
 
 
 class Survey(models.Model):

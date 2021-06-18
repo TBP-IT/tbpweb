@@ -1,10 +1,10 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from tbpweb.courses.models import Instructor
-from tbpweb.courses.models import Course
-from tbpweb.exams.models import InstructorPermission
-from tbpweb.shortcuts import get_object_or_none
+from courses.models import Instructor
+from courses.models import Course
+from exams.models import InstructorPermission
+from shortcuts import get_object_or_none
 
 
 class InstructorForm(forms.ModelForm):

@@ -15,15 +15,15 @@ from django.views.generic import UpdateView
 
 from json import dumps
 
-from tbpweb.courses.forms import InstructorEditForm
-from tbpweb.courses.forms import InstructorForm
-from tbpweb.courses.forms import CourseForm
-from tbpweb.courses.forms import CourseEditForm
-from tbpweb.courses.models import Course
-from tbpweb.courses.models import Department
-from tbpweb.courses.models import Instructor
-from tbpweb.exams.models import Exam
-from tbpweb.syllabi.models import Syllabus
+from courses.forms import InstructorEditForm
+from courses.forms import InstructorForm
+from courses.forms import CourseForm
+from courses.forms import CourseEditForm
+from courses.models import Course
+from courses.models import Department
+from courses.models import Instructor
+from exams.models import Exam
+from syllabi.models import Syllabus
 
 
 def listCourses(request):

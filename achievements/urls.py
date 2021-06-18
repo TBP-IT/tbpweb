@@ -1,10 +1,10 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.achievements.views import AchievementDetailView
-from tbpweb.achievements.views import LeaderboardListView
-from tbpweb.achievements.views import UserAchievementAssignView
-from tbpweb.achievements.views import UserAchievementListView
+from achievements.views import AchievementDetailView
+from achievements.views import LeaderboardListView
+from achievements.views import UserAchievementAssignView
+from achievements.views import UserAchievementListView
 
 
 urlpatterns = patterns(

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tbpweb.minutes.models import Minutes
+from minutes.models import Minutes
 
 
 class MinutesAdmin(admin.ModelAdmin):

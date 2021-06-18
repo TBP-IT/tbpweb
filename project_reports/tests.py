@@ -5,9 +5,9 @@ from django.test import TestCase
 from django.utils import timezone
 import mox
 
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.project_reports.models import ProjectReport
+from base.models import OfficerPosition
+from base.models import Term
+from project_reports.models import ProjectReport
 
 
 class ProjectReportTest(TestCase):

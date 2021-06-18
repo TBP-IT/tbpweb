@@ -17,13 +17,13 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from tbpweb.exams.forms import EditForm
-from tbpweb.exams.forms import FlagForm
-from tbpweb.exams.forms import FlagResolveForm
-from tbpweb.exams.forms import UploadForm
-from tbpweb.exams.models import Exam
-from tbpweb.exams.models import ExamFlag
-from tbpweb.exams.models import InstructorPermission
+from exams.forms import EditForm
+from exams.forms import FlagForm
+from exams.forms import FlagResolveForm
+from exams.forms import UploadForm
+from exams.models import Exam
+from exams.models import ExamFlag
+from exams.models import InstructorPermission
 
 
 class ExamUploadView(CreateView):

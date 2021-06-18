@@ -9,9 +9,9 @@ from django.urls import reverse
 from django.test import TestCase
 from freezegun import freeze_time
 
-from tbpweb.companies.forms import CompanyRepCreationForm
-from tbpweb.companies.models import Company
-from tbpweb.companies.models import CompanyRep
+from companies.forms import CompanyRepCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
 
 
 class CompanyTest(TestCase):

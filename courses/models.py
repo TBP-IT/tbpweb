@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 
-from tbpweb.base.models import Term
+from base.models import Term
 
 
 class Department(models.Model):

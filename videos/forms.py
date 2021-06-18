@@ -1,8 +1,8 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from tbpweb.videos.models import Video
-from tbpweb.videos.models import VideoType
+from videos.models import Video
+from videos.models import VideoType
 
 
 class VideoForm(forms.ModelForm):

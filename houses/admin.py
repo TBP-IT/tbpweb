@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from tbpweb.houses.models import House
-from tbpweb.houses.models import HouseMember
+from houses.models import House
+from houses.models import HouseMember
 
 
 class HouseAdmin(admin.ModelAdmin):

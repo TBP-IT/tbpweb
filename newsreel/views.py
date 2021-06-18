@@ -8,9 +8,9 @@ from django.views.generic import DeleteView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from tbpweb.newsreel.forms import NewsForm
-from tbpweb.newsreel.models import News
-from tbpweb.utils.ajax import json_response
+from newsreel.forms import NewsForm
+from newsreel.models import News
+from utils.ajax import json_response
 
 
 class NewsCreateView(CreateView):

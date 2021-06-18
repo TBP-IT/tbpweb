@@ -3,8 +3,8 @@ import datetime
 from django.test import TransactionTestCase
 from django.test.utils import override_settings
 
-from tbpweb.base.models import Term
-from tbpweb.base.management.commands.genterms import generate_terms
+from base.models import Term
+from base.management.commands.genterms import generate_terms
 
 
 class GenerateTermsTest(TransactionTestCase):

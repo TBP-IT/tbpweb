@@ -8,8 +8,8 @@ from django.urls import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from tbpweb.emailer.forms import ContactCaptcha
-from tbpweb.emailer.forms import ContactForm
+from emailer.forms import ContactCaptcha
+from emailer.forms import ContactForm
 
 
 class ContactFormTest(TestCase):

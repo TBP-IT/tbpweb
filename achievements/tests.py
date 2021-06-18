@@ -8,20 +8,20 @@ from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
-from tbpweb.achievements.models import Achievement
-from tbpweb.achievements.models import AchievementIcon
-from tbpweb.achievements.models import UserAchievement
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.courses.models import CourseInstance
-from tbpweb.events.models import Event
-from tbpweb.events.models import EventAttendance
-from tbpweb.events.models import EventType
-from tbpweb.exams.models import Exam
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.shortcuts import get_object_or_none
-from tbpweb.syllabi.models import Syllabus
+from achievements.models import Achievement
+from achievements.models import AchievementIcon
+from achievements.models import UserAchievement
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from courses.models import CourseInstance
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventType
+from exams.models import Exam
+from project_reports.models import ProjectReport
+from shortcuts import get_object_or_none
+from syllabi.models import Syllabus
 
 
 class AchievementAssignmentTest(TestCase):

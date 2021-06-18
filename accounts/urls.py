@@ -10,10 +10,10 @@ from django.contrib.auth.views import password_reset_complete
 from django.contrib.auth.views import password_reset_confirm
 from django.contrib.auth.views import password_reset_done
 
-from tbpweb.accounts.forms import AuthenticationForm
-from tbpweb.accounts.forms import PasswordChangeForm
-from tbpweb.accounts.forms import PasswordResetForm
-from tbpweb.accounts.forms import SetPasswordForm
+from accounts.forms import AuthenticationForm
+from accounts.forms import PasswordChangeForm
+from accounts.forms import PasswordResetForm
+from accounts.forms import SetPasswordForm
 
 
 app_name = 'accounts'

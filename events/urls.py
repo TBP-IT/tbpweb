@@ -1,24 +1,24 @@
 from django.conf.urls import patterns
 from django.conf.urls import url
 
-from tbpweb.emailer.views import EventEmailerView
-from tbpweb.events.views import AllTimeLeaderboardListView
-from tbpweb.events.views import attendance_delete
-from tbpweb.events.views import attendance_search
-from tbpweb.events.views import attendance_submit
-from tbpweb.events.views import AttendanceRecordView
-from tbpweb.events.views import EventBuilderView
-from tbpweb.events.views import EventCancelView
-from tbpweb.events.views import EventCreateView
-from tbpweb.events.views import EventDetailView
-from tbpweb.events.views import EventListView
-from tbpweb.events.views import EventSignUpView
-from tbpweb.events.views import event_revive
-from tbpweb.events.views import event_unsignup
-from tbpweb.events.views import EventUpdateView
-from tbpweb.events.views import ical
-from tbpweb.events.views import IndividualAttendanceListView
-from tbpweb.events.views import LeaderboardListView
+from emailer.views import EventEmailerView
+from events.views import AllTimeLeaderboardListView
+from events.views import attendance_delete
+from events.views import attendance_search
+from events.views import attendance_submit
+from events.views import AttendanceRecordView
+from events.views import EventBuilderView
+from events.views import EventCancelView
+from events.views import EventCreateView
+from events.views import EventDetailView
+from events.views import EventListView
+from events.views import EventSignUpView
+from events.views import event_revive
+from events.views import event_unsignup
+from events.views import EventUpdateView
+from events.views import ical
+from events.views import IndividualAttendanceListView
+from events.views import LeaderboardListView
 
 urlpatterns = patterns(
     '',

@@ -5,13 +5,13 @@ from django.core.management import BaseCommand
 from django.template.loader import render_to_string
 from django.utils import timezone
 
-from tbpweb.base.models import Officer
-from tbpweb.base.models import OfficerPosition
-from tbpweb.base.models import Term
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.project_reports.models import ProjectReportFromEmail
-from tbpweb.settings import HOSTNAME
-from tbpweb.shortcuts import get_object_or_none
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from project_reports.models import ProjectReport
+from project_reports.models import ProjectReportFromEmail
+from settings import HOSTNAME
+from shortcuts import get_object_or_none
 
 
 class Command(BaseCommand):

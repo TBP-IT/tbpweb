@@ -3,7 +3,7 @@ import datetime
 from django.conf import settings
 from django.db import models
 
-from tbpweb.base.models import Term
+from base.models import Term
 
 
 class Minutes(models.Model):

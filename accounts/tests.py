@@ -8,14 +8,14 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from mock import patch
 
-from tbpweb.accounts.forms import AuthenticationForm
-from tbpweb.accounts.models import make_ldap_user
-from tbpweb.accounts.models import LDAPUser
-from tbpweb.companies.models import Company
-from tbpweb.companies.models import CompanyRep
-from tbpweb.qldap.utils import delete_user
-from tbpweb.qldap.utils import get_email
-from tbpweb.qldap.utils import username_exists
+from accounts.forms import AuthenticationForm
+from accounts.models import make_ldap_user
+from accounts.models import LDAPUser
+from companies.models import Company
+from companies.models import CompanyRep
+from qldap.utils import delete_user
+from qldap.utils import get_email
+from qldap.utils import username_exists
 
 
 class UserModelTest(TestCase):

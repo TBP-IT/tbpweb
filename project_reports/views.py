@@ -14,12 +14,12 @@ from django.views.generic import ListView
 from django.views.generic import UpdateView
 from django.views.generic.base import View
 
-from tbpweb.base.models import Term
-from tbpweb.base.views import TermParameterMixin
-from tbpweb.project_reports.forms import ProjectReportForm
-from tbpweb.project_reports.forms import ProjectReportBookExportForm
-from tbpweb.project_reports.models import ProjectReport
-from tbpweb.project_reports.models import ProjectReportBook
+from base.models import Term
+from base.views import TermParameterMixin
+from project_reports.forms import ProjectReportForm
+from project_reports.forms import ProjectReportBookExportForm
+from project_reports.models import ProjectReport
+from project_reports.models import ProjectReportBook
 
 from datetime import date
 from markdown import markdown

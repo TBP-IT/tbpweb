@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from tbpweb.resumes.models import Resume
+from resumes.models import Resume
 
 
 class ResumeAdmin(admin.ModelAdmin):
