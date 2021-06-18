@@ -15,10 +15,10 @@ class Notification(models.Model):
         (POSITIVE, 'Positive'),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.CharField(choices=STATUS_TYPES, max_length=8)
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_pk = models.PositiveIntegerField()
     content_object = fields.GenericForeignKey('content_type', 'object_pk')
 
