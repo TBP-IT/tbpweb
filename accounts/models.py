@@ -3,9 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.db import models
-from uuidfield import UUIDField
 
-from quark.qldap import utils as ldap_utils
+from tbpweb.qldap import utils as ldap_utils
 
 
 class APIKey(models.Model):
@@ -16,7 +15,7 @@ class APIKey(models.Model):
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 related_name='api_key')
-    key = UUIDField(auto=True, db_index=True)
+    key = models.UUIDField(auto=True, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta(object):
