@@ -22,6 +22,7 @@ pycparser==2.19
 pyjwt==1.7.1
 pynacl==1.3.0
 python3-openid==3.1.0 ; python_version >= '3.0'
+python-ldap==3.3.1
 pytz==2019.3
 requests-oauthlib==1.2.0
 requests==2.22.0

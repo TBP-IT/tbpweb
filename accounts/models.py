@@ -4,7 +4,7 @@ from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from tbpweb.qldap import utils as ldap_utils
+from qldap import utils as ldap_utils
 
 
 class APIKey(models.Model):
