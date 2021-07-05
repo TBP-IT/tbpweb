@@ -7,6 +7,7 @@ cryptography==2.8
 defusedxml==0.6.0 ; python_version >= '3.0'
 django-markdownx==2.0.27
 django-picklefield==3.0.1
+django-uuidfield==0.5.0
 django==3.1.4
 fabric==2.4.0
 gunicorn==19.9.0
