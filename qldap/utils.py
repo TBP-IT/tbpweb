@@ -711,7 +711,7 @@ def clear_group_members(group):
     return True
 
 
-# TODO(flieee): move else where or delete for quark tbp/pie repo split
+# TODO(flieee): move else where or delete for tbpweb tbp/pie repo split
 def is_tbp(username):
     """
     Convenience method for checking if a username is in any of TBP groups.

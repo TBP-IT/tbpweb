@@ -1,0 +1,179 @@
+#!/bin/bash
+
+# Note: when the string "build" is passed in as the first argument to the
+# test script, run the full suite of tasks. Otherwise, only run the tasks that
+# would be needed to pass a build.
+
+PROJECT_NAME=quark
+
+# Don't run me as root!
+if [[ `id --user` == "0" ]]; then
+    echo "Do not run tests as root."
+    exit 1
+fi
+
+# Use virtualenv with Django-1.6 installed.
+source /home/tbp/virtualenv/django16/bin/activate
+
+# Go to directory of the script
+pushd $(dirname $0) > /dev/null
+
+# Clean up compiled python files
+find . -type f -name "*.py[co]" -delete
+
+# Cleanup old coverage runs
+rm -f .coverage
+# Remove old build reports:
+rm -rf reports
+# Make reports dir
+mkdir -p reports
+
+# First ensure we have up-to-date submodules, as some may be required for tests:
+git submodule init
+git submodule update
+
+# Start timer
+start_time=$(date +"%s.%3N")
+
+# The following conditions must be true for test to pass:
+#   1. The tests must pass.
+#   2. pylint must be perfect (Exit code is 0).
+#   3. pep8 must be perfect (Exit code is 0).
+#   4. jshint must be perfect (Exit code is 0).
+#   5. scss-lint must be perfect (Exit code is 0).
+# All other lint errors are not taken into consideration for the +/- Verified
+# flag.
+
+# For full builds, pass in the "build" argument, which ensures that all desired
+# tasks are run
+if [[ $1 == 'build' ]]; then
+    USE_COVERAGE=1
+    # Run tests with coverage
+    TEST_RUNNER="coverage run"
+else
+    USE_COVERAGE=0
+    TEST_RUNNER="python"
+fi
+
+# Save exit status to a file for later parsing
+status_file="reports/status"
+
+# Run each test/check in its own subshell
+(
+    ${TEST_RUNNER} manage.py test --settings=${PROJECT_NAME}.settings.test
+    status=$?
+    if [[ ${USE_COVERAGE} == 1 ]]; then
+        # Generate text coverage report
+        coverage report > reports/coverage.report
+    fi
+    echo "test ${status}" >> ${status_file}
+) &
+
+# Check if pylint for project is perfect. Exit code should be 0 (no errors)
+(
+    pylint --rcfile=.pylintrc ${PROJECT_NAME} > reports/pylint.report
+    echo "pylint_project $?" >> ${status_file}
+) &
+
+# Check if pylint for scripts is perfect. Exit code should be 0 (no errors)
+(
+    pylint --rcfile=.pylintrc scripts > reports/pylint_scripts.report
+    echo "pylint_scripts $?" >> ${status_file}
+) &
+
+# Check if pep8 is perfect. Exit code should be 0 (no errors)
+(
+    # Exclude gitignore files by converting newlines to commas
+    gitignore_exclusions=$(sed -e :a -e 'N;s/\n/,/;ba' .gitignore)
+    pep8 --config=.pep8rc \
+        --exclude=$gitignore_exclusions,migrations \
+        ${PROJECT_NAME} > reports/pep8.report
+    echo "pep8 $?" >> ${status_file}
+) &
+
+# Check if jshint is perfect. Exit code should be 0 (no errors)
+(
+    jshint --config .jshintrc ${PROJECT_NAME}/static/js/*.js \
+        > reports/jshint.report
+    echo "jshint $?" >> ${status_file}
+) &
+
+# Check if scss-lint is perfect. Exit code should be 0 (no errors)
+(
+    scss-lint ${PROJECT_NAME}/static/css/*.scss --config .scss-lint.yml \
+        > reports/scsslint.report
+    echo "scss-lint $?" >> ${status_file}
+) &
+
+# Wait for each checker to finish
+wait
+
+# Read their exit statuses
+test_status=$(grep test ${status_file} | cut -d ' ' -f 2)
+pylint_project_status=$(grep pylint_project ${status_file} | cut -d ' ' -f 2)
+pylint_scripts_status=$(grep pylint_scripts ${status_file} | cut -d ' ' -f 2)
+pep8_status=$(grep pep8 ${status_file} | cut -d ' ' -f 2)
+jshint_status=$(grep jshint ${status_file} | cut -d ' ' -f 2)
+scsslint_status=$(grep scss-lint ${status_file} | cut -d ' ' -f 2)
+
+# End timer
+end_time=$(date +"%s.%3N")
+
+if [[ $test_status == 0 ]] && \
+   [[ $pylint_project_status == 0 ]] && \
+   [[ $pylint_scripts_status == 0 ]] && \
+   [[ $pep8_status == 0 ]] && \
+   [[ $jshint_status == 0 ]] && \
+   [[ $scsslint_status == 0 ]]
+then
+    success=0
+    echo -e "\nEverything looks good!"
+else
+    success=1
+    if [[ $pylint_project_status != 0 ]] || [[ $pylint_scripts_status != 0 ]]
+    then
+        echo -e "\nPYLINT VIOLATIONS"
+        echo "================================================================"
+        # Print until first blank line (the lines that say the errors)
+        awk '/^\s*$/{exit}1' reports/pylint.report
+        awk '/^\s*$/{exit}1' reports/pylint_scripts.report
+    else
+        echo -e "\nNo pylint violations."
+    fi
+
+    if [[ $pep8_status != 0 ]]; then
+        echo -e "\nPEP8 VIOLATIONS"
+        echo "================================================================"
+        # Print the whole file (all lines say the errors)
+        cat reports/pep8.report
+    else
+        echo -e "\nNo pep8 violations."
+    fi
+
+    if [[ $jshint_status != 0 ]]; then
+        echo -e "\nJSHINT VIOLATIONS"
+        echo "================================================================"
+        # Print the whole file (all lines say the errors)
+        cat reports/jshint.report
+    else
+        echo -e "\nNo jshint violations."
+    fi
+
+    if [[ $scsslint_status != 0 ]]; then
+        echo -e "\nSCSS-LINT VIOLATIONS"
+        echo "================================================================"
+        # Print the whole file (all lines say the errors)
+        cat reports/scsslint.report
+    else
+        echo -e "\nNo scss-lint violations."
+    fi
+
+    echo -e "\nPlease fix all errors before doing git review!"
+fi
+
+# Report runtime
+duration=$(echo "$end_time - $start_time" | bc)
+echo "Total runtime: ${duration}s"
+
+popd > /dev/null
+exit $success
