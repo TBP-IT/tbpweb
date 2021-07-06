@@ -4,7 +4,7 @@
 # test script, run the full suite of tasks. Otherwise, only run the tasks that
 # would be needed to pass a build.
 
-PROJECT_NAME=quark
+PROJECT_NAME=tbpweb
 
 # Don't run me as root!
 if [[ `id --user` == "0" ]]; then
