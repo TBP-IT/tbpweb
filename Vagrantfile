@@ -87,7 +87,11 @@ Vagrant.configure("2") do |config|
         python3-pip \
         python3-venv \
         tmux \
-        vim
+        vim \
+        libsasl2-dev \
+        libldap2-dev \
+        libssl-dev
+
   SHELL
   # Setup virtualenv
   config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make venv"
