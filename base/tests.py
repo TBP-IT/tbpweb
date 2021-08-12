@@ -705,7 +705,7 @@ class SettingsTest(TestCase):
 
     def test_unset(self):
         with self.env:
-            self.env.set('tbpweb_ENV', 'dev')
+            self.env.set('TBPWEB_MODE', 'dev')
             settings = import_fresh_module('tbpweb.settings')
 
             self.assertTrue(settings.DEBUG)
@@ -713,7 +713,7 @@ class SettingsTest(TestCase):
 
     def test_production(self):
         with self.env:
-            self.env.set('tbpweb_ENV', 'production')
+            self.env.set('TBPWEB_MODE', 'production')
             settings = import_fresh_module('tbpweb.settings')
 
             self.assertFalse(settings.DEBUG)
@@ -721,7 +721,7 @@ class SettingsTest(TestCase):
 
     def test_staging(self):
         with self.env:
-            self.env.set('tbpweb_ENV', 'staging')
+            self.env.set('TBPWEB_MODE', 'staging')
             settings = import_fresh_module('tbpweb.settings')
 
             self.assertFalse(settings.DEBUG)

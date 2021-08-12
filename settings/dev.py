@@ -1,10 +1,10 @@
 import getpass
 import subprocess
+import os
 
-from tbpweb.settings.base import WORKSPACE_ROOT
+from .base import SECRET_KEY, WORKSPACE_ROOT, ROOT_URLCONF
 # pylint: disable=F0401
-import tbpweb_keys
-
+import settings.tbpweb_keys as tbpweb_keys
 
 ###############################################################################
 # Private Variables for this dev instance
@@ -38,13 +38,11 @@ THUMBNAIL_DEBUG = DEBUG
 ADMINS = ((_name, _email),)
 MANAGERS = ADMINS
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # We need this for per-user development databases.
-        'NAME': 'tbpweb_dev_%s' % _user,
-        'USER': 'tbpweb_dev',
-        'PASSWORD': tbpweb_keys.DEV_DB_PASSWORD,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
     }
 }
 
@@ -73,7 +71,7 @@ DEBUG_TOOLBAR_CONFIG = {
 # Import any local settings
 try:
     # pylint: disable=E0611,F0401,W0401,W0614
-    from tbpweb.settings.local import *
+    from .local import *
 except ImportError:
     # Ignore if there's no local settings file
     pass

@@ -1,7 +1,7 @@
 # pylint: disable=F0401
 import os
-import tbpweb_keys
-from tbpweb.settings.base import WORKSPACE_ROOT
+import settings.tbpweb_keys as tbpweb_keys
+from .base import WORKSPACE_ROOT
 
 
 DEBUG = False
@@ -34,7 +34,7 @@ SESSION_COOKIE_SECURE = True
 # Import any local settings custom for staging environment
 try:
     # pylint: disable=E0611,F0401,W0401,W0614
-    from tbpweb.settings.local import *
+    from .local import *
 except ImportError:
     # Ignore if there's no local settings file
     pass

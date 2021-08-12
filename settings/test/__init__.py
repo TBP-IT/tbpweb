@@ -1,7 +1,7 @@
 """Default settings for running tests."""
 
 # pylint: disable=W0401,W0614
-from tbpweb.settings import *
+from settings import *
 
 DEBUG = False
 USE_LDAP = False

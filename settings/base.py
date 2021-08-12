@@ -15,7 +15,7 @@ if KEY_PATH not in sys.path:
     sys.path.append(KEY_PATH)
 try:
     # pylint: disable=F0401
-    import tbpweb_keys
+    import settings.tbpweb_keys as tbpweb_keys
 except ImportError:
     print('Could not import tbpweb_keys. Please make sure tbpweb_keys.py exists '
           'on the path, and that there are no errors in the module.')
@@ -170,7 +170,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
-ROOT_URLCONF = 'tbpweb.urls'
+ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'tbpweb.wsgi.application'
@@ -270,24 +270,8 @@ LOGGING = {
 ###############################################################################
 try:
     # pylint: disable=W0401,W0614
-    from tbpweb.settings.project import *
-    from tbpweb.settings.third_party import *
+    from .project import *
+    from .third_party import *
 except ImportError as err:
     # If the file doesn't exist, print a warning message but do not fail.
-    print 'WARNING: %s' % str(err)
-
-
-###############################################################################
-# Import the proper instance environment settings (dev/production/staging)
-# Errors will be raised if the appropriate settings file is not found
-###############################################################################
-LOCAL_ENV = os.getenv('tbpweb_ENV', 'dev')
-# pylint: disable=W0401,W0614
-if LOCAL_ENV == 'dev':
-    from tbpweb.settings.dev import *
-elif LOCAL_ENV == 'staging':
-    from tbpweb.settings.staging import *
-elif LOCAL_ENV == 'production':
-    from tbpweb.settings.production import *
-else:
-    print 'WARNING: Invalid value for tbpweb_ENV: %s' % LOCAL_ENV
+    print('WARNING: %s' % str(err))

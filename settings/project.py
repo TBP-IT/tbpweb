@@ -6,7 +6,7 @@ must not overwrite these.
 """
 import ldap
 # pylint: disable=F0401
-import tbpweb_keys
+import settings.tbpweb_keys as tbpweb_keys
 
 # Custom setting used to include a short tag for the site in relevant content
 # (like automatic email subject lines):

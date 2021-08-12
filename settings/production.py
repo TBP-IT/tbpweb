@@ -1,7 +1,7 @@
 # pylint: disable=F0401
-import tbpweb_keys
-from tbpweb.settings.project import HOSTNAME
-from tbpweb.settings.project import RESUMEQ_OFFICER_POSITION
+import settings.tbpweb_keys as tbpweb_keys
+from .project import HOSTNAME
+from .project import RESUMEQ_OFFICER_POSITION
 
 
 DEBUG = False
