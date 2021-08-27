@@ -14,7 +14,7 @@ You can find those here [VirtualBox Old 6.0 Builds](https://www.virtualbox.org/w
 
 Fork the tbpweb repository and clone your fork to your local machine 
 
-Open terminal, and cd into the cloned directory (if on Windows, be sure to run terminal as administrator). Check to make sure there is a Vagrantfile in the directory. If on Windows, also run VirtualBox as admin. Then, from the cloned directory in terminal, type
+Open terminal, and cd into the cloned directory (if on Windows, be sure to run Command Prompt instead, as administrator). Check to make sure there is a Vagrantfile in the directory. If on Windows, also run VirtualBox as admin. Then, from the cloned directory in terminal, type
 
 ```sh
 $ vagrant up
