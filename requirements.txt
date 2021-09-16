@@ -5,9 +5,14 @@ cffi==1.13.1
 chardet==3.0.4
 cryptography==2.8
 defusedxml==0.6.0 ; python_version >= '3.0'
+django-chosen==0.1
+django-compressor==2.4.1
+django-debug-toolbar==3.1.1
+django-localflavor==1.0
 django-markdownx==2.0.27
 django-picklefield==3.0.1
 django==2.2.8
+easy-thumbnails==2.7.1
 fabric==2.4.0
 gunicorn==19.9.0
 idna==2.8
@@ -26,6 +31,7 @@ python-ldap==3.3.1
 pytz==2019.3
 requests-oauthlib==1.2.0
 requests==2.22.0
+South==1.0.2
 six==1.12.0
 social-auth-app-django==3.1.0
 social-auth-core==3.2.0
