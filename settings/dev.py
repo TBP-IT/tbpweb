@@ -2,7 +2,7 @@ import getpass
 import subprocess
 import os
 
-from .base import SECRET_KEY, WORKSPACE_ROOT, ROOT_URLCONF
+from .base import *
 # pylint: disable=F0401
 import settings.tbpweb_keys as tbpweb_keys
 

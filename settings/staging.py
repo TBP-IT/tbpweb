@@ -1,7 +1,7 @@
 # pylint: disable=F0401
 import os
 import settings.tbpweb_keys as tbpweb_keys
-from .base import WORKSPACE_ROOT
+from .base import *
 
 
 DEBUG = False
