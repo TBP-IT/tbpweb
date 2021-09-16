@@ -1,5 +1,5 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import patterns
+from django.urls import url
 
 from achievements.views import AchievementDetailView
 from achievements.views import LeaderboardListView

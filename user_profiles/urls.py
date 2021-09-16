@@ -1,5 +1,5 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import patterns
+from django.urls import url
 
 from user_profiles.views import UserProfileDetailView
 from user_profiles.views import UserProfileEditView

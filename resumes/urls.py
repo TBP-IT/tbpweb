@@ -1,5 +1,5 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import patterns
+from django.urls import url
 
 from resumes.views import ResumeListView
 from resumes.views import ResumeCritiqueView
