@@ -57,16 +57,16 @@ def create_dev_db(username, quiet=False):
 
     if not quiet:
         if result:
-            print 'Success! Dev database "%s" was created' % db_name
+            print('Success! Dev database "%s" was created' % db_name)
         else:
-            print 'Error: Dev database "%s" was not created' % db_name
+            print('Error: Dev database "%s" was not created' % db_name)
 
     return result
 
 
 def main():
     username = getpass.getuser()
-    print 'Creating database for %s' % username
+    print('Creating database for %s' % username)
     create_dev_db(username)
 
 

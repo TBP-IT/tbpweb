@@ -57,7 +57,7 @@ def import_videos(
             file_path = os.path.join(
                 quark_path, videos_path[1:], semester, filename)
             if os.path.isfile(file_path):
-                print '{}{}'.format('Found video file: ', file_path)
+                print('{}{}'.format('Found video file: ', file_path))
                 video = Video()
                 video.term = term
                 video.video_type = video_type
