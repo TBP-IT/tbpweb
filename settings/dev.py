@@ -60,7 +60,7 @@ SESSION_COOKIE_NAME = 'tbpweb_dev_%s_sid' % _user
 # would only be shown when DEBUG=True and the request is from an IP listed in
 # the INTERNAL_IPS setting.
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'tbpweb.settings.third_party.show_toolbar'
+    'SHOW_TOOLBAR_CALLBACK': 'settings.third_party.show_toolbar'
 }
 
 # NOTE: It is highly recommended that you copy tbpweb/settings/local.py.template

@@ -153,8 +153,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
-    'tbpweb.base.context_processors.local_env',
-    'tbpweb.notifications.context_processors.notifications',
+    'base.context_processors.local_env',
+    'notifications.context_processors.notifications',
 )
 
 MIDDLEWARE_CLASSES = [
@@ -173,7 +173,7 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'tbpweb.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(WORKSPACE_DJANGO_ROOT, 'templates'),
@@ -193,33 +193,33 @@ DJANGO_CONTRIB_APPS = [
 
 # All projects that we write (and thus, need to be tested) should go here.
 PROJECT_APPS = [
-    'tbpweb.accounts',
-    'tbpweb.achievements',
-    'tbpweb.alumni',
-    'tbpweb.base',
-    'tbpweb.candidates',
-    'tbpweb.companies',
-    'tbpweb.courses',
-    'tbpweb.course_files',
-    'tbpweb.course_surveys',
-    'tbpweb.emailer',
-    'tbpweb.events',
-    'tbpweb.exams',
-    'tbpweb.houses',
-    'tbpweb.mailing_lists',
-    'tbpweb.minutes',
-    'tbpweb.newsreel',
-    'tbpweb.notifications',
-    'tbpweb.past_presidents',
-    'tbpweb.project_reports',
-    'tbpweb.qldap',
-    'tbpweb.quote_board',
-    'tbpweb.resumes',
-    'tbpweb.syllabi',
-    'tbpweb.user_profiles',
-    'tbpweb.utils',
-    'tbpweb.videos',
-    'tbpweb.vote',
+    'accounts',
+    # 'achievements',
+    'alumni',
+    'base',
+    'candidates',
+    'companies',
+    'courses',
+    'course_files',
+    'course_surveys',
+    'emailer',
+    'events',
+    'exams',
+    'houses',
+    'mailing_lists',
+    'minutes',
+    'newsreel',
+    'notifications',
+    'past_presidents',
+    'project_reports',
+    'qldap',
+    'quote_board',
+    'resumes',
+    'syllabi',
+    'user_profiles',
+    'utils',
+    'videos',
+    'vote',
 ]
 
 # Third-party apps belong here, since we won't use them for testing.
