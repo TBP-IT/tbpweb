@@ -30,7 +30,7 @@ class News(models.Model):
     # corresponds to higher rank/priority.
     rank = models.PositiveIntegerField(blank=True)
 
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

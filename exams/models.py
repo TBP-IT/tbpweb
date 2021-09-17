@@ -128,7 +128,7 @@ class Exam(GenericCourseFile):
 class ExamFlag(GenericFlag):
     """Flag an issue with a particular exam on the website."""
 
-    exam = models.ForeignKey(Exam, help_text='The exam that has an issue.')
+    exam = models.ForeignKey(Exam, help_text='The exam that has an issue.', on_delete=models.CASCADE)
 
     def __unicode__(self):
         return '{} Flag'.format(unicode(self.exam))

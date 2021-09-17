@@ -97,7 +97,7 @@ class Syllabus(GenericCourseFile):
 class SyllabusFlag(GenericFlag):
     """Flag an issue with a particular syllabus on the website."""
     syllabus = models.ForeignKey(Syllabus,
-                                 help_text='Syllabus that has an issue.')
+                                 help_text='Syllabus that has an issue.', on_delete=models.CASCADE)
 
     def __unicode__(self):
         return '{} Flag'.format(unicode(self.syllabus))

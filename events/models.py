@@ -99,7 +99,7 @@ class Event(models.Model):
     VISIBLE_TO_EVERYONE = (OPEN, PUBLIC, CANDIDATE)
 
     name = models.CharField(max_length=80, verbose_name='event name')
-    event_type = models.ForeignKey(EventType, on_delete=models.SET_NULL)
+    event_type = models.ForeignKey(EventType, null=True, on_delete=models.SET_NULL)
 
     restriction = models.PositiveSmallIntegerField(
         choices=RESTRICTION_CHOICES,
@@ -114,11 +114,11 @@ class Event(models.Model):
 
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-    term = models.ForeignKey(Term, on_delete=models.SET_NULL)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     tagline = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     location = models.CharField(max_length=80)
-    contact = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    contact = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     committee = models.ForeignKey(OfficerPosition, null=True, on_delete=models.SET_NULL)
 
     signup_limit = models.PositiveSmallIntegerField(

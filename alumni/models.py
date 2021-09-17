@@ -7,7 +7,7 @@ class Alumnus(models.Model):
     """An alumnus class for participants in Fogeys First.
 
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField(default='', blank=True)
     dream = models.TextField(default='', blank=True)
     hobbies = models.TextField(default='', blank=True)

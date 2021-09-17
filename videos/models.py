@@ -30,8 +30,8 @@ class Video(models.Model):
         file_path = os.path.join('videos', video_term, filename)
         return file_path
 
-    term = models.ForeignKey(Term)
-    video_type = models.ForeignKey(VideoType)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
+    video_type = models.ForeignKey(VideoType, null=True, on_delete=models.SET_NULL)
     video_file = models.FileField(upload_to=rename_file)
     video_link = models.URLField(
         help_text='If the video cannot be hosted on another website such '

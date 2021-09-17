@@ -40,7 +40,7 @@ class Department(models.Model):
 
 
 class Course(models.Model):
-    department = models.ForeignKey(Department)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     number = models.CharField(max_length=10, db_index=True)
     title = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
@@ -154,7 +154,7 @@ class Instructor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     middle_initial = models.CharField(max_length=1, blank=True)
-    department = models.ForeignKey(Department)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     website = models.URLField(blank=True)
 
     class Meta(object):
@@ -183,8 +183,8 @@ class Instructor(models.Model):
 
 class CourseInstance(models.Model):
     # Allow terms to be null because some exams have unknown years
-    term = models.ForeignKey(Term, null=True)
-    course = models.ForeignKey(Course)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
     instructors = models.ManyToManyField(Instructor)
 
     def __unicode__(self):

@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.db import models
+import uuid
 
 from qldap import utils as ldap_utils
 
@@ -14,8 +15,9 @@ class APIKey(models.Model):
     username to validate what the given user has access to.
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                related_name='api_key')
-    key = models.UUIDField(auto=True, db_index=True)
+                                related_name='api_key',
+                                on_delete=models.CASCADE)
+    key = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta(object):

@@ -144,7 +144,7 @@ class AchievementIcon(models.Model):
     """An icon image to visually identify an achievement."""
     achievement = models.OneToOneField(
         Achievement, primary_key=True, related_name='icon',
-        help_text='The achievement this icon corresponds to.')
+        help_text='The achievement this icon corresponds to.', on_delete=models.CASCADE)
 
     image = models.ImageField(
         upload_to='images/achievements/',

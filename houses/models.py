@@ -21,10 +21,9 @@ class House(models.Model):
 
 class HouseMember(models.Model):
     """A member of a house."""
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='housemember')
-    term = models.ForeignKey(Term)
-    house = models.ForeignKey(House)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='housemember', on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
+    house = models.ForeignKey(House, on_delete=models.CASCADE)
 
     is_leader = models.NullBooleanField(
         default=None,

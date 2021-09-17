@@ -27,11 +27,11 @@ class ProjectReport(models.Model):
         ('ep', 'Education/Prof. Dev.'),
         ('km', 'K-12/MindSET'))
 
-    term = models.ForeignKey(Term, on_delete=models.SET_NULL)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     date = models.DateField()
     title = models.CharField(max_length=80)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
-    committee = models.ForeignKey(OfficerPosition, on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    committee = models.ForeignKey(OfficerPosition, null=True, on_delete=models.SET_NULL)
     area = models.CharField(
         max_length=2, choices=PROJECT_AREA_CHOICES, blank=True)
     organize_hours = models.PositiveSmallIntegerField(
@@ -118,7 +118,7 @@ class ProjectReportBook(models.Model):
     """A project report book. Generating a project report book is very slow,
     so the result needs to be cached in the database.
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     terms = models.ManyToManyField(Term)
     presidents_letter = models.TextField()
     pdf = models.FileField(upload_to='project_report_books/', blank=True)

@@ -40,8 +40,8 @@ class Candidate(models.Model):
             os.remove(full_path)
         return filename
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    term = models.ForeignKey(Term)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     initiated = models.BooleanField(default=False)
     photo = models.ImageField(blank=True, upload_to=rename_photo)
 
@@ -350,12 +350,12 @@ class Challenge(models.Model):
         (False, 'Denied'),
     )
 
-    candidate = models.ForeignKey(Candidate)
-    challenge_type = models.ForeignKey(ChallengeType)
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    challenge_type = models.ForeignKey(ChallengeType, on_delete=models.CASCADE)
     description = models.CharField(max_length=255)
     verifying_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        help_text='Person who verified the challenge.')
+        help_text='Person who verified the challenge.', null=True, on_delete=models.SET_NULL)
     verified = models.NullBooleanField(choices=VERIFIED_CHOICES)
     reason = models.CharField(
         blank=True, max_length=255,
@@ -395,7 +395,7 @@ class CandidateRequirement(models.Model):
         max_length=9, choices=REQUIREMENT_TYPE_CHOICES, db_index=True)
     credits_needed = models.IntegerField(
         help_text='Amount of credits needed to fulfill a candidate requirement')
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -504,7 +504,7 @@ class CandidateRequirement(models.Model):
 
 class EventCandidateRequirement(CandidateRequirement):
     """Requirement for attending events of a certain type."""
-    event_type = models.ForeignKey(EventType)
+    event_type = models.ForeignKey(EventType, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         """Override save handler to ensure that requirement_type is correct."""
@@ -549,7 +549,7 @@ class EventCandidateRequirement(CandidateRequirement):
 
 class ChallengeCandidateRequirement(CandidateRequirement):
     """Requirement for completing challenges issued by officers."""
-    challenge_type = models.ForeignKey(ChallengeType)
+    challenge_type = models.ForeignKey(ChallengeType, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         """Override save handler to ensure that requirement_type is correct."""
@@ -682,8 +682,8 @@ class CandidateRequirementProgress(models.Model):
     manually_recorded_credits and the alternate_credits_needed fields may be
     used as manual adjustments.
     """
-    candidate = models.ForeignKey(Candidate)
-    requirement = models.ForeignKey(CandidateRequirement)
+    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    requirement = models.ForeignKey(CandidateRequirement, on_delete=models.CASCADE)
     manually_recorded_credits = models.IntegerField(
         default=0, help_text='Additional credits that go toward fulfilling a '
         'candidate requirement')
