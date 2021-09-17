@@ -194,7 +194,7 @@ DJANGO_CONTRIB_APPS = [
 # All projects that we write (and thus, need to be tested) should go here.
 PROJECT_APPS = [
     'accounts',
-    # 'achievements',
+    'achievements',
     'alumni',
     'base',
     'candidates',
