@@ -1,5 +1,4 @@
-from django.urls import patterns
-from django.urls import url
+from django.urls import re_path
 
 from videos.views import VideoCreateView
 from videos.views import VideoListView
@@ -8,7 +7,7 @@ from videos.views import VideoTypeCreateView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', VideoListView.as_view(), name='list'),
-    url(r'^add/$', VideoCreateView.as_view(), name='add'),
-    url(r'^addtype/$', VideoTypeCreateView.as_view(), name='addtype'),
+    re_path(r'^$', VideoListView.as_view(), name='list'),
+    re_path(r'^add/$', VideoCreateView.as_view(), name='add'),
+    re_path(r'^addtype/$', VideoTypeCreateView.as_view(), name='addtype'),
 )

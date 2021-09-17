@@ -1,5 +1,4 @@
-from django.urls import patterns
-from django.urls import url
+from django.urls import re_path
 
 from courses.views import CourseDetailView
 from courses.views import CourseListView
@@ -16,32 +15,31 @@ from courses.views import InstructorListView
 from courses.views import listCourses
 
 
-urlpatterns = patterns(
-    '',
-    url(r'^list', listCourses, name='search'),
-    url(r'^$', CourseDepartmentListView.as_view(),
+urlpatterns = [
+    re_path(r'^list', listCourses, name='search'),
+    re_path(r'^$', CourseDepartmentListView.as_view(),
         name='course-department-list'),
-    url(r'^(?P<dept_slug>(?!instructors)[A-Za-z-]+)/$',
+    re_path(r'^(?P<dept_slug>(?!instructors)[A-Za-z-]+)/$',
         CourseListView.as_view(), name='course-list'),
-    url(r'^(?P<dept_slug>(?!instructors)[A-Za-z-]+)/'
+    re_path(r'^(?P<dept_slug>(?!instructors)[A-Za-z-]+)/'
         '(?P<course_num>[A-Za-z0-9w-]+)/$',
         CourseDetailView.as_view(), name='course-detail'),
-    url(r'^add$', CourseCreateView.as_view(),
+    re_path(r'^add$', CourseCreateView.as_view(),
         name='add-course'),
-    url(r'^(?P<cous_pk>[0-9]+)/edit/$', CourseEditView.as_view(),
+    re_path(r'^(?P<cous_pk>[0-9]+)/edit/$', CourseEditView.as_view(),
         name='edit-course'),
-    url(r'^(?P<cous_pk>[0-9]+)/delete/$',
+    re_path(r'^(?P<cous_pk>[0-9]+)/delete/$',
         CourseDeleteView.as_view(), name='delete-course'),
-    url(r'^instructors/$', InstructorDepartmentListView.as_view(),
+    re_path(r'^instructors/$', InstructorDepartmentListView.as_view(),
         name='instructor-department-list'),
-    url(r'^instructors/add/$', InstructorCreateView.as_view(),
+    re_path(r'^instructors/add/$', InstructorCreateView.as_view(),
         name='add-instructor'),
-    url(r'^instructors/(?P<dept_slug>[A-Za-z-]+)/$',
+    re_path(r'^instructors/(?P<dept_slug>[A-Za-z-]+)/$',
         InstructorListView.as_view(), name='instructor-list'),
-    url(r'^instructors/(?P<inst_pk>[0-9]+)/$',
+    re_path(r'^instructors/(?P<inst_pk>[0-9]+)/$',
         InstructorDetailView.as_view(), name='instructor-detail'),
-    url(r'^instructors/(?P<inst_pk>[0-9]+)/edit/$',
+    re_path(r'^instructors/(?P<inst_pk>[0-9]+)/edit/$',
         InstructorEditView.as_view(), name='edit-instructor'),
-    url(r'^instructors/(?P<inst_pk>[0-9]+)/delete/$',
+    re_path(r'^instructors/(?P<inst_pk>[0-9]+)/delete/$',
         InstructorDeleteView.as_view(), name='delete-instructor'),
-)
+]

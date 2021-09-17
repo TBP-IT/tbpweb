@@ -1,10 +1,8 @@
-from django.urls import patterns
-from django.urls import url
+from django.urls import re_path
 
 from notifications.views import clear_notification
 
 
-urlpatterns = patterns(
-    '',
-    url(r'^clear/(?P<notification_pk>\d+)/$', clear_notification, name='clear'),
-)
+urlpatterns = [
+    re_path(r'^clear/(?P<notification_pk>\d+)/$', clear_notification, name='clear'),
+]
