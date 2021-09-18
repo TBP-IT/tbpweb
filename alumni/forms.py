@@ -6,6 +6,7 @@ from alumni.models import Alumnus
 class AlumnusForm(forms.ModelForm):
     class Meta(object):
         model = Alumnus
+        fields = '__all__'
         widgets = {
             'user': chosen_forms.ChosenSelect()
         }

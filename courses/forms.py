@@ -10,6 +10,7 @@ from shortcuts import get_object_or_none
 class InstructorForm(forms.ModelForm):
     class Meta(object):
         model = Instructor
+        fields = '__all__'
         widgets = {
             'department': chosen_forms.ChosenSelect()
         }
@@ -53,6 +54,7 @@ class InstructorEditForm(InstructorForm):
 class CourseForm(forms.ModelForm):
     class Meta(object):
         model = Course
+        fields = '__all__'
         widgets = {
             'department': chosen_forms.ChosenSelect()
         }
