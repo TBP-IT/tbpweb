@@ -158,7 +158,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -229,7 +229,7 @@ THIRD_PARTY_APPS = [
     'debug_toolbar',
     'easy_thumbnails',
     'localflavor',
-    'south',  # For data migration
+    # 'south',  # For data migration, commented since not used currently
 ]
 
 # This is the actual variable that django looks at.
