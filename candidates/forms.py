@@ -2,7 +2,6 @@ from chosen import forms as chosen_forms
 from django import forms
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
 from accounts.forms import UserCreationForm
@@ -77,8 +76,9 @@ class CandidateUserProfileForm(forms.ModelForm):
         self.fields['birthday'].required = True
         year_max = timezone.now().year - 10
         year_min = year_max - 70
-        self.fields['birthday'].widget = SelectDateWidget(
-            years=range(year_min, year_max))
+        self.fields['birthday'].widget = forms.DateField(
+            widget=forms.SelectDateWidget(years=range(year_min, year_max))
+        )
 
         self.fields['cell_phone'].required = True
 
