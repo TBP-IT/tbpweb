@@ -14,7 +14,7 @@ urlpatterns = [
     re_path(r'^', include('base.urls')),
     re_path(r'^accounts/', include('accounts.urls')),
     re_path(r'^achievements/', include('achievements.urls')),
-    re_path(r'^admin/', include(admin.site.urls)),
+    re_path(r'^admin/', admin.site.urls),
     re_path(r'^alumni/', include('alumni.urls')),
     re_path(r'^candidates/', include('candidates.urls')),
     re_path(r'^courses/', include('courses.urls')),
