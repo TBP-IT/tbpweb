@@ -89,6 +89,7 @@ Vagrant.configure("2") do |config|
         tmux \
         vim \
         libsasl2-dev \
+        python-dev \
         libldap2-dev \
         libssl-dev
 
