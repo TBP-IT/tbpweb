@@ -51,7 +51,7 @@ def modify_query_params(context, **kwargs):
     return ('?' + params.urlencode()) if params else ''
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_api_key_params(user):
     """Assign to a context variable a query string for the given user's API key.
 
