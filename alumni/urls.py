@@ -1,7 +1,5 @@
 from django.urls import re_path
-from alumni.views import AlumnusCreateView
-from alumni.views import AlumnusEditView
-from alumni.views import AlumnusListView
+from alumni.views import AlumnusCreateView, AlumnusEditView, AlumnusListView
 
 urlpatterns = [
     re_path(r'^$', AlumnusListView.as_view(), name='list'),

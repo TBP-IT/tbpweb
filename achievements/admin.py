@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from achievements.models import Achievement
-from achievements.models import AchievementIcon
-from achievements.models import UserAchievement
+from achievements.models import Achievement, AchievementIcon, UserAchievement
 
 
 class AchievementAdmin(admin.ModelAdmin):

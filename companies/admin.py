@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from companies.models import Company
-from companies.models import CompanyRep
+from companies.models import Company, CompanyRep
 
 
 class CompanyAdmin(admin.ModelAdmin):

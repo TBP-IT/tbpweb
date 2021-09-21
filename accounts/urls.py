@@ -5,10 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView, \
                                       PasswordChangeView, PasswordChangeDoneView, PasswordResetView, \
                                       PasswordResetCompleteView, PasswordResetConfirmView, PasswordResetDoneView
 
-from accounts.forms import AuthenticationForm
-from accounts.forms import PasswordChangeForm
-from accounts.forms import PasswordResetForm
-from accounts.forms import SetPasswordForm
+from accounts.forms import AuthenticationForm,  PasswordChangeForm, PasswordResetForm, SetPasswordForm
 
 
 app_name = 'accounts'

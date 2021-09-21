@@ -1,9 +1,6 @@
 from django.contrib import admin
 
-from courses.models import Course
-from courses.models import CourseInstance
-from courses.models import Department
-from courses.models import Instructor
+from courses.models import Course, CourseInstance, Department, Instructor
 
 
 class CourseAdmin(admin.ModelAdmin):

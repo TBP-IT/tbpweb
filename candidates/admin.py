@@ -1,14 +1,9 @@
 from django.contrib import admin
 
-from candidates.models import Candidate
-from candidates.models import Challenge
-from candidates.models import ChallengeType
-from candidates.models import ChallengeCandidateRequirement
-from candidates.models import EventCandidateRequirement
-from candidates.models import ExamFileCandidateRequirement
-from candidates.models import CandidateRequirementProgress
-from candidates.models import ManualCandidateRequirement
-from candidates.models import SyllabusCandidateRequirement
+from candidates.models import Candidate, Challenge, ChallengeType, \
+                              ChallengeCandidateRequirement, EventCandidateRequirement, \
+                              ExamFileCandidateRequirement, CandidateRequirementProgress, \
+                              ManualCandidateRequirement, SyllabusCandidateRequirement
 
 
 class CandidateModelAdmin(admin.ModelAdmin):

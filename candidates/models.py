@@ -7,10 +7,7 @@ from django.db import models
 from django.db.models import Sum
 
 from base.models import Term
-from events.models import Event
-from events.models import EventAttendance
-from events.models import EventSignUp
-from events.models import EventType
+from events.models import Event, EventAttendance, EventSignUp, EventType
 from exams.models import Exam
 from syllabi.models import Syllabus
 from resumes.models import Resume

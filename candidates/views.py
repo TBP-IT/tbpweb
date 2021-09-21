@@ -28,17 +28,10 @@ from django.views.generic.edit import FormView
 
 from base.models import Term
 from base.views import TermParameterMixin
-from candidates.models import Candidate
-from candidates.models import CandidateRequirement
-from candidates.models import CandidateRequirementProgress
-from candidates.models import Challenge
-from candidates.models import ChallengeType
-from candidates.models import ChallengeCandidateRequirement
-from candidates.models import EventCandidateRequirement
-from candidates.models import ExamFileCandidateRequirement
-from candidates.models import ManualCandidateRequirement
-from candidates.models import ResumeCandidateRequirement
-from candidates.models import SyllabusCandidateRequirement
+from candidates.models import Candidate, CandidateRequirement, CandidateRequirementProgress, Challenge, \
+                              ChallengeType, ChallengeCandidateRequirement, EventCandidateRequirement, \
+                              ExamFileCandidateRequirement, ManualCandidateRequirement, \
+                              ResumeCandidateRequirement, SyllabusCandidateRequirement
 from candidates.forms import CandidateCreationForm
 from candidates.forms import CandidateUserProfileForm
 from candidates.forms import CandidatePhotoForm

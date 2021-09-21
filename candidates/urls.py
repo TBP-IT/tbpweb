@@ -1,19 +1,10 @@
 from django.urls import re_path
-
-from candidates.views import CandidateCreateView
-from candidates.views import CandidateEditView
-from candidates.views import CandidateExportView
-from candidates.views import CandidateInitiationView
-from candidates.views import CandidateListView
-from candidates.views import CandidatePhotoView
-from candidates.views import CandidatePortalView
-from candidates.views import CandidateProgressView
-from candidates.views import CandidateProgressByReqView
-from candidates.views import CandidateProgressStatsView
-from candidates.views import CandidateRequirementsEditView
-from candidates.views import ChallengeVerifyView
-from candidates.views import ManualCandidateRequirementCreateView
-from candidates.views import update_candidate_initiation_status
+from candidates.views import CandidateCreateView, CandidateEditView, CandidateExportView, \
+                             CandidateInitiationView, CandidateListView, CandidatePhotoView, \
+                             CandidatePortalView, CandidateProgressView, \
+                             CandidateProgressByReqView, CandidateProgressStatsView, \
+                             CandidateRequirementsEditView, ChallengeVerifyView, \
+                             ManualCandidateRequirementCreateView, update_candidate_initiation_status
 
 
 urlpatterns = [

@@ -1,18 +1,9 @@
 from django.urls import re_path
-
-from courses.views import CourseDetailView
-from courses.views import CourseListView
-from courses.views import CourseDepartmentListView
-from courses.views import CourseCreateView
-from courses.views import CourseEditView
-from courses.views import CourseDeleteView
-from courses.views import InstructorCreateView
-from courses.views import InstructorDepartmentListView
-from courses.views import InstructorDeleteView
-from courses.views import InstructorDetailView
-from courses.views import InstructorEditView
-from courses.views import InstructorListView
-from courses.views import listCourses
+from courses.views import CourseDetailView, CourseListView, CourseDepartmentListView, \
+                          CourseCreateView, CourseEditView, CourseDeleteView, \
+                          InstructorCreateView, InstructorDepartmentListView, \
+                          InstructorDeleteView, InstructorDetailView, InstructorEditView, \
+                          InstructorListView, listCourses
 
 
 urlpatterns = [
