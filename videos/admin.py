@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from videos.models import Video
-from videos.models import VideoType
+from videos.models import Video, VideoType
 
 
 class VideoAdmin(admin.ModelAdmin):
