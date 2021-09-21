@@ -26,10 +26,8 @@ class UserProfileForm(forms.ModelForm):
         help_text='Bio is optional for candidates'
     )
     major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects)
-    start_term = forms.ModelChoiceField(Term.objects.get_terms(
-        reverse=True).exclude(id=Term.objects.get_current_term().id))
-    grad_term = forms.ModelChoiceField(Term.objects.get_terms(
-        include_future=True))
+    start_term = forms.ModelChoiceField(Term.objects.all())
+    grad_term = forms.ModelChoiceField(Term.objects.all())
 
     class Meta(object):
         model = UserProfile
@@ -47,6 +45,10 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        # Set Term options to get desired ordering
+        self.start_term.queryset = Term.objects.get_terms(reverse=True).exclude(id=Term.objects.get_current_term().id)
+        self.grad_term.queryset = Term.objects.get_terms(include_future=True)
+
         # Set the initial values for the user model fields based on those
         # corresponding values. Note that editing a user profile only makes
         # sense if an instance is provided, as every user will have a user

@@ -18,9 +18,13 @@ from utils.ajax import json_response
 
 class HouseMembersEditView(TermParameterMixin, ListView):
     context_object_name = 'eligible_house_members'
-    current_term = Term.objects.get_current_term()
+    current_term = Term(current=True)
     model = get_user_model()
     template_name = 'houses/edit.html'
+
+    def __init__(self, *args, **kwargs):
+        super(HouseMembersEditView, self).__init__(*args, **kwargs)
+        self.current_term = Term.objects.get_current_term()
 
     @method_decorator(login_required)
     @method_decorator(permission_required('houses.add_housemember',

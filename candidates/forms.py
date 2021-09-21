@@ -37,20 +37,16 @@ class CandidateCreationForm(UserCreationForm):
 # TODO(ehy): find a way not to duplicate code with UserProfileForm
 class CandidateUserProfileForm(forms.ModelForm):
     """Form for creating a candidate's user profile. Similar to
-    tbpweb.user_profiles.forms.UserProfileForm, but leaves out the fields that
+    user_profiles.forms.UserProfileForm, but leaves out the fields that
     clash with UserCreationForm, as well as the bio field (not very important
     for candidates)."""
 
     gender = forms.ChoiceField(choices=UserProfile.GENDER_CHOICES,
                                widget=forms.RadioSelect,
                                required=True)
-    major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects.filter(
-        is_eligible=True))
-    start_term = forms.ModelChoiceField(Term.objects.get_terms(
-        reverse=True).exclude(id=Term.objects.get_current_term().id))
-    grad_term = forms.ModelChoiceField(Term.objects.get_terms(
-        include_future=True).filter(
-        id__gte=Term.objects.get_current_term().id))
+    major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects.filter(is_eligible=True))
+    start_term = forms.ModelChoiceField(Term.objects.all())
+    grad_term = forms.ModelChoiceField(Term.objects.all())
 
     class Meta(object):
         model = UserProfile
@@ -68,6 +64,11 @@ class CandidateUserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CandidateUserProfileForm, self).__init__(*args, **kwargs)
+        # Set Term options to get desired ordering, but after the website is initialized (and so it the database)
+        self.start_term.queryset = Term.objects.get_terms(reverse=True) \
+                                                         .exclude(id=Term.objects.get_current_term().id)
+        self.grad_term.queryset  = Term.objects.get_terms(include_future=True) \
+                                                         .filter(id__gte=Term.objects.get_current_term().id)
 
         self.fields['birthday'].required = True
         year_max = timezone.now().year - 10
