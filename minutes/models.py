@@ -33,9 +33,9 @@ class Minutes(models.Model):
 
     class Meta(object):
         ordering = ('-date',)
-        permissions = (
-            ('view_minutes', 'Can view all minutes'),
-        )
+        # permissions = (
+        #     ('view_minutes', 'Can view all minutes'),
+        # )
         verbose_name = 'minutes'
         verbose_name_plural = 'minutes'
 

@@ -31,9 +31,9 @@ class HouseMember(models.Model):
 
     class Meta(object):
         unique_together = (('user', 'term'), ('term', 'house', 'is_leader'))
-        permissions = (
-            ('view_housemember', 'Can view all houses and members'),
-        )
+        # permissions = (
+        #     ('view_housemember', 'Can view all houses and members'),
+        # )
 
     def __unicode__(self):
         return '%s - %s (%s %d)' % (

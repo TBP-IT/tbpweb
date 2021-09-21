@@ -20,9 +20,9 @@ class Alumnus(models.Model):
                                                related_name='+', blank=True)
 
     class Meta(object):
-        permissions = (
-            ('view_alumnus', 'Can view all alumni'),
-        )
+        # permissions = (
+        #     ('view_alumnus', 'Can view all alumni'),
+        # )
         verbose_name_plural = 'Alumni'
 
     def __unicode__(self):
