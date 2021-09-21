@@ -322,7 +322,7 @@ class Event(models.Model):
         """Return the maximum event restriction level this user can access, or
         the public restriction level if no user is provided.
         """
-        if user and user.is_authenticated():
+        if user and user.is_authenticated:
             if user.userprofile.is_officer():
                 return Event.OFFICER
             elif user.userprofile.is_member():

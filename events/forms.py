@@ -182,7 +182,7 @@ class EventSignUpForm(forms.ModelForm):
         num_rsvps = self.event.get_num_rsvps()
 
         # Get the previous signup if it exists
-        if self.user.is_authenticated():
+        if self.user.is_authenticated:
             signup = get_object_or_none(
                 EventSignUp, event=self.event, user=self.user)
         else:
@@ -208,7 +208,7 @@ class EventSignUpForm(forms.ModelForm):
 
         self.instance.event = self.event
         self.instance.unsignup = False
-        if self.user.is_authenticated():
+        if self.user.is_authenticated:
             self.instance.user = self.user
         return cleaned_data
 

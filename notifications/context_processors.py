@@ -9,7 +9,7 @@ from notifications.models import Notification
 
 def notifications(request):
     """Get all notifications for a user that have not been cleared."""
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         # Create notifications for project reports that are late from all terms
         project_reports = ProjectReport.objects.filter(
             author=request.user,

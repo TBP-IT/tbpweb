@@ -93,7 +93,7 @@ class EventBuilderView(TermParameterMixin, ListView):
             }
             all_events.append(event_data)
         context['json_data'] = json.dumps(all_events, cls=DjangoJSONEncoder)
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             login_message = format_html(u'Please <a href="{}">log in</a>! Some '
                                         'events may not be visible.',
                                         reverse('accounts:login'))
@@ -131,7 +131,7 @@ class EventListView(TermParameterMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['show_all'] = self.show_all
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             login_message = format_html(u'Please <a href="{}">log in</a>! Some '
                                         'events may not be visible.',
                                         reverse('accounts:login'))
@@ -204,7 +204,7 @@ class EventDetailView(DetailView):
         # If this user can't view the current event, redirect to login if they
         # aren't already logged in; otherwise raise PermissionDenied
         if not self.object.can_user_view(self.request.user):
-            if self.request.user.is_authenticated():
+            if self.request.user.is_authenticated:
                 raise PermissionDenied
             else:
                 return redirect_to_login(self.request.path)
@@ -238,7 +238,7 @@ class EventDetailView(DetailView):
             # sign up, don't supply a signup form.
             context['form'] = None
         else:
-            if self.request.user.is_authenticated():
+            if self.request.user.is_authenticated:
                 try:
                     signup = EventSignUp.objects.get(
                         event=self.object, user=self.request.user)
@@ -297,7 +297,7 @@ class EventSignUpView(AjaxFormResponseMixin, FormView):
         return super(EventSignUpView, self).dispatch(*args, **kwargs)
 
     def get_form_class(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return EventSignUpForm
         else:
             return EventSignUpAnonymousForm
@@ -389,7 +389,7 @@ def event_unsignup(request, event_pk):
     except:
         return json_response(status=400)
     success_msg = 'Unsignup successful.'
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         try:
             # Try to get a signup object for this user
             signup = EventSignUp.objects.get(event=event, user=request.user)

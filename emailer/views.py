@@ -337,7 +337,7 @@ class CompanyEmailerView(EmailerView):
     check_spam = False
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             name = request.user.get_full_name()
             email = request.user.email
         else:

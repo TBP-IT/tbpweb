@@ -63,7 +63,7 @@ def get_api_key_params(user):
     would output the string:  'user=<user's pk>&key=<user's API key>'
     for the user object "user". This would often be used to append to a URL.
     """
-    if user and user.is_authenticated():
+    if user and user.is_authenticated:
         api_key, _ = APIKey.objects.get_or_create(user=user)
         return urlencode({'user': user.pk, 'key': api_key.key})
     return ''
