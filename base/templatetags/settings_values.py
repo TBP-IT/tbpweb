@@ -1,9 +1,9 @@
 from django import template
-from django.views.debug import SafeExceptionReporterFilter
+from django.views.debug import get_safe_settings
 
 
 register = template.Library()
-safe_settings = SafeExceptionReporterFilter().get_safe_settings()
+safe_settings = get_safe_settings()
 
 
 @register.simple_tag
