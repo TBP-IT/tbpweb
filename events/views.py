@@ -12,11 +12,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
-from django.urls import reverse_lazy
-from django.urls import reverse
-from django.db.models import Q
-from django.db.models import Count
-from django.db.models import Sum
+from django.urls import reverse_lazy, reverse
+from django.db.models import Q, Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -25,27 +22,16 @@ from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.views.decorators.http import require_GET
 from django.views.decorators.http import require_POST
-from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import FormView
-from django.views.generic import ListView
-from django.views.generic import TemplateView
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, DetailView, FormView, ListView, TemplateView, UpdateView
 from accounts.models import APIKey
 from base.models import Term
 from base.views import TermParameterMixin
 from candidates.models import Candidate
-from events.forms import EventForm
-from events.forms import EventSignUpAnonymousForm
-from events.forms import EventSignUpForm
-from events.forms import EventCancelForm
-from events.models import Event
-from events.models import EventAttendance
-from events.models import EventSignUp
+from events.forms import EventForm, EventSignUpAnonymousForm, EventSignUpForm, EventCancelForm
+from events.models import Event, EventAttendance, EventSignUp
 from project_reports.models import ProjectReport
 from shortcuts import create_leaderboard
-from utils.ajax import AjaxFormResponseMixin
-from utils.ajax import json_response
+from utils.ajax import AjaxFormResponseMixin, json_response
 
 
 user_model = get_user_model()

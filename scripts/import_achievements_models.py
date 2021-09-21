@@ -1,8 +1,8 @@
 from django.contrib.auth import get_user_model
 
-from quark.achievements.models import Achievement
-from quark.achievements.models import UserAchievement
-from quark.base.models import Term
+from achievements.models import Achievement
+from achievements.models import UserAchievement
+from base.models import Term
 from scripts import get_json_data
 from scripts.import_base_models import SEMESTER_TO_TERM
 

@@ -7,17 +7,13 @@ from django.utils import timezone
 from accounts.forms import UserCreationForm
 from base.models import Major
 from base.models import Term
-from candidates.models import Candidate
-from candidates.models import CandidateRequirement
-from candidates.models import CandidateRequirementProgress
-from candidates.models import Challenge
-from candidates.models import ChallengeType
-from candidates.models import ManualCandidateRequirement
+from candidates.models import Candidate, CandidateRequirement, \
+                                     CandidateRequirementProgress, Challenge, \
+                                     ChallengeType, ManualCandidateRequirement
 from events.models import EventType
 from user_profiles.fields import UserCommonNameChoiceField
 from user_profiles.forms import UserProfileForm
-from user_profiles.models import CollegeStudentInfo
-from user_profiles.models import UserProfile
+from user_profiles.models import CollegeStudentInfo, UserProfile
 
 
 class CandidateCreationForm(UserCreationForm):

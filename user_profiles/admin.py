@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from user_profiles.models import CollegeStudentInfo
-from user_profiles.models import StudentOrgUserProfile
-from user_profiles.models import UserProfile
+from user_profiles.models import CollegeStudentInfo, StudentOrgUserProfile, UserProfile
 
 
 class CollegeStudentInfoAdmin(admin.ModelAdmin):

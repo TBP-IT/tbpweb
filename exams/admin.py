@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from exams.models import Exam
-from exams.models import ExamFlag
-from exams.models import InstructorPermission
+from exams.models import Exam, ExamFlag, InstructorPermission
 
 
 class ExamAdmin(admin.ModelAdmin):
