@@ -40,9 +40,7 @@ INDREL_NOTICE_TO = 'notice@' + HOSTNAME
 HELPDESK_SPAM_TO = 'spam@' + HOSTNAME
 INDREL_SPAM_TO = 'spam@' + HOSTNAME
 
-# ALLOWED_HOSTS = [
-#     'localhost', 'tbp.apphost.ocf.berkeley.edu'
-# ]
+ALLOWED_HOSTS = [HOSTNAME]
 
 # # Static files (CSS, JavaScript, Images)
 # # https://docs.djangoproject.com/en/2.1/howto/static-files/

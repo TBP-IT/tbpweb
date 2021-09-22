@@ -15,6 +15,8 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = [HOSTNAME]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
