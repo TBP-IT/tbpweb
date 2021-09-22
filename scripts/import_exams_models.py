@@ -21,7 +21,7 @@ from scripts import get_json_data
 
 
 NOIRO_EXAMS_LOCATION = '/var/testfiles/'
-# Dictionary mapping the pk's of noiro Departments to the pk's of quark
+# Dictionary mapping the pk's of noiro Departments to the pk's of tbpweb
 # Departments and department abbreviations. This is necessary because the
 # examfiles app in noiro used their own Department model instead of the
 # Department model in the courses app. The abbreviations are used for getting

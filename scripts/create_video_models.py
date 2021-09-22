@@ -38,7 +38,7 @@ def create_video_types():
 
 
 def import_videos(
-    quark_path='/var/www/quark', videos_path='/media/videos'):
+    tbpweb_path='/var/www/tbpweb', videos_path='/media/videos'):
     """
     Method for creating Video models for past video files
     Run this after running create_video_types
@@ -55,7 +55,7 @@ def import_videos(
             # strip the leading slash from the videos path since
             # we want the path to start at /var instead of /media
             file_path = os.path.join(
-                quark_path, videos_path[1:], semester, filename)
+                tbpweb_path, videos_path[1:], semester, filename)
             if os.path.isfile(file_path):
                 print('{}{}'.format('Found video file: ', file_path))
                 video = Video()

@@ -16,9 +16,9 @@ from scripts import NOIRO_MEDIA_LOCATION
 from scripts.import_base_models import SEMESTER_TO_TERM
 
 
-# The pk's for Major start at 1 in noiro and 1000 in quark. The ordering of
+# The pk's for Major start at 1 in noiro and 1000 in tbpweb. The ordering of
 # the majors is the same, so 999 needs to be added to a noiro pk to convert it
-# to a quark pk.
+# to a tbpweb pk.
 MAJOR_PK_CONVERSION = 999
 # Dictionary mapping the pk's of users to booleans of whether they have
 # initiated. This is necessary when importing candidates because has_initiated

@@ -6,11 +6,11 @@ from quark.base.models import Term
 from scripts import get_json_data
 
 
-# Dictionary mapping the pk's of noiro Semesters to the pk's of quark Terms.
+# Dictionary mapping the pk's of noiro Semesters to the pk's of tbpweb Terms.
 # This is necessary for other models that have a foreign key to Term/Semester.
 # Because the json files store foreign keys as just pk's, it's impossible
 # to lookup the noiro Semester from the pk in the json file and then determine
-# what the quark Term pk should be.
+# what the tbpweb Term pk should be.
 SEMESTER_TO_TERM = {}
 
 
