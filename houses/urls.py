@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import path
 
 from houses.views import assign_house
 from houses.views import HouseMembersEditView
@@ -7,8 +7,8 @@ from houses.views import unassign_house
 
 
 urlpatterns = [
-    re_path(r'^$', HouseMembersListView.as_view(), name='list'),
-    re_path(r'^assign/$', assign_house, name='assign'),
-    re_path(r'^edit/$', HouseMembersEditView.as_view(), name='edit'),
-    re_path(r'^unassign/$', unassign_house, name='unassign'),
+    path('', HouseMembersListView.as_view(), name='list'),
+    path('assign/', assign_house, name='assign'),
+    path('edit/', HouseMembersEditView.as_view(), name='edit'),
+    path('unassign/', unassign_house, name='unassign'),
 ]
