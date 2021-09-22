@@ -58,7 +58,7 @@ class VoteReceipt(models.Model):
     # impossible to associate a Vote with a VoteReceipt
     id = UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
-    nominee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
