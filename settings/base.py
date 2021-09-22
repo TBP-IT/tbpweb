@@ -21,7 +21,6 @@ except ImportError:
           'on the path, and that there are no errors in the module.')
     sys.exit(1)
 
-
 # Determine the path of your local workspace.
 WORKSPACE_DJANGO_ROOT = os.path.abspath(
     os.path.dirname(os.path.dirname(globals()['__file__'])))
@@ -33,6 +32,12 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = ()
 
 MANAGERS = ADMINS
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+TEMPLATE_DIRS = [
+    os.path.join(WORKSPACE_DJANGO_ROOT, 'templates'),
+]
 
 DATABASES = {
     'default': {
@@ -60,7 +65,7 @@ AUTH_USER_MODEL = 'auth.User'
 USE_LDAP = False  # Only use LDAP in production
 
 AUTHENTICATION_BACKENDS = (
-    'tbpweb.qldap.backends.LDAPBackend',
+    'qldap.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -147,23 +152,32 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'base.context_processors.local_env',
-    'notifications.context_processors.notifications',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')] + TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'base.context_processors.local_env',
+                'notifications.context_processors.notifications'
+            ],
+        },
+    },
+]
 
-MIDDLEWARE_CLASSES = [
-    'django.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
+MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.doc.XViewMiddleware',
+    'django.contrib.admindocs.middleware.XViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -173,11 +187,7 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'wsgi.application'
-
-TEMPLATE_DIRS = (
-    os.path.join(WORKSPACE_DJANGO_ROOT, 'templates'),
-)
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 DJANGO_CONTRIB_APPS = [
     'django.contrib.admin',
@@ -229,7 +239,6 @@ THIRD_PARTY_APPS = [
     'debug_toolbar',
     'easy_thumbnails',
     'localflavor',
-    # 'south',  # For data migration, commented since not used currently
 ]
 
 # This is the actual variable that django looks at.
