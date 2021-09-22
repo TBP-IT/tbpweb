@@ -60,10 +60,10 @@
         <li><a href="{% url 'candidates:portal' %}">Candidate Portal</a></li>
         {% endif %}
 
-        <li><a href="{% url 'procrastination' %}">Procrastination</a></li>
+        <li><a href="{% url 'base:procrastination' %}">Procrastination</a></li>
 
         {% if user.is_staff %}
-        <li><a href="{% url 'it-tools' %}">IT Tools</a></li>
+        <li><a href="{% url 'base:it-tools' %}">IT Tools</a></li>
         {% endif %}
       </ul>
     </li>

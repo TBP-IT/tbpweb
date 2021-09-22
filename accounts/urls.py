@@ -18,7 +18,7 @@ urlpatterns = [
     re_path(r'^logout/$',
         # next_page is used to redirect to the root URL after logout if the
         # requested URL doesn't contain a redirect GET field
-        LogoutView.as_view(next_page=reverse_lazy('home'), template_name='accounts/logout.html'),
+        LogoutView.as_view(next_page=reverse_lazy('base:home'), template_name='accounts/logout.html'),
         name='logout'),
 
     # Changing password (change, then done):
