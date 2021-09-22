@@ -33,5 +33,5 @@ BLACKLISTED_MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 for middleware in BLACKLISTED_MIDDLEWARE:
-    if middleware in MIDDLEWARE_CLASSES:
-        MIDDLEWARE_CLASSES.remove(middleware)
+    if middleware in MIDDLEWARE:
+        MIDDLEWARE.remove(middleware)
