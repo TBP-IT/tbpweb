@@ -4,7 +4,7 @@ import os
 
 from .base import *
 # pylint: disable=F0401
-import settings.tbpweb_keys as tbpweb_keys
+from .project import HOSTNAME
 
 ###############################################################################
 # Private Variables for this dev instance
@@ -38,7 +38,8 @@ THUMBNAIL_DEBUG = DEBUG
 ADMINS = ((_name, _email),)
 MANAGERS = ADMINS
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ALLOWED_HOSTS = ['localhost','127.0.0.1', HOSTNAME]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

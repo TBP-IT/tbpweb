@@ -9,7 +9,7 @@ import mox
 from utils import create_dev_db
 from utils.dev import DevServer
 from utils.management.commands import dev as dev_cmd
-import tbpweb.utils as dev_utils
+import utils as dev_utils
 
 
 class DevServerTest(TestCase):
@@ -69,7 +69,7 @@ class DevUtilsTest(TestCase):
 
     @override_settings(PROJECT_APPS=[], WORKSPACE_ROOT='root')
     @patch('django.core.management.ManagementUtility')
-    @patch('tbpweb.utils.load_initial_data')
+    @patch('utils.load_initial_data')
     def test_update_db(self, mock_data, mock_mgmt):
         """
         Ensure update_db goes through the 2 management steps, which assumes
@@ -87,7 +87,7 @@ class DevCommandTest(TestCase):
     @override_settings(PROJECT_APPS=[])
     @patch.dict(os.environ, {'RUN_MAIN': 'true'})
     @patch('getpass.getuser')
-    @patch('tbpweb.utils.update_db')
+    @patch('utils.update_db')
     @patch.object(dev_cmd.DevServer, 'run_server')
     def test_handle(self, mock_server, mock_update, mock_user):
         """Running dev does not raise a KeyError or CommandError"""

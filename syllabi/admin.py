@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from syllabi.models import Syllabus
-from syllabi.models import SyllabusFlag
-from syllabi.models import InstructorSyllabusPermission
+from syllabi.models import Syllabus, SyllabusFlag, InstructorSyllabusPermission
 
 
 class SyllabusAdmin(admin.ModelAdmin):
