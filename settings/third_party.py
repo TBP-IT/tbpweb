@@ -6,9 +6,9 @@ from settings.base import CACHES
 
 # Specify the south migration modules, since easy thumbnails migrations are in
 # a submodule
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
-}
+# SOUTH_MIGRATION_MODULES = {
+#     'easy_thumbnails': 'easy_thumbnails.south_migrations',
+# }
 
 # Mailman path
 MMPATH = '/usr/lib/mailman'
@@ -17,10 +17,9 @@ if MMPATH not in sys.path:
 
 
 # Set up SASS (SCSS) compilation for django-compressor, with the "compass"
-# library. Use SASS version 3.2.14, since compass fails to load with a higher
-# version.
+# library. Use SASS version 3.4.25 was deemed okay to upgrade to from 3.2.14
 COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'sass _3.2.14_ --scss --compass {infile} {outfile}'),
+    ('text/x-scss', 'sass _3.4.25_ --scss --compass {infile} {outfile}'),
 )
 
 # Use the "AbsoluteFilter" to change relative URLs to absolute URLs, and
