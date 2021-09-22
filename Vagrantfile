@@ -77,6 +77,7 @@ Vagrant.configure("2") do |config|
     apt-get update && apt-get install -y \
         curl \
         git \
+        ruby-dev \
         libmysqlclient-dev \
         make \
         sqlite3 \
@@ -92,7 +93,8 @@ Vagrant.configure("2") do |config|
         python-dev \
         libldap2-dev \
         libssl-dev
-
+    gem install compass -v 1.0.3
+    
   SHELL
   # Setup virtualenv
   config.vm.provision "shell", privileged: false, inline: "cd ~/tbpweb; make venv"
