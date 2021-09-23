@@ -1,12 +1,12 @@
 # pylint: disable=F0401
-from Mailman import MailList
-from Mailman import Utils
+# from Mailman import MailList
+# from Mailman import Utils
 
 from base.models import OfficerPosition
 
 
 def get_lists():
-    names = Utils.list_names()
+    names = [] #Utils.list_names()
     names.sort()
     committees = OfficerPosition.objects.all()
     committee_lists = {}
@@ -16,7 +16,8 @@ def get_lists():
     mlists = []
     for name in names:
         try:
-            mlist = MailList.MailList(name, lock=False)
+            # mlist = MailList.MailList(name, lock=False)
+            break
         except IOError:
             continue
         mlist_item = {

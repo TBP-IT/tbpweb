@@ -11,9 +11,10 @@ from settings.base import CACHES
 # }
 
 # Mailman path
-MMPATH = '/usr/lib/mailman'
-if MMPATH not in sys.path:
-    sys.path.append(MMPATH)
+# TODO: Change this mailman path since this was on old TBP Server
+# MMPATH = '/usr/lib/mailman'
+# if MMPATH not in sys.path:
+#     sys.path.append(MMPATH)
 
 
 # Set up SASS (SCSS) compilation for django-compressor, with the "compass"
