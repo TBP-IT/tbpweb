@@ -1,4 +1,5 @@
 import random
+from datetime import date
 
 from django.core.mail import EmailMultiAlternatives
 from django.core.management import BaseCommand
@@ -18,10 +19,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # exclude reports from just today or reports that can't possibly be in
         # the current academic year
-        last_year = Term.objects.get_current_term().year - 1
+        current_date = timezone.localtime(timezone.now()).date()
+        if current_date.month >= 8: # if we've started the next school year
+            academic_year_start_date = date(current_date.year, 8, 1)
+        else: # otherwise we're still in the previous school year
+            academic_year_start_date = date(current_date.year - 1, 8, 1)
+
         unfinished_reports = ProjectReport.objects.filter(
-            complete=False, term__year__gte=last_year,
-            date__lt=timezone.localtime(timezone.now()).date())
+            complete=False, term__year__gte=academic_year_start_date,
+            date__lt=current_date)
 
         reports_by_committee = {}
 
