@@ -1,18 +1,16 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import re_path
 
-from quark.newsreel.views import news_reorder
-from quark.newsreel.views import NewsCreateView
-from quark.newsreel.views import NewsDeleteView
-from quark.newsreel.views import NewsEditView
-from quark.newsreel.views import NewsListView
+from newsreel.views import news_reorder
+from newsreel.views import NewsCreateView
+from newsreel.views import NewsDeleteView
+from newsreel.views import NewsEditView
+from newsreel.views import NewsListView
 
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', NewsListView.as_view(), name='list'),
-    url(r'^add/$', NewsCreateView.as_view(), name='add'),
-    url(r'^edit/(?P<news_pk>\d+)/$', NewsEditView.as_view(), name='edit'),
-    url(r'^delete/(?P<news_pk>\d+)/$', NewsDeleteView.as_view(), name='delete'),
-    url(r'^reorder/$', news_reorder, name='reorder'),
-)
+urlpatterns = [
+    re_path(r'^$', NewsListView.as_view(), name='list'),
+    re_path(r'^add/$', NewsCreateView.as_view(), name='add'),
+    re_path(r'^edit/(?P<news_pk>\d+)/$', NewsEditView.as_view(), name='edit'),
+    re_path(r'^delete/(?P<news_pk>\d+)/$', NewsDeleteView.as_view(), name='delete'),
+    re_path(r'^reorder/$', news_reorder, name='reorder'),
+]

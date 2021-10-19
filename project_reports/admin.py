@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from quark.project_reports.models import ProjectReport
-from quark.project_reports.models import ProjectReportFromEmail
+from project_reports.models import ProjectReport, ProjectReportFromEmail
 
 
 class ProjectReportFromEmailAdmin(admin.ModelAdmin):

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.core.management import call_command
 from django.http import HttpResponse
@@ -14,12 +14,12 @@ from django.views.generic import ListView
 from django.views.generic import UpdateView
 from django.views.generic.base import View
 
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.project_reports.forms import ProjectReportForm
-from quark.project_reports.forms import ProjectReportBookExportForm
-from quark.project_reports.models import ProjectReport
-from quark.project_reports.models import ProjectReportBook
+from base.models import Term
+from base.views import TermParameterMixin
+from project_reports.forms import ProjectReportForm
+from project_reports.forms import ProjectReportBookExportForm
+from project_reports.models import ProjectReport
+from project_reports.models import ProjectReportBook
 
 from datetime import date
 from markdown import markdown

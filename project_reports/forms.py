@@ -1,12 +1,12 @@
 from chosen import forms as chosen_forms
 from django import forms
 
-from quark.base.fields import VisualDateWidget
-from quark.base.forms import ChosenTermMixin
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
+from base.fields import VisualDateWidget
+from base.forms import ChosenTermMixin
+from base.models import Term
+from project_reports.models import ProjectReport
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class ProjectReportForm(ChosenTermMixin, forms.ModelForm):
@@ -27,10 +27,16 @@ class ProjectReportForm(ChosenTermMixin, forms.ModelForm):
 
 
 class ProjectReportBookExportForm(forms.Form):
-    TERMS = Term.objects.filter(id__lte=Term.objects.get_current_term().id)
-    TERM_CHOICES = [(term.id, term.verbose_name())
-                    for term in TERMS.order_by('-id')]
-    terms = forms.MultipleChoiceField(choices=TERM_CHOICES)
+    terms = forms.MultipleChoiceField(choices=[(-1, "EMPTY")])
     presidents_letter = forms.CharField(
         widget=forms.Textarea, label='President\'s letter',
         help_text='Markdown format (do not use headers)')
+    
+    def __init__(self, *args, **kwargs):
+        super(ProjectReportBookExportForm, self).__init__(*args, **kwargs)
+        self.terms.choices = self.get_term_choices()
+        
+    
+    def get_term_choices(self):
+        before_and_current_terms = Term.objects.filter(id__lte=Term.objects.get_current_term().id).order_by('-id')
+        return [(term.id, term.verbose_name()) for term in before_and_current_terms]

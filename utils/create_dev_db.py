@@ -8,9 +8,9 @@ KEY_PATH = '/home/tbp/private'
 if KEY_PATH not in sys.path:
     sys.path.append(KEY_PATH)
 # pylint: disable=F0401
-from quark_keys import DEV_DB_PASSWORD as DB_PASSWORD
+from settings.tbpweb_keys import DEV_DB_PASSWORD as DB_PASSWORD
 
-DB_USER = 'quark_dev'
+DB_USER = 'tbpweb_dev'
 
 
 def is_valid_db_name(name):
@@ -57,16 +57,16 @@ def create_dev_db(username, quiet=False):
 
     if not quiet:
         if result:
-            print 'Success! Dev database "%s" was created' % db_name
+            print('Success! Dev database "%s" was created' % db_name)
         else:
-            print 'Error: Dev database "%s" was not created' % db_name
+            print('Error: Dev database "%s" was not created' % db_name)
 
     return result
 
 
 def main():
     username = getpass.getuser()
-    print 'Creating database for %s' % username
+    print('Creating database for %s' % username)
     create_dev_db(username)
 
 

@@ -35,7 +35,7 @@ class University(models.Model):
 class Major(models.Model):
     short_name = models.CharField(max_length=8)
     long_name = models.CharField(max_length=64)
-    university = models.ForeignKey(University)
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
     is_eligible = models.BooleanField(default=False)
     website = models.URLField()
 
@@ -342,9 +342,9 @@ class OfficerPosition(models.Model):
 
 class Officer(models.Model):
     """An officer of a student organization."""
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    position = models.ForeignKey(OfficerPosition)
-    term = models.ForeignKey(Term)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    position = models.ForeignKey(OfficerPosition, on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
 
     is_chair = models.BooleanField(
         default=False,

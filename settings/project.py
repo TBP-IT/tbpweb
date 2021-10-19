@@ -1,21 +1,18 @@
 """
-Settings introduced by Quark
-
+Settings introduced by tbpweb
 Note: The values given here are intended for development. A production
 environment would overwrite these. The base and site-specific settings files
 must not overwrite these.
 """
 import ldap
 # pylint: disable=F0401
-import quark_keys
+import settings.tbpweb_keys as tbpweb_keys
 
 # Custom setting used to include a short tag for the site in relevant content
 # (like automatic email subject lines):
 SITE_TAG = 'TBP'
 
 HOSTNAME = 'tbp.berkeley.edu'
-
-ALLOWED_HOSTS = [HOSTNAME]
 
 DEFAULT_FROM_EMAIL = 'webmaster@' + HOSTNAME
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
@@ -58,12 +55,12 @@ INDREL_SPAM_TO = TEST_ADDRESS
 # YouTube Secret Stuff
 YT_USERNAME = 'BerkeleyTBP'
 YT_PRODUCT = 'noiro'
-YT_DEVELOPER_KEY = quark_keys.YT_DEVELOPER_KEY
-YT_PASSWORD = quark_keys.YT_PASSWORD
+YT_DEVELOPER_KEY = tbpweb_keys.YT_DEVELOPER_KEY
+YT_PASSWORD = tbpweb_keys.YT_PASSWORD
 
 # http://www.djangosnippets.org/snippets/1653/
-RECAPTCHA_PRIVATE_KEY = quark_keys.RECAPTCHA_PRIVATE_KEY
-RECAPTCHA_PUBLIC_KEY = quark_keys.RECAPTCHA_PUBLIC_KEY
+RECAPTCHA_PRIVATE_KEY = tbpweb_keys.RECAPTCHA_PRIVATE_KEY
+RECAPTCHA_PUBLIC_KEY = tbpweb_keys.RECAPTCHA_PUBLIC_KEY
 
 # LDAP settings
 LDAP = {
@@ -75,7 +72,7 @@ LDAP_BASE = {
     'PEOPLE': 'ou=People,' + LDAP['BASE'],
     'GROUP': 'ou=Group,' + LDAP['BASE'],
     'DN': 'uid=ldapwriter,ou=System,' + LDAP['BASE'],
-    'PASSWORD': quark_keys.LDAP_BASEDN_PASSWORD,
+    'PASSWORD': tbpweb_keys.LDAP_BASEDN_PASSWORD,
 }
 LDAP_GROUPS = {
     'TBP': ['tbp-officers', 'tbp-members', 'tbp-candidates'],
@@ -86,7 +83,7 @@ USE_LDAP = False
 
 # Valid username regex
 # Please use raw string notation (i.e. r'text') to keep regex sane.
-# Update quark/qldap/tests.py: test_valid_username_regex() to match
+# Update tbpweb/qldap/tests.py: test_valid_username_regex() to match
 VALID_USERNAME = r'^[a-z][a-z0-9]{2,29}$'
 USERNAME_HELPTEXT = ('Username must be 3-30 characters, start with a letter, '
                      'and use only lowercase letters and numbers.')

@@ -1,5 +1,5 @@
-from quark.achievements import course_file_achievements
-from quark.achievements import event_achievements
-from quark.achievements import meta_achievements
-from quark.achievements import officership_achievements
-from quark.achievements import pr_achievements
+# from achievements import course_file_achievements
+# from achievements import event_achievements
+# from achievements import meta_achievements
+# from achievements import officership_achievements
+# from achievements import pr_achievements

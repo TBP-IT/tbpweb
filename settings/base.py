@@ -1,6 +1,5 @@
 """
-Django settings for "quark" student organization website project.
-
+Django settings for "tbpweb" student organization website project.
 This file lists Django settings constant for development and production
 environments. Never import this or any other settings file directly unless you
 are sure you do not need the settings in the site- or env-specific settings
@@ -16,12 +15,11 @@ if KEY_PATH not in sys.path:
     sys.path.append(KEY_PATH)
 try:
     # pylint: disable=F0401
-    import quark_keys
+    import settings.tbpweb_keys as tbpweb_keys
 except ImportError:
-    print('Could not import quark_keys. Please make sure quark_keys.py exists '
+    print('Could not import tbpweb_keys. Please make sure tbpweb_keys.py exists '
           'on the path, and that there are no errors in the module.')
     sys.exit(1)
-
 
 # Determine the path of your local workspace.
 WORKSPACE_DJANGO_ROOT = os.path.abspath(
@@ -35,11 +33,17 @@ ADMINS = ()
 
 MANAGERS = ADMINS
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+TEMPLATE_DIRS = [
+    os.path.join(WORKSPACE_DJANGO_ROOT, 'templates'),
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         # You shouldn't be using this database
-        'NAME': 'improper_quark.db',
+        'NAME': 'improper_tbpweb.db',
     }
 }
 
@@ -61,7 +65,7 @@ AUTH_USER_MODEL = 'auth.User'
 USE_LDAP = False  # Only use LDAP in production
 
 AUTHENTICATION_BACKENDS = (
-    'quark.qldap.backends.LDAPBackend',
+    'qldap.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -140,7 +144,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = quark_keys.SECRET_KEY
+SECRET_KEY = tbpweb_keys.SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -148,37 +152,42 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django.core.context_processors.request',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'quark.base.context_processors.local_env',
-    'quark.notifications.context_processors.notifications',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')] + TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'base.context_processors.local_env',
+                'notifications.context_processors.notifications'
+            ],
+        },
+    },
+]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.doc.XViewMiddleware',
+    'django.contrib.admindocs.middleware.XViewMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
-ROOT_URLCONF = 'quark.urls'
+ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'quark.wsgi.application'
-
-TEMPLATE_DIRS = (
-    os.path.join(WORKSPACE_DJANGO_ROOT, 'templates'),
-)
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 DJANGO_CONTRIB_APPS = [
     'django.contrib.admin',
@@ -194,33 +203,33 @@ DJANGO_CONTRIB_APPS = [
 
 # All projects that we write (and thus, need to be tested) should go here.
 PROJECT_APPS = [
-    'quark.accounts',
-    'quark.achievements',
-    'quark.alumni',
-    'quark.base',
-    'quark.candidates',
-    'quark.companies',
-    'quark.courses',
-    'quark.course_files',
-    'quark.course_surveys',
-    'quark.emailer',
-    'quark.events',
-    'quark.exams',
-    'quark.houses',
-    'quark.mailing_lists',
-    'quark.minutes',
-    'quark.newsreel',
-    'quark.notifications',
-    'quark.past_presidents',
-    'quark.project_reports',
-    'quark.qldap',
-    'quark.quote_board',
-    'quark.resumes',
-    'quark.syllabi',
-    'quark.user_profiles',
-    'quark.utils',
-    'quark.videos',
-    'quark.vote',
+    'accounts',
+    'achievements',
+    'alumni',
+    'base',
+    'candidates',
+    'companies',
+    'courses',
+    'course_files',
+    'course_surveys',
+    'emailer',
+    'events',
+    'exams',
+    'houses',
+    'mailing_lists',
+    'minutes',
+    'newsreel',
+    'notifications',
+    'past_presidents',
+    'project_reports',
+    'qldap',
+    'quote_board',
+    'resumes',
+    'syllabi',
+    'user_profiles',
+    'utils',
+    'videos',
+    'vote',
 ]
 
 # Third-party apps belong here, since we won't use them for testing.
@@ -230,7 +239,6 @@ THIRD_PARTY_APPS = [
     'debug_toolbar',
     'easy_thumbnails',
     'localflavor',
-    'south',  # For data migration
 ]
 
 # This is the actual variable that django looks at.
@@ -271,24 +279,8 @@ LOGGING = {
 ###############################################################################
 try:
     # pylint: disable=W0401,W0614
-    from quark.settings.project import *
-    from quark.settings.third_party import *
+    from .project import *
+    from .third_party import *
 except ImportError as err:
     # If the file doesn't exist, print a warning message but do not fail.
-    print 'WARNING: %s' % str(err)
-
-
-###############################################################################
-# Import the proper instance environment settings (dev/production/staging)
-# Errors will be raised if the appropriate settings file is not found
-###############################################################################
-LOCAL_ENV = os.getenv('QUARK_ENV', 'dev')
-# pylint: disable=W0401,W0614
-if LOCAL_ENV == 'dev':
-    from quark.settings.dev import *
-elif LOCAL_ENV == 'staging':
-    from quark.settings.staging import *
-elif LOCAL_ENV == 'production':
-    from quark.settings.production import *
-else:
-    print 'WARNING: Invalid value for QUARK_ENV: %s' % LOCAL_ENV
+    print('WARNING: %s' % str(err))

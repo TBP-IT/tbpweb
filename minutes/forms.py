@@ -1,9 +1,9 @@
 from django import forms
 
-from quark.base.fields import VisualDateWidget
-from quark.base.forms import ChosenTermMixin
-from quark.minutes.models import Minutes
-from quark.shortcuts import get_file_mimetype
+from base.fields import VisualDateWidget
+from base.forms import ChosenTermMixin
+from minutes.models import Minutes
+from shortcuts import get_file_mimetype
 
 
 class MinutesForm(ChosenTermMixin, forms.ModelForm):

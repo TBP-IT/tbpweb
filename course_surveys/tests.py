@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from quark.base.models import Term
-from quark.courses.models import Course
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.course_surveys.forms import courses_as_optgroups
-from quark.course_surveys.forms import SurveyForm
+from base.models import Term
+from courses.models import Course
+from courses.models import Department
+from courses.models import Instructor
+from course_surveys.forms import courses_as_optgroups
+from course_surveys.forms import SurveyForm
 
 
 class SurveyFormTest(TestCase):

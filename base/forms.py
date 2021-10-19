@@ -1,6 +1,6 @@
 from chosen import forms as chosen_forms
 
-from quark.base.models import Term
+from base.models import Term
 
 
 class ChosenTermMixin(object):

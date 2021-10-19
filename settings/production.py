@@ -1,7 +1,7 @@
 # pylint: disable=F0401
-import quark_keys
-from quark.settings.project import HOSTNAME
-from quark.settings.project import RESUMEQ_OFFICER_POSITION
+import settings.tbpweb_keys as tbpweb_keys
+from .project import HOSTNAME
+from .project import RESUMEQ_OFFICER_POSITION
 
 
 DEBUG = False
@@ -15,9 +15,9 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quark_prod',
-        'USER': 'quark',
-        'PASSWORD': quark_keys.PROD_DB_PASSWORD,
+        'NAME': 'tbpweb_prod',
+        'USER': 'tbpweb',
+        'PASSWORD': tbpweb_keys.PROD_DB_PASSWORD,
     }
 }
 
@@ -39,3 +39,15 @@ HELPDESK_NOTICE_TO = 'notice@' + HOSTNAME
 INDREL_NOTICE_TO = 'notice@' + HOSTNAME
 HELPDESK_SPAM_TO = 'spam@' + HOSTNAME
 INDREL_SPAM_TO = 'spam@' + HOSTNAME
+
+ALLOWED_HOSTS = [HOSTNAME]
+
+# # Static files (CSS, JavaScript, Images)
+# # https://docs.djangoproject.com/en/2.1/howto/static-files/
+# STATIC_URL = 'https://www.ocf.berkeley.edu/~tbp/static/'
+# STATIC_ROOT = '/home/t/tb/tbp/public_html/tbpweb/static'
+
+# # Media files (user-uploaded files)
+# # https://docs.djangoproject.com/en/2.1/topics/files/
+# MEDIA_URL = 'https://www.ocf.berkeley.edu/~tbp/media/'
+# MEDIA_ROOT = '/home/t/tb/tbp/public_html/tbpweb/media'

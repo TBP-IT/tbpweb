@@ -6,18 +6,10 @@ from django.db import models
 from localflavor.us.models import PhoneNumberField
 from localflavor.us.models import USStateField
 
-from quark.alumni.models import Alumnus
-from quark.base.models import IDCodeMixin
-from quark.base.models import Major
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.qldap import utils as ldap_utils
-from quark.shortcuts import disable_for_loaddata
-
-
-USE_LDAP = getattr(settings, 'USE_LDAP', False)
+from alumni.models import Alumnus
+from base.models import IDCodeMixin, Major, Officer, OfficerPosition, Term
+from candidates.models import Candidate
+from shortcuts import disable_for_loaddata
 
 
 class UserProfile(models.Model):
@@ -44,7 +36,7 @@ class UserProfile(models.Model):
             os.remove(full_path)
         return filename
 
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # Note that preferred_name is pulled from the user's first_name in the
     # save() method if preferred_name is left blank
@@ -241,14 +233,14 @@ class UserProfile(models.Model):
 
 class CollegeStudentInfo(IDCodeMixin):
     """Information about a college student user."""
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # Note that the student's University is encapsulated in the "major" field
-    major = models.ManyToManyField(Major, null=True)
+    major = models.ManyToManyField(Major)
 
     start_term = models.ForeignKey(Term, related_name='+', null=True,
-                                   verbose_name='First term at this school')
+                                   verbose_name='First term at this school', on_delete=models.SET_NULL)
     grad_term = models.ForeignKey(Term, related_name='+', null=True,
-                                  verbose_name='Graduation term')
+                                  verbose_name='Graduation term', on_delete=models.SET_NULL)
 
     class Meta(object):
         verbose_name_plural = 'college student info'
@@ -261,11 +253,11 @@ class CollegeStudentInfo(IDCodeMixin):
 
 class StudentOrgUserProfile(models.Model):
     """A user's information specific to the student organization."""
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     initiation_term = models.ForeignKey(
         Term, related_name='+', blank=True, null=True,
-        verbose_name='Term initiated into the organization.')
+        verbose_name='Term initiated into the organization.', on_delete=models.SET_NULL)
 
     bio = models.TextField(blank=True)
 

@@ -2,23 +2,18 @@ from chosen import forms as chosen_forms
 from django import forms
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
-from quark.accounts.forms import UserCreationForm
-from quark.base.models import Major
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.candidates.models import CandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import ManualCandidateRequirement
-from quark.events.models import EventType
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.forms import UserProfileForm
-from quark.user_profiles.models import CollegeStudentInfo
-from quark.user_profiles.models import UserProfile
+from accounts.forms import UserCreationForm
+from base.models import Major
+from base.models import Term
+from candidates.models import Candidate, CandidateRequirement, \
+                                     CandidateRequirementProgress, Challenge, \
+                                     ChallengeType, ManualCandidateRequirement
+from events.models import EventType
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.forms import UserProfileForm
+from user_profiles.models import CollegeStudentInfo, UserProfile
 
 
 class CandidateCreationForm(UserCreationForm):
@@ -42,20 +37,16 @@ class CandidateCreationForm(UserCreationForm):
 # TODO(ehy): find a way not to duplicate code with UserProfileForm
 class CandidateUserProfileForm(forms.ModelForm):
     """Form for creating a candidate's user profile. Similar to
-    quark.user_profiles.forms.UserProfileForm, but leaves out the fields that
+    user_profiles.forms.UserProfileForm, but leaves out the fields that
     clash with UserCreationForm, as well as the bio field (not very important
     for candidates)."""
 
     gender = forms.ChoiceField(choices=UserProfile.GENDER_CHOICES,
                                widget=forms.RadioSelect,
                                required=True)
-    major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects.filter(
-        is_eligible=True))
-    start_term = forms.ModelChoiceField(Term.objects.get_terms(
-        reverse=True).exclude(id=Term.objects.get_current_term().id))
-    grad_term = forms.ModelChoiceField(Term.objects.get_terms(
-        include_future=True).filter(
-        id__gte=Term.objects.get_current_term().id))
+    major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects.filter(is_eligible=True))
+    start_term = forms.ModelChoiceField(Term.objects.all())
+    grad_term = forms.ModelChoiceField(Term.objects.all())
 
     class Meta(object):
         model = UserProfile
@@ -73,12 +64,18 @@ class CandidateUserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CandidateUserProfileForm, self).__init__(*args, **kwargs)
+        # Set Term options to get desired ordering, but after the website is initialized (and so it the database)
+        self.start_term.queryset = Term.objects.get_terms(reverse=True) \
+                                                         .exclude(id=Term.objects.get_current_term().id)
+        self.grad_term.queryset  = Term.objects.get_terms(include_future=True) \
+                                                         .filter(id__gte=Term.objects.get_current_term().id)
 
         self.fields['birthday'].required = True
         year_max = timezone.now().year - 10
         year_min = year_max - 70
-        self.fields['birthday'].widget = SelectDateWidget(
-            years=range(year_min, year_max))
+        self.fields['birthday'].widget = forms.DateField(
+            widget=forms.SelectDateWidget(years=range(year_min, year_max))
+        )
 
         self.fields['cell_phone'].required = True
 

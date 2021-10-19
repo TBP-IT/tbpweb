@@ -1,8 +1,9 @@
 from django.db import models
 from django.conf import settings
-from uuidfield import UUIDField
+from django.db.models import UUIDField
+import uuid
 
-from quark.base.models import Term
+from base.models import Term
 
 
 class Poll(models.Model):
@@ -25,12 +26,12 @@ class Poll(models.Model):
         help_text='Date and time poll opens for voting')
     end_datetime = models.DateTimeField(
         help_text='Date and time poll closes')
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
 
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         editable=False,
-        related_name='vote_poll_creator')
+        related_name='vote_poll_creator', null=True, on_delete=models.SET_NULL)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -42,9 +43,9 @@ class Poll(models.Model):
 class Vote(models.Model):
     # Use a randomly-generated UUIDField for the primary key, making it
     # impossible to associate a Vote with a VoteReceipt
-    id = UUIDField(auto=True, primary_key=True)
-    poll = models.ForeignKey(Poll)
-    nominee = models.ForeignKey(settings.AUTH_USER_MODEL)
+    id = UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    nominee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     reason = models.TextField()
 
     def __unicode__(self):
@@ -55,9 +56,9 @@ class Vote(models.Model):
 class VoteReceipt(models.Model):
     # Use a randomly-generated UUIDField for the primary key, making it
     # impossible to associate a Vote with a VoteReceipt
-    id = UUIDField(auto=True, primary_key=True)
-    poll = models.ForeignKey(Poll)
-    voter = models.ForeignKey(settings.AUTH_USER_MODEL)
+    id = UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    voter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

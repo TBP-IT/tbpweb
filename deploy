@@ -1,0 +1,196 @@
+#!/bin/sh
+
+##########
+# Deploys an instance to a production or staging environment
+# This script needs to be run as the owner of deployed instance: www-data
+##########
+
+# Default Arguments:
+STAGING=1
+
+# Argument Handling:
+if [ $# -gt 1 ]; then
+    SCRIPT_NAME=`basename $0`
+    echo "${SCRIPT_NAME}: ERROR: $*"
+    echo "Usage: ${SCRIPT_NAME} [--release]"
+    exit 1
+elif [ "$1" = "--release" ]; then
+    STAGING=0
+fi
+
+# Variables
+LOG="deploy.log"
+WWW_USER="www-data"
+PROJ_NAME="quark"
+STAGING_DB_NAME="${PROJ_NAME}_staging"
+STAGING_URL="/${PROJ_NAME}-staging"
+
+# Locking variables
+LOCK_FILE="deploy.lock"
+LOCK_SIG="deploy.sig"
+
+VENV_PATH="/home/tbp/virtualenv/django16"
+
+# TODO(flieee): Use Gerrit. Need to set up public key for www-data. ugh.
+GIT_REPO_URL="file:///var/git/quark.git"
+
+UWSGI_PATH="/etc/uwsgi"
+UWSGI_SRC="${UWSGI_PATH}/apps-available"
+UWSGI_DST="${UWSGI_PATH}/apps-enabled"
+
+# Set some variables depending on user invocation
+if [ ${STAGING} -eq 1 ]; then
+    DEPLOY_ENV="/var/www/dev"
+    # Actual config file name is like tbp.quark.ini or tbp.quark_dev.ini
+    UWSGI_CONF="${PROJ_NAME}_dev.ini"
+    UWSGI_SOCKETS="/var/run/uwsgi/${PROJ_NAME}_dev.sock"
+    QUARK_ENV="staging"
+else
+    DEPLOY_ENV="/var/www"
+    UWSGI_CONF="${PROJ_NAME}.ini"
+    UWSGI_SOCKETS="/var/run/uwsgi/${PROJ_NAME}.sock"
+    QUARK_ENV="production"
+fi
+
+DEPLOY_PATH="${DEPLOY_ENV}/${PROJ_NAME}"
+export QUARK_ENV
+
+
+setup() {
+    # No locks yet. Be careful only one person is ininitializing the repository
+    echo -n "Setting up ${PROJ_NAME} in ${DEPLOY_PATH}... "
+    mkdir -p ${DEPLOY_ENV}
+    # Clone a new repo if necessary
+    if [ ! -d ${DEPLOY_PATH} ]; then
+        git clone ${GIT_REPO_URL} ${DEPLOY_PATH}
+    fi
+    cd ${DEPLOY_PATH}
+    echo "done"
+    echo "Current directory is `pwd`"
+
+    nonblocking_acquire
+}
+
+# Main steps to run for deployment. Current dir assumed to be WORKSPACE_ROOT
+deploy() {
+    # TODO(flieee): Copy production DB data to staging using old Quark release
+
+    echo -n "Updating git repo... "
+    git checkout master
+    git pull
+    echo "done"
+
+    # TODO(flieee): allow pattern matching for specific tags
+    # Get latest tag
+    if [ ${STAGING} -eq 1 ]; then
+        # Get latest tag + all commits after it.
+        TAG=`git describe --tags`
+    else
+        # Get latest release tag
+        TAG=`git describe --tags --abbrev=0`
+    fi
+    echo "Deploying Release ${TAG}"
+    git checkout ${TAG}
+    git submodule update --init --recursive
+
+    # TODO(flieee): Set up dynamic multi-site settings instead
+
+    # Create media/static directories if they don't exist
+    mkdir -p media
+    mkdir -p static
+
+    ${VENV_PATH}/bin/python manage.py updatedb
+    ${VENV_PATH}/bin/python manage.py genterms
+    ${VENV_PATH}/bin/python manage.py collectstatic --clear --noinput
+
+    # Cleanup old compiled .py[co] files
+    find ${DEPLOY_PATH} -name "*.py[co]" -type f -delete
+
+    # Generate local settings for staging
+    if [ ${STAGING} -eq 1 ]; then
+        cat << EOM > ${DEPLOY_PATH}/quark/settings/local.py
+FORCE_SCRIPT_NAME = '${STAGING_URL}'
+STATIC_URL = '${STAGING_URL}/static/'
+MEDIA_URL = '${STAGING_URL}/media/'
+EOM
+    fi
+
+    # Quietly compile as .pyo
+    ${VENV_PATH}/bin/python -Om compileall -q ${PROJ_NAME}
+
+    # Update uwsgi config files
+    cp -av ${DEPLOY_PATH}/uwsgi/${UWSGI_CONF} ${UWSGI_SRC}/${UWSGI_CONF}
+
+    # Log deploy timestamp and user
+    echo "${TAG} deployed by ${SUDO_USER} at `date`" >> $LOG
+}
+
+enable_server() {
+    echo -n "Enabling the server... "
+    # Placing a copy in apps-enabled will enable the instance in uWSGI
+    rm -f ${UWSGI_DST}/${UWSGI_CONF}
+    ln -s ${UWSGI_SRC}/${UWSGI_CONF} ${UWSGI_DST}
+    echo "done"
+}
+
+disable_server() {
+    echo -n "Disabling server... "
+    # Remove the config from apps-enabled and clean up the socket to disable
+    rm -f ${UWSGI_DST}/${UWSGI_CONF} ${UWSGI_SOCKETS}
+    echo "done"
+}
+
+nonblocking_acquire() {
+    echo -n "Acquiring file lock... "
+    # Create a filehandle (ID=9)
+    exec 9> ${LOCK_FILE}
+    if flock --exclusive --nonblock 9; then
+        # Explicity release lock on exit
+        trap 'lock_release' EXIT
+        echo "done"
+        echo ${SUDO_USER} > ${LOCK_SIG}
+        date >> ${LOCK_SIG}
+    else
+        echo "failed"
+        echo "Another user is currently deploying: `cat ${LOCK_SIG}`"
+        exit 1
+    fi
+}
+
+lock_release() {
+    echo -n "Releasing file lock... "
+    rm -f ${LOCK_SIG}
+    flock --unlock 9
+    echo "done"
+}
+
+
+#
+# Program begins here
+#
+if [ "`id --user --name`" != ${WWW_USER} ]; then
+    echo "Rerunning this script as ${WWW_USER} with 'sudo'"
+    sudo -u ${WWW_USER} $0 $*
+    exit 0
+fi
+
+# User should be invoking this script as themselves, and not as root.
+# It is still possible to forge the release signature, but you'll be a bad
+# person if you do.
+if [ -z ${SUDO_USER} ] || [ ${SUDO_USER} = 'root' ]; then
+    echo "Please run this script as yourself using 'sudo'"
+    exit 0
+fi
+
+setup && \
+disable_server && \
+deploy && \
+enable_server
+
+if [ ${STAGING} -eq 1 ]; then
+    echo "Please stop the staging webserver after you are done testing"
+    echo "It can be stopped by running the following command:"
+    echo -n " sudo -u www-data rm -f ${UWSGI_SOCKETS}"
+    echo " ${UWSGI_DST}/${UWSGI_CONF}"
+fi
+# Cleanup handled by trap

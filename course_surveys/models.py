@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 
-from quark.base.models import Term
-from quark.courses.models import Course
-from quark.courses.models import Instructor
+from base.models import Term
+from courses.models import Course
+from courses.models import Instructor
 
 
 class Survey(models.Model):
@@ -12,9 +12,9 @@ class Survey(models.Model):
     )
     RATING_CHOICES_NULL = RATING_CHOICES + ((None, 'N/A'),)
 
-    course = models.ForeignKey(Course)
-    term = models.ForeignKey(Term)
-    instructor = models.ForeignKey(Instructor)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
     prof_rating = models.PositiveSmallIntegerField(
         choices=RATING_CHOICES,
         help_text='1 being terrible, 7 being excellent')
@@ -34,7 +34,7 @@ class Survey(models.Model):
         blank=True,
         help_text=('Did you like the course and professor? What would you '
                    'tell a future student?'))
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL)
+    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 

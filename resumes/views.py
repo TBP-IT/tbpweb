@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
-from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse_lazy
+from wsgiref.util import FileWrapper
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -18,16 +18,16 @@ from django.utils.encoding import smart_bytes
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.resumes.forms import ResumeForm
-from quark.resumes.forms import ResumeListFormSet
-from quark.resumes.forms import ResumeCritiqueFormSet
-from quark.resumes.forms import ResumeVerifyFormSet
-from quark.resumes.models import Resume
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.models import CollegeStudentInfo
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from resumes.forms import ResumeForm
+from resumes.forms import ResumeListFormSet
+from resumes.forms import ResumeCritiqueFormSet
+from resumes.forms import ResumeVerifyFormSet
+from resumes.models import Resume
+from shortcuts import get_object_or_none
+from user_profiles.models import CollegeStudentInfo
 
 
 class ResumeViewMixin(object):

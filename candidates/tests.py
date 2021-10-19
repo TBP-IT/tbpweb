@@ -5,30 +5,30 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.conf import settings
 from django.core.files import File
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.utils import timezone
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.candidates.models import CandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeCandidateRequirement
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import EventCandidateRequirement
-from quark.candidates.models import ExamFileCandidateRequirement
-from quark.candidates.models import ManualCandidateRequirement
-from quark.courses.models import CourseInstance
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventType
-from quark.exams.models import Exam
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.models import StudentOrgUserProfile
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from candidates.models import CandidateRequirement
+from candidates.models import CandidateRequirementProgress
+from candidates.models import Challenge
+from candidates.models import ChallengeCandidateRequirement
+from candidates.models import ChallengeType
+from candidates.models import EventCandidateRequirement
+from candidates.models import ExamFileCandidateRequirement
+from candidates.models import ManualCandidateRequirement
+from courses.models import CourseInstance
+from events.models import Event
+from events.models import EventAttendance
+from events.models import EventType
+from exams.models import Exam
+from shortcuts import get_object_or_none
+from user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(

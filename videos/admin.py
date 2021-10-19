@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from quark.videos.models import Video
-from quark.videos.models import VideoType
+from videos.models import Video, VideoType
 
 
 class VideoAdmin(admin.ModelAdmin):

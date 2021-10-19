@@ -7,7 +7,7 @@ from django.test.client import Client
 from django.test.utils import override_settings
 from ldap import MOD_ADD  # pylint: disable-msg=E0611
 
-from quark.qldap import utils
+from qldap import utils
 
 
 # TODO(flieee): Move tests over to test-only LDAP tree

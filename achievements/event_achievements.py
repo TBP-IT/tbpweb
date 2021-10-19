@@ -3,11 +3,11 @@ import string
 
 from django.db import models
 
-from quark.achievements.models import Achievement
-from quark.base.models import Term
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.shortcuts import get_object_or_none
+from achievements.models import Achievement
+from base.models import Term
+from events.models import Event
+from events.models import EventAttendance
+from shortcuts import get_object_or_none
 
 
 def event_achievements(sender, instance, created, **kwargs):

@@ -1,20 +1,18 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import re_path
 
-from quark.quote_board.views import QuoteCreateView
-from quark.quote_board.views import QuoteDetailView
-from quark.quote_board.views import QuoteLeaderboardListView
-from quark.quote_board.views import QuoteListView
-from quark.quote_board.views import SpeakerQuoteListView
+from quote_board.views import QuoteCreateView
+from quote_board.views import QuoteDetailView
+from quote_board.views import QuoteLeaderboardListView
+from quote_board.views import QuoteListView
+from quote_board.views import SpeakerQuoteListView
 
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', QuoteListView.as_view(), name='list'),
-    url(r'^(?P<quote_pk>\d+)/$', QuoteDetailView.as_view(), name='detail'),
-    url(r'^add/$', QuoteCreateView.as_view(), name='add'),
-    url(r'^leaderboard/$', QuoteLeaderboardListView.as_view(),
+urlpatterns = [
+    re_path(r'^$', QuoteListView.as_view(), name='list'),
+    re_path(r'^(?P<quote_pk>\d+)/$', QuoteDetailView.as_view(), name='detail'),
+    re_path(r'^add/$', QuoteCreateView.as_view(), name='add'),
+    re_path(r'^leaderboard/$', QuoteLeaderboardListView.as_view(),
         name='leaderboard'),
-    url(r'^speaker/(?P<user_id>\d+)/$', SpeakerQuoteListView.as_view(),
+    re_path(r'^speaker/(?P<user_id>\d+)/$', SpeakerQuoteListView.as_view(),
         name='speaker'),
-)
+]

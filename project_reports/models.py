@@ -3,14 +3,14 @@ from datetime import date
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.utils import timezone
 
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.notifications.models import Notification
-from quark.shortcuts import get_object_or_none
+from base.models import OfficerPosition
+from base.models import Term
+from notifications.models import Notification
+from shortcuts import get_object_or_none
 
 from picklefield.fields import PickledObjectField
 import tblib.pickling_support
@@ -27,11 +27,11 @@ class ProjectReport(models.Model):
         ('ep', 'Education/Prof. Dev.'),
         ('km', 'K-12/MindSET'))
 
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     date = models.DateField()
     title = models.CharField(max_length=80)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
-    committee = models.ForeignKey(OfficerPosition)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    committee = models.ForeignKey(OfficerPosition, null=True, on_delete=models.SET_NULL)
     area = models.CharField(
         max_length=2, choices=PROJECT_AREA_CHOICES, blank=True)
     organize_hours = models.PositiveSmallIntegerField(
@@ -118,7 +118,7 @@ class ProjectReportBook(models.Model):
     """A project report book. Generating a project report book is very slow,
     so the result needs to be cached in the database.
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     terms = models.ManyToManyField(Term)
     presidents_letter = models.TextField()
     pdf = models.FileField(upload_to='project_report_books/', blank=True)

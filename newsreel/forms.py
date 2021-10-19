@@ -1,6 +1,6 @@
 from django import forms
 
-from quark.newsreel.models import News
+from newsreel.models import News
 
 
 class NewsForm(forms.ModelForm):

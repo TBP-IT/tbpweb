@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes import fields
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 
@@ -15,12 +15,12 @@ class Notification(models.Model):
         (POSITIVE, 'Positive'),
     )
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     status = models.CharField(choices=STATUS_TYPES, max_length=8)
 
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_pk = models.PositiveIntegerField()
-    content_object = generic.GenericForeignKey('content_type', 'object_pk')
+    content_object = fields.GenericForeignKey('content_type', 'object_pk')
 
     title = models.CharField(
         max_length=128,

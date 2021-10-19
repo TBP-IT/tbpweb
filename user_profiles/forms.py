@@ -1,13 +1,12 @@
 from chosen import forms as chosen_forms
 from django import forms
 from django.conf import settings
-from django.forms.extras import SelectDateWidget
 from django.utils import timezone
 
-from quark.base.models import Major
-from quark.base.models import Term
-from quark.qldap.utils import set_email
-from quark.user_profiles.models import UserProfile
+from base.models import Major
+from base.models import Term
+from qldap.utils import set_email
+from user_profiles.models import UserProfile
 
 
 class UserProfileForm(forms.ModelForm):
@@ -27,10 +26,8 @@ class UserProfileForm(forms.ModelForm):
         help_text='Bio is optional for candidates'
     )
     major = chosen_forms.ChosenModelMultipleChoiceField(Major.objects)
-    start_term = forms.ModelChoiceField(Term.objects.get_terms(
-        reverse=True).exclude(id=Term.objects.get_current_term().id))
-    grad_term = forms.ModelChoiceField(Term.objects.get_terms(
-        include_future=True))
+    start_term = forms.ModelChoiceField(Term.objects.all())
+    grad_term = forms.ModelChoiceField(Term.objects.all())
 
     class Meta(object):
         model = UserProfile
@@ -48,6 +45,10 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        # Set Term options to get desired ordering
+        self.start_term.queryset = Term.objects.get_terms(reverse=True).exclude(id=Term.objects.get_current_term().id)
+        self.grad_term.queryset = Term.objects.get_terms(include_future=True)
+
         # Set the initial values for the user model fields based on those
         # corresponding values. Note that editing a user profile only makes
         # sense if an instance is provided, as every user will have a user
@@ -81,8 +82,9 @@ class UserProfileForm(forms.ModelForm):
         # relevant times
         year_max = timezone.now().year - 10
         year_min = year_max - 70
-        self.fields['birthday'].widget = SelectDateWidget(
-            years=range(year_min, year_max))
+        self.fields['birthday'].widget =  forms.DateField(
+            widget=forms.SelectDateWidget(years=range(year_min, year_max))
+        )
 
         # Make the local address required for someone editing their user
         # profile:

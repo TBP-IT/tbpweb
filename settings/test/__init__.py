@@ -1,7 +1,7 @@
 """Default settings for running tests."""
 
 # pylint: disable=W0401,W0614
-from quark.settings import *
+from settings import *
 
 DEBUG = False
 USE_LDAP = False
@@ -9,7 +9,7 @@ USE_LDAP = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'quark_test.db',
+        'NAME': 'tbpweb_test.db',
     },
 }
 
@@ -33,5 +33,5 @@ BLACKLISTED_MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 for middleware in BLACKLISTED_MIDDLEWARE:
-    if middleware in MIDDLEWARE_CLASSES:
-        MIDDLEWARE_CLASSES.remove(middleware)
+    if middleware in MIDDLEWARE:
+        MIDDLEWARE.remove(middleware)

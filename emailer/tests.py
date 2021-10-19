@@ -4,12 +4,12 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.core.mail import BadHeaderError
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from quark.emailer.forms import ContactCaptcha
-from quark.emailer.forms import ContactForm
+from emailer.forms import ContactCaptcha
+from emailer.forms import ContactForm
 
 
 class ContactFormTest(TestCase):

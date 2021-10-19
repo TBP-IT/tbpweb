@@ -1,12 +1,12 @@
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.houses.models import House
-from quark.houses.models import HouseMember
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from houses.models import House
+from houses.models import HouseMember
 
 
 class HouseMemberAssignmentTest(TestCase):

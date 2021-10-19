@@ -3,16 +3,16 @@ from django.conf import settings
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.models import get_current_site
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from quark.accounts.models import make_ldap_user
-from quark.companies.models import CompanyRep
-from quark.qldap import utils as ldap_utils
+from accounts.models import make_ldap_user
+from companies.models import CompanyRep
+from qldap import utils as ldap_utils
 
 
 USE_LDAP = getattr(settings, 'USE_LDAP', False)
@@ -66,7 +66,6 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
     def clean(self):
         """Performs the usual clean steps and also ensures that Company users
         and their Company's account expiration are taken into consideration.
-
         First, call the superclass method (which notably checks the password
         correctness and whether the given User is "active"). Then, if the user
         corresponds to a company representative account, this method performs
@@ -98,7 +97,6 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
 class MakeLDAPUserMixin(object):
     """A mixin used in user forms that makes the user object for the form use
     the LDAPUser proxy model if USE_LDAP is true.
-
     Setting the user as an instance LDAPUser makes the object's methods act
     appropriately for when LDAP is enabled (such as set_password).
     """
@@ -124,10 +122,8 @@ class AdminPasswordChangeForm(MakeLDAPUserMixin,
 class PasswordResetForm(forms.Form):
     """A form for users to enter their username or email address and have a
     password reset email sent to them.
-
     Unlike the standard password reset form, note that this form accepts both
     username and email address, rather than just email address.
-
     The save method is primarily copied from django.contrib.auth.forms
     PasswordResetForm, though this reset-form allows for sending reset emails to
     users that have unusable passwords (as might be the case if passwords are
@@ -165,7 +161,6 @@ class PasswordResetForm(forms.Form):
         """
         Generate a one-use only link for resetting password and send it to the
         user.
-
         Use as defaults the built-in Django password_reset_subject template and
         the custom password_reset_email template.
         """

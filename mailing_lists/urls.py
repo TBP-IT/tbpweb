@@ -1,10 +1,8 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import re_path
 
-from quark.mailing_lists.views import MailingListsListAllView
+from mailing_lists.views import MailingListsListAllView
 
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', MailingListsListAllView.as_view(), name='list'),
-)
+urlpatterns = [
+    re_path(r'^$', MailingListsListAllView.as_view(), name='list'),
+]

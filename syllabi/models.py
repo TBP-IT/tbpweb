@@ -1,16 +1,16 @@
 import os
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.db.models.signals import pre_delete
 from django.db.models.signals import post_save
 
-from quark.course_files.models import generate_courseitem_filepath
-from quark.course_files.models import GenericCourseFile
-from quark.course_files.models import GenericFlag
-from quark.course_files.models import GenericInstructorPermission
-from quark.shortcuts import disable_for_loaddata
+from course_files.models import generate_courseitem_filepath
+from course_files.models import GenericCourseFile
+from course_files.models import GenericFlag
+from course_files.models import GenericInstructorPermission
+from shortcuts import disable_for_loaddata
 
 
 class SyllabusManager(models.Manager):
@@ -97,7 +97,7 @@ class Syllabus(GenericCourseFile):
 class SyllabusFlag(GenericFlag):
     """Flag an issue with a particular syllabus on the website."""
     syllabus = models.ForeignKey(Syllabus,
-                                 help_text='Syllabus that has an issue.')
+                                 help_text='Syllabus that has an issue.', on_delete=models.CASCADE)
 
     def __unicode__(self):
         return '{} Flag'.format(unicode(self.syllabus))

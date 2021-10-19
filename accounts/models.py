@@ -3,21 +3,21 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import ValidationError
 from django.db import models
-from uuidfield import UUIDField
+import uuid
 
-from quark.qldap import utils as ldap_utils
+from qldap import utils as ldap_utils
 
 
 class APIKey(models.Model):
     """A unique key for each user, which can be used for validating special
     access.
-
     For instance, an API key can be passed as a URL parameter with the user's
     username to validate what the given user has access to.
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                related_name='api_key')
-    key = UUIDField(auto=True, db_index=True)
+                                related_name='api_key',
+                                on_delete=models.CASCADE)
+    key = models.UUIDField(default=uuid.uuid4, unique=True, db_index=True)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta(object):
@@ -38,10 +38,8 @@ models.signals.post_save.connect(create_api_key, sender=get_user_model())
 
 class LDAPUserManager(BaseUserManager):
     """Allows for creation of LDAP entries for users when creating users.
-
     Unlike the Django auth User, creating an LDAPUser requires a first and last
     name, which allows the method to create a corresponding LDAP entry.
-
     Note: This LDAPUserManager assumes that the AUTH_USER_MODEL has username,
     email, password, first name, and last name as fields on the model. This
     Manager should be adjusted for specific User implementations as needed.
@@ -68,11 +66,9 @@ class LDAPUserManager(BaseUserManager):
 
 class LDAPUser(get_user_model()):
     """Overrides user model's password facilities.
-
     User passwords are stored only in LDAP and not in Django, so LDAP is used
     to set and check passwords. Django user objects will be set with unusable
     passwords.
-
     The LDAPUser cannot be set as the AUTH_USER_MODEL, as it is a proxy model
     for the AUTH_USER_MODEL.
     """

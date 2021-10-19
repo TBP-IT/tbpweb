@@ -4,8 +4,8 @@ import os
 from django.core.management.base import BaseCommand
 from django.core.management.base import CommandError
 
-from quark.utils.dev import DevServer
-import quark.utils as dev_utils
+from utils.dev import DevServer
+import utils as dev_utils
 
 
 class Command(BaseCommand):
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             # restart_with_reloader. This prevents update_db from happening
             # more than once when the management command is run. See
             # https://code.djangoproject.com/ticket/8085#comment:13
-            print 'Running development server'
+            print('Running development server')
             dev_utils.update_db()
 
         dev = DevServer(username=getpass.getuser())

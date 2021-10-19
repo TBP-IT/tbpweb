@@ -1,7 +1,7 @@
 # pylint: disable=F0401
 import os
-import quark_keys
-from quark.settings.base import WORKSPACE_ROOT
+import settings.tbpweb_keys as tbpweb_keys
+from .base import *
 
 
 DEBUG = False
@@ -15,12 +15,14 @@ ADMINS = (
 )
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = [HOSTNAME]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'quark_dev_staging',
-        'USER': 'quark_dev',
-        'PASSWORD': quark_keys.DEV_DB_PASSWORD,
+        'NAME': 'tbpweb_dev_staging',
+        'USER': 'tbpweb_dev',
+        'PASSWORD': tbpweb_keys.DEV_DB_PASSWORD,
     }
 }
 
@@ -34,7 +36,7 @@ SESSION_COOKIE_SECURE = True
 # Import any local settings custom for staging environment
 try:
     # pylint: disable=E0611,F0401,W0401,W0614
-    from quark.settings.local import *
+    from .local import *
 except ImportError:
     # Ignore if there's no local settings file
     pass

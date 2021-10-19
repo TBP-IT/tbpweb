@@ -1,9 +1,9 @@
 from django import template
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.http import urlencode
 
-from quark.accounts.models import APIKey
+from accounts.models import APIKey
 
 
 register = template.Library()
@@ -51,7 +51,7 @@ def modify_query_params(context, **kwargs):
     return ('?' + params.urlencode()) if params else ''
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_api_key_params(user):
     """Assign to a context variable a query string for the given user's API key.
 
@@ -63,7 +63,7 @@ def get_api_key_params(user):
     would output the string:  'user=<user's pk>&key=<user's API key>'
     for the user object "user". This would often be used to append to a URL.
     """
-    if user and user.is_authenticated():
+    if user and user.is_authenticated:
         api_key, _ = APIKey.objects.get_or_create(user=user)
         return urlencode({'user': user.pk, 'key': api_key.key})
     return ''

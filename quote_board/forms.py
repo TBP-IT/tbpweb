@@ -1,7 +1,7 @@
 from django import forms
 
-from quark.quote_board.models import Quote
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
+from quote_board.models import Quote
+from user_profiles.fields import UserCommonNameMultipleChoiceField
 
 
 class QuoteForm(forms.ModelForm):

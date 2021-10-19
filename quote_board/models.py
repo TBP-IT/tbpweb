@@ -6,7 +6,7 @@ class Quote(models.Model):
     quote = models.TextField(blank=False)
     speakers = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                       related_name='+')
-    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+')
+    submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+', null=True, on_delete=models.SET_NULL)
     time = models.DateField(auto_now_add=True)
 
     def __unicode__(self):

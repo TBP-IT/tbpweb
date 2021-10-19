@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.conf import settings
 from django.db import models
 
@@ -7,7 +7,7 @@ class Alumnus(models.Model):
     """An alumnus class for participants in Fogeys First.
 
     """
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField(default='', blank=True)
     dream = models.TextField(default='', blank=True)
     hobbies = models.TextField(default='', blank=True)
@@ -20,9 +20,9 @@ class Alumnus(models.Model):
                                                related_name='+', blank=True)
 
     class Meta(object):
-        permissions = (
-            ('view_alumnus', 'Can view all alumni'),
-        )
+        # permissions = (
+        #     ('view_alumnus', 'Can view all alumni'),
+        # )
         verbose_name_plural = 'Alumni'
 
     def __unicode__(self):

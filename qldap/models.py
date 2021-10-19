@@ -1,1 +1,3 @@
-# LDAP does not require any models
+from django.db import models
+
+# Create your models here.

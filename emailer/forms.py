@@ -4,7 +4,7 @@ from django import forms
 from django.core.mail import BadHeaderError
 from django.core.mail import EmailMessage
 
-from quark.emailer.fields import ReCaptchaField
+from emailer.fields import ReCaptchaField
 
 
 class ContactForm(forms.Form):
@@ -39,7 +39,7 @@ class ContactForm(forms.Form):
         name = self.cleaned_data.get('name', '')
 
         # check for invalid characters; 201C, 201D are open/close double quotes
-        if re.search(ur'["<>@,.\u201C\u201D]', name):
+        if re.search(r'["<>@,.\u201C\u201D]', name):
             raise forms.ValidationError('Your name can\'t contain the '
                                         'characters <, >, @, comma, ., or ".')
 

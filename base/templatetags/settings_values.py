@@ -7,7 +7,6 @@ safe_settings = get_safe_settings()
 
 
 @register.simple_tag
-@register.assignment_tag(name='settings_assign')
 def settings(name):
     """Returns the current value of a Django settings attribute.
 

@@ -1,8 +1,8 @@
 from django import forms
 from django.forms import formsets
 
-from quark.resumes.models import Resume
-from quark.shortcuts import get_file_mimetype
+from resumes.models import Resume
+from shortcuts import get_file_mimetype
 
 
 class ResumeForm(forms.ModelForm):

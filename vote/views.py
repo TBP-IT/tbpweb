@@ -1,7 +1,7 @@
 import collections
 
 from django.core.exceptions import PermissionDenied
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
@@ -12,11 +12,11 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from quark.vote.forms import PollForm
-from quark.vote.forms import VoteForm
-from quark.vote.models import Poll
-from quark.vote.models import Vote
-from quark.vote.models import VoteReceipt
+from vote.forms import PollForm
+from vote.forms import VoteForm
+from vote.models import Poll
+from vote.models import Vote
+from vote.models import VoteReceipt
 
 
 class PollCreateView(CreateView):

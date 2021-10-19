@@ -3,10 +3,11 @@ import os
 from abc import abstractmethod
 from django.conf import settings
 from django.db import models
-from uuidfield import UUIDField
+from django.db.models import UUIDField
+import uuid
 
-from quark.courses.models import CourseInstance
-from quark.courses.models import Instructor
+from courses.models import CourseInstance
+from courses.models import Instructor
 
 
 def generate_courseitem_filepath(instance, filename):
@@ -25,15 +26,15 @@ def generate_courseitem_filepath(instance, filename):
 class GenericCourseFile(models.Model):
     """Abstract class for different course-related files."""
 
-    course_instance = models.ForeignKey(CourseInstance)
+    course_instance = models.ForeignKey(CourseInstance, on_delete=models.CASCADE)
     submitter = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
-                                  blank=True)
+                                  blank=True, on_delete=models.SET_NULL)
     file_ext = models.CharField(max_length=5)  # includes the period
     # The file must be verified manually be an officer:
     verified = models.BooleanField(default=False, blank=True)
     flags = models.PositiveSmallIntegerField(default=0)
     blacklisted = models.BooleanField(default=False)
-    unique_id = UUIDField(auto=True)
+    unique_id = UUIDField(default=uuid.uuid4, unique=True)
 
     @property
     def course(self):
@@ -96,7 +97,7 @@ class GenericCourseFile(models.Model):
 class GenericInstructorPermission(models.Model):
     """Abstract class for defining instructor permissions for course files."""
 
-    instructor = models.OneToOneField(Instructor)
+    instructor = models.OneToOneField(Instructor, on_delete=models.CASCADE)
     help_text = 'Has this instructor given permission to post files?'
     permission_allowed = models.BooleanField(help_text=help_text)
     correspondence = models.TextField(

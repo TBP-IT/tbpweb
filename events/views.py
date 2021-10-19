@@ -12,11 +12,8 @@ from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
-from django.core.urlresolvers import reverse_lazy
-from django.core.urlresolvers import reverse
-from django.db.models import Q
-from django.db.models import Count
-from django.db.models import Sum
+from django.urls import reverse_lazy, reverse
+from django.db.models import Q, Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -25,27 +22,16 @@ from django.utils.decorators import method_decorator
 from django.utils.html import format_html
 from django.views.decorators.http import require_GET
 from django.views.decorators.http import require_POST
-from django.views.generic import CreateView
-from django.views.generic import DetailView
-from django.views.generic import FormView
-from django.views.generic import ListView
-from django.views.generic import TemplateView
-from django.views.generic import UpdateView
-from quark.accounts.models import APIKey
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.candidates.models import Candidate
-from quark.events.forms import EventForm
-from quark.events.forms import EventSignUpAnonymousForm
-from quark.events.forms import EventSignUpForm
-from quark.events.forms import EventCancelForm
-from quark.events.models import Event
-from quark.events.models import EventAttendance
-from quark.events.models import EventSignUp
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import create_leaderboard
-from quark.utils.ajax import AjaxFormResponseMixin
-from quark.utils.ajax import json_response
+from django.views.generic import CreateView, DetailView, FormView, ListView, TemplateView, UpdateView
+from accounts.models import APIKey
+from base.models import Term
+from base.views import TermParameterMixin
+from candidates.models import Candidate
+from events.forms import EventForm, EventSignUpAnonymousForm, EventSignUpForm, EventCancelForm
+from events.models import Event, EventAttendance, EventSignUp
+from project_reports.models import ProjectReport
+from shortcuts import create_leaderboard
+from utils.ajax import AjaxFormResponseMixin, json_response
 
 
 user_model = get_user_model()
@@ -93,7 +79,7 @@ class EventBuilderView(TermParameterMixin, ListView):
             }
             all_events.append(event_data)
         context['json_data'] = json.dumps(all_events, cls=DjangoJSONEncoder)
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             login_message = format_html(u'Please <a href="{}">log in</a>! Some '
                                         'events may not be visible.',
                                         reverse('accounts:login'))
@@ -131,7 +117,7 @@ class EventListView(TermParameterMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(EventListView, self).get_context_data(**kwargs)
         context['show_all'] = self.show_all
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             login_message = format_html(u'Please <a href="{}">log in</a>! Some '
                                         'events may not be visible.',
                                         reverse('accounts:login'))
@@ -204,7 +190,7 @@ class EventDetailView(DetailView):
         # If this user can't view the current event, redirect to login if they
         # aren't already logged in; otherwise raise PermissionDenied
         if not self.object.can_user_view(self.request.user):
-            if self.request.user.is_authenticated():
+            if self.request.user.is_authenticated:
                 raise PermissionDenied
             else:
                 return redirect_to_login(self.request.path)
@@ -238,7 +224,7 @@ class EventDetailView(DetailView):
             # sign up, don't supply a signup form.
             context['form'] = None
         else:
-            if self.request.user.is_authenticated():
+            if self.request.user.is_authenticated:
                 try:
                     signup = EventSignUp.objects.get(
                         event=self.object, user=self.request.user)
@@ -297,7 +283,7 @@ class EventSignUpView(AjaxFormResponseMixin, FormView):
         return super(EventSignUpView, self).dispatch(*args, **kwargs)
 
     def get_form_class(self):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return EventSignUpForm
         else:
             return EventSignUpAnonymousForm
@@ -389,7 +375,7 @@ def event_unsignup(request, event_pk):
     except:
         return json_response(status=400)
     success_msg = 'Unsignup successful.'
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         try:
             # Try to get a signup object for this user
             signup = EventSignUp.objects.get(event=event, user=request.user)

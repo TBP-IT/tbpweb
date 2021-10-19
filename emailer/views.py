@@ -12,12 +12,12 @@ from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
 
-from quark.base.models import Officer
-from quark.base.models import Term
-from quark.emailer.forms import ContactCaptcha
-from quark.emailer.forms import ContactForm
-from quark.emailer.forms import EventContactForm
-from quark.events.models import Event
+from base.models import Officer
+from base.models import Term
+from emailer.forms import ContactCaptcha
+from emailer.forms import ContactForm
+from emailer.forms import EventContactForm
+from events.models import Event
 
 
 class EmailerView(FormView):
@@ -337,7 +337,7 @@ class CompanyEmailerView(EmailerView):
     check_spam = False
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             name = request.user.get_full_name()
             email = request.user.email
         else:

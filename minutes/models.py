@@ -3,7 +3,7 @@ import datetime
 from django.conf import settings
 from django.db import models
 
-from quark.base.models import Term
+from base.models import Term
 
 
 class Minutes(models.Model):
@@ -23,19 +23,19 @@ class Minutes(models.Model):
         max_length=60, help_text='The name of the meeting.')
     date = models.DateField(
         default=datetime.date.today, help_text='Date the meeting was held.')
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     meeting_type = models.PositiveSmallIntegerField(choices=MEETING_TYPES)
     notes = models.TextField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta(object):
         ordering = ('-date',)
-        permissions = (
-            ('view_minutes', 'Can view all minutes'),
-        )
+        # permissions = (
+        #     ('view_minutes', 'Can view all minutes'),
+        # )
         verbose_name = 'minutes'
         verbose_name_plural = 'minutes'
 

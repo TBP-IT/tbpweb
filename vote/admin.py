@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from quark.vote.models import Poll
-from quark.vote.models import Vote
-from quark.vote.models import VoteReceipt
+from vote.models import Poll, Vote, VoteReceipt
 
 
 class PollAdmin(admin.ModelAdmin):

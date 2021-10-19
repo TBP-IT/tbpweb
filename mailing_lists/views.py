@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView
 
-from quark.mailing_lists.utils import get_lists
+from mailing_lists.utils import get_lists
 
 
 class MailingListsListAllView(ListView):

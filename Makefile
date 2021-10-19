@@ -4,8 +4,8 @@ PIP_HOME = $(shell python3 -c "import site; import os; print(os.path.join(site.U
 VENV := .venv
 BIN := $(VENV)/bin
 PYTHON := $(BIN)/python
-MANAGE := $(PYTHON) ./manage.py
-# MANAGE := HKNWEB_MODE='dev' $(PYTHON) ./manage.py
+# MANAGE := $(PYTHON) ./manage.py
+MANAGE := TBPWEB_MODE='dev' $(PYTHON) ./manage.py
 
 IP ?= 0.0.0.0
 PORT ?= 3000

@@ -3,14 +3,14 @@ from django import forms
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from quark.base.fields import VisualSplitDateTimeField
-from quark.base.forms import ChosenTermMixin
-from quark.events.models import Event
-from quark.events.models import EventSignUp
-from quark.events.models import EventType
-from quark.project_reports.models import ProjectReport
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.fields import UserCommonNameChoiceField
+from base.fields import VisualSplitDateTimeField
+from base.forms import ChosenTermMixin
+from events.models import Event
+from events.models import EventSignUp
+from events.models import EventType
+from project_reports.models import ProjectReport
+from shortcuts import get_object_or_none
+from user_profiles.fields import UserCommonNameChoiceField
 
 
 class EventForm(ChosenTermMixin, forms.ModelForm):
@@ -182,7 +182,7 @@ class EventSignUpForm(forms.ModelForm):
         num_rsvps = self.event.get_num_rsvps()
 
         # Get the previous signup if it exists
-        if self.user.is_authenticated():
+        if self.user.is_authenticated:
             signup = get_object_or_none(
                 EventSignUp, event=self.event, user=self.user)
         else:
@@ -208,7 +208,7 @@ class EventSignUpForm(forms.ModelForm):
 
         self.instance.event = self.event
         self.instance.unsignup = False
-        if self.user.is_authenticated():
+        if self.user.is_authenticated:
             self.instance.user = self.user
         return cleaned_data
 

@@ -1,10 +1,10 @@
 import getpass
 import subprocess
+import os
 
-from quark.settings.base import WORKSPACE_ROOT
+from .base import *
 # pylint: disable=F0401
-import quark_keys
-
+from .project import HOSTNAME
 
 ###############################################################################
 # Private Variables for this dev instance
@@ -38,13 +38,12 @@ THUMBNAIL_DEBUG = DEBUG
 ADMINS = ((_name, _email),)
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = ['localhost','127.0.0.1', HOSTNAME]
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # We need this for per-user development databases.
-        'NAME': 'quark_dev_%s' % _user,
-        'USER': 'quark_dev',
-        'PASSWORD': quark_keys.DEV_DB_PASSWORD,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
     }
 }
 
@@ -56,24 +55,24 @@ DATABASES = {
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 # Custom dev cookie session ID
-SESSION_COOKIE_NAME = 'quark_dev_%s_sid' % _user
+SESSION_COOKIE_NAME = 'tbpweb_dev_%s_sid' % _user
 
 # Always show the Django Debug Toolbar on dev. By default, the Debug Toolbar
 # would only be shown when DEBUG=True and the request is from an IP listed in
 # the INTERNAL_IPS setting.
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'quark.settings.third_party.show_toolbar'
+    'SHOW_TOOLBAR_CALLBACK': 'settings.third_party.show_toolbar'
 }
 
-# NOTE: It is highly recommended that you copy quark/settings/local.py.template
-# to a new file quark/settings/local.py. After making necessary changes to the
+# NOTE: It is highly recommended that you copy tbpweb/settings/local.py.template
+# to a new file tbpweb/settings/local.py. After making necessary changes to the
 # local.py file, you will be able to use HTTPS for your dev server. See
-# quark/settings/local.py.template for further clarification and instruction.
+# tbpweb/settings/local.py.template for further clarification and instruction.
 
 # Import any local settings
 try:
     # pylint: disable=E0611,F0401,W0401,W0614
-    from quark.settings.local import *
+    from .local import *
 except ImportError:
     # Ignore if there's no local settings file
     pass

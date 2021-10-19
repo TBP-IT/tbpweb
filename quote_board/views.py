@@ -1,16 +1,16 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from quark.quote_board.forms import QuoteForm
-from quark.quote_board.models import Quote
-from quark.shortcuts import create_leaderboard
+from quote_board.forms import QuoteForm
+from quote_board.models import Quote
+from shortcuts import create_leaderboard
 
 
 class QuoteCreateView(CreateView):

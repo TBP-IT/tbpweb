@@ -1,6 +1,6 @@
 import datetime
 import os
-import StringIO
+from io import StringIO
 import zipfile
 
 from django.conf import settings
@@ -8,8 +8,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError
-from django.core.servers.basehttp import FileWrapper
-from django.core.urlresolvers import reverse_lazy
+from wsgiref.util import FileWrapper
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
@@ -20,14 +20,14 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView
 
-from quark.accounts.forms import PasswordResetForm
-from quark.base.models import Major
-from quark.companies.forms import CompanyFormWithExpiration
-from quark.companies.forms import CompanyRepCreationForm
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
-from quark.resumes.models import Resume
-from quark.user_profiles.models import UserProfile
+from accounts.forms import PasswordResetForm
+from base.models import Major
+from companies.forms import CompanyFormWithExpiration
+from companies.forms import CompanyRepCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
+from resumes.models import Resume
+from user_profiles.models import UserProfile
 
 
 class IndustryLandingView(TemplateView):

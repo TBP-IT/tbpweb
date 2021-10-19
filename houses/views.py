@@ -6,21 +6,25 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.houses.models import House
-from quark.houses.models import HouseMember
-from quark.shortcuts import get_object_or_none
-from quark.utils.ajax import json_response
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from base.views import TermParameterMixin
+from houses.models import House
+from houses.models import HouseMember
+from shortcuts import get_object_or_none
+from utils.ajax import json_response
 
 
 class HouseMembersEditView(TermParameterMixin, ListView):
     context_object_name = 'eligible_house_members'
-    current_term = Term.objects.get_current_term()
+    current_term = Term(current=True)
     model = get_user_model()
     template_name = 'houses/edit.html'
+
+    def __init__(self, *args, **kwargs):
+        super(HouseMembersEditView, self).__init__(*args, **kwargs)
+        self.current_term = Term.objects.get_current_term()
 
     @method_decorator(login_required)
     @method_decorator(permission_required('houses.add_housemember',

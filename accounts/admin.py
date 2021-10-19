@@ -3,12 +3,11 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from quark.accounts.forms import AdminPasswordChangeForm
-from quark.accounts.forms import UserChangeForm
-from quark.accounts.forms import UserCreationForm
-from quark.accounts.models import APIKey
-from quark.accounts.models import LDAPUser
-from quark.user_profiles.models import UserProfile
+from accounts.forms import AdminPasswordChangeForm
+from accounts.forms import UserChangeForm
+from accounts.forms import UserCreationForm
+from accounts.models import APIKey
+from user_profiles.models import UserProfile
 
 
 class APIKeyAdmin(admin.ModelAdmin):

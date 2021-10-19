@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from quark.base.fields import VisualSplitDateTimeField
-from quark.base.forms import ChosenTermMixin
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
-from quark.vote.models import Poll
-from quark.vote.models import Vote
-from quark.vote.models import VoteReceipt
+from base.fields import VisualSplitDateTimeField
+from base.forms import ChosenTermMixin
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
+from vote.models import Poll
+from vote.models import Vote
+from vote.models import VoteReceipt
 
 
 class PollForm(ChosenTermMixin, forms.ModelForm):

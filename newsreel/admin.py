@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.newsreel.models import News
+from newsreel.models import News
 
 
 class NewsAdmin(admin.ModelAdmin):

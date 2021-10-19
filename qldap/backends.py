@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
-from quark.qldap import utils
+from qldap import utils
 
 
 # pylint: disable=C0103
@@ -12,11 +12,9 @@ User = get_user_model()
 class LDAPBackend(ModelBackend):
     """An authentication backend which checks user name and password in the
     LDAP database.
-
     The backend creates a new Django user if the user is found in the LDAP
     database (with matching password) but does not exist in the Django
     database.
-
     Note that this backend is only active if the settings attribute USE_LDAP
     is set to True; otherwise it does nothing.
     """

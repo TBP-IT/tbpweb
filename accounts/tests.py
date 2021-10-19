@@ -8,14 +8,14 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from mock import patch
 
-from quark.accounts.forms import AuthenticationForm
-from quark.accounts.models import make_ldap_user
-from quark.accounts.models import LDAPUser
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
-from quark.qldap.utils import delete_user
-from quark.qldap.utils import get_email
-from quark.qldap.utils import username_exists
+from accounts.forms import AuthenticationForm
+from accounts.models import make_ldap_user
+from accounts.models import LDAPUser
+from companies.models import Company
+from companies.models import CompanyRep
+from qldap.utils import delete_user
+from qldap.utils import get_email
+from qldap.utils import username_exists
 
 
 class UserModelTest(TestCase):

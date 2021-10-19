@@ -5,13 +5,13 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.core import mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.test import TestCase
 from freezegun import freeze_time
 
-from quark.companies.forms import CompanyRepCreationForm
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
+from companies.forms import CompanyRepCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
 
 
 class CompanyTest(TestCase):

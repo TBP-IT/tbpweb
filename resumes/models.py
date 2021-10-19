@@ -28,7 +28,7 @@ class Resume(models.Model):
             os.remove(full_path)
         return filename
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, unique=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     gpa = models.DecimalField(
         verbose_name='GPA', max_digits=4, decimal_places=3,
         help_text='GPA must have three decimal places (ex. 3.750)')

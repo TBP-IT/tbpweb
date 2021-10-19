@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from quark.utils import update_db
+from utils import update_db
 
 
 class Command(BaseCommand):

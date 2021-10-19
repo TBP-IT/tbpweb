@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quark.quote_board.models import Quote
+from quote_board.models import Quote
 
 
 class QuoteAdmin(admin.ModelAdmin):

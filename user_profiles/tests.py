@@ -3,16 +3,16 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.candidates.models import Candidate
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.fields import UserCommonNameChoiceField
-from quark.user_profiles.fields import UserCommonNameMultipleChoiceField
-from quark.user_profiles.models import CollegeStudentInfo
-from quark.user_profiles.models import StudentOrgUserProfile
-from quark.user_profiles.models import UserProfile
+from base.models import Officer
+from base.models import OfficerPosition
+from base.models import Term
+from candidates.models import Candidate
+from shortcuts import get_object_or_none
+from user_profiles.fields import UserCommonNameChoiceField
+from user_profiles.fields import UserCommonNameMultipleChoiceField
+from user_profiles.models import CollegeStudentInfo
+from user_profiles.models import StudentOrgUserProfile
+from user_profiles.models import UserProfile
 
 
 # TODO(sjdemartini): Add tests for LDAP-specific testing in methods that use

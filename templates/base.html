@@ -37,10 +37,10 @@
           {% include '_user_login.html' %}
 
           <div id="logo-group">
-            <a href="{% url 'home' %}" id="logo-link"><img src="{% static 'images/bent_circle.png' %}" id="logo" alt="Bent Logo">
+            <a href="{% url 'base:home' %}" id="logo-link"><img src="{% static 'images/bent_circle.png' %}" id="logo" alt="Bent Logo">
               <div id="logo-name">Tau Beta Pi</div>
               <div id="logo-location">UC Berkeley</div></a>
-            <a href="{% url 'home' %}" id="logo-overlay"></a>
+            <a href="{% url 'base:home' %}" id="logo-overlay"></a>
           </div>
         </div>
       </header>
@@ -69,7 +69,7 @@
           </a>
         </div>
         <div id="copyright">
-          <p><a href="{% url 'home' %}">Home</a> | <a href="{% url 'contact' %}">Contact Us</a></p>
+          <p><a href="{% url 'base:home' %}">Home</a> | <a href="{% url 'contact' %}">Contact Us</a></p>
           <p>Copyright &copy; 2008-{% now 'Y' %} Tau Beta Pi, California Alpha Chapter</p>
           <p><a href="http://www.tbp.org/">Tau Beta Pi Nationals</a> | <a href="http://coe.berkeley.edu/">College of Engineering</a></p>
         </div>

@@ -1,9 +1,9 @@
 from django.db import models
 
-from quark.achievements.models import Achievement
-from quark.achievements.models import AchievementIcon
-from quark.achievements.models import UserAchievement
-from quark.shortcuts import get_object_or_none
+from achievements.models import Achievement
+from achievements.models import AchievementIcon
+from achievements.models import UserAchievement
+from shortcuts import get_object_or_none
 
 
 # achievement-related achievements

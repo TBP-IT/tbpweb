@@ -1,12 +1,10 @@
-from django.conf.urls import patterns
-from django.conf.urls import url
+from django.urls import re_path
 
-from quark.past_presidents.views import PastPresidentsListView
-from quark.past_presidents.views import PastPresidentsDetailView
+from past_presidents.views import PastPresidentsListView
+from past_presidents.views import PastPresidentsDetailView
 
-urlpatterns = patterns(
-    '',
-    url(r'^$', PastPresidentsListView.as_view(), name='list'),
-    url(r'^words/(?P<past_president_id>\d+)/$',
+urlpatterns = [
+    re_path(r'^$', PastPresidentsListView.as_view(), name='list'),
+    re_path(r'^words/(?P<past_president_id>\d+)/$',
         PastPresidentsDetailView.as_view(), name='detail'),
-)
+]

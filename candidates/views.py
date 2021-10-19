@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMessage
-from django.core.urlresolvers import reverse
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -26,37 +26,30 @@ from django.views.generic.base import TemplateView
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 
-from quark.base.models import Term
-from quark.base.views import TermParameterMixin
-from quark.candidates.models import Candidate
-from quark.candidates.models import CandidateRequirement
-from quark.candidates.models import CandidateRequirementProgress
-from quark.candidates.models import Challenge
-from quark.candidates.models import ChallengeType
-from quark.candidates.models import ChallengeCandidateRequirement
-from quark.candidates.models import EventCandidateRequirement
-from quark.candidates.models import ExamFileCandidateRequirement
-from quark.candidates.models import ManualCandidateRequirement
-from quark.candidates.models import ResumeCandidateRequirement
-from quark.candidates.models import SyllabusCandidateRequirement
-from quark.candidates.forms import CandidateCreationForm
-from quark.candidates.forms import CandidateUserProfileForm
-from quark.candidates.forms import CandidatePhotoForm
-from quark.candidates.forms import CandidateRequirementProgressFormSet
-from quark.candidates.forms import CandidateRequirementFormSet
-from quark.candidates.forms import ChallengeForm
-from quark.candidates.forms import ChallengeVerifyFormSet
-from quark.candidates.forms import ManualCandidateRequirementForm
-from quark.events.models import Event
-from quark.events.models import EventType
-from quark.exams.models import Exam
-from quark.houses.models import House
-from quark.notifications.models import Notification
-from quark.resumes.models import Resume
-from quark.syllabi.models import Syllabus
-from quark.shortcuts import get_object_or_none
-from quark.user_profiles.models import UserProfile
-from quark.utils.ajax import json_response
+from base.models import Term
+from base.views import TermParameterMixin
+from candidates.models import Candidate, CandidateRequirement, CandidateRequirementProgress, Challenge, \
+                              ChallengeType, ChallengeCandidateRequirement, EventCandidateRequirement, \
+                              ExamFileCandidateRequirement, ManualCandidateRequirement, \
+                              ResumeCandidateRequirement, SyllabusCandidateRequirement
+from candidates.forms import CandidateCreationForm
+from candidates.forms import CandidateUserProfileForm
+from candidates.forms import CandidatePhotoForm
+from candidates.forms import CandidateRequirementProgressFormSet
+from candidates.forms import CandidateRequirementFormSet
+from candidates.forms import ChallengeForm
+from candidates.forms import ChallengeVerifyFormSet
+from candidates.forms import ManualCandidateRequirementForm
+from events.models import Event
+from events.models import EventType
+from exams.models import Exam
+from houses.models import House
+from notifications.models import Notification
+from resumes.models import Resume
+from syllabi.models import Syllabus
+from shortcuts import get_object_or_none
+from user_profiles.models import UserProfile
+from utils.ajax import json_response
 
 
 class CandidateContextMixin(ContextMixin):

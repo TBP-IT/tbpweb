@@ -12,15 +12,11 @@ from django.template import Template
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from quark.base import fields
-from quark.base.models import Major
-from quark.base.models import Officer
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.base.models import University
-from quark.settings.dev import DATABASES as DEV_DB
-from quark.settings.production import DATABASES as PROD_DB
-from quark.settings.staging import DATABASES as STAGING_DB
+from base import fields
+from base.models import Major, Officer, OfficerPosition, Term, University
+from settings.dev import DATABASES as DEV_DB
+from settings.production import DATABASES as PROD_DB
+from settings.staging import DATABASES as STAGING_DB
 
 
 class MajorTest(TestCase):
@@ -705,24 +701,24 @@ class SettingsTest(TestCase):
 
     def test_unset(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'dev')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('TBPWEB_MODE', 'dev')
+            settings = import_fresh_module('settings')
 
             self.assertTrue(settings.DEBUG)
             self.assertEqual(settings.DATABASES, DEV_DB)
 
     def test_production(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'production')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('TBPWEB_MODE', 'production')
+            settings = import_fresh_module('settings')
 
             self.assertFalse(settings.DEBUG)
             self.assertEqual(settings.DATABASES, PROD_DB)
 
     def test_staging(self):
         with self.env:
-            self.env.set('QUARK_ENV', 'staging')
-            settings = import_fresh_module('quark.settings')
+            self.env.set('TBPWEB_MODE', 'staging')
+            settings = import_fresh_module('settings')
 
             self.assertFalse(settings.DEBUG)
             self.assertEqual(settings.DATABASES, STAGING_DB)

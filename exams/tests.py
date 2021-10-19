@@ -7,15 +7,15 @@ from django.core.files import File
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from quark.base.models import Term
-from quark.courses.models import Course
-from quark.courses.models import CourseInstance
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.exams.forms import ExamForm
-from quark.exams.models import Exam
-from quark.exams.models import ExamFlag
-from quark.exams.models import InstructorPermission
+from base.models import Term
+from courses.models import Course
+from courses.models import CourseInstance
+from courses.models import Department
+from courses.models import Instructor
+from exams.forms import ExamForm
+from exams.models import Exam
+from exams.models import ExamFlag
+from exams.models import InstructorPermission
 
 
 def make_test_exam(number):

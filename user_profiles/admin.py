@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from quark.user_profiles.models import CollegeStudentInfo
-from quark.user_profiles.models import StudentOrgUserProfile
-from quark.user_profiles.models import UserProfile
+from user_profiles.models import CollegeStudentInfo, StudentOrgUserProfile, UserProfile
 
 
 class CollegeStudentInfoAdmin(admin.ModelAdmin):

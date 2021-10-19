@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import models
 from django.db.models import Sum
 from django.db.models.query import QuerySet
@@ -7,9 +7,9 @@ from django.template import defaultfilters
 from django.utils import timezone
 from django.utils.http import urlencode
 
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
+from base.models import OfficerPosition
+from base.models import Term
+from project_reports.models import ProjectReport
 
 
 class EventTypeManager(models.Manager):
@@ -99,7 +99,7 @@ class Event(models.Model):
     VISIBLE_TO_EVERYONE = (OPEN, PUBLIC, CANDIDATE)
 
     name = models.CharField(max_length=80, verbose_name='event name')
-    event_type = models.ForeignKey(EventType)
+    event_type = models.ForeignKey(EventType, null=True, on_delete=models.SET_NULL)
 
     restriction = models.PositiveSmallIntegerField(
         choices=RESTRICTION_CHOICES,
@@ -114,12 +114,12 @@ class Event(models.Model):
 
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
-    term = models.ForeignKey(Term)
+    term = models.ForeignKey(Term, null=True, on_delete=models.SET_NULL)
     tagline = models.CharField(max_length=200, blank=True)
     description = models.TextField(blank=True)
     location = models.CharField(max_length=80)
-    contact = models.ForeignKey(settings.AUTH_USER_MODEL)
-    committee = models.ForeignKey(OfficerPosition, null=True)
+    contact = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    committee = models.ForeignKey(OfficerPosition, null=True, on_delete=models.SET_NULL)
 
     signup_limit = models.PositiveSmallIntegerField(
         default=0,
@@ -322,7 +322,7 @@ class Event(models.Model):
         """Return the maximum event restriction level this user can access, or
         the public restriction level if no user is provided.
         """
-        if user and user.is_authenticated():
+        if user and user.is_authenticated:
             if user.userprofile.is_officer():
                 return Event.OFFICER
             elif user.userprofile.is_member():
@@ -333,8 +333,8 @@ class Event(models.Model):
 
 
 class EventSignUp(models.Model):
-    event = models.ForeignKey(Event)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
 
     num_guests = models.PositiveSmallIntegerField(
         default=0,
@@ -384,8 +384,8 @@ class EventSignUp(models.Model):
 
 
 class EventAttendance(models.Model):
-    event = models.ForeignKey(Event)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     # TODO(sjdemartini): Deal with the pre-noiro attendance importing? Note
     # that noiro added a separate field here to handle pre-noiro attendance

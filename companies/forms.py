@@ -2,11 +2,10 @@ from chosen import forms as chosen_forms
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.forms.extras import SelectDateWidget
 
-from quark.accounts.forms import UserCreationForm
-from quark.companies.models import Company
-from quark.companies.models import CompanyRep
+from accounts.forms import UserCreationForm
+from companies.models import Company
+from companies.models import CompanyRep
 
 
 class CompanyForm(forms.ModelForm):
@@ -29,7 +28,7 @@ class CompanyFormWithExpiration(CompanyForm):
     class Meta(CompanyForm.Meta):
         fields = ('name', 'website', 'logo', 'expiration_date')
         widgets = {
-            'expiration_date': SelectDateWidget()
+            'expiration_date': forms.DateField(widget=forms.SelectDateWidget())
         }
 
 
@@ -50,7 +49,7 @@ class CompanyRepCreationForm(UserCreationForm):
         fields = ('company', 'username', 'first_name', 'last_name', 'email',
                   'confirm_email')
         widgets = {
-            'expiration_date': SelectDateWidget()
+            'expiration_date': forms.DateField(widget=forms.SelectDateWidget())
         }
 
     def __init__(self, *args, **kwargs):

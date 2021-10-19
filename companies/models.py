@@ -50,11 +50,11 @@ class CompanyRep(models.Model):
     """A representative for a Company, who has an account on the site."""
     company = models.ForeignKey(
         Company,
-        help_text='The Company this contact is associated with.')
+        help_text='The Company this contact is associated with.', on_delete=models.CASCADE)
 
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
-        help_text='The user account for this company contact')
+        help_text='The user account for this company contact', on_delete=models.CASCADE)
 
     class Meta(object):
         permissions = (

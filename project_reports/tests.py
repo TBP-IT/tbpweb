@@ -5,9 +5,9 @@ from django.test import TestCase
 from django.utils import timezone
 import mox
 
-from quark.base.models import OfficerPosition
-from quark.base.models import Term
-from quark.project_reports.models import ProjectReport
+from base.models import OfficerPosition
+from base.models import Term
+from project_reports.models import ProjectReport
 
 
 class ProjectReportTest(TestCase):

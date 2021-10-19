@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponse
@@ -15,15 +15,15 @@ from django.views.generic import UpdateView
 
 from json import dumps
 
-from quark.courses.forms import InstructorEditForm
-from quark.courses.forms import InstructorForm
-from quark.courses.forms import CourseForm
-from quark.courses.forms import CourseEditForm
-from quark.courses.models import Course
-from quark.courses.models import Department
-from quark.courses.models import Instructor
-from quark.exams.models import Exam
-from quark.syllabi.models import Syllabus
+from courses.forms import InstructorEditForm
+from courses.forms import InstructorForm
+from courses.forms import CourseForm
+from courses.forms import CourseEditForm
+from courses.models import Course
+from courses.models import Department
+from courses.models import Instructor
+from exams.models import Exam
+from syllabi.models import Syllabus
 
 
 def listCourses(request):

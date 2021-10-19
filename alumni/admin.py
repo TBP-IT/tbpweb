@@ -1,8 +1,6 @@
 from django.contrib import admin
 
-from quark.alumni.models import Alumnus
-from quark.alumni.models import DiscussionTopic
-from quark.alumni.models import TimeInvestment
+from alumni.models import Alumnus, DiscussionTopic, TimeInvestment
 
 
 class AlumnusAdmin(admin.ModelAdmin):

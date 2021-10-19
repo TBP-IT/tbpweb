@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import models
 
-from quark.base.models import Term
+from base.models import Term
 
 
 class House(models.Model):
@@ -21,10 +21,9 @@ class House(models.Model):
 
 class HouseMember(models.Model):
     """A member of a house."""
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='housemember')
-    term = models.ForeignKey(Term)
-    house = models.ForeignKey(House)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='housemember', on_delete=models.CASCADE)
+    term = models.ForeignKey(Term, on_delete=models.CASCADE)
+    house = models.ForeignKey(House, on_delete=models.CASCADE)
 
     is_leader = models.NullBooleanField(
         default=None,
@@ -32,9 +31,9 @@ class HouseMember(models.Model):
 
     class Meta(object):
         unique_together = (('user', 'term'), ('term', 'house', 'is_leader'))
-        permissions = (
-            ('view_housemember', 'Can view all houses and members'),
-        )
+        # permissions = (
+        #     ('view_housemember', 'Can view all houses and members'),
+        # )
 
     def __unicode__(self):
         return '%s - %s (%s %d)' % (
