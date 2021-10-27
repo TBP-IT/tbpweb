@@ -1,9 +1,24 @@
 #!/bin/bash -e
-export MODE=prod
+export TBPWEB_MODE=production
+
+if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+
+  source "$HOME/.rvm/scripts/rvm"
+
+elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
+
+  source "/usr/local/rvm/scripts/rvm"
+
+else
+
+  printf "ERROR: An RVM installation was not found.\n"
+
+fi
 
 cd ~/public_html/tbpweb
+rvm use
 source ~/public_html/tbpweb/venv/bin/activate
 PYTHONPATH=~/public_html/tbpweb/src:$PYTHONPATH \
 
 exec gunicorn -w 2 -b unix:/srv/apps/tbp/tbp.sock \
-    --log-file - tbpweb.wsgi:application
+    --log-file - settings.wsgi:application
