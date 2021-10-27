@@ -112,3 +112,6 @@ Temporary Items
 
 # VirtualEnv
 .venv
+
+# SASS Cache
+.sass-cache
