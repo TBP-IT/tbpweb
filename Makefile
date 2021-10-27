@@ -44,3 +44,8 @@ install-prod:
 install:
 	make install-prod
 	$(PYTHON) -m pip install -r requirements-dev.txt
+
+.PHONY: mysql
+mysql:
+	mysql -e "CREATE DATABASE IF NOT EXISTS tbp;"
+	mysql -e "GRANT ALL PRIVILEGES ON tbp.* TO 'tbp'@'localhost' IDENTIFIED BY 'tbpweb-dev';"
