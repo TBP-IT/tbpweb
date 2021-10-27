@@ -32,7 +32,7 @@ from user_profiles.models import StudentOrgUserProfile
 
 
 @override_settings(
-    MEDIA_ROOT=os.path.join(settings.WORKSPACE_ROOT, 'media', 'tests'))
+    MEDIA_ROOT=os.path.join(settings.WORKSPACE_DJANGO_ROOT, 'media', 'tests'))
 class CandidateTest(TestCase):
     fixtures = ['test/course_instance.yaml']
 
@@ -157,7 +157,7 @@ class CandidateTest(TestCase):
     @classmethod
     def tearDownClass(cls):
         os.remove('test.txt')
-        shutil.rmtree(os.path.join(settings.WORKSPACE_ROOT, 'media', 'tests'),
+        shutil.rmtree(os.path.join(settings.WORKSPACE_DJANGO_ROOT, 'media', 'tests'),
                       ignore_errors=True)
 
     def test_candidate_post_save(self):

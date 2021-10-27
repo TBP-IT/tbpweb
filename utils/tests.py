@@ -45,7 +45,7 @@ class DevServerTest(TestCase):
 
 
 class DevUtilsTest(TestCase):
-    @override_settings(PROJECT_APPS=[], WORKSPACE_ROOT='root')
+    @override_settings(PROJECT_APPS=[], WORKSPACE_DJANGO_ROOT='root')
     @patch('django.core.management.ManagementUtility')
     def test_no_initial_data(self, mock_mgmt):
         """Don't run loaddata with no available fixtures"""
@@ -53,7 +53,7 @@ class DevUtilsTest(TestCase):
         self.assertFalse(mock_mgmt.called)
 
     @override_settings(PROJECT_APPS=['tbpweb.foo', 'thirdparty.bar'],
-                       WORKSPACE_ROOT='root')
+                       WORKSPACE_DJANGO_ROOT='root')
     @patch('django.core.management.ManagementUtility')
     @patch('glob.glob')
     def test_load_initial_data(self, mock_glob, mock_mgmt):
@@ -67,7 +67,7 @@ class DevUtilsTest(TestCase):
         dev_utils.load_initial_data()
         self.assertEqual(mock_glob.call_count, 2)
 
-    @override_settings(PROJECT_APPS=[], WORKSPACE_ROOT='root')
+    @override_settings(PROJECT_APPS=[], WORKSPACE_DJANGO_ROOT='root')
     @patch('django.core.management.ManagementUtility')
     @patch('utils.load_initial_data')
     def test_update_db(self, mock_data, mock_mgmt):

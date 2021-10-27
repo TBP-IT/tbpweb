@@ -8,7 +8,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(WORKSPACE_ROOT, 'emails')
+EMAIL_FILE_PATH = os.path.join(WORKSPACE_DJANGO_ROOT, 'emails')
 
 ADMINS = (
     ('TBP IT', 'it-notice@tbp.berkeley.edu'),

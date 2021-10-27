@@ -23,7 +23,7 @@ def load_initial_data():
     imports = []
     for project in settings.PROJECT_APPS:
         imports += glob.glob('/'.join(
-            [settings.WORKSPACE_ROOT] + project.split('.') +
+            [settings.WORKSPACE_DJANGO_ROOT] + project.split('.') +
             ['fixtures', '*.yaml']))
     if imports:
         execute_from_command_line(['manage.py', 'loaddata'] + imports)

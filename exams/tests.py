@@ -33,7 +33,7 @@ def make_test_exam(number):
 
 
 @override_settings(
-    MEDIA_ROOT=os.path.join(settings.WORKSPACE_ROOT, 'media', 'tests'))
+    MEDIA_ROOT=os.path.join(settings.WORKSPACE_DJANGO_ROOT, 'media', 'tests'))
 class ExamTest(TestCase):
     fixtures = ['test/course_instance.yaml']
 
@@ -72,7 +72,7 @@ class ExamTest(TestCase):
     @classmethod
     def tearDownClass(cls):
         os.remove('test.txt')
-        shutil.rmtree(os.path.join(settings.WORKSPACE_ROOT, 'media', 'tests'),
+        shutil.rmtree(os.path.join(settings.WORKSPACE_DJANGO_ROOT, 'media', 'tests'),
                       ignore_errors=True)
 
     def test_exam_manager(self):

@@ -71,7 +71,7 @@ setup() {
     nonblocking_acquire
 }
 
-# Main steps to run for deployment. Current dir assumed to be WORKSPACE_ROOT
+# Main steps to run for deployment. Current dir assumed to be WORKSPACE_DJANGO_ROOT
 deploy() {
     # TODO(flieee): Copy production DB data to staging using old Quark release
 

@@ -10,8 +10,8 @@ from .project import HOSTNAME
 # Private Variables for this dev instance
 ###############################################################################
 _user = getpass.getuser()
-_git_cmd = ['git', '--git-dir=%s/.git' % WORKSPACE_ROOT,
-            '--work-tree=%s' % WORKSPACE_ROOT]
+_git_cmd = ['git', '--git-dir=%s/.git' % WORKSPACE_DJANGO_ROOT,
+            '--work-tree=%s' % WORKSPACE_DJANGO_ROOT]
 try:
     # Get dev user contact info from git
     _name = subprocess.check_output(
