@@ -26,6 +26,6 @@ def markdown(value):
     {{ markdown_content_var|markdown }}
     """
     return mark_safe(py_markdown.markdown(
-        force_unicode(value),
+        value,
         safe_mode='remove',
         enable_attributes=False))
