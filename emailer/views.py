@@ -66,12 +66,11 @@ class EmailerView(FormView):
         # field data (see ContactForm). At least one of to, cc, or bcc must
         # be given or a BadHeaderError will be raised
 
-        ip_addr = unicode(
-            self.request.META.get('HTTP_X_FORWARDED_FOR',
-                                  self.request.META.get('REMOTE_ADDR',
-                                                        'None provided')))
-        useragent = unicode(self.request.META.get('HTTP_USER_AGENT',
-                                                  'None provided'))
+        ip_addr = self.request.META.get('HTTP_X_FORWARDED_FOR',
+                                        self.request.META.get('REMOTE_ADDR',
+                                                              'None provided'))
+        useragent = self.request.META.get('HTTP_USER_AGENT',
+                                          'None provided')
 
         form_id = ('-' + self.form_id) if self.form_id else self.form_id
         headers = kwargs.get('headers', {})
@@ -110,10 +109,9 @@ class EmailerView(FormView):
         headers['X{}-Author'.format(form_id)] = form.cleaned_data['author']
         ip_addr = headers.get('X{}-IP-Address'.format(form_id), False)
         if not ip_addr:
-            ip_addr = unicode(
-                self.request.META.get('HTTP_X_FORWARDED_FOR',
-                                      self.request.META.get('REMOTE_ADDR',
-                                                            'None provided')))
+            ip_addr = self.request.META.get('HTTP_X_FORWARDED_FOR',
+                                            self.request.META.get('REMOTE_ADDR',
+                                                                    'None provided'))
 
         if send_spam_notice:
             sender = 'root@{}'.format(settings.HOSTNAME)
