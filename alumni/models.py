@@ -25,7 +25,7 @@ class Alumnus(models.Model):
         # )
         verbose_name_plural = 'Alumni'
 
-    def __unicode__(self):
+    def __str__(self):
         return '{user}'.format(user=self.user)
 
     def get_absolute_url(self):
@@ -42,7 +42,7 @@ class DiscussionTopic(models.Model):
                                  'corresponding to this topic (\'fa fa-\' '
                                  'is implicitly included at the beginning).')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -60,5 +60,5 @@ class TimeInvestment(models.Model):
                                  'corresponding to this topic (\'fa fa-\' '
                                  'is implicitly included at the beginning).')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name

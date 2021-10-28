@@ -261,7 +261,7 @@ class Candidate(models.Model):
             return False
         return elective_req.get_progress(self)['required'] > 0
 
-    def __unicode__(self):
+    def __str__(self):
         return '{user} ({term})'.format(user=self.user, term=self.term)
 
 
@@ -327,7 +327,7 @@ class ChallengeType(models.Model):
 
     objects = ChallengeTypeManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def natural_key(self):
@@ -361,7 +361,7 @@ class Challenge(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{candidate}: Challenge given by {user}'.format(
             candidate=self.candidate, user=self.verifying_user)
 
@@ -490,7 +490,7 @@ class CandidateRequirement(models.Model):
             raise NotImplementedError(
                 'Unknown type {}'.format(self.requirement_type))
 
-    def __unicode__(self):
+    def __str__(self):
         return '{name}, {credits} required ({term})'.format(
             name=self.get_name(),
             credits=self.credits_needed, term=self.term)
@@ -692,7 +692,7 @@ class CandidateRequirementProgress(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{candidate}: {req}'.format(
             candidate=self.candidate, req=self.requirement)
 

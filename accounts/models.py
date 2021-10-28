@@ -23,8 +23,8 @@ class APIKey(models.Model):
     class Meta(object):
         verbose_name = 'API key'
 
-    def __unicode__(self):
-        return u'{}: {}'.format(unicode(self.user), self.key)
+    def __str__(self):
+        return '{}: {}'.format(self.user, self.key)
 
 
 def create_api_key(sender, instance, created, **kwargs):

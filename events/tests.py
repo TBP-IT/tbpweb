@@ -428,7 +428,7 @@ class EventTest(EventTesting):
         event.save()
         self.assertEqual(event.view_datetime(), 'Sat, Mar 14 Time TBA')
 
-    def test_unicode(self):
+    def test_string(self):
         start_time = timezone.now()
         end_time = start_time + datetime.timedelta(hours=2)
         event = self.create_event(start_time, end_time,
@@ -441,31 +441,31 @@ class EventTest(EventTesting):
         signup.save()
         expected_str = u'{name} has signed up for {event_name}'.format(
             name=signup.name, event_name=event.name)
-        self.assertEqual(expected_str, unicode(signup))
+        self.assertEqual(expected_str, signup)
 
         signup.user = self.user
         signup.save()
         expected_str = u'{name} has signed up for {event_name}'.format(
             name=self.user.get_full_name(), event_name=event.name)
-        self.assertEqual(expected_str, unicode(signup))
+        self.assertEqual(expected_str, signup)
 
         signup.num_guests = 1
         signup.save()
         expected_str = u'{name} (+1) has signed up for {event_name}'.format(
             name=self.user.get_full_name(), event_name=event.name)
-        self.assertEqual(expected_str, unicode(signup))
+        self.assertEqual(expected_str, signup)
 
         signup.num_guests = 2
         signup.save()
         expected_str = u'{name} (+2) has signed up for {event_name}'.format(
             name=self.user.get_full_name(), event_name=event.name)
-        self.assertEqual(expected_str, unicode(signup))
+        self.assertEqual(expected_str, signup)
 
         signup.unsignup = True
         signup.save()
         expected_str = u'{name} (+2) has unsigned up for {event_name}'.format(
             name=self.user.get_full_name(), event_name=event.name)
-        self.assertEqual(expected_str, unicode(signup))
+        self.assertEqual(expected_str, signup)
 
         # Test that gcal url does not raise errors. Don't test expected url.
         event.get_gcal_event_url()

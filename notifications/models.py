@@ -54,6 +54,6 @@ class Notification(models.Model):
     class Meta(object):
         unique_together = ('user', 'content_type', 'object_pk')
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Notification for {}: {} ({})'.format(
             self.user.get_username(), self.title, self.subtitle)

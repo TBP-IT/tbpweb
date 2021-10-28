@@ -76,7 +76,7 @@ class Syllabus(GenericCourseFile):
             instructors='_'.join([i.last_name for i in self.instructors]),
             ext=self.file_ext)
 
-    def __unicode__(self):
+    def __str__(self):
         """Return a human-readable representation of the syllabus file."""
         # Use 'Unknown' if the course instance does not have a term
         if self.course_instance.term:
@@ -99,8 +99,8 @@ class SyllabusFlag(GenericFlag):
     syllabus = models.ForeignKey(Syllabus,
                                  help_text='Syllabus that has an issue.', on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return '{} Flag'.format(unicode(self.syllabus))
+    def __str__(self):
+        return '{} Flag'.format(self.syllabus)
 
 
 def delete_file(sender, instance, **kwargs):

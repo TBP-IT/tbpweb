@@ -35,7 +35,7 @@ class Poll(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{name} ({term})'.format(
             name=self.name, term=self.term)
 
@@ -48,7 +48,7 @@ class Vote(models.Model):
     nominee = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     reason = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Vote for {nominee} for {name} ({term})'.format(
             nominee=self.nominee, name=self.poll.name, term=self.poll.term)
 
@@ -61,7 +61,7 @@ class VoteReceipt(models.Model):
     voter = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{voter} voted at {time} for {name} ({term})'.format(
             voter=self.voter, time=self.created, name=self.poll.name,
             term=self.poll.term)

@@ -15,7 +15,7 @@ class House(models.Model):
         max_length=16, blank=True,
         help_text='The mailing list name, not including the @domain.')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -35,7 +35,7 @@ class HouseMember(models.Model):
         #     ('view_housemember', 'Can view all houses and members'),
         # )
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s - %s (%s %d)' % (
             self.user.userprofile.get_common_name(), self.house.name,
             self.term.get_term_display(), self.term.year)

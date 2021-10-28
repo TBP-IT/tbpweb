@@ -29,7 +29,7 @@ class EventType(models.Model):
 
     objects = EventTypeManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def natural_key(self):
@@ -154,8 +154,8 @@ class Event(models.Model):
         verbose_name = 'event'
         verbose_name_plural = 'events'
 
-    def __unicode__(self):
-        return u'{} - {}'.format(self.name, unicode(self.term))
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.term)
 
     def get_absolute_url(self):
         return reverse('events:detail', args=(self.pk,))
@@ -391,9 +391,9 @@ class EventAttendance(models.Model):
     # that noiro added a separate field here to handle pre-noiro attendance
     # imports, as well as ImportedAttendance objects
 
-    def __unicode__(self):
-        return u'{} attended {}'.format(self.user.get_full_name(),
-                                        self.event.name)
+    def __str__(self):
+        return '{} attended {}'.format(self.user.get_full_name(),
+                                       self.event.name)
 
     def save(self, *args, **kwargs):
         """If a project report is required for the corresponding event, add the

@@ -97,7 +97,7 @@ class ExamTest(TestCase):
                 number=Exam.MT1, instructors='Beta_Tau',
                 type=Exam.EXAM, ext='.txt'))
         self.assertEquals(
-            unicode(self.test_exam1),
+            self.test_exam1,
             ('{term} {number} {type} for {course}, taught by '
              '{instructors}').format(
                 term='Spring 2013', number='Midterm 1', type='Exam',
@@ -106,7 +106,7 @@ class ExamTest(TestCase):
     def test_flag_properites(self):
         exam_flag = ExamFlag(exam=self.test_exam1)
         self.assertEquals(
-            unicode(exam_flag), unicode(self.test_exam1) + ' Flag')
+            exam_flag, self.test_exam1 + ' Flag')
         self.assertFalse(exam_flag.resolved)
 
     def test_delete_exam_with_file(self):

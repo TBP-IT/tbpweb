@@ -24,7 +24,7 @@ class University(models.Model):
     long_name = models.CharField(max_length=64)
     website = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.long_name
 
     class Meta(object):
@@ -39,7 +39,7 @@ class Major(models.Model):
     is_eligible = models.BooleanField(default=False)
     website = models.URLField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.long_name
 
     class Meta(object):
@@ -188,7 +188,7 @@ class Term(models.Model):
     def natural_key(self):
         return (self.term, self.year)
 
-    def __unicode__(self):
+    def __str__(self):
         name = self.verbose_name()
         if self.current:
             name += ' (Current)'
@@ -290,7 +290,7 @@ class OfficerPosition(models.Model):
     class Meta(object):
         ordering = ('rank',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.long_name
 
     def natural_key(self):
@@ -356,7 +356,7 @@ class Officer(models.Model):
             ('view_officer_contacts', 'Can view officer contact information'),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s - %s (%s %d)' % (
             self.user.get_username(), self.position.short_name,
             self.term.get_term_display(), self.term.year)

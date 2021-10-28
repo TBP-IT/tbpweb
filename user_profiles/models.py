@@ -105,7 +105,7 @@ class UserProfile(models.Model):
             self.preferred_name = self.user.first_name
         super(UserProfile, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.get_common_name()
 
     def get_verbose_first_name(self):
@@ -245,7 +245,7 @@ class CollegeStudentInfo(IDCodeMixin):
     class Meta(object):
         verbose_name_plural = 'college student info'
 
-    def __unicode__(self):
+    def __str__(self):
         return '{username} ({start_term} - {grad_term}) id: {id_code}'.format(
             username=self.user.get_username(), start_term=self.start_term,
             grad_term=self.grad_term, id_code=self.id_code or None)
@@ -265,7 +265,7 @@ class StudentOrgUserProfile(models.Model):
         ordering = ('user',)
         verbose_name = 'Student Organization User Profile'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user.get_full_name()
 
     def is_candidate(self, current=True):

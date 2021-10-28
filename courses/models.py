@@ -27,7 +27,7 @@ class Department(models.Model):
     class Meta(object):
         ordering = ('long_name',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.long_name
 
     def get_absolute_url(self):
@@ -117,7 +117,7 @@ class Course(models.Model):
             return False
         return not self.__lt__(other)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.abbreviation()
 
     def abbreviation(self):
@@ -162,7 +162,7 @@ class Instructor(models.Model):
         unique_together = (
             'first_name', 'middle_initial', 'last_name', 'department')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.full_name()
 
     def full_name(self):
@@ -187,5 +187,5 @@ class CourseInstance(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     instructors = models.ManyToManyField(Instructor)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} - {}'.format(self.course, self.term)

@@ -105,7 +105,7 @@ class Exam(GenericCourseFile):
             type=self.exam_type,
             ext=self.file_ext)
 
-    def __unicode__(self):
+    def __str__(self):
         """Return a human-readable representation of the exam file."""
         # Use 'Unknown' if the course instance does not have a term
         if self.course_instance.term:
@@ -130,8 +130,8 @@ class ExamFlag(GenericFlag):
 
     exam = models.ForeignKey(Exam, help_text='The exam that has an issue.', on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return '{} Flag'.format(unicode(self.exam))
+    def __str__(self):
+        return '{} Flag'.format(self.exam)
 
 
 def delete_file(sender, instance, **kwargs):

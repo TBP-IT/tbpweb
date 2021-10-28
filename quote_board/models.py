@@ -9,7 +9,7 @@ class Quote(models.Model):
     submitter = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='+', null=True, on_delete=models.SET_NULL)
     time = models.DateField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.quote
 
     class Meta(object):

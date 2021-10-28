@@ -262,13 +262,13 @@ class TermTest(TestCase):
         spring.save()
         self.assertFalse(Term.objects.filter(current=True).exists())
 
-    def test_unicode(self):
+    def test_string(self):
         term = Term(term=Term.FALL, year=2012, current=False)
-        self.assertEqual(unicode(term), 'Fall 2012')
+        self.assertEqual(term, 'Fall 2012')
 
-    def test_unicode_current(self):
+    def test_string_current(self):
         term = Term(term=Term.FALL, year=2012, current=True)
-        self.assertEqual(unicode(term), 'Fall 2012 (Current)')
+        self.assertEqual(term, 'Fall 2012 (Current)')
 
     def test_verbose_name(self):
         term = Term(term=Term.FALL, year=2012, current=False)

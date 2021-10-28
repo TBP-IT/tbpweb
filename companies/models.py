@@ -33,7 +33,7 @@ class Company(models.Model):
             ('view_companies', 'Can view information about companies'),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def is_expired(self):
@@ -61,7 +61,7 @@ class CompanyRep(models.Model):
             ('view_companyreps', 'Can view information about company reps'),
         )
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} ({})'.format(self.user, self.company.name)
 
 

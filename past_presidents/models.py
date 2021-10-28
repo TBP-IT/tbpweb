@@ -31,7 +31,7 @@ class PastPresident(models.Model):
         help_text=('Number used to order presidents. '
                    'Higher numbers for more recent presidents'))
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s (%s)' % (self.name, self.term)
 
     class Meta(object):

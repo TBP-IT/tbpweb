@@ -38,7 +38,7 @@ class Survey(models.Model):
     published = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '%s (%s)' % (self.course, self.submitter)
 
     class Meta(object):

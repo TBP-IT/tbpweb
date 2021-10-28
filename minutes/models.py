@@ -39,6 +39,6 @@ class Minutes(models.Model):
         verbose_name = 'minutes'
         verbose_name_plural = 'minutes'
 
-    def __unicode__(self):
+    def __str__(self):
         return '{0} {1:%Y-%m-%d %H:%M:%S}'.format(
             self.name, self.date)

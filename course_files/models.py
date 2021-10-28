@@ -108,8 +108,8 @@ class GenericInstructorPermission(models.Model):
         ordering = ('instructor',)
         abstract = True
 
-    def __unicode__(self):
-        return '{} Permission'.format(unicode(self.instructor))
+    def __str__(self):
+        return '{} Permission'.format(self.instructor)
 
 
 class GenericFlag(models.Model):

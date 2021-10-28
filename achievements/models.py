@@ -91,7 +91,7 @@ class Achievement(models.Model):
     class Meta(object):
         ordering = ('rank',)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -154,7 +154,7 @@ class AchievementIcon(models.Model):
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, help_text='The creator of the icon image.')
 
-    def __unicode__(self):
+    def __str__(self):
         return 'Icon for {}'.format(self.achievement.name)
 
 
@@ -198,7 +198,7 @@ class UserAchievement(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return '{} - {}'.format(self.user.get_full_name(),
                                 self.achievement.name)
 
@@ -215,7 +215,7 @@ def achievement_notification(sender, instance, created, **kwargs):
             title='Achievement Unlocked',
             subtitle=achievement.name,
             description=achievement.description,
-            image_url=unicode(achievement.get_icon()),
+            image_url=achievement.get_icon(),
             url=achievement.get_absolute_url())
 
 

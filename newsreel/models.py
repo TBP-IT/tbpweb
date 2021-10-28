@@ -56,7 +56,7 @@ class News(models.Model):
 
         super(News, self).save(*args, **kwargs)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
