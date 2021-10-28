@@ -12,7 +12,7 @@ import settings.tbpweb_keys as tbpweb_keys
 # (like automatic email subject lines):
 SITE_TAG = 'TBP'
 
-HOSTNAME = 'tbp.berkeley.edu'
+HOSTNAME = 'tbp-dev.apphost.ocf.berkeley.edu'
 
 DEFAULT_FROM_EMAIL = 'webmaster@' + HOSTNAME
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
