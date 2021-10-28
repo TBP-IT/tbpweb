@@ -17,7 +17,7 @@ fi
 
 cd ~/public_html/tbpweb
 rvm use
-source ~/public_html/tbpweb/venv/bin/activate
+source ~/public_html/tbpweb/.venv/bin/activate
 PYTHONPATH=~/public_html/tbpweb/src:$PYTHONPATH \
 
 exec gunicorn -w 2 -b unix:/srv/apps/tbp/tbp.sock \
