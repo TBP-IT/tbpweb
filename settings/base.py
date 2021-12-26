@@ -215,7 +215,6 @@ PROJECT_APPS = [
     'events',
     'exams',
     'houses',
-    'mailing_lists',
     'minutes',
     'newsreel',
     'notifications',
