@@ -28,8 +28,27 @@ WORKSPACE_DJANGO_ROOT = os.path.abspath(
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = ()
+# Email stuff
+CONST_CURR_TBP_IT = "tbpwebsite@tbp.berkeley.edu"
 
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# Host for sending e-mail.
+EMAIL_HOST = "smtp.ocf.berkeley.edu" #"smtp.gmail.com"
+
+# Port for sending e-mail.
+EMAIL_PORT = 587
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = CONST_CURR_TBP_IT #"tbpwebsite@tbp.berkeley.edu"
+EMAIL_USE_TLS = True
+
+NO_REPLY_EMAIL = "no-reply@tbp.berkeley.edu"
+
+# Email password as EMAIL_HOST_PASSWORD on Production Keys
+
+# Set admins and managers
+ADMINS = [('TBP', CONST_CURR_TBP_IT)] #"website-errors@tbp.berkeley.edu")]
 MANAGERS = ADMINS
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -241,35 +260,6 @@ THIRD_PARTY_APPS = [
 
 # This is the actual variable that django looks at.
 INSTALLED_APPS = DJANGO_CONTRIB_APPS + PROJECT_APPS + THIRD_PARTY_APPS
-
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
 
 
 ###############################################################################
