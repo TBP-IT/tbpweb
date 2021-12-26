@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMessage
 from django.core.mail import make_msgid
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
@@ -39,7 +39,7 @@ class EmailerView(FormView):
     The original form_valid redirected to self.success_url, but this doesn't
     allow setting context variables in a confirmation message, since it gets
     handled by another view, so it has been overridden to render the template
-    with render_to_response. It also now calls form.send_email() with kwargs
+    with render. It also now calls form.send_email() with kwargs
     to override form field data
 
     form_invalid has been overridden to simply set the success and
@@ -86,10 +86,8 @@ class EmailerView(FormView):
 
         # override default behavior of redirecting to success url in order to
         # pass context variables for successful submission
-        return render_to_response(
-            self.template_name,
-            self.get_context_data(form=new_form),
-            context_instance=RequestContext(self.request))
+        return render(self.request, self.template_name,
+            self.get_context_data(form=new_form))
 
     def form_invalid(self, form):
         self.result_message = ''
@@ -138,11 +136,8 @@ class EmailerView(FormView):
         else:
             self.success = True
             self.result_message = self.result_messages[True]
-            return render_to_response(
-                self.template_name,
-                self.get_context_data(form=self.form_class()),
-                context_instance=RequestContext(self.request))
-
+            return render(self.request, self.template_name,
+                self.get_context_data(form=self.form_class()))
 
 class EventEmailerView(EmailerView):
     form_class = EventContactForm
@@ -192,11 +187,9 @@ class EventEmailerView(EmailerView):
                                    'recipient list for this email was empty.')
             self.success = False
 
-            return render_to_response(
-                self.template_name,
-                self.get_context_data(form=form),
-                context_instance=RequestContext(self.request))
-
+            return render(self.request, self.template_name,
+                self.get_context_data(form=form))
+        
         return super(EventEmailerView, self).form_valid(
             form,
             cc_list=self.cc_email,
