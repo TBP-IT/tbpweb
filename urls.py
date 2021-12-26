@@ -25,7 +25,6 @@ urlpatterns = [
     path('houses/', include(('houses.urls', 'houses'), namespace='houses')),
     path('syllabi/', include(('syllabi.urls', 'syllabi'), namespace='syllabi')),
     path('industry/', include(('companies.urls', 'companies'), namespace='companies')),
-    path('mailing-lists/', include(('mailing_lists.urls', 'mailing-lists'), namespace='mailing-lists')),
     path('minutes/', include(('minutes.urls', 'minutes'), namespace='minutes')),
     path('newsreel/', include(('newsreel.urls', 'newsreel'), namespace='newsreel')),
     path('notifications/', include(('notifications.urls', 'notifications'), namespace='notifications')),
