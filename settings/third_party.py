@@ -10,13 +10,6 @@ from settings.base import CACHES
 #     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 # }
 
-# Mailman path
-# TODO: Change this mailman path since this was on old TBP Server
-# MMPATH = '/usr/lib/mailman'
-# if MMPATH not in sys.path:
-#     sys.path.append(MMPATH)
-
-
 # Set up SASS (SCSS) compilation for django-compressor, with the "compass"
 # library. Use SASS version 3.4.25 was deemed okay to upgrade to from 3.2.14
 COMPRESS_PRECOMPILERS = (
