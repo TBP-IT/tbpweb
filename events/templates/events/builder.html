@@ -12,7 +12,7 @@ Schedule Builder
 {% load static settings_values template_utils %}
 
 {% block content %}
-{% settings_assign 'HOSTNAME' as hostname %}
+{% settings 'HOSTNAME' as hostname %}
 {% get_api_key_params user as api_params %}
 
 {% if events %}

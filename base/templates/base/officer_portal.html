@@ -60,7 +60,7 @@
 </ul>
 
 <h2>Contact IT</h2>
-{% settings_assign 'IT_ADDRESS' as it_addr %}
+{% settings 'IT_ADDRESS' as it_addr %}
 <ul>
   <li>Email IT at <a href="mailto:{{ it_addr }}">{{ it_addr }}</a></li>
   <li><a href="/trac/">Introduction</a></li>

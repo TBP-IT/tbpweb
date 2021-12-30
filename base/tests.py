@@ -790,24 +790,24 @@ class SettingsTemplateTagsTest(TestCase):
         self.assertEquals(self.base_string, template.render(self.context))
 
     def test_settings_assign(self):
-        """Verify that the settings_assign tag works for valid settings
+        """Verify that the settings tag (formerly: settings_assign) works for valid settings
         variables.
         """
         template = Template(
             '{% load settings_values %}'
-            '{% settings_assign "TEST_SETTING" as test_var %}'
+            '{% settings "TEST_SETTING" as test_var %}'
             '{{ base_string }}{{ test_var }}'
         )
         self.assertEquals(self.base_string + self.test_setting,
                           template.render(self.context))
 
     def test_settings_assign_invalid_setting(self):
-        """Verify that the settings_assign tag gives an empty string for
+        """Verify that the settings tag (formerly: settings_assign) gives an empty string for
         settings variables that do not exist.
         """
         template = Template(
             '{% load settings_values %}'
-            '{% settings_assign "NON_EXISTENT_SETTING" as test_var %}'
+            '{% settings "NON_EXISTENT_SETTING" as test_var %}'
             '{{ base_string }}{{ test_var }}'
         )
         self.assertEquals(self.base_string, template.render(self.context))

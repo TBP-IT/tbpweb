@@ -19,7 +19,7 @@ def settings(name):
 
     would output the value of the attribute settings.IT_ADDRESS. Similarly,
 
-    {% settings_assign 'IT_ADDRESS' as it_addr %}
+    {% settings 'IT_ADDRESS' as it_addr %}
 
     would save the value of the attribute settings.IT_ADDRESS into a context
     variable it_addr.
