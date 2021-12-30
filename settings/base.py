@@ -83,7 +83,7 @@ AUTH_USER_MODEL = 'auth.User'
 USE_LDAP = False  # Only use LDAP in production
 
 AUTHENTICATION_BACKENDS = (
-    'qldap.backends.LDAPBackend',
+    # 'qldap.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -239,7 +239,7 @@ PROJECT_APPS = [
     'notifications',
     'past_presidents',
     'project_reports',
-    'qldap',
+    # 'qldap',
     'quote_board',
     'resumes',
     'syllabi',
