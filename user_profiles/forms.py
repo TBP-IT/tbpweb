@@ -5,7 +5,7 @@ from django.utils import timezone
 
 from base.models import Major
 from base.models import Term
-from qldap.utils import set_email
+# from qldap.utils import set_email
 from user_profiles.models import UserProfile
 
 

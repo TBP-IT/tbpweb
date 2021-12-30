@@ -63,23 +63,23 @@ RECAPTCHA_PRIVATE_KEY = tbpweb_keys.RECAPTCHA_PRIVATE_KEY
 RECAPTCHA_PUBLIC_KEY = tbpweb_keys.RECAPTCHA_PUBLIC_KEY
 
 # LDAP settings
-LDAP = {
-    'HOST': 'ldap://localhost',
-    'BASE': 'dc=tbp,dc=berkeley,dc=edu',
-    'SCOPE': ldap.SCOPE_SUBTREE,
-}
-LDAP_BASE = {
-    'PEOPLE': 'ou=People,' + LDAP['BASE'],
-    'GROUP': 'ou=Group,' + LDAP['BASE'],
-    'DN': 'uid=ldapwriter,ou=System,' + LDAP['BASE'],
-    'PASSWORD': tbpweb_keys.LDAP_BASEDN_PASSWORD,
-}
-LDAP_GROUPS = {
-    'TBP': ['tbp-officers', 'tbp-members', 'tbp-candidates'],
-}
-LDAP_DEFAULT_USER = 'uid=default,ou=System,' + LDAP['BASE']
+# LDAP = {
+#     'HOST': 'ldap://localhost',
+#     'BASE': 'dc=tbp,dc=berkeley,dc=edu',
+#     'SCOPE': ldap.SCOPE_SUBTREE,
+# }
+# LDAP_BASE = {
+#     'PEOPLE': 'ou=People,' + LDAP['BASE'],
+#     'GROUP': 'ou=Group,' + LDAP['BASE'],
+#     'DN': 'uid=ldapwriter,ou=System,' + LDAP['BASE'],
+#     'PASSWORD': tbpweb_keys.LDAP_BASEDN_PASSWORD,
+# }
+# LDAP_GROUPS = {
+#     'TBP': ['tbp-officers', 'tbp-members', 'tbp-candidates'],
+# }
+# LDAP_DEFAULT_USER = 'uid=default,ou=System,' + LDAP['BASE']
 
-USE_LDAP = False
+# USE_LDAP = False
 
 # Valid username regex
 # Please use raw string notation (i.e. r'text') to keep regex sane.

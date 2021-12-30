@@ -57,7 +57,7 @@ admin.site.register(APIKey, APIKeyAdmin)
 user_model = get_user_model()
 admin.site.unregister(user_model)
 
-if getattr(settings, 'USE_LDAP', False):
-    admin.site.register(LDAPUser, UserAdminWithProfile)
-else:
-    admin.site.register(user_model, UserAdminWithProfile)
+# if getattr(settings, 'USE_LDAP', False):
+#     admin.site.register(LDAPUser, UserAdminWithProfile)
+# else:
+admin.site.register(user_model, UserAdminWithProfile)

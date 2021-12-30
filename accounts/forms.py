@@ -10,9 +10,9 @@ from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from accounts.models import make_ldap_user
+# from accounts.models import make_ldap_user
 from companies.models import CompanyRep
-from qldap import utils as ldap_utils
+# from qldap import utils as ldap_utils
 
 
 USE_LDAP = getattr(settings, 'USE_LDAP', False)

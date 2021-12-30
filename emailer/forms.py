@@ -92,7 +92,8 @@ class ContactCaptcha(ContactForm):
     This is used for Helpdesk to prevent spam. It's more effective than the
     author field.
     """
-    recaptcha = ReCaptchaField(
-        label='CAPTCHA', error_messages={
-            'required': 'Please fill this in.',
-            'captcha_invalid': 'Come on, we know you can read.'})
+    # recaptcha = ReCaptchaField(
+    #     label='CAPTCHA', error_messages={
+    #         'required': 'Please fill this in.',
+    #         'captcha_invalid': 'Come on, we know you can read.'})
+    pass
