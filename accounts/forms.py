@@ -31,26 +31,27 @@ class UserFormMixin(object):
 
 
 class UserCreationForm(UserFormMixin, auth_forms.UserCreationForm):
-    def clean_username(self):
-        username = super(UserCreationForm, self).clean_username()
-        if USE_LDAP and ldap_utils.username_exists(username):
-            raise forms.ValidationError(
-                self.error_messages['duplicate_username'],
-                code='duplicate_username',
-            )
-        return username
+    # def clean_username(self):
+    #     print("super().username", super().username)
+    #     username = super(auth_forms.UserCreationForm, self).clean_username(super(auth_forms.UserCreationForm, self).username)
+    #     if USE_LDAP and ldap_utils.username_exists(username):
+    #         raise forms.ValidationError(
+    #             self.error_messages['duplicate_username'],
+    #             code='duplicate_username',
+    #         )
+    #     return username
 
     def save(self, commit=True):
         # Call the ModelForm save method directly, since we are overriding the
         # Django UserCreationForm save() functionality here
         user = forms.ModelForm.save(self, commit=False)
-        if USE_LDAP:
-            # Create an entry in LDAP for this new user:
-            ldap_utils.create_user(
-                user.get_username(), self.cleaned_data['password1'], user.email,
-                user.first_name, user.last_name)
-            # Use the LDAPUser proxy model for this object
-            make_ldap_user(user)
+        # if USE_LDAP:
+        #     # Create an entry in LDAP for this new user:
+        #     ldap_utils.create_user(
+        #         user.get_username(), self.cleaned_data['password1'], user.email,
+        #         user.first_name, user.last_name)
+        #     # Use the LDAPUser proxy model for this object
+        #     make_ldap_user(user)
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
