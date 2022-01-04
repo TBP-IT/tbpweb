@@ -36,7 +36,7 @@ class EventType(models.Model):
         return (self.name,)
 
 
-class EventQuerySetMixin(object):
+class EventQuerySet(QuerySet):
     def get_upcoming(self, current_term_only=True):
         """Return events that haven't been cancelled and haven't yet ended.
 
@@ -66,18 +66,15 @@ class EventQuerySetMixin(object):
         return self.filter(restriction__in=visible_levels)
 
 
-class EventQuerySet(QuerySet, EventQuerySetMixin):
-    """Used in order to allow chaining of manager methods."""
-    pass
-
-
-class EventManager(models.Manager, EventQuerySetMixin):
-    """Manager that allows for chaining of methods of its mixin.
-
-    Based on https://djangosnippets.org/snippets/2114/
-    """
+class EventManager(models.Manager):
     def get_query_set(self):
         return EventQuerySet(self.model, using=self._db)
+    
+    def get_upcoming(self, current_term_only=True):
+        return self.get_query_set().get_upcoming(current_term_only)
+    
+    def get_user_viewable(self, current_term_only=True):
+        return self.get_query_set().get_user_viewable(current_term_only)
 
 
 class Event(models.Model):

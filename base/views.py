@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.base import View
 
 from .models import Officer, Term
-from events.models import Event, EventQuerySetMixin
+from events.models import Event
 from newsreel.models import News
 from user_profiles.models import UserProfile
 
@@ -22,7 +22,7 @@ class HomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
-        context['event_list'] = EventQuerySetMixin.get_upcoming(Event.objects.get_user_viewable(
+        context['event_list'] = Event.objects.get_upcoming(Event.objects.get_user_viewable(
             self.request.user))[:3]
         context['news_list'] = News.objects.all()[:5]
         return context
