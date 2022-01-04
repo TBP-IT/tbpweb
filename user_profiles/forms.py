@@ -6,7 +6,7 @@ from django.utils import timezone
 from base.models import Major
 from base.models import Term
 # from qldap.utils import set_email
-from user_profiles.models import UserProfile
+from user_profiles.models import UserProfile, CollegeStudentInfo
 
 
 class UserProfileForm(forms.ModelForm):
@@ -46,8 +46,8 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
         # Set Term options to get desired ordering
-        self.start_term.queryset = Term.objects.get_terms(reverse=True).exclude(id=Term.objects.get_current_term().id)
-        self.grad_term.queryset = Term.objects.get_terms(include_future=True)
+        self.fields["start_term"].queryset = Term.objects.get_terms(reverse=True).exclude(id=Term.objects.get_current_term().id)
+        self.fields["grad_term"].queryset = Term.objects.get_terms(include_future=True)
 
         # Set the initial values for the user model fields based on those
         # corresponding values. Note that editing a user profile only makes
@@ -61,12 +61,16 @@ class UserProfileForm(forms.ModelForm):
         if student_org_user_profile:
             self.fields['bio'].initial = student_org_user_profile.bio
 
+        # Select multiple majors text for ModelMultipleChoiceField
+        #  Removed starting Django 1.8
+        #  (https://github.com/django/django/blob/stable/1.6.x/django/forms/models.py#L1169-L1172)
+        self.fields['major'].help_text = 'Hold down "Control", or "Command" on a Mac, to select more than one.'
+
         # Set initial values for college student info
         college_student_info = self.instance.get_college_student_info()
         if college_student_info:
             self.fields['major'].initial = college_student_info.major.all()
-            self.fields['start_term'].initial = \
-                college_student_info.start_term
+            self.fields['start_term'].initial = college_student_info.start_term
             self.fields['grad_term'].initial = college_student_info.grad_term
 
         # Disable editing for user account fields (besides email):
@@ -82,9 +86,7 @@ class UserProfileForm(forms.ModelForm):
         # relevant times
         year_max = timezone.now().year - 10
         year_min = year_max - 70
-        self.fields['birthday'].widget =  forms.DateField(
-            widget=forms.SelectDateWidget(years=range(year_min, year_max))
-        )
+        self.fields['birthday'].widget = forms.SelectDateWidget(years=range(year_min, year_max))
 
         # Make the local address required for someone editing their user
         # profile:
@@ -133,17 +135,20 @@ class UserProfileForm(forms.ModelForm):
         start_term = self.cleaned_data['start_term']
         grad_term = self.cleaned_data['grad_term']
         college_student_info = self.instance.get_college_student_info()
-        if college_student_info:
-            update_fields = []
-            if college_student_info.major != major:
-                college_student_info.major = major
-            if college_student_info.start_term != start_term:
-                college_student_info.start_term = start_term
-                update_fields.append('start_term')
-            if college_student_info.grad_term != grad_term:
-                college_student_info.grad_term = grad_term
-                update_fields.append('grad_term')
-            college_student_info.save(update_fields=update_fields)
+        if college_student_info is None:
+            college_student_info = CollegeStudentInfo.objects.get_or_create(
+                                        user=self.instance.user
+                                    )[0]
+        update_fields = []
+        if college_student_info.major != major:
+            college_student_info.major.add(*major)
+        if college_student_info.start_term != start_term:
+            college_student_info.start_term = start_term
+            update_fields.append('start_term')
+        if college_student_info.grad_term != grad_term:
+            college_student_info.grad_term = grad_term
+            update_fields.append('grad_term')
+        college_student_info.save(update_fields=update_fields)
 
         return super(UserProfileForm, self).save(*args, **kwargs)
 

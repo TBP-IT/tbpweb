@@ -65,17 +65,20 @@ class CandidateUserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CandidateUserProfileForm, self).__init__(*args, **kwargs)
         # Set Term options to get desired ordering, but after the website is initialized (and so it the database)
-        self.start_term.queryset = Term.objects.get_terms(reverse=True) \
+        self.fields["start_term"].queryset = Term.objects.get_terms(reverse=True) \
                                                          .exclude(id=Term.objects.get_current_term().id)
-        self.grad_term.queryset  = Term.objects.get_terms(include_future=True) \
+        self.fields["grad_term"].queryset  = Term.objects.get_terms(include_future=True) \
                                                          .filter(id__gte=Term.objects.get_current_term().id)
+        
+        # Select multiple majors text for ModelMultipleChoiceField
+        #  Removed starting Django 1.8
+        #  (https://github.com/django/django/blob/stable/1.6.x/django/forms/models.py#L1169-L1172)
+        self.fields['major'].help_text = 'Hold down "Control", or "Command" on a Mac, to select more than one.'
 
         self.fields['birthday'].required = True
         year_max = timezone.now().year - 10
         year_min = year_max - 70
-        self.fields['birthday'].widget = forms.DateField(
-            widget=forms.SelectDateWidget(years=range(year_min, year_max))
-        )
+        self.fields['birthday'].widget = forms.SelectDateWidget(years=range(year_min, year_max))
 
         self.fields['cell_phone'].required = True
 
@@ -95,7 +98,7 @@ class CandidateUserProfileForm(forms.ModelForm):
         grad_term = self.cleaned_data['grad_term']
         college_student_info = CollegeStudentInfo.objects.get_or_create(
             user=self.instance.user)[0]
-        college_student_info.major = major
+        college_student_info.major.add(*major)
         college_student_info.start_term = start_term
         college_student_info.grad_term = grad_term
         college_student_info.save(update_fields=['start_term', 'grad_term'])
