@@ -27,6 +27,7 @@ WORKSPACE_DJANGO_ROOT = os.path.abspath(
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+SHOW_DEBUG_TOOLBAR = False  # Custom flag to show the Django Debug Toolbar
 
 # Email stuff
 CONST_CURR_TBP_IT = "tbpwebsite@tbp.berkeley.edu"
