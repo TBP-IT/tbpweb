@@ -91,7 +91,6 @@ Vagrant.configure("2") do |config|
         vim \
         libsasl2-dev \
         python-dev \
-        libldap2-dev \
         libssl-dev
     gem install compass -v 1.0.3
     
