@@ -224,9 +224,6 @@ class EventTest(EventTesting):
                                  [repr(event) for event in expected_events],
                                  ordered=False)
 
-        # TODO(sjdemartini): add tests for members once UserProfile.is_member
-        # is not purely LDAP-dependent
-
     def test_can_user_view(self):
         # self.user is just an ordinary user with no groups or special
         # permissions, so they should be able to view public, open, and
@@ -263,9 +260,6 @@ class EventTest(EventTesting):
             event.restriction = restriction
             event.save()
             self.assert_can_view(event, self.user)
-
-        # TODO(sjdemartini): add tests for members once UserProfile.is_member
-        # is not purely LDAP-dependent
 
     def test_can_user_sign_up(self):
         # self.user is just an ordinary user with no groups or special
@@ -306,9 +300,6 @@ class EventTest(EventTesting):
                 self.assert_cannot_sign_up(event, self.user)
             else:
                 self.assert_can_sign_up(event, self.user)
-
-        # TODO(sjdemartini): add tests for members once UserProfile.is_member
-        # is not purely LDAP-dependent
 
     def test_user_multiple_sign_ups(self):
         """Multiple signups don't create multiple instances of EventSignUp."""

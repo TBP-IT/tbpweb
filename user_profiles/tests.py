@@ -14,11 +14,6 @@ from user_profiles.models import CollegeStudentInfo
 from user_profiles.models import StudentOrgUserProfile
 from user_profiles.models import UserProfile
 
-
-# TODO(sjdemartini): Add tests for LDAP-specific testing in methods that use
-# LDAP (like is_member)
-
-
 class UserInfoTestCase(TestCase):
     """A TestCase which provides a useful setUp method for creating common
     user info used in multiple test cases.

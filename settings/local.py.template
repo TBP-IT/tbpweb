@@ -12,6 +12,3 @@ STATIC_URL = '/dev####/static/'
 MEDIA_URL = '/dev####/media/'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-
-# To use LDAP authentication, uncomment the next line:
-#USE_LDAP = True

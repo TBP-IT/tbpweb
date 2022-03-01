@@ -5,7 +5,6 @@ from django.utils import timezone
 
 from base.models import Major
 from base.models import Term
-# from qldap.utils import set_email
 from user_profiles.models import UserProfile, CollegeStudentInfo
 
 
@@ -80,7 +79,7 @@ class UserProfileForm(forms.ModelForm):
 
         # TODO(sjdemartini): Add clarifying help_text regarding forwarding email
         # to the "email" field here, as it will affect the forwarding email
-        # address once LDAP modification is enabled in the save() method.
+        # address ...
 
         # Change the range of dates shown for the birthday field to only
         # relevant times
@@ -121,9 +120,6 @@ class UserProfileForm(forms.ModelForm):
         if self.instance.user.email != email:
             self.instance.user.email = email
             self.instance.user.save(update_fields=['email'])
-            # Save email address to LDAP if LDAP is enabled
-            if getattr(settings, 'USE_LDAP', False):
-                set_email(self.instance.user.get_username(), email)
 
         bio = self.cleaned_data['bio']
         student_org_user_profile = self.instance.get_student_org_user_profile()

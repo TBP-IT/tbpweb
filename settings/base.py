@@ -77,14 +77,7 @@ CACHES = {
 # Currently use django.contrib.auth.User.
 AUTH_USER_MODEL = 'auth.User'
 
-# USE_LDAP indicates when an LDAP proxy model (accounts.LDAPUser) for users
-# (proxies AUTH_USER_MODEL) should be used. When USE_LDAP is True, the LDAP
-# authentication backend becomes active, and user account forms (like changing
-# passwords) use the LDAPUser proxy model.
-USE_LDAP = False  # Only use LDAP in production
-
 AUTHENTICATION_BACKENDS = (
-    # 'qldap.backends.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -240,7 +233,6 @@ PROJECT_APPS = [
     'notifications',
     'past_presidents',
     'project_reports',
-    # 'qldap',
     'quote_board',
     'resumes',
     'syllabi',

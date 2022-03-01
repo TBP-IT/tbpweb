@@ -297,17 +297,12 @@ class StudentOrgUserProfile(models.Model):
     def is_member(self):
         """Return True if this person is a current member of the organization.
 
-        Member status is indicated by having initiated, or by being an officer,
-        or by being in the LDAP member database (if LDAP is enabled).
+        Member status is indicated by having initiated, or by being an officer
         """
         if self.initiation_term is not None:
             return True
 
         is_officer = self.is_officer()
-        if USE_LDAP:
-            is_ldap_member = ldap_utils.is_in_tbp_group(
-                self.user.get_username(), 'members')
-            return is_officer or is_ldap_member
         return is_officer
 
     def is_officer(self, current=False, exclude_aux=False):
@@ -323,12 +318,6 @@ class StudentOrgUserProfile(models.Model):
         if current:
             term = Term.objects.get_current_term()
         else:
-            # If registered as an officer in LDAP (and we don't need to exclude
-            # auxiliary positions), then return true
-            if (USE_LDAP and not exclude_aux and
-                    ldap_utils.is_in_tbp_group(
-                        self.user.get_username(), 'officers')):
-                return True
             term = None
         officer_positions = self.get_officer_positions(term)
         if exclude_aux:

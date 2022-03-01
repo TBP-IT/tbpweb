@@ -1095,8 +1095,6 @@ def update_candidate_initiation_status(request):
 
     candidate.initiated = initiated
     candidate.save(update_fields=['initiated'])
-    # TODO(sjdemartini): Update LDAP-related information, like removal from
-    # or addition to relevant groups.
     # TODO(sjdemartini): Update relevant mailing lists, moving initiated
     # candidates off of the candidates list and onto the members list.
     return json_response()
