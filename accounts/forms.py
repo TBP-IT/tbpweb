@@ -71,11 +71,6 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
 
         return cleaned_data
 
-
-class PasswordChangeForm(SetPasswordForm, auth_forms.PasswordChangeForm):
-    pass
-
-
 class PasswordResetForm(forms.Form):
     """A form for users to enter their username or email address and have a
     password reset email sent to them.
