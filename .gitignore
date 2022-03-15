@@ -115,3 +115,6 @@ Temporary Items
 
 # SASS Cache
 .sass-cache
+
+# SASS-Compiled-CSS
+static/css/style.*.css
