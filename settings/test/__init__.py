@@ -4,7 +4,6 @@
 from settings import *
 
 DEBUG = False
-USE_LDAP = False
 
 DATABASES = {
     'default': {

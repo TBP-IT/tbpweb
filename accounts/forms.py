@@ -10,13 +10,7 @@ from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-# from accounts.models import make_ldap_user
 from companies.models import CompanyRep
-# from qldap import utils as ldap_utils
-
-
-USE_LDAP = getattr(settings, 'USE_LDAP', False)
-
 
 class UserFormMixin(object):
     """Change the username regex and require user fields."""
@@ -31,27 +25,10 @@ class UserFormMixin(object):
 
 
 class UserCreationForm(UserFormMixin, auth_forms.UserCreationForm):
-    # def clean_username(self):
-    #     print("super().username", super().username)
-    #     username = super(auth_forms.UserCreationForm, self).clean_username(super(auth_forms.UserCreationForm, self).username)
-    #     if USE_LDAP and ldap_utils.username_exists(username):
-    #         raise forms.ValidationError(
-    #             self.error_messages['duplicate_username'],
-    #             code='duplicate_username',
-    #         )
-    #     return username
-
     def save(self, commit=True):
         # Call the ModelForm save method directly, since we are overriding the
         # Django UserCreationForm save() functionality here
         user = forms.ModelForm.save(self, commit=False)
-        # if USE_LDAP:
-        #     # Create an entry in LDAP for this new user:
-        #     ldap_utils.create_user(
-        #         user.get_username(), self.cleaned_data['password1'], user.email,
-        #         user.first_name, user.last_name)
-        #     # Use the LDAPUser proxy model for this object
-        #     make_ldap_user(user)
         user.set_password(self.cleaned_data['password1'])
         if commit:
             user.save()
@@ -94,32 +71,6 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
 
         return cleaned_data
 
-
-class MakeLDAPUserMixin(object):
-    """A mixin used in user forms that makes the user object for the form use
-    the LDAPUser proxy model if USE_LDAP is true.
-    Setting the user as an instance LDAPUser makes the object's methods act
-    appropriately for when LDAP is enabled (such as set_password).
-    """
-    def __init__(self, *args, **kwargs):
-        super(MakeLDAPUserMixin, self).__init__(*args, **kwargs)
-        if USE_LDAP and self.user:
-            make_ldap_user(self.user)
-
-
-class SetPasswordForm(MakeLDAPUserMixin, auth_forms.SetPasswordForm):
-    pass
-
-
-class PasswordChangeForm(SetPasswordForm, auth_forms.PasswordChangeForm):
-    pass
-
-
-class AdminPasswordChangeForm(MakeLDAPUserMixin,
-                              auth_forms.AdminPasswordChangeForm):
-    pass
-
-
 class PasswordResetForm(forms.Form):
     """A form for users to enter their username or email address and have a
     password reset email sent to them.
@@ -127,10 +78,7 @@ class PasswordResetForm(forms.Form):
     username and email address, rather than just email address.
     The save method is primarily copied from django.contrib.auth.forms
     PasswordResetForm, though this reset-form allows for sending reset emails to
-    users that have unusable passwords (as might be the case if passwords are
-    only stored in LDAP). This is deliberately allowed, since the
-    SetPasswordForm (used at the page linked to by the reset email) takes into
-    account LDAP users, as needed. Also, while the Django form will send emails
+    users that have unusable passwords. Also, while the Django form will send emails
     to multiple users if they all have the same email address on file, if
     multiple users are found here (due to having users with colliding email
     addresses), a validation error is raised.

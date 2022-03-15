@@ -3,10 +3,10 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from accounts.forms import AdminPasswordChangeForm
 from accounts.forms import UserChangeForm
 from accounts.forms import UserCreationForm
 from accounts.models import APIKey
+from django.contrib.auth import forms as auth_forms
 from user_profiles.models import UserProfile
 
 
@@ -28,7 +28,7 @@ class UserProfileInline(admin.StackedInline):
 class UserAdminWithProfile(UserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
-    change_password_form = AdminPasswordChangeForm
+    change_password_form = auth_forms.AdminPasswordChangeForm
     inlines = (UserProfileInline, )
     list_display_links = ('username', 'first_name', 'last_name',)
     list_filter = ('is_staff', 'is_superuser', 'groups')
@@ -57,7 +57,4 @@ admin.site.register(APIKey, APIKeyAdmin)
 user_model = get_user_model()
 admin.site.unregister(user_model)
 
-# if getattr(settings, 'USE_LDAP', False):
-#     admin.site.register(LDAPUser, UserAdminWithProfile)
-# else:
 admin.site.register(user_model, UserAdminWithProfile)

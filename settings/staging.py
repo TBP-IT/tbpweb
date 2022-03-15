@@ -26,9 +26,6 @@ DATABASES = {
     }
 }
 
-# Only use LDAP in production/staging
-USE_LDAP = True
-
 # HTTPS support in staging
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
