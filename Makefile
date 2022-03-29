@@ -18,8 +18,8 @@ run:
 superuser:
 	$(MANAGE) createsuperuser
 
-.PHONY: migrations
-migrations:
+.PHONY: makemigrations
+makemigrations:
 	$(MANAGE) makemigrations
 
 .PHONY: migrate
