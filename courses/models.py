@@ -68,11 +68,11 @@ class Course(models.Model):
             oth_hyph = int(oth_number.split('-', 1)[1])
             oth_number = oth_number.split('-', 1)[0]
 
-        our_int = int(our_number.strip(string.letters))
-        oth_int = int(oth_number.strip(string.letters))
+        our_int = int(our_number.strip(string.ascii_letters))
+        oth_int = int(oth_number.strip(string.ascii_letters))
 
-        our_post = our_number.lstrip(string.letters)
-        oth_post = oth_number.lstrip(string.letters)
+        our_post = our_number.lstrip(string.ascii_letters)
+        oth_post = oth_number.lstrip(string.ascii_letters)
 
         # Compare integer part of course numbers
         if our_int < oth_int:
