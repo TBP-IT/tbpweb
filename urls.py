@@ -54,6 +54,7 @@ urlpatterns += [
         name='mock-interviews'),
     path('partnership_program/', views.flatpage, {'url': '/partnership_program/'},
         name='partnership_program'),
+	path('gallery/', views.flatpage, {'url': '/gallery/'}, name='gallery')
 ]
 
 # Handle page redirects
