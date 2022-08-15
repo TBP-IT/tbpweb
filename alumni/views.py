@@ -82,7 +82,7 @@ class AlumnusEditView(UpdateView):
         messages.error(self.request, 'Please correct your input fields.')
         return super(AlumnusEditView, self).form_invalid(form)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(AlumnusEditView, self).get_form(form_class)
         form.fields['user'].widget = HiddenInput()
         return form

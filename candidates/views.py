@@ -458,7 +458,7 @@ class ChallengeVerifyView(TermParameterMixin, FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         """Initialize each form in the formset with a challenge."""
         formset = super(ChallengeVerifyView, self).get_form(form_class)
         challenges = Challenge.objects.select_related(
