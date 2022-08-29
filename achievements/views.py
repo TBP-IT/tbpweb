@@ -63,7 +63,7 @@ class AchievementDetailView(FormView):
 
         return initial
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(AchievementDetailView, self).get_form(form_class)
         form.fields['achievement'].widget = HiddenInput()
         return form

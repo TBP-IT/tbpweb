@@ -53,7 +53,7 @@ class ResumeListView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:list')
     template_name = 'resumes/list.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeListView, self).get_form(form_class)
         resumes = Resume.objects.select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -76,7 +76,7 @@ class ResumeVerifyView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:verify')
     template_name = 'resumes/verify.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeVerifyView, self).get_form(form_class)
         resumes = Resume.objects.filter(verified__isnull=True).select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -100,7 +100,7 @@ class ResumeCritiqueView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:critique')
     template_name = 'resumes/critique.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeCritiqueView, self).get_form(form_class)
         resumes = Resume.objects.filter(critique=True).select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -133,7 +133,7 @@ class ResumeEditView(FormView):
         self.resume = get_object_or_none(Resume, user=self.request.user)
         return super(ResumeEditView, self).dispatch(*args, **kwargs)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(ResumeEditView, self).get_form(form_class)
         if self.resume:
             form.instance = self.resume

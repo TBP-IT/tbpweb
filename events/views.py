@@ -329,7 +329,7 @@ class EventCancelView(FormView):
         self.event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
         return super(EventCancelView, self).dispatch(*args, **kwargs)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(EventCancelView, self).get_form(form_class)
         form.event = self.event
         return form
