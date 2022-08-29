@@ -87,10 +87,12 @@ def symlink_shared(c: Connection):
 
 
 def decrypt_secrets(c):
-    print("-- Decrypting secrets")
+    # print("-- Decrypting secrets")
+    # with c.cd(c.release_path):
+    #     c.run("blackbox_postdeploy", echo=True)
+    print("-- Copying Secrets")
     with c.cd(c.release_path):
-        c.run("blackbox_postdeploy", echo=True)
-
+        c.run("cp ~/tbpweb_keys.py ./settings/tbpweb_keys.py", echo=True)
 
 def install_deps(c: Connection):
     print("-- Installing dependencies")
@@ -101,13 +103,13 @@ def install_deps(c: Connection):
 def django_migrate(c: Connection):
     print("-- Migrating tables")
     with c.cd(c.release_path):
-        c.run("TBPWEB_MODE=prod .venv/bin/python ./manage.py migrate")
+        c.run("TBPWEB_MODE=production .venv/bin/python ./manage.py migrate")
 
 
 def django_collectstatic(c: Connection):
     print("-- Collecting static files")
     with c.cd(c.release_path):
-        c.run("TBPWEB_MODE=prod .venv/bin/python ./manage.py collectstatic --noinput")
+        c.run("TBPWEB_MODE=production .venv/bin/python ./manage.py collectstatic --noinput")
 
 
 def symlink_release(c: Connection):
@@ -117,7 +119,8 @@ def symlink_release(c: Connection):
 
 def systemd_restart(c: Connection):
     print("-- Restarting systemd unit")
-    c.run("systemctl --user restart tbpweb.service", echo=True)
+    # c.run("systemctl --user restart tbpweb.service", echo=True)
+    print("SKIPPED")
 
 
 def setup(c: Connection, commit=None, release=None):
