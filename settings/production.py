@@ -44,7 +44,9 @@ HELPDESK_SPAM_TO = 'spam@' + HOSTNAME
 INDREL_SPAM_TO = 'spam@' + HOSTNAME
 
 ALLOWED_HOSTS = [
-    'localhost', 'tbp-dev.apphost.ocf.berkeley.edu'
+    'tbp.apphost.ocf.berkeley.edu',
+    'tbp-dev.apphost.ocf.berkeley.edu',
+    'tbp.berkeley.edu'
 ]
 
 # Static files (CSS, JavaScript, Images)
