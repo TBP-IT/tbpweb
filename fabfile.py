@@ -119,8 +119,7 @@ def symlink_release(c: Connection):
 
 def systemd_restart(c: Connection):
     print("-- Restarting systemd unit")
-    # c.run("systemctl --user restart tbpweb.service", echo=True)
-    print("SKIPPED")
+    c.run("systemctl --user restart tbpweb.service", echo=True)
 
 
 def setup(c: Connection, commit=None, release=None):
