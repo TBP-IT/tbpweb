@@ -49,6 +49,11 @@ ALLOWED_HOSTS = [
     'tbp.berkeley.edu'
 ]
 
+# Additional locations of static files
+STATICFILES_DIRS = [
+    os.path.join(WORKSPACE_DJANGO_ROOT, "static"),
+]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = 'https://www.ocf.berkeley.edu/~tbp/tbpweb/static/'
