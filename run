@@ -22,8 +22,9 @@ fi
 # PYTHONPATH=~/public_html/tbpweb/src:$PYTHONPATH
 
 # TODO ?
-# DJANGO_SETTINGS_MODULE=tbpweb.settings
 # DJANGO_WSGI_MODULE=tbpweb.wsgi
+
+export DJANGO_SETTINGS_MODULE=settings
 
 DJANGO_DIR=~/tbpweb/prod/current
 VENV=~/tbpweb/prod/shared/venv
