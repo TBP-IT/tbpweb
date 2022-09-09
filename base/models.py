@@ -193,6 +193,9 @@ class Term(models.Model):
         if self.current:
             name += ' (Current)'
         return name
+    
+    def __hash__(self):
+        return hash(self.__term_as_int())
 
     def _calculate_pk(self):
         return self.year * 10 + self.__term_as_int()

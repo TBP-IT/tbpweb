@@ -2,7 +2,7 @@ import os
 
 from django.conf import settings
 from django.db import models
-
+from private_storage.fields import PrivateFileField
 
 class Resume(models.Model):
     RESUMES_LOCATION = 'resumes'
@@ -33,7 +33,7 @@ class Resume(models.Model):
         verbose_name='GPA', max_digits=4, decimal_places=3,
         help_text='GPA must have three decimal places (ex. 3.750)')
     full_text = models.TextField(help_text='Full text of the resume')
-    resume_file = models.FileField(
+    resume_file = PrivateFileField(
         upload_to=rename_file,
         verbose_name='File', help_text='PDF only please')
     # Each resume must be manually verified by an officer to determine
