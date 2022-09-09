@@ -116,6 +116,9 @@ def symlink_release(c: Connection):
     print("-- Symlinking current@ to release")
     c.run("ln -sfn {} {}".format(c.release_path, c.current_path), echo=True)
 
+def run_permission(c: Connection):
+    print("-- Granting run file permission")
+    c.run("chmod +x {}/run".format(c.current_path), echo=True)
 
 def systemd_restart(c: Connection):
     print("-- Restarting systemd unit")
