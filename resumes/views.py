@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.utils.encoding import smart_bytes
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 
@@ -245,6 +244,5 @@ class ResumeDownloadView(DetailView, PrivateStorageDetailView):
         response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
         response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{resume}"'.format(
-            resume=smart_bytes(
-                resume.get_download_file_name(), encoding='ascii'))
+            resume=resume.get_download_file_name())
         return response
