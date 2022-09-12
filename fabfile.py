@@ -84,6 +84,7 @@ def symlink_shared(c: Connection):
     with c.cd(c.release_path):
         c.run("ln -s {}/venv ./.venv".format(c.shared_path), echo=True)
         c.run("ln -s {}/media ./media".format(c.shared_path), echo=True)
+        c.run("ln -s {}/private-media ./private-media".format(c.shared_path), echo=True)
 
 
 def decrypt_secrets(c):
@@ -167,6 +168,7 @@ def update(c: Connection):
 def publish(c: Connection):
     print("== Publish ==")
     symlink_release(c)
+    run_permission(c)
     systemd_restart(c)
 
 

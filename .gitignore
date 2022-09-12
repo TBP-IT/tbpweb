@@ -3,6 +3,7 @@
 db.sqlite3
 venv/
 media/
+private-media/
 
 # Generic python stuff
 __pycache__/

@@ -29,6 +29,7 @@ from resumes.models import Resume
 from shortcuts import get_object_or_none
 from user_profiles.models import CollegeStudentInfo
 
+from private_storage.views import PrivateStorageDetailView
 
 class ResumeViewMixin(object):
     """Mixin for viewing resumes and their stats, as well as saving changes to
@@ -211,10 +212,12 @@ class ResumeEditView(FormView):
         return super(ResumeEditView, self).form_invalid(form)
 
 
-class ResumeDownloadView(DetailView):
+class ResumeDownloadView(DetailView, PrivateStorageDetailView):
     """View for downloading resumes."""
     model = Resume
     user = None
+
+    model_file_field = 'resume_file'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -227,15 +230,20 @@ class ResumeDownloadView(DetailView):
             self.user = get_object_or_404(
                 get_user_model(), pk=self.kwargs['user_pk'])
         else:
+            # View my own resume
             self.user = self.request.user
         return super(ResumeDownloadView, self).dispatch(*args, **kwargs)
 
+    def can_access_file(self, private_file):
+        # When the object can be accessed, the file may be downloaded.
+        # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        return True
+
     def get(self, request, *args, **kwargs):
         resume = get_object_or_404(Resume, user=self.user)
-        mime_type, _ = mimetypes.guess_type(resume.resume_file.name)
-        response = HttpResponse(
-            FileWrapper(resume.resume_file),
-            content_type=mime_type)
+        mime_type, _ = mimetypes.guess_type(self.object.exam_file.name)
+        response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
+        response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{resume}"'.format(
             resume=smart_bytes(
                 resume.get_download_file_name(), encoding='ascii'))
