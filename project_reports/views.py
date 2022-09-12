@@ -1,25 +1,20 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse_lazy
 from django.core.exceptions import PermissionDenied
 from django.core.management import call_command
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView
-from django.views.generic import DeleteView
-from django.views.generic import DetailView
-from django.views.generic import FormView
-from django.views.generic import ListView
-from django.views.generic import UpdateView
+from django.views.generic import CreateView, DeleteView, DetailView
+from django.views.generic import FormView, ListView, UpdateView
 from django.views.generic.base import View
 
 from base.models import Term
 from base.views import TermParameterMixin
-from project_reports.forms import ProjectReportForm
-from project_reports.forms import ProjectReportBookExportForm
-from project_reports.models import ProjectReport
-from project_reports.models import ProjectReportBook
+from project_reports.forms import ProjectReportForm, ProjectReportBookExportForm
+from project_reports.models import ProjectReport, ProjectReportBook
+
+from private_storage.views import PrivateStorageDetailView
 
 from datetime import date
 from markdown import markdown
@@ -31,7 +26,7 @@ tblib.pickling_support.install()
 
 class ProjectReportCreateView(CreateView):
     form_class = ProjectReportForm
-    success_url = reverse_lazy('project_reports:list')
+    success_url = reverse_lazy('project-reports:list')
     template_name = 'project_reports/add.html'
 
     @method_decorator(login_required)
@@ -52,7 +47,7 @@ class ProjectReportDeleteView(DeleteView):
     context_object_name = 'project_report'
     model = ProjectReport
     pk_url_kwarg = 'pr_pk'
-    success_url = reverse_lazy('project_reports:list')
+    success_url = reverse_lazy('project-reports:list')
     template_name = 'project_reports/delete.html'
 
     @method_decorator(login_required)
@@ -201,15 +196,22 @@ class ProjectReportBookExportView(FormView):
         return super(ProjectReportBookExportView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('project_reports:download-book',
+        return reverse_lazy('project-reports:download-book',
                             kwargs={'book_pk': self.pr_book.id})
 
 
-class ProjectReportBookDownloadView(View):
+class ProjectReportBookDownloadView(DetailView, PrivateStorageDetailView):
+    model_file_field = 'pdf'
+
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ProjectReportBookDownloadView, self).dispatch(
             *args, **kwargs)
+
+    def can_access_file(self, private_file):
+        # When the object can be accessed, the file may be downloaded.
+        # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        return True
 
     def get(self, request, *args, **kwargs):
         book_pk = kwargs.pop('book_pk')
@@ -220,9 +222,8 @@ class ProjectReportBookDownloadView(View):
         elif not pr_book.pdf:
             return render(request, 'project_reports/download_book.html', {})
         else:
-            response = HttpResponse(
-                pr_book.pdf,
-                content_type='application/pdf')
+            response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
+            response.content_type = 'application/pdf'
             response['Content-Disposition'] = \
                 'attachment; filename=book{}.pdf'.format(book_pk)
             return response

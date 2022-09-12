@@ -2,6 +2,7 @@ import os
 
 from django.conf import settings
 from django.db import models
+
 from private_storage.fields import PrivateFileField
 
 class Resume(models.Model):

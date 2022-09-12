@@ -131,7 +131,7 @@ MEDIA_URL = '/media/'
 
 # Private Storage for Pip package django-private-storage
 PRIVATE_STORAGE_ROOT = os.path.join(WORKSPACE_DJANGO_ROOT, 'private-media')
-PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_authenticated'
+PRIVATE_STORAGE_AUTH_FUNCTION = 'private_storage.permissions.allow_staff'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

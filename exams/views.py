@@ -25,6 +25,7 @@ from exams.models import Exam
 from exams.models import ExamFlag
 from exams.models import InstructorPermission
 
+from private_storage.views import PrivateStorageDetailView
 
 class ExamUploadView(CreateView):
     form_class = UploadForm
@@ -56,11 +57,19 @@ class ExamUploadView(CreateView):
         return reverse('courses:course-department-list')
 
 
-class ExamDownloadView(DetailView):
+class ExamDownloadView(DetailView, PrivateStorageDetailView):
     """View for downloading exams."""
     model = Exam
     object = None
     pk_url_kwarg = 'exam_pk'
+
+    model_file_field = 'exam_file'
+
+    def can_access_file(self, private_file):
+        # When the object can be accessed, the file may be downloaded.
+        # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        admin_result = super(PrivateStorageDetailView, self).can_access_file(private_file)
+        return admin_result or self.object.is_approved() or self.request.user.has_perm('exams.view_all_exams')
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -68,14 +77,12 @@ class ExamDownloadView(DetailView):
         # If the exam is not approved, check whether the user has permission
         # to view it. If not, raise a 404 instead of PermissionDenied because
         # the exam is not supposed to "exist" if it is not approved.
-        if (not self.object.is_approved()
-                and not self.request.user.has_perm('exams.view_all_exams')):
+        if (not self.can_access_file(self.get_private_file())):
             raise Http404
 
         mime_type, _ = mimetypes.guess_type(self.object.exam_file.name)
-        response = HttpResponse(
-            FileWrapper(self.object.exam_file),
-            content_type=mime_type)
+        response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
+        response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{exam}"'.format(
             exam=smart_bytes(
                 self.object.get_download_file_name(), encoding='ascii'))

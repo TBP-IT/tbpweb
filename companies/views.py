@@ -218,7 +218,7 @@ class ResumeZipView(DetailView):
 
     def get(self, request, *args, **kwargs):
         one_year_ago = datetime.date.today() - datetime.timedelta(days=365)
-        zip_path = os.path.join(settings.MEDIA_ROOT, 'resumes/resumes.zip')
+        zip_path = os.path.join(settings.PRIVATE_STORAGE_ROOT, 'resumes/resumes.zip')
         resumes = Resume.objects.filter(verified=True, updated__gt=one_year_ago)
 
         # Check if cached zip file is at least newer than the latest resume

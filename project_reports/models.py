@@ -12,6 +12,8 @@ from base.models import Term
 from notifications.models import Notification
 from shortcuts import get_object_or_none
 
+from private_storage.fields import PrivateFileField
+
 from picklefield.fields import PickledObjectField
 import tblib.pickling_support
 
@@ -68,7 +70,7 @@ class ProjectReport(models.Model):
     complete = models.BooleanField(
         default=False, help_text='Is this project report finished?')
     first_completed_at = models.DateTimeField(null=True, blank=True)
-    attachment = models.FileField(upload_to='pr', blank=True)
+    attachment = PrivateFileField(upload_to='pr', blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -121,7 +123,7 @@ class ProjectReportBook(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     terms = models.ManyToManyField(Term)
     presidents_letter = models.TextField()
-    pdf = models.FileField(upload_to='project_report_books/', blank=True)
+    pdf = PrivateFileField(upload_to='project_report_books/', blank=True)
     exception = PickledObjectField(null=True)
 
 
