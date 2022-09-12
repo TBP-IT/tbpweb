@@ -141,7 +141,7 @@ class CompanyRepCreateView(CreateView):
             email_template = 'accounts/password_set_initial_email.html'
             subject_template = 'accounts/password_set_initial_subject.txt'
             pw_reset_form.save(
-                email_template_name=email_template,
+                html_email_template_name=email_template,
                 subject_template_name=subject_template)
         else:
             # Throw an error and log the form data and errors, since something

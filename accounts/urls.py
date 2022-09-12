@@ -34,7 +34,7 @@ urlpatterns = [
 
     # Resetting password (reset, then sent, then confirm, then done):
     re_path(r'password/reset/$', PasswordResetView.as_view(template_name='accounts/password_reset.html',
-         email_template_name='accounts/password_reset_email.html',
+         html_email_template_name='accounts/password_reset_email.html',
          form_class=PasswordResetForm,
          success_url=reverse_lazy('accounts:password-reset-sent')),
         name='password-reset'),
