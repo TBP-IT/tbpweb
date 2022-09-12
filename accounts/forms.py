@@ -105,7 +105,9 @@ class PasswordResetForm(forms.Form):
     def save(self, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
              email_template_name='accounts/password_reset_email.html',
+             html_email_template_name='accounts/password_reset_email.html',
              use_https=False, token_generator=default_token_generator,
+             extra_email_context=None,
              from_email=None, request=None):
         """
         Generate a one-use only link for resetting password and send it to the
@@ -135,5 +137,5 @@ class PasswordResetForm(forms.Form):
         subject = loader.render_to_string(subject_template_name, context)
         # Email subject *must not* contain newlines
         subject = ''.join(subject.splitlines())
-        email = loader.render_to_string(email_template_name, context)
+        email = loader.render_to_string(html_email_template_name, context)
         send_mail(subject, email, from_email, [user.email])
