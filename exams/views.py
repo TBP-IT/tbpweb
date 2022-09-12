@@ -10,7 +10,6 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
-from django.utils.encoding import smart_bytes
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
@@ -83,9 +82,7 @@ class ExamDownloadView(DetailView, PrivateStorageDetailView):
         mime_type, _ = mimetypes.guess_type(self.object.exam_file.name)
         response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
         response.content_type = mime_type
-        response['Content-Disposition'] = 'inline;filename="{exam}"'.format(
-            exam=smart_bytes(
-                self.object.get_download_file_name(), encoding='ascii'))
+        response['Content-Disposition'] = 'inline;filename="{exam}"'.format(exam=self.object.get_download_file_name())
         return response
 
 
