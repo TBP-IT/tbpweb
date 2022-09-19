@@ -19,7 +19,7 @@
 
     {% if p.picture %}
     <div class="profile-picture">
-      {% if p.body %}<a href="{% url 'past-presidents:detail' p.pk %}">{% endif %}<img src="{% static p.picture.url %}" alt="{{ p.name }}" />{% if p.body %}</a>{% endif %}
+      {% if p.body %}<a href="{% url 'past-presidents:detail' p.pk %}">{% endif %}<img src="{% url p.picture.url %}" alt="{{ p.name }}" />{% if p.body %}</a>{% endif %}
     </div>
     {% endif %}
 
