@@ -11,7 +11,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('TBP IT', 'it-notice@' + HOSTNAME),
+    ('TBP IT', 'tbpwebsite@' + HOSTNAME),
 )
 MANAGERS = ADMINS
 
@@ -42,6 +42,9 @@ HELPDESK_NOTICE_TO = 'notice@' + HOSTNAME
 INDREL_NOTICE_TO = 'notice@' + HOSTNAME
 HELPDESK_SPAM_TO = 'spam@' + HOSTNAME
 INDREL_SPAM_TO = 'spam@' + HOSTNAME
+
+DEFAULT_FROM_EMAIL = 'tbpwebsite@' + HOSTNAME
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ALLOWED_HOSTS = [
     'tbp.apphost.ocf.berkeley.edu',

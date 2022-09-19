@@ -29,7 +29,7 @@
           <tr>
             <td width="60%">{{ video.video_type.name }}</td>
             <td><div class="subtext" align="left">
-            {% if video.video_link != '' %}
+            {% if video.video_link != 'http://skip.no' %}
             <a href="{{ video.video_link }}" target="_blank"><i class="fa fa-external-link"></i> <i>Link</i></a>
             {% else %}
             <a href="javascript:loadVideo('{{ video.video_file.url }}')"><i class="fa fa-eye"></i> <i>View</i></a> | <a href="{{ video.video_file.url }}"><i class="fa fa-download"></i> <i>Download</i></a>

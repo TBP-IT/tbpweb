@@ -35,7 +35,7 @@ CONST_CURR_TBP_IT = "tbpwebsite@tbp.berkeley.edu"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Host for sending e-mail.
-EMAIL_HOST = "smtp.ocf.berkeley.edu" #"smtp.gmail.com"
+EMAIL_HOST = "smtp.ocf.berkeley.edu"
 
 # Port for sending e-mail.
 EMAIL_PORT = 587
