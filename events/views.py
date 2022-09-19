@@ -14,7 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q, Count, Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -502,8 +502,19 @@ def attendance_search(request, max_results=20):
     number of results. The results only include people who have not attended
     the event specified by the post parameter eventPK.
     """
-    search_query = request.GET['searchTerm']
-    event_pk = request.GET['eventPK']
+    if not (request.user.is_authenticated and request.user.has_perm('events.add_eventattendance') \
+             and ('HTTP_REFERER' in request.META)):
+        # Only Allow:
+        # User is Logged in (same permissions to view AttendanceRecordView)
+        #  AND
+        # Function / URL must be called via another page
+        raise Http404
+
+    search_query = request.GET.get('searchTerm', None)
+    event_pk = request.GET.get('eventPK', None)
+    if (search_query is None) or (event_pk is None):
+        return json_response()
+
     event = Event.objects.get(pk=event_pk)
 
     # Get all users who did not attend this event:
