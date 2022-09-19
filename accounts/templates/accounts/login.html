@@ -17,7 +17,7 @@
   {% include '_form.html' %}
 
   <input type="submit" value="Log In">
-  <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'home' %}{% endif %}">
+  <input type="hidden" name="next" value="{% if next %}{{ next }}{% else %}{% url 'base:home' %}{% endif %}">
 </form>
 
 <p>Forgot your password? <a href="{% url 'accounts:password-reset' %}">Reset it</a>!</p>
