@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q, Count, Sum
@@ -828,6 +828,9 @@ def ical(request, event_pk=None):
             user = api_key.user
         except APIKey.DoesNotExist:
             pass
+        except ValidationError:
+            # Bad or Wrong User PK or API key (key)
+            raise Http404
 
     if event_pk is None:
         # We want multiple events
