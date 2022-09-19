@@ -419,6 +419,5 @@ def officer_post_delete(sender, instance, *args, **kwargs):
     """
     instance._remove_user_from_officer_groups()
 
-
 models.signals.post_save.connect(officer_post_save, sender=Officer)
 models.signals.post_delete.connect(officer_post_delete, sender=Officer)

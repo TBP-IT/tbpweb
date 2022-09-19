@@ -20,12 +20,9 @@ restricting by certain member-type directly in this template.
   {# TODO(sjdemartini): Add link to Ad-Hoc Events once ready #}
 
   {% if is_member %}
-  <li><a href="http://widget.mibbit.com/?settings=3faedc31d792eb158e8e8c91f4db4298&amp;server=tbp-irc.berkeley.edu&amp;channel=%23tbpchat&amp;noServerNotices=true&amp;noServerMotd=true&amp;autoConnect=true&amp;nick={{ user.get_username }}">Chat on IRC</a></li>
   <li><a href="{% url 'videos:list' %}">Videos</a></li>
   {% endif %}
-
-  {# TODO(sjdemartini): Add link to IRC quoteboard once ready #}
-
+  
   {% if is_officer %}
   <li><a href="{% url 'quote-board:list' %}">Quoteboard</a></li>
   {% endif %}
