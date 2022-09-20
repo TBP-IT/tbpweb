@@ -92,4 +92,14 @@ $ vagrant halt
 
 which will attempt to safely shutdown the virtual machine, or kill it otherwise.
 
+## Deploy
 
+Make sure all changes to be pushed are in `tbpweb`'s `master` branch
+
+Deploy by running `fab --prompt-for-login-password deploy` in the Vagrant VM and enter the TBP OCF credentials
+
+This script is adapted from HKN's fabfile, so you can find other commands (including rollback) here: https://github.com/compserv/hknweb/wiki/Deployment
+
+## Various links to understand some of the code structure and tools
+
+* fixtures/*.yaml -- https://docs.djangoproject.com/en/2.2/howto/initial-data/
