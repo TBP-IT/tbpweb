@@ -59,6 +59,19 @@
         width: 120px;
       }
 
+      .default-officer {
+        background: $medium-gray;
+        display: inline-block;
+        text-align: center;
+        height: 100%;
+        width: 100%;  
+      
+        .fa-user {
+          color: #fff !important;
+          font-size: 150px !important;
+        }
+      }
+
       img {
         height: 150px;
         width: 150px;
