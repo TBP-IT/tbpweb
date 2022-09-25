@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMessage
-from django.db.models import Q
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -1084,18 +1083,8 @@ def update_candidate_initiation_status(request):
 
     candidate.initiated = initiated
     candidate.save(update_fields=['initiated'])
-    # TODO(ochan2): Add to relevant mailing lists on OCF (if possible)
-    member_group, _ = Group.objects.get_or_create(name="Member")
-    candidate_group = Group.objects.filter(name="Current Candidate").first()
     
-    # Change status if NOT an Officer (either current or before) -- more likely 95% a mistake
-    if not candidate.user.groups.filter(Q(name = "Current Officer") | Q(name = "Officer")):
-        if initiated:
-            candidate.user.groups.add(member_group)
-            if candidate_group:
-                candidate.user.groups.remove(candidate_group)
-        else:
-            candidate.user.groups.add(candidate_group)
-            if candidate_group:
-                candidate.user.groups.remove(member_group)
+    # Upon saving the Candidate object, the "candidate_post_save" function in candidates/models.py
+    #  will be called to set permissions
+
     return json_response()
