@@ -177,8 +177,8 @@ class UserAchievementListView(ListView):
         # exist), and obtain progresses from any related user achievements.
         locked_achievements = Achievement.objects.exclude(
             userachievement__in=self.user_achievements).exclude(
-            privacy='private').select_related(
-            'userachievement', 'icon').order_by('rank')
+            privacy='private').prefetch_related(
+            'userachievement_set').select_related('icon').order_by('rank')
 
         # Create a dict relating achievements to the user's progress on that
         # achievement.
