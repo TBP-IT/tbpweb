@@ -11,19 +11,18 @@
 {% block content %}
 <h2>Officer Resources</h2>
 <ul>
-  <li><a href="/officer/library/">Officer Wiki</a></li>
-  <li><a href="/officer/library/Officer_Meeting_Agenda">Officer Meeting Agenda</a></li>
+  <li><a href="https://tbpcaa.miraheze.org/">Officer Wiki (Miraheze)</a></li>
   {% if perms.project_reports.view_project_reports %}
   <li><a href="{% url 'project-reports:list' %}">Project Reports</a></li>
   {% endif %}
   {% if perms.base.view_officer_contacts %}
-  <li><a href="{% url 'officer-contacts' %}">Officer Contact Info (import into Gmail)</a></li>
+  <li><a href="{% url 'base:officer-contacts' %}">Officer Contact Info Export (import into Gmail)</a></li>
   {% endif %}
   <li><a href="https://tbpcaa.slack.com/" target="_blank">Officer Slack Chat</a></li>
   {% if perms.minutes.view_minutes %}
   <li><a href="{% url 'minutes:list' %}">Meeting Minutes</a></li>
   {% endif %}
-  <li><a href="/officer/mail/">Webmail Interface</a></li>
+  <li><a href="https://www.ocf.berkeley.edu/account/vhost/mail/">OCF Mail Hosting</a></li>
   {% if perms.vote.view_poll %}
   <li><a href="{% url 'vote:list' %}">Officer Polls</a></li>
   {% endif %}
