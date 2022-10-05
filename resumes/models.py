@@ -61,8 +61,9 @@ class Resume(models.Model):
 
     def get_download_file_name(self):
         """Return the file name of the resume file when it is downloaded."""
-        return '{first}{last}'.format(
-            first=self.user.first_name, last=self.user.last_name)
+        file_ext = os.path.splitext(self.resume_file.name)[1]
+        return '{first}{last}{file_ext}'.format(
+            first=self.user.first_name, last=self.user.last_name, file_ext=file_ext)
 
     def __str__(self):
         return '{user} (Updated {time})'.format(

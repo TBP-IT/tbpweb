@@ -236,13 +236,17 @@ class ResumeDownloadView(DetailView, PrivateStorageDetailView):
     def can_access_file(self, private_file):
         # When the object can be accessed, the file may be downloaded.
         # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        if 'user_pk' in self.kwargs:
+            # Check whether the user has permission to view other people's
+            # resumes
+            return self.request.user.has_perm('resumes.view_resumes')
         return True
 
     def get(self, request, *args, **kwargs):
-        resume = get_object_or_404(Resume, user=self.user)
-        mime_type, _ = mimetypes.guess_type(self.object.exam_file.name)
+        self.object = get_object_or_404(Resume, user=self.user)
+        mime_type, _ = mimetypes.guess_type(self.object.resume_file.name)
         response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
         response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{resume}"'.format(
-            resume=resume.get_download_file_name())
+            resume=self.object.get_download_file_name())
         return response
