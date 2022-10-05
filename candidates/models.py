@@ -140,6 +140,8 @@ class Candidate(models.Model):
             candidate__term=term, candidate__in=candidates).select_related(
             'candidate')
 
+        elective_req = None
+        elective_event_types = EventType.objects.none()
         try:
             elective_req = requirements.get(
                 eventcandidaterequirement__event_type__name='Elective')
@@ -150,7 +152,7 @@ class Candidate(models.Model):
             elective_event_types = EventType.objects.filter(
                 eligible_elective=True).exclude(id__in=required_event_types)
         except CandidateRequirement.DoesNotExist:
-            elective_req = None
+            pass
 
         progress_by_candidate = {candidate: [] for candidate in candidates}
 
@@ -169,7 +171,7 @@ class Candidate(models.Model):
                 'signed_up': 0,
                 'warning': False,
                 'remaining': remaining_elective_events,
-                'required': elective_req.credits_needed
+                'required': elective_req.credits_needed if elective_req else 0
             }
             elective_progress_by_candidate[candidate] = elective_progress
             for attendance in attendances_by_candidate[candidate]:
