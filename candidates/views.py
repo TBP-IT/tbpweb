@@ -1033,9 +1033,9 @@ class CandidateExportView(View):
 
         current_term = Term.objects.get(id=kwargs['term_pk'])
         candidates = Candidate.objects.filter(
-            term=current_term).select_related(
+            term=current_term).prefetch_related(
+            'user__collegestudentinfo__major').select_related(
             'user', 'user__userprofile',
-            'user__collegestudentinfo__major',
             'user__collegestudentinfo__start_term',
             'user__collegestudentinfo').order_by(
             'user__last_name')
