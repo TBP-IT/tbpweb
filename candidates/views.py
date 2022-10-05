@@ -87,6 +87,7 @@ class CandidateContextMixin(ContextMixin):
         event_reqs = CandidateRequirement.objects.filter(
             term=candidate.term,
             requirement_type=CandidateRequirement.EVENT)
+        elective_req = None
         try:
             elective_req = event_reqs.get(
                 eventcandidaterequirement__event_type__name='Elective')
