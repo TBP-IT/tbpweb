@@ -152,7 +152,8 @@ class Candidate(models.Model):
             elective_event_types = EventType.objects.filter(
                 eligible_elective=True).exclude(id__in=required_event_types)
         except CandidateRequirement.DoesNotExist:
-            pass
+            elective_req = None
+            elective_event_types = EventType.objects.none()
 
         progress_by_candidate = {candidate: [] for candidate in candidates}
 
