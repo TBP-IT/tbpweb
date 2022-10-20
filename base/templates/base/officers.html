@@ -38,8 +38,8 @@
             {{ officer.user.userprofile.get_common_name }}
           {% endif %}
           </span>
-		  {% if officer.user.userprofile.custom_email %}
-		  {{ officer.user.userprofile.custom_email }}
+		  {% if officer.user.userprofile.alt_officer_email %}
+		  {{ officer.user.userprofile.alt_officer_email }}
 		  {% else %}
           {{ officer.user.get_username }}@tbp.berkeley.edu
 		  {% endif %}

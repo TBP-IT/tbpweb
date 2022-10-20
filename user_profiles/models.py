@@ -91,7 +91,11 @@ class UserProfile(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     ###
-    custom_email = models.CharField(max_length = 40, blank=True, default='')
+    alt_officer_email = models.EmailField(
+        blank=True,
+        verbose_name='Alternate officer email address',
+        help_text=('Set an alternate email on the Officers page. Leave blank '
+                   'to keep default tbp email (for officers only).'))
 
     class Meta(object):
         ordering = ('preferred_name', 'user__last_name')
