@@ -36,7 +36,7 @@ class UserProfileForm(forms.ModelForm):
                   'receive_text', 'home_phone', 'local_address1',
                   'local_address2', 'local_city', 'local_state', 'local_zip',
                   'perm_address1', 'perm_address2', 'perm_city', 'perm_state',
-                  'perm_zip', 'international_address')
+                  'perm_zip', 'international_address', 'custom_email')
         widgets = {
             'local_state': chosen_forms.ChosenSelect,
             'perm_state': chosen_forms.ChosenSelect

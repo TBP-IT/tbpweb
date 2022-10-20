@@ -44,6 +44,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('custom_email', models.CharField(blank=True, max_length=40, verbose_name='Testing Custom Email')),
             ],
             options={
                 'ordering': ('preferred_name', 'user__last_name'),

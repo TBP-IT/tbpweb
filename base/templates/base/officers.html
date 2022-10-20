@@ -38,7 +38,11 @@
             {{ officer.user.userprofile.get_common_name }}
           {% endif %}
           </span>
-          {{ officer.user.get_username }}@tbp
+		  {% if officer.user.userprofile.custom_email %}
+		  {{ officer.user.userprofile.custom_email }}
+		  {% else %}
+          {{ officer.user.get_username }}@tbp.berkeley.edu
+		  {% endif %}
         </div>
         <div class="officers-bio">
           {{ officer.user.userprofile.get_student_org_user_profile.bio }}

@@ -90,6 +90,9 @@ class UserProfile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    ###
+    custom_email = models.CharField(max_length = 40, blank=True, default='')
+
     class Meta(object):
         ordering = ('preferred_name', 'user__last_name')
 
