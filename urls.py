@@ -55,8 +55,7 @@ urlpatterns += [
     path('partnership_program/', views.flatpage, {'url': '/partnership_program/'},
         name='partnership_program'),
     path('videos/', views.flatpage, {'url': '/videos/'},
-        name='videos'
-    )
+        name='videos'),
 	path('gallery/', views.flatpage, {'url': '/gallery/'}, name='gallery')
 ]
 
