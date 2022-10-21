@@ -34,7 +34,6 @@ urlpatterns = [
     path('project-reports/', include(('project_reports.urls', 'project-reports'), namespace='project-reports')),
     path('quote-board/', include(('quote_board.urls', 'quote-board'), namespace='quote-board')),
     path('resumes/', include(('resumes.urls', 'resumes'), namespace='resumes')),
-    path('videos/', include(('videos.urls', 'videos'), namespace='videos')),
     path('vote/', include(('vote.urls', 'vote'), namespace='vote')),
 ]
 
@@ -55,6 +54,8 @@ urlpatterns += [
         name='mock-interviews'),
     path('partnership_program/', views.flatpage, {'url': '/partnership_program/'},
         name='partnership_program'),
+    path('videos/', views.flatpage, {'url': '/videos/'},
+        name='videos'),
 	path('gallery/', views.flatpage, {'url': '/gallery/'}, name='gallery')
 ]
 

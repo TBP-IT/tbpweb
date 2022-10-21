@@ -235,7 +235,6 @@ PROJECT_APPS = [
     'syllabi',
     'user_profiles',
     'utils',
-    'videos',
     'vote',
 ]
 
