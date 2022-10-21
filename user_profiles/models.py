@@ -90,6 +90,14 @@ class UserProfile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    ###
+    alt_officer_email = models.EmailField(
+        blank=True,
+        verbose_name='Alternate officer email address',
+        help_text=('Set an alternate email on the Officers page. Don\'t include the '
+                    'domain name (".edu" or ".com") if obvious (to mitigate email scrapers). '
+                    'Leave blank to keep default tbp email (for officers only).'))
+
     class Meta(object):
         ordering = ('preferred_name', 'user__last_name')
 

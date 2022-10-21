@@ -88,7 +88,8 @@ def import_user_profiles():
             perm_city=fields['perm_city'],
             perm_state=fields['perm_state'],
             perm_zip=fields['perm_zip'],
-            international_address=fields['international_address'])
+            international_address=fields['international_address'],
+            alt_officer_email=fields['alt_officer_email'])
 
         if fields['birthday']:
             user_profile.birthday = parser.parse(fields['birthday']).date()
