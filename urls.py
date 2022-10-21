@@ -33,7 +33,6 @@ urlpatterns = [
     path('project-reports/', include(('project_reports.urls', 'project-reports'), namespace='project-reports')),
     path('quote-board/', include(('quote_board.urls', 'quote-board'), namespace='quote-board')),
     path('resumes/', include(('resumes.urls', 'resumes'), namespace='resumes')),
-    path('videos/', include(('videos.urls', 'videos'), namespace='videos')),
     path('vote/', include(('vote.urls', 'vote'), namespace='vote')),
 ]
 
