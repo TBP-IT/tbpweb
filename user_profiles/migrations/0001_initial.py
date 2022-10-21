@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('alt_officer_email', models.EmailField(blank=True, help_text='Set an alternate email on the Officers page. Leave blank to keep default tbp email (for officers only).', max_length=254, verbose_name='Alternate officer email address', default='')),
+                ('alt_officer_email', models.EmailField(blank=True, help_text='Set an alternate email on the Officers page. Don\'t include the domain name (".edu" or ".com") if obvious (to mitigate email scrapers). Leave blank to keep default tbp email (for officers only).', max_length=254, verbose_name='Alternate officer email address', default='')),
             ],
             options={
                 'ordering': ('preferred_name', 'user__last_name'),
