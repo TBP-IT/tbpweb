@@ -29,7 +29,7 @@ class GenericCourseFile(models.Model):
     course_instance = models.ForeignKey(CourseInstance, on_delete=models.CASCADE)
     submitter = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
                                   blank=True, on_delete=models.SET_NULL)
-    file_ext = models.CharField(max_length=5)  # includes the period
+    file_ext = models.CharField(max_length=5, help_text="File Ext with a period")
     # The file must be verified manually be an officer:
     verified = models.BooleanField(default=False, blank=True)
     flags = models.PositiveSmallIntegerField(default=0)

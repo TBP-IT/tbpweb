@@ -10,11 +10,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from django.urls import reverse_lazy, reverse
 from django.db.models import Q, Count, Sum
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -329,7 +329,7 @@ class EventCancelView(FormView):
         self.event = get_object_or_404(Event, pk=self.kwargs['event_pk'])
         return super(EventCancelView, self).dispatch(*args, **kwargs)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(EventCancelView, self).get_form(form_class)
         form.event = self.event
         return form
@@ -502,8 +502,19 @@ def attendance_search(request, max_results=20):
     number of results. The results only include people who have not attended
     the event specified by the post parameter eventPK.
     """
-    search_query = request.GET['searchTerm']
-    event_pk = request.GET['eventPK']
+    if not (request.user.is_authenticated and request.user.has_perm('events.add_eventattendance') \
+             and ('HTTP_REFERER' in request.META)):
+        # Only Allow:
+        # User is Logged in (same permissions to view AttendanceRecordView)
+        #  AND
+        # Function / URL must be called via another page
+        raise Http404
+
+    search_query = request.GET.get('searchTerm', None)
+    event_pk = request.GET.get('eventPK', None)
+    if (search_query is None) or (event_pk is None):
+        return json_response()
+
     event = Event.objects.get(pk=event_pk)
 
     # Get all users who did not attend this event:
@@ -817,6 +828,9 @@ def ical(request, event_pk=None):
             user = api_key.user
         except APIKey.DoesNotExist:
             pass
+        except ValidationError:
+            # Bad or Wrong User PK or API key (key)
+            raise Http404
 
     if event_pk is None:
         # We want multiple events

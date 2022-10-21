@@ -1,12 +1,12 @@
 from django.conf import settings
-from django.urls import include
-from django.urls import path, re_path
+from django.urls import include, path, re_path
 from django.contrib.flatpages import views
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic import RedirectView
 
+import private_storage.urls
 
 admin.autodiscover()
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('newsreel/', include(('newsreel.urls', 'newsreel'), namespace='newsreel')),
     path('notifications/', include(('notifications.urls', 'notifications'), namespace='notifications')),
     path('past-presidents/', include(('past_presidents.urls', 'past-presidents'), namespace='past-presidents')),
+    path('private-media/', include(private_storage.urls)),
     path('profile/', include(('user_profiles.urls', 'user-profiles'), namespace='user-profiles')),
     path('project-reports/', include(('project_reports.urls', 'project-reports'), namespace='project-reports')),
     path('quote-board/', include(('quote_board.urls', 'quote-board'), namespace='quote-board')),
@@ -56,6 +57,7 @@ urlpatterns += [
     path('videos/', views.flatpage, {'url': '/videos/'},
         name='videos'
     )
+	path('gallery/', views.flatpage, {'url': '/gallery/'}, name='gallery')
 ]
 
 # Handle page redirects

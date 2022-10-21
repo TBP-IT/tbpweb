@@ -14,6 +14,7 @@ from exams.models import InstructorPermission
 from shortcuts import get_file_mimetype
 from shortcuts import get_object_or_none
 
+import pathlib
 
 class ExamForm(ChosenTermMixin, forms.ModelForm):
     """Used as a base for UploadForm and EditForm."""
@@ -140,6 +141,7 @@ class UploadForm(ExamForm):
                 InstructorPermission, instructor=instructor)
             if permission and permission.permission_allowed is False:
                 self.instance.blacklisted = True
+        self.instance.file_ext = pathlib.Path(self.instance.exam_file.name).suffix
         return super(UploadForm, self).save(*args, **kwargs)
 
 

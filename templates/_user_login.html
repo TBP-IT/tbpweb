@@ -44,7 +44,7 @@
       </a>
       <ul class="dropdown">
         {% if is_officer %}
-        <li><a href="{% url 'officer-portal' %}">Officer Portal</a></li>
+        <li><a href="{% url 'base:officer-portal' %}">Officer Portal</a></li>
         {% endif %}
 
         {% if perms.candidates.change_candidate %}

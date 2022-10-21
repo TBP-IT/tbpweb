@@ -12,6 +12,7 @@ from course_files.models import GenericFlag
 from course_files.models import GenericInstructorPermission
 from shortcuts import disable_for_loaddata
 
+from private_storage.fields import PrivateFileField
 
 class ExamManager(models.Manager):
     def get_approved(self):
@@ -24,7 +25,6 @@ class ExamManager(models.Manager):
         """
         return self.filter(verified=True, blacklisted=False,
                            flags__lte=ExamFlag.LIMIT)
-
 
 class Exam(GenericCourseFile):
     # Exam Number constants
@@ -58,7 +58,7 @@ class Exam(GenericCourseFile):
 
     exam_number = models.CharField(max_length=5, choices=EXAM_NUMBER_CHOICES)
     exam_type = models.CharField(max_length=4, choices=EXAM_TYPE_CHOICES)
-    exam_file = models.FileField(upload_to=generate_courseitem_filepath)
+    exam_file = PrivateFileField(upload_to=generate_courseitem_filepath)
 
     objects = ExamManager()
 
@@ -71,7 +71,7 @@ class Exam(GenericCourseFile):
     def get_folder(self):
         """Return the path of the folder where the exam file is."""
         return os.path.join(
-            settings.MEDIA_ROOT, Exam.EXAM_FILES_LOCATION,
+            settings.PRIVATE_STORAGE_ROOT, Exam.EXAM_FILES_LOCATION,
             str(self.unique_id)[0:2])
 
     def get_relative_pathname(self):
@@ -84,7 +84,7 @@ class Exam(GenericCourseFile):
 
     def get_absolute_pathname(self):
         """Return the absolute path of the exam file."""
-        return os.path.join(settings.MEDIA_ROOT, self.get_relative_pathname())
+        return os.path.join(settings.PRIVATE_STORAGE_ROOT, self.get_relative_pathname())
 
     def get_absolute_url(self):
         return reverse('exams:edit', args=(self.pk,))

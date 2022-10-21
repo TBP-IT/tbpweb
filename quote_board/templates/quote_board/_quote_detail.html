@@ -14,5 +14,5 @@
   </div>
   <div class="quote">{{ quote.quote|markdown }}</div>
   <div class="submitter">Submitted by {{ quote.submitter }} 
-  (<a href="{% url 'user_profiles:detail' quote.submitter.username %}">{{ quote.submitter.userprofile.get_common_name }}</a>)</div>
+  (<a href="{% url 'user-profiles:detail' quote.submitter.username %}">{{ quote.submitter.userprofile.get_common_name }}</a>)</div>
 </div>

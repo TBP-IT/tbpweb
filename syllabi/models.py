@@ -12,6 +12,7 @@ from course_files.models import GenericFlag
 from course_files.models import GenericInstructorPermission
 from shortcuts import disable_for_loaddata
 
+from private_storage.fields import PrivateFileField
 
 class SyllabusManager(models.Manager):
     def get_approved(self):
@@ -30,7 +31,7 @@ class Syllabus(GenericCourseFile):
     # Constants
     SYLLABUS_FILES_LOCATION = 'syllabus_files'
 
-    syllabus_file = models.FileField(upload_to=generate_courseitem_filepath)
+    syllabus_file = PrivateFileField(upload_to=generate_courseitem_filepath)
 
     objects = SyllabusManager()
 
@@ -44,7 +45,7 @@ class Syllabus(GenericCourseFile):
     def get_folder(self):
         """Return the path of the folder where the syllabus file is."""
         return os.path.join(
-            settings.MEDIA_ROOT, Syllabus.SYLLABUS_FILES_LOCATION,
+            settings.PRIVATE_STORAGE_ROOT, Syllabus.SYLLABUS_FILES_LOCATION,
             str(self.unique_id)[0:2])
 
     def get_relative_pathname(self):
@@ -57,7 +58,7 @@ class Syllabus(GenericCourseFile):
 
     def get_absolute_pathname(self):
         """Return the absolute path of the syllabus file."""
-        return os.path.join(settings.MEDIA_ROOT, self.get_relative_pathname())
+        return os.path.join(settings.PRIVATE_STORAGE_ROOT, self.get_relative_pathname())
 
     def get_absolute_url(self):
         return reverse('syllabi:edit', args=(self.pk,))

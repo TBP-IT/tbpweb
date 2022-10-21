@@ -14,7 +14,6 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.utils.encoding import smart_bytes
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
 
@@ -29,6 +28,7 @@ from resumes.models import Resume
 from shortcuts import get_object_or_none
 from user_profiles.models import CollegeStudentInfo
 
+from private_storage.views import PrivateStorageDetailView
 
 class ResumeViewMixin(object):
     """Mixin for viewing resumes and their stats, as well as saving changes to
@@ -53,7 +53,7 @@ class ResumeListView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:list')
     template_name = 'resumes/list.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeListView, self).get_form(form_class)
         resumes = Resume.objects.select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -76,7 +76,7 @@ class ResumeVerifyView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:verify')
     template_name = 'resumes/verify.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeVerifyView, self).get_form(form_class)
         resumes = Resume.objects.filter(verified__isnull=True).select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -100,7 +100,7 @@ class ResumeCritiqueView(ResumeViewMixin, FormView):
     success_url = reverse_lazy('resumes:critique')
     template_name = 'resumes/critique.html'
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         formset = super(ResumeCritiqueView, self).get_form(form_class)
         resumes = Resume.objects.filter(critique=True).select_related(
             'user__userprofile', 'user__collegestudentinfo',
@@ -133,7 +133,7 @@ class ResumeEditView(FormView):
         self.resume = get_object_or_none(Resume, user=self.request.user)
         return super(ResumeEditView, self).dispatch(*args, **kwargs)
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         form = super(ResumeEditView, self).get_form(form_class)
         if self.resume:
             form.instance = self.resume
@@ -211,10 +211,12 @@ class ResumeEditView(FormView):
         return super(ResumeEditView, self).form_invalid(form)
 
 
-class ResumeDownloadView(DetailView):
+class ResumeDownloadView(DetailView, PrivateStorageDetailView):
     """View for downloading resumes."""
     model = Resume
     user = None
+
+    model_file_field = 'resume_file'
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -227,16 +229,24 @@ class ResumeDownloadView(DetailView):
             self.user = get_object_or_404(
                 get_user_model(), pk=self.kwargs['user_pk'])
         else:
+            # View my own resume
             self.user = self.request.user
         return super(ResumeDownloadView, self).dispatch(*args, **kwargs)
 
+    def can_access_file(self, private_file):
+        # When the object can be accessed, the file may be downloaded.
+        # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        if 'user_pk' in self.kwargs:
+            # Check whether the user has permission to view other people's
+            # resumes
+            return self.request.user.has_perm('resumes.view_resumes')
+        return True
+
     def get(self, request, *args, **kwargs):
-        resume = get_object_or_404(Resume, user=self.user)
-        mime_type, _ = mimetypes.guess_type(resume.resume_file.name)
-        response = HttpResponse(
-            FileWrapper(resume.resume_file),
-            content_type=mime_type)
+        self.object = get_object_or_404(Resume, user=self.user)
+        mime_type, _ = mimetypes.guess_type(self.object.resume_file.name)
+        response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
+        response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{resume}"'.format(
-            resume=smart_bytes(
-                resume.get_download_file_name(), encoding='ascii'))
+            resume=self.object.get_download_file_name())
         return response

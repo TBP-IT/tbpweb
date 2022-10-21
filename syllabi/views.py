@@ -10,21 +10,16 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
-from django.utils.encoding import smart_bytes
 from django.views.generic import CreateView
 from django.views.generic import DeleteView
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import UpdateView
 
-from syllabi.forms import EditForm
-from syllabi.forms import FlagForm
-from syllabi.forms import FlagResolveForm
-from syllabi.forms import UploadForm
-from syllabi.models import Syllabus
-from syllabi.models import SyllabusFlag
-from syllabi.models import InstructorSyllabusPermission
+from syllabi.forms import EditForm, FlagForm, FlagResolveForm, UploadForm
+from syllabi.models import Syllabus, SyllabusFlag, InstructorSyllabusPermission
 
+from private_storage.views import PrivateStorageDetailView
 
 class SyllabusUploadView(CreateView):
     form_class = UploadForm
@@ -50,11 +45,19 @@ class SyllabusUploadView(CreateView):
         return reverse('courses:course-department-list')
 
 
-class SyllabusDownloadView(DetailView):
+class SyllabusDownloadView(DetailView, PrivateStorageDetailView):
     """View for downloading syllabi."""
     model = Syllabus
     object = None
     pk_url_kwarg = 'syllabus_pk'
+
+    model_file_field = 'syllabus_file'
+
+    def can_access_file(self, private_file):
+        # When the object can be accessed, the file may be downloaded.
+        # This overrides PRIVATE_STORAGE_AUTH_FUNCTION
+        admin_result = super(PrivateStorageDetailView, self).can_access_file(private_file)
+        return admin_result or self.object.is_approved() or self.request.user.has_perm('syllabi.view_all_exams')
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -62,17 +65,14 @@ class SyllabusDownloadView(DetailView):
         # If the syllabus is not approved, check whether the user has permission
         # to view it. If not, raise a 404 instead of PermissionDenied because
         # the syllabus is not supposed to "exist" if it is not approved.
-        if (not self.object.is_approved()
-                and not self.request.user.has_perm('syllabi.view_all_syllabi')):
+        if (not self.can_access_file(self.get_private_file())):
             raise Http404
 
         mime_type, _ = mimetypes.guess_type(self.object.syllabus_file.name)
-        response = HttpResponse(
-            FileWrapper(self.object.syllabus_file),
-            content_type=mime_type)
+        response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
+        response.content_type = mime_type
         response['Content-Disposition'] = 'inline;filename="{syllabus}"'.format(
-            syllabus=smart_bytes(
-                self.object.get_download_file_name(), encoding='ascii'))
+            syllabus=self.object.get_download_file_name())
         return response
 
 

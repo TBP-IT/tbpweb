@@ -6,7 +6,7 @@
 
 {% block intro %}
 <h1>
-  <a href="{% url 'user_profiles:detail' attendance_user.username %}">{{ attendance_user.userprofile.get_common_name }}</a>'s Attendance ({{ display_term.verbose_name }})
+  <a href="{% url 'user-profiles:detail' attendance_user.username %}">{{ attendance_user.userprofile.get_common_name }}</a>'s Attendance ({{ display_term.verbose_name }})
 </h1>
 {% endblock intro %}
 

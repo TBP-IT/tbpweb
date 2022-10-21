@@ -17,8 +17,13 @@
     {% for officer in position.list %}
       <div class="officers-card">
         <div class="officers-img">
-          <img src="{{ officer.user.userprofile.picture|thumbnail_url:'officericon' }}"
-            alt="{{ officer.user.userprofile.get_common_name }}">
+          {% if officer.user.userprofile.picture %}
+            <img src="{{ officer.user.userprofile.picture|thumbnail_url:'officericon' }}"
+              alt="{{ officer.user.userprofile.get_common_name }}">
+          {% else %}
+            <div class="default-officer"><i class="fa fa-user" alt="{{ officer.user.userprofile.get_common_name }}"></i></div>
+          {% endif %}
+          
           {% if officer.is_chair %}
             <div class="officers-chair-banner-wrapper">
               <div class="officers-chair-banner">Chair</div>

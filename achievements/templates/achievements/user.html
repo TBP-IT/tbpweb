@@ -6,7 +6,7 @@
 
 {% block intro %}
 <p><a href="{% url 'achievements:leaderboard' %}">&laquo; Leaderboard</a></p>
-<h1>Achievements for <a href="{% url 'user_profiles:detail' display_user.username %}">{{ display_user.userprofile.get_common_name }}</a></h1>
+<h1>Achievements for <a href="{% url 'user-profiles:detail' display_user.username %}">{{ display_user.userprofile.get_common_name }}</a></h1>
 <h3>
   {{ user_points }} point{{ user_points|pluralize }} from
   {{ user_num_achievements }} achievement{{ user_num_achievements|pluralize }}

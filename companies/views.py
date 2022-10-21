@@ -141,7 +141,7 @@ class CompanyRepCreateView(CreateView):
             email_template = 'accounts/password_set_initial_email.html'
             subject_template = 'accounts/password_set_initial_subject.txt'
             pw_reset_form.save(
-                email_template_name=email_template,
+                html_email_template_name=email_template,
                 subject_template_name=subject_template)
         else:
             # Throw an error and log the form data and errors, since something
@@ -218,7 +218,7 @@ class ResumeZipView(DetailView):
 
     def get(self, request, *args, **kwargs):
         one_year_ago = datetime.date.today() - datetime.timedelta(days=365)
-        zip_path = os.path.join(settings.MEDIA_ROOT, 'resumes/resumes.zip')
+        zip_path = os.path.join(settings.PRIVATE_STORAGE_ROOT, 'resumes/resumes.zip')
         resumes = Resume.objects.filter(verified=True, updated__gt=one_year_ago)
 
         # Check if cached zip file is at least newer than the latest resume

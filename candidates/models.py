@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from base.models import Term
 from events.models import Event, EventAttendance, EventSignUp, EventType
@@ -138,6 +140,8 @@ class Candidate(models.Model):
             candidate__term=term, candidate__in=candidates).select_related(
             'candidate')
 
+        elective_req = None
+        elective_event_types = EventType.objects.none()
         try:
             elective_req = requirements.get(
                 eventcandidaterequirement__event_type__name='Elective')
@@ -149,6 +153,7 @@ class Candidate(models.Model):
                 eligible_elective=True).exclude(id__in=required_event_types)
         except CandidateRequirement.DoesNotExist:
             elective_req = None
+            elective_event_types = EventType.objects.none()
 
         progress_by_candidate = {candidate: [] for candidate in candidates}
 
@@ -167,7 +172,7 @@ class Candidate(models.Model):
                 'signed_up': 0,
                 'warning': False,
                 'remaining': remaining_elective_events,
-                'required': elective_req.credits_needed
+                'required': elective_req.credits_needed if elective_req else 0
             }
             elective_progress_by_candidate[candidate] = elective_progress
             for attendance in attendances_by_candidate[candidate]:
@@ -264,7 +269,7 @@ class Candidate(models.Model):
     def __str__(self):
         return '{user} ({term})'.format(user=self.user, term=self.term)
 
-
+@receiver(post_save, sender=Candidate, dispatch_uid="set_cand_perms")
 def candidate_post_save(sender, instance, created, **kwargs):
     """Ensure that a StudentOrgUserProfile exists for every Candidate,
     update the profile's 'initiation_term' field, and add the candidate to the
@@ -290,6 +295,8 @@ def candidate_post_save(sender, instance, created, **kwargs):
     # Avoid circular dependency by importing here:
     from user_profiles.models import StudentOrgUserProfile
 
+    # TODO(ochan2): Add to relevant mailing lists on OCF (if possible)
+
     student_org_profile, _ = StudentOrgUserProfile.objects.get_or_create(
         user=instance.user)
 
@@ -310,8 +317,6 @@ def candidate_post_save(sender, instance, created, **kwargs):
             instance.user.groups.add(candidate_group)
         else:
             instance.user.groups.remove(candidate_group)
-
-models.signals.post_save.connect(candidate_post_save, sender=Candidate)
 
 
 class ChallengeTypeManager(models.Manager):

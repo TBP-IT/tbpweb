@@ -3,27 +3,20 @@ import csv
 import json
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import EmailMessage
-from django.urls import reverse
-from django.urls import reverse_lazy
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_POST
-from django.views.generic import CreateView
-from django.views.generic import ListView
-from django.views.generic import TemplateView
-from django.views.generic import UpdateView
-from django.views.generic.base import ContextMixin
-from django.views.generic.base import TemplateView
-from django.views.generic.base import View
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView
+from django.views.generic.base import ContextMixin, TemplateView, View
 from django.views.generic.edit import FormView
 
 from base.models import Term
@@ -32,14 +25,9 @@ from candidates.models import Candidate, CandidateRequirement, CandidateRequirem
                               ChallengeType, ChallengeCandidateRequirement, EventCandidateRequirement, \
                               ExamFileCandidateRequirement, ManualCandidateRequirement, \
                               ResumeCandidateRequirement, SyllabusCandidateRequirement
-from candidates.forms import CandidateCreationForm
-from candidates.forms import CandidateUserProfileForm
-from candidates.forms import CandidatePhotoForm
-from candidates.forms import CandidateRequirementProgressFormSet
-from candidates.forms import CandidateRequirementFormSet
-from candidates.forms import ChallengeForm
-from candidates.forms import ChallengeVerifyFormSet
-from candidates.forms import ManualCandidateRequirementForm
+from candidates.forms import CandidateCreationForm, CandidateUserProfileForm, CandidatePhotoForm, \
+                             CandidateRequirementProgressFormSet, CandidateRequirementFormSet, \
+                             ChallengeForm, ChallengeVerifyFormSet, ManualCandidateRequirementForm
 from events.models import Event
 from events.models import EventType
 from exams.models import Exam
@@ -99,6 +87,7 @@ class CandidateContextMixin(ContextMixin):
         event_reqs = CandidateRequirement.objects.filter(
             term=candidate.term,
             requirement_type=CandidateRequirement.EVENT)
+        elective_req = None
         try:
             elective_req = event_reqs.get(
                 eventcandidaterequirement__event_type__name='Elective')
@@ -458,7 +447,7 @@ class ChallengeVerifyView(TermParameterMixin, FormView):
         kwargs['user'] = self.request.user
         return kwargs
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=form_class):
         """Initialize each form in the formset with a challenge."""
         formset = super(ChallengeVerifyView, self).get_form(form_class)
         challenges = Challenge.objects.select_related(
@@ -1045,9 +1034,9 @@ class CandidateExportView(View):
 
         current_term = Term.objects.get(id=kwargs['term_pk'])
         candidates = Candidate.objects.filter(
-            term=current_term).select_related(
+            term=current_term).prefetch_related(
+            'user__collegestudentinfo__major').select_related(
             'user', 'user__userprofile',
-            'user__collegestudentinfo__major',
             'user__collegestudentinfo__start_term',
             'user__collegestudentinfo').order_by(
             'user__last_name')
@@ -1095,6 +1084,8 @@ def update_candidate_initiation_status(request):
 
     candidate.initiated = initiated
     candidate.save(update_fields=['initiated'])
-    # TODO(sjdemartini): Update relevant mailing lists, moving initiated
-    # candidates off of the candidates list and onto the members list.
+    
+    # Upon saving the Candidate object, the "candidate_post_save" function in candidates/models.py
+    #  will be called to set permissions
+
     return json_response()

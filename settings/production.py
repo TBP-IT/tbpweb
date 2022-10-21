@@ -11,7 +11,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('TBP IT', 'it-notice@' + HOSTNAME),
+    ('TBP IT', 'tbpwebsite@' + HOSTNAME),
 )
 MANAGERS = ADMINS
 
@@ -43,16 +43,26 @@ INDREL_NOTICE_TO = 'notice@' + HOSTNAME
 HELPDESK_SPAM_TO = 'spam@' + HOSTNAME
 INDREL_SPAM_TO = 'spam@' + HOSTNAME
 
+DEFAULT_FROM_EMAIL = 'tbpwebsite@' + HOSTNAME
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
 ALLOWED_HOSTS = [
-    'localhost', 'tbp-dev.apphost.ocf.berkeley.edu'
+    'tbp.apphost.ocf.berkeley.edu',
+    'tbp-dev.apphost.ocf.berkeley.edu',
+    'tbp.berkeley.edu'
+]
+
+# Additional locations of static files
+STATICFILES_DIRS = [
+    os.path.join(WORKSPACE_DJANGO_ROOT, "static"),
 ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = 'https://www.ocf.berkeley.edu/~tbp/tbpweb/static/'
-STATIC_ROOT = os.path.join(WORKSPACE_DJANGO_ROOT, 'static/')
+STATIC_ROOT = "/home/t/tb/tbp/public_html/tbpweb/static/"
 
 # Media files (user-uploaded files)
 # https://docs.djangoproject.com/en/2.1/topics/files/
 MEDIA_URL = 'https://www.ocf.berkeley.edu/~tbp/tbpweb/media/'
-MEDIA_ROOT = os.path.join(WORKSPACE_DJANGO_ROOT, 'media/')
+MEDIA_ROOT = "/home/t/tb/tbp/public_html/tbpweb/media/"
