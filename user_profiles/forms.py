@@ -74,8 +74,6 @@ class UserProfileForm(forms.ModelForm):
 
         # Disable editing for user account fields (besides email):
         self.fields['username'].widget.attrs['disabled'] = 'disabled'
-        # self.fields['first_name'].widget.attrs['disabled'] = 'disabled'
-        # self.fields['last_name'].widget.attrs['enabled'] = 'enabled'
 
         # TODO(sjdemartini): Add clarifying help_text regarding forwarding email
         # to the "email" field here, as it will affect the forwarding email
