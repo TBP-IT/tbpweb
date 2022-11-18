@@ -74,8 +74,6 @@ class UserProfileForm(forms.ModelForm):
 
         # Disable editing for user account fields (besides email):
         self.fields['username'].widget.attrs['disabled'] = 'disabled'
-        self.fields['first_name'].widget.attrs['disabled'] = 'disabled'
-        self.fields['last_name'].widget.attrs['disabled'] = 'disabled'
 
         # TODO(sjdemartini): Add clarifying help_text regarding forwarding email
         # to the "email" field here, as it will affect the forwarding email
@@ -118,6 +116,16 @@ class UserProfileForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         """Save the user email if it has changed."""
         email = self.cleaned_data['email']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
+        
+        if self.instance.user.first_name != first_name:
+            self.instance.user.first_name = first_name
+            self.instance.user.save(update_fields=['first_name'])
+
+        if self.instance.user.last_name != last_name:
+            self.instance.user.last_name = last_name
+            self.instance.user.save(update_fields=['last_name'])
 
         if self.instance.user.email != email:
             self.instance.user.email = email
