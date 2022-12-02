@@ -14,6 +14,10 @@ PORT ?= 3000
 run:
 	$(MANAGE) runserver $(IP):$(PORT)
 
+.PHONY: runi
+runi:
+	$(MANAGE) runserver $(IP):$(PORT) --insecure
+
 .PHONY: superuser
 superuser:
 	$(MANAGE) createsuperuser

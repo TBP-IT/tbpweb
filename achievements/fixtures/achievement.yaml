@@ -843,3 +843,39 @@
     manual: False
     repeatable: False
     rank: 40.5
+- pk: 65
+  model: achievements.Achievement
+  fields:
+    short_name: bee_enthus
+    name: Bee Enthusiast
+    description: Attend ten events in one semester containing the letter "B" in their titles
+    category: awards
+    points: 15
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 12.2
+- pk: 66
+  model: achievements.Achievement
+  fields:
+    short_name: week_tbp
+    name: Week of TBP
+    description: Attend an event on seven consecutive days.
+    category: awards
+    points: 25
+    privacy: public
+    manual: False
+    repeatable: False
+    rank: 5.0
+- pk: 67
+  model: achievements.Achievement
+  fields:
+    short_name: test_short
+    name: Test
+    description: test
+    category: general
+    points: 1
+    privacy: public
+    manual: False
+    repeatable: False 
+    rank: 0.0
