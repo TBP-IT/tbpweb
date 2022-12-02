@@ -95,7 +95,13 @@ class Achievement(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('achievements:detail', args=(self.short_name,))
+        if self.short_name:
+            print('1')
+            return None
+            return reverse('achievements:detail', args=(self.short_name))
+        else:
+            print('2')
+            return None # reverse('achievements:detail', args=(self.short_name))
 
     def get_icon(self):
         # Use try except to reduce the number of db queries in conjunction
@@ -207,6 +213,8 @@ def achievement_notification(sender, instance, created, **kwargs):
     """Create a notification if the user achievement has been acquired."""
     if instance.acquired:
         achievement = instance.achievement
+        print('testst')
+        print(achievement.get_absolute_url)
         Notification.objects.get_or_create(
             user=instance.user,
             status=Notification.POSITIVE,
