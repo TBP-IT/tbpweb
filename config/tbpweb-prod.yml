@@ -1,0 +1,11 @@
+name: tbpweb-prod
+dependencies:
+  - python=3.7
+  - pip
+  - pip:
+    - -r requirements.txt
+    - mysqlclient==2.1.0
+variables:
+  TBPWEB_MODE: "production"
+  DJANGO_SETTINGS_MODULE: "settings"
+  DJANGO_WSGI_MODULE: "settings.wsgi"

@@ -21,13 +21,10 @@ fi
 # source ~/public_html/tbpweb/.venv/bin/activate
 # PYTHONPATH=~/public_html/tbpweb/src:$PYTHONPATH
 
-# TODO ?
-# DJANGO_WSGI_MODULE=tbpweb.wsgi
-
 export DJANGO_SETTINGS_MODULE=settings
+export DJANGO_WSGI_MODULE=settings.wsgi
 
 DJANGO_DIR=~/tbpweb/prod/current
-VENV=~/tbpweb/prod/shared/venv
 SOCKFILE=/srv/apps/$(whoami)/tbp.sock
 NUM_WORKERS=4
 PYTHONPATH=$DJANGO_DIR:$PYTHONPATH
@@ -36,5 +33,12 @@ cd $DJANGO_DIR
 rvm use
 source $VENV/bin/activate
 
-exec gunicorn -w $NUM_WORKERS -b unix:$SOCKFILE \
-    --log-file - settings.wsgi:application
+# exec gunicorn -w $NUM_WORKERS -b unix:$SOCKFILE \
+#     --log-file - settings.wsgi:application
+exec gunicorn \
+    -w $NUM_WORKERS \
+    -b unix:"$SOCKFILE" \
+    --log-level debug \
+    --log-file - \
+    $DJANGO_WSGI_MODULE:application
+    
