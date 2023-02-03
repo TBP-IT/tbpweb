@@ -31,6 +31,8 @@ $ python manage.py runserver 0.0.0.0:3000       # start local web server
 $ conda deactivate                              # Exit the Conda Environment
 ```
 
+You may choose to remove the development environment by running: `conda env remove --name tbpweb-dev`
+
 ### Development
 
 To run the Django development server (which runs a web server locally), run
