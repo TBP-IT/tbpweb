@@ -6,6 +6,14 @@ from .base import *
 # pylint: disable=F0401
 from .project import HOSTNAME
 
+try:
+    # pylint: disable=F0401
+    import settings.tbpweb_dev_keys as tbpweb_dev_keys
+except ImportError:
+    print('Could not import tbpweb_dev_keys. Please make sure tbpweb_dev_keys.py exists '
+          'on the path, and that there are no errors in the module.')
+    sys.exit(1)
+
 ###############################################################################
 # Private Variables for this dev instance
 ###############################################################################
@@ -47,6 +55,18 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR , 'db.sqlite3'),
     }
 }
+
+SECRET_KEY = tbpweb_dev_keys.SECRET_KEY
+
+# YouTube Secret Stuff
+YT_USERNAME = 'BerkeleyTBP'
+YT_PRODUCT = 'noiro'
+YT_DEVELOPER_KEY = tbpweb_dev_keys.YT_DEVELOPER_KEY
+YT_PASSWORD = tbpweb_dev_keys.YT_PASSWORD
+
+# http://www.djangosnippets.org/snippets/1653/
+RECAPTCHA_PRIVATE_KEY = tbpweb_dev_keys.RECAPTCHA_PRIVATE_KEY
+RECAPTCHA_PUBLIC_KEY = tbpweb_dev_keys.RECAPTCHA_PUBLIC_KEY
 
 # Check X-Forwarded-Protocol for http protocol so that request.is_secure()
 # returns the correct value when dev server is behind a proxy.

@@ -4,8 +4,6 @@ Note: The values given here are intended for development. A production
 environment would overwrite these. The base and site-specific settings files
 must not overwrite these.
 """
-# pylint: disable=F0401
-import settings.tbpweb_keys as tbpweb_keys
 
 # Custom setting used to include a short tag for the site in relevant content
 # (like automatic email subject lines):
@@ -50,16 +48,6 @@ INDREL_SEND_SPAM = False
 # where?
 HELPDESK_SPAM_TO = TEST_ADDRESS
 INDREL_SPAM_TO = TEST_ADDRESS
-
-# YouTube Secret Stuff
-YT_USERNAME = 'BerkeleyTBP'
-YT_PRODUCT = 'noiro'
-YT_DEVELOPER_KEY = tbpweb_keys.YT_DEVELOPER_KEY
-YT_PASSWORD = tbpweb_keys.YT_PASSWORD
-
-# http://www.djangosnippets.org/snippets/1653/
-RECAPTCHA_PRIVATE_KEY = tbpweb_keys.RECAPTCHA_PRIVATE_KEY
-RECAPTCHA_PUBLIC_KEY = tbpweb_keys.RECAPTCHA_PUBLIC_KEY
 
 # Valid username regex
 # Please use raw string notation (i.e. r'text') to keep regex sane.

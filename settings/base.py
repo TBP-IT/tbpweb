@@ -13,13 +13,6 @@ import warnings
 KEY_PATH = '/home/tbp/private'
 if KEY_PATH not in sys.path:
     sys.path.append(KEY_PATH)
-try:
-    # pylint: disable=F0401
-    import settings.tbpweb_keys as tbpweb_keys
-except ImportError:
-    print('Could not import tbpweb_keys. Please make sure tbpweb_keys.py exists '
-          'on the path, and that there are no errors in the module.')
-    sys.exit(1)
 
 # Determine the path of your local workspace.
 WORKSPACE_DJANGO_ROOT = os.path.abspath(
@@ -150,9 +143,6 @@ STATICFILES_FINDERS = (
     # django-compressor file finder:
     'compressor.finders.CompressorFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = tbpweb_keys.SECRET_KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
