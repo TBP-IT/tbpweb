@@ -8,6 +8,7 @@ from deploy import git
 from deploy import path
 
 import argparse
+import os
 
 production_python = "TBPWEB_MODE=production python"
 
@@ -147,7 +148,7 @@ def setup(c: Connection, commit=None, release=None):
 
 def create_conda(c: Connection):
     print("-- Creating Conda Environment and Installing dependencies")
-    c.run("conda env create -f config/tbpweb-prod.yml")
+    c.run("conda env create --force -f config/tbpweb-prod.yml")
 
 
 def activate_conda(c: Connection):
@@ -192,15 +193,14 @@ def rollback(c, release=None):
         publish(c)
         finish(c)
 
-tbpweb_mode = os.environ.get("FAB_TARGET", None).lower()
+# Default mode is Prod
+# Set a different target by setting the FAB_TARGET variable
+tbpweb_mode = os.environ.get("FAB_TARGET", "prod")
 if tbpweb_mode in ["dev", "prod"]:
-    pass
-elif tbpweb_mode is None:
-    tbpweb_mode = "prod"
+    # Validation
+    print("Target Set:", tbpweb_mode)
 else:
     raise ValueError(f"TARGET '{tbpweb_mode}' is not a valid value")
-
-print("Target Set:", tbpweb_mode)
 
 ns = Collection(deploy, rollback)
 ns.configure(configs[tbpweb_mode])
