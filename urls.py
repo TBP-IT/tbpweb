@@ -61,7 +61,7 @@ urlpatterns += [
 
 # Handle page redirects
 urlpatterns += [
-    path('indrel/', RedirectView.as_view(pattern_name='industry')),
+    path('indrel/', RedirectView.as_view(url='/industry/')),
 ]
 
 if settings.DEBUG:
