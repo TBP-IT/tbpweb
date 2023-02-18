@@ -8,8 +8,6 @@ LOCAL_ENV = os.getenv('TBPWEB_MODE', 'dev')
 # pylint: disable=W0401,W0614
 if LOCAL_ENV == 'dev':
     from .dev import *
-elif LOCAL_ENV == 'staging':
-    from .staging import *
 elif LOCAL_ENV == 'production':
     from .production import *
 else:
