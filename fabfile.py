@@ -11,8 +11,6 @@ import argparse
 from typing import Callable
 import os
 
-production_python = "TBPWEB_MODE=production python"
-
 def timestamp(c: Connection) -> str:
     """
     Returns the server date-time, encoded as YYYYMMSS_HHMMSS.
@@ -101,14 +99,14 @@ def django_migrate(c: Connection):
     print("-- Migrating tables")
     with c.cd(c.release_path):
         with c.prefix("conda activate tbpweb-prod"):
-            c.run(f"{production_python} ./manage.py migrate")
+            c.run(f"python ./manage.py migrate")
 
 
 def django_collectstatic(c: Connection):
     print("-- Collecting static files")
     with c.cd(c.release_path):
         with c.prefix("conda activate tbpweb-prod"):
-            c.run(f"{production_python} ./manage.py collectstatic --noinput")
+            c.run(f"python ./manage.py collectstatic --noinput")
 
 
 def symlink_release(c: Connection):
