@@ -8,9 +8,7 @@ from deploy import git
 from deploy import path
 
 import argparse
-
-TARGET_FLAG = "--target"
-DEFAULT_TARGET = "prod"
+import os
 
 production_python = "TBPWEB_MODE=production python"
 
@@ -41,6 +39,8 @@ class DeployConfig(Config):
                 "name": "default",
                 "user": "tbp",
                 "host": "apphost.ocf.berkeley.edu",
+                "conda_env": "tbpweb-prod",
+                "run_blackbox_postdeploy": True,
                 "path": {
                     "root": "/home/t/tb/tbp/tbpweb",
                     "repo": "repo",
@@ -148,7 +148,7 @@ def setup(c: Connection, commit=None, release=None):
 
 def create_conda(c: Connection):
     print("-- Creating Conda Environment and Installing dependencies")
-    c.run("conda env create -f config/tbpweb-prod.yml")
+    c.run("conda env create --force -f config/tbpweb-prod.yml")
 
 
 def activate_conda(c: Connection):
@@ -162,7 +162,6 @@ def update(c: Connection):
     decrypt_secrets(c)
     create_conda(c)
     activate_conda(c)
-    install_deps(c)
     django_migrate(c)
     django_collectstatic(c)
 
@@ -177,14 +176,8 @@ def finish(c):
     pass
 
 
-# For the following @task functions, "target" is an ignored parameter
-#  It is a workaround to allow for use in using command line arguments
-#  For selecting a "target" in ns.configure
-# Otherwise, fabfile will claim to not recognize it
-
-
 @task
-def deploy(c, target=DEFAULT_TARGET, commit=None):
+def deploy(c, commit=None):
     with Connection(c.deploy.host, user=c.deploy.user, config=c.config) as c:
         setup(c, commit=commit)
         update(c)
@@ -193,41 +186,21 @@ def deploy(c, target=DEFAULT_TARGET, commit=None):
 
 
 @task
-def rollback(c, target=DEFAULT_TARGET, release=None):
+def rollback(c, release=None):
     with Connection(c.deploy.host, user=c.deploy.user, config=c.config) as c:
         setup(c, release=release)
         update(c)
         publish(c)
         finish(c)
 
-
-# Please add the "target" parameter if you are adding more @task functions
-#  to allow custom targets to be used (regardless if your function itself will use it or not)
-
-
-def get_target(args):
-    target = args.target
-    if target not in configs:
-        message = '\n\tTarget Configuration "{}" is not a valid entry'.format(
-            TARGET_FLAG
-        )
-        message += "\n\tInvalid Entry: " + target
-        assert target in configs, message
-    return target
-
-
-parser = argparse.ArgumentParser(
-    description='Target parameters for the fab file through the "fab" library'
-)
-parser.add_argument(
-    "--target",
-    default="prod",
-    help="The Target Configuration key to set the deployment setting",
-)
-args, unknown = parser.parse_known_args()
-
-target_key = get_target(args)
-print("Target Set:", target_key)
+# Default mode is Prod
+# Set a different target by setting the FAB_TARGET variable
+tbpweb_mode = os.environ.get("FAB_TARGET", "prod")
+if tbpweb_mode in ["dev", "prod"]:
+    # Validation
+    print("Target Set:", tbpweb_mode)
+else:
+    raise ValueError(f"TARGET '{tbpweb_mode}' is not a valid value")
 
 ns = Collection(deploy, rollback)
-ns.configure(configs[target_key])
+ns.configure(configs[tbpweb_mode])

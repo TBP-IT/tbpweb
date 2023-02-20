@@ -1,11 +1,17 @@
 # pylint: disable=F0401
 import os
 
-from .tbpweb_keys import *
 from .base import *
 from .project import HOSTNAME
 from .project import RESUMEQ_OFFICER_POSITION
 
+try:
+    # pylint: disable=F0401
+    import settings.tbpweb_keys as tbpweb_keys
+except ImportError:
+    print('Could not import tbpweb_keys. Please make sure tbpweb_keys.py exists '
+          'on the path, and that there are no errors in the module.')
+    sys.exit(1)
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -26,6 +32,18 @@ DATABASES = {
         },
     },
 }
+
+SECRET_KEY = tbpweb_keys.SECRET_KEY
+
+# YouTube Secret Stuff
+YT_USERNAME = 'BerkeleyTBP'
+YT_PRODUCT = 'noiro'
+YT_DEVELOPER_KEY = tbpweb_keys.YT_DEVELOPER_KEY
+YT_PASSWORD = tbpweb_keys.YT_PASSWORD
+
+# http://www.djangosnippets.org/snippets/1653/
+RECAPTCHA_PRIVATE_KEY = tbpweb_keys.RECAPTCHA_PRIVATE_KEY
+RECAPTCHA_PUBLIC_KEY = tbpweb_keys.RECAPTCHA_PUBLIC_KEY
 
 # HTTPS support in production
 CSRF_COOKIE_SECURE = True

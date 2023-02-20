@@ -27,7 +27,7 @@ $ conda env create -f config/tbpweb-dev.yml     # create our Conda Environment a
 $ conda activate tbpweb-dev                     # enter our Conda Environment
 $ python manage.py makemigrations               # Create migrations files
 $ python manage.py migrate                      # apply all database changes
-$ python manage.py runserver 0.0.0.0:3000       # start local web server
+$ python manage.py runserver                    # start local web server (127.0.0.1:8000)
 $ conda deactivate                              # Exit the Conda Environment
 ```
 
@@ -37,9 +37,11 @@ You may choose to remove the development environment by running: `conda env remo
 
 To run the Django development server (which runs a web server locally), run
 ```sh
-$ python manage.py runserver 0.0.0.0:3000
+$ python manage.py runserver
 ```
-which will make the web site available at `http://localhost:3000`.
+which will make the web site available at `http://127.0.0.1:8000`.
+
+You may also use `python manage.py runserver 0.0.0.0:3000` to use `http://localhost:3000` or `http://0.0.0.0:3000`
 
 If you would like to access the admin interface in the local web server, run
 ```sh
@@ -48,7 +50,7 @@ $ python manage.py createsuperuser
 
 You will be prompted for some login info, after which you should be able to access the admin interface with your super user credentials at `http://localhost:3000/admin`.
 
-If there are development conflicts between Operating System, a solution that works on Linux takes precedence (as the destination OS on Berkeley's OCF)! Unix developers should also try to make their code Windows-friendly for the Window developers.
+If there are development conflicts between Operating Systems, a solution that works on Linux takes precedence (as the destination OS on Berkeley's OCF)! Unix developers should also try to make their code Windows-friendly for the Window developers.
 
 ## Deploy
 
