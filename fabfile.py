@@ -8,6 +8,7 @@ from deploy import git
 from deploy import path
 
 import argparse
+from typing import Callable
 import os
 
 production_python = "TBPWEB_MODE=production python"
@@ -83,7 +84,6 @@ def create_release(c: Connection):
 def symlink_shared(c: Connection):
     print("-- Symlinking shared files")
     with c.cd(c.release_path):
-        # c.run("ln -s {}/venv ./.venv".format(c.shared_path), echo=True)
         c.run("ln -s {}/media ./media".format(c.shared_path), echo=True)
         c.run("ln -s {}/private-media ./private-media".format(c.shared_path), echo=True)
 
@@ -100,13 +100,15 @@ def decrypt_secrets(c):
 def django_migrate(c: Connection):
     print("-- Migrating tables")
     with c.cd(c.release_path):
-        c.run(f"{production_python} ./manage.py migrate")
+        with c.prefix("conda activate tbpweb-prod"):
+            c.run(f"{production_python} ./manage.py migrate")
 
 
 def django_collectstatic(c: Connection):
     print("-- Collecting static files")
     with c.cd(c.release_path):
-        c.run(f"{production_python} ./manage.py collectstatic --noinput")
+        with c.prefix("conda activate tbpweb-prod"):
+            c.run(f"{production_python} ./manage.py collectstatic --noinput")
 
 
 def symlink_release(c: Connection):
@@ -143,27 +145,44 @@ def setup(c: Connection, commit=None, release=None):
     print("release: {}".format(c.release))
     print("commit: {}".format(c.commit))
     create_dirs(c)
-    create_conda(c)
 
 
 def create_conda(c: Connection):
     print("-- Creating Conda Environment and Installing dependencies")
-    c.run("conda env create --force -f config/tbpweb-prod.yml")
+    with c.cd(c.release_path):
+        c.run("conda env create -f config/tbpweb-prod.yml")
+        c.run("conda info -a")  # Print post-creation properties
+
+
+def update_conda(c: Connection):
+    print("-- Update Conda Environment and dependencies")
+    with c.cd(c.release_path):
+        c.run("conda env update -f config/tbpweb-prod.yml")
+        c.run("conda info -a")  # Print post-creation properties
 
 
 def activate_conda(c: Connection):
     c.run("conda activate tbpweb-prod")
 
 
-def update(c: Connection):
-    print("== Update ==")
+def action_deploy(c: Connection, conda_action: Callable):
     create_release(c)
     symlink_shared(c)
     decrypt_secrets(c)
-    create_conda(c)
+    conda_action(c)
     activate_conda(c)
     django_migrate(c)
     django_collectstatic(c)
+
+
+def initial_scratch(c: Connection):
+    print("== Initialize ==")
+    action_deploy(c, create_conda)
+
+
+def update(c: Connection):
+    print("== Update ==")
+    action_deploy(c, update_conda)
 
 
 def publish(c: Connection):
@@ -186,6 +205,15 @@ def deploy(c, commit=None):
 
 
 @task
+def initialize(c, commit=None):
+    with Connection(c.deploy.host, user=c.deploy.user, config=c.config) as c:
+        setup(c, commit=commit)
+        initial_scratch(c)
+        publish(c)
+        finish(c)
+
+
+@task
 def rollback(c, release=None):
     with Connection(c.deploy.host, user=c.deploy.user, config=c.config) as c:
         setup(c, release=release)
@@ -202,5 +230,5 @@ if tbpweb_mode in ["dev", "prod"]:
 else:
     raise ValueError(f"TARGET '{tbpweb_mode}' is not a valid value")
 
-ns = Collection(deploy, rollback)
+ns = Collection(deploy, rollback, initialize)
 ns.configure(configs[tbpweb_mode])
