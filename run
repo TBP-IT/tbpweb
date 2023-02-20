@@ -31,7 +31,8 @@ PYTHONPATH=$DJANGO_DIR:$PYTHONPATH
 
 cd $DJANGO_DIR
 rvm use
-source $VENV/bin/activate
+source ~/.bashrc
+conda activate tbpweb-prod
 
 # exec gunicorn -w $NUM_WORKERS -b unix:$SOCKFILE \
 #     --log-file - settings.wsgi:application
