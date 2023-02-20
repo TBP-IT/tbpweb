@@ -31,7 +31,7 @@ $ python manage.py runserver                    # start local web server (127.0.
 $ conda deactivate                              # Exit the Conda Environment
 ```
 
-You may choose to remove the development environment by running: `conda env remove --name tbpweb-dev`
+Remove the development environment by running: `conda env remove --name tbpweb-dev`
 
 ### Development
 

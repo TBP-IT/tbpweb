@@ -38,11 +38,11 @@
             {{ officer.user.userprofile.get_common_name }}
           {% endif %}
           </span>
-		  {% if officer.user.userprofile.alt_officer_email %}
-		  {{ officer.user.userprofile.alt_officer_email }}
-		  {% else %}
-          {{ officer.user.get_username }}@tbp
-		  {% endif %}
+          {% if officer.user.userprofile.alt_officer_email %}
+            {{ officer.user.userprofile.alt_officer_email }}
+          {% else %}
+            {{ officer.user.get_username }}@tbp
+          {% endif %}
         </div>
         <div class="officers-bio">
           {{ officer.user.userprofile.get_student_org_user_profile.bio }}
