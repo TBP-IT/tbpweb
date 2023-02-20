@@ -146,7 +146,7 @@ def setup(c: Connection, commit=None, release=None):
 
 
 def create_conda(c: Connection):
-    print("-- Creating Conda Environment and Installing dependencies")
+    print("-- Creating Conda Environment and Installing dependencies (Pip may take a while - about 15 mins, max 30 mins)")
     with c.cd(c.release_path):
         c.run("conda env create -f config/tbpweb-prod.yml")
         c.run("conda info -a")  # Print post-creation properties
@@ -186,6 +186,7 @@ def update(c: Connection):
 def publish(c: Connection):
     print("== Publish ==")
     symlink_release(c)
+    run_permission(c)
     systemd_restart(c)
 
 
