@@ -44,6 +44,8 @@ urlpatterns += [
         name='contact'),
     path('about/eligibility/', views.flatpage, {'url': '/about/eligibility/'},
         name='eligibility'),
+    path('helpdesk/', views.flatpage, {'url': '/helpdesk/'},
+        name='helpdesk'),
     path('people/committees/', views.flatpage, {'url': '/people/committees/'},
         name='committees'),
     path('student-resources/', views.flatpage, {'url': '/student-resources/'},
