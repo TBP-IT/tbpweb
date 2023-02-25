@@ -21,32 +21,21 @@ TEST_ADDRESS = 'test@' + HOSTNAME
 # The short_name of the position of officers that are assigned resume_critiques:
 RESUMEQ_OFFICER_POSITION = 'prodev'
 
-# Emailer stuff
-ENABLE_HELPDESKQ = False
-
 RESUMEQ_ADDRESS = TEST_ADDRESS
 
 # Email addresses
-HELPDESK_ADDRESS = TEST_ADDRESS
 INDREL_ADDRESS = TEST_ADDRESS
 IT_ADDRESS = TEST_ADDRESS
 STARS_ADDRESS = TEST_ADDRESS
 
-# Should we cc people who ask us questions?
-HELPDESK_CC_ASKER = False
-
 # Do we send spam notices?
-HELPDESK_SEND_SPAM_NOTICE = True
 INDREL_SEND_SPAM_NOTICE = True
 # where?
-HELPDESK_NOTICE_TO = TEST_ADDRESS
 INDREL_NOTICE_TO = TEST_ADDRESS
 
 # Do we send messages known to be spam?
-HELPDESK_SEND_SPAM = False
 INDREL_SEND_SPAM = False
 # where?
-HELPDESK_SPAM_TO = TEST_ADDRESS
 INDREL_SPAM_TO = TEST_ADDRESS
 
 # Valid username regex

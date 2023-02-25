@@ -10,7 +10,7 @@ from emailer.fields import ReCaptchaField
 class ContactForm(forms.Form):
     """
     A generic form that allows users to contact other people. It's used for
-    both Helpdesk and the Events emailer.
+    both Helpdesk (formerly) and the Events emailer.
     """
     MIN_MESSAGE_LENGTH = 10
     name = forms.CharField(
@@ -89,7 +89,7 @@ class ContactCaptcha(ContactForm):
     Taken from: http://www.djangosnippets.org/snippets/1653/
 
     This is an extension of the ContactForm that also includes a ReCaptcha.
-    This is used for Helpdesk to prevent spam. It's more effective than the
+    This (formerly) is used for Helpdesk to prevent spam. It's more effective than the
     author field.
     """
     # recaptcha = ReCaptchaField(
