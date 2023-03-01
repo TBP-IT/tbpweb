@@ -68,6 +68,9 @@ YT_PASSWORD = tbpweb_dev_keys.YT_PASSWORD
 RECAPTCHA_PRIVATE_KEY = tbpweb_dev_keys.RECAPTCHA_PRIVATE_KEY
 RECAPTCHA_PUBLIC_KEY = tbpweb_dev_keys.RECAPTCHA_PUBLIC_KEY
 
+# Email password as EMAIL_HOST_PASSWORD on Production Keys
+EMAIL_HOST_PASSWORD = tbpweb_dev_keys.EMAIL_HOST_PASSWORD
+
 # Check X-Forwarded-Protocol for http protocol so that request.is_secure()
 # returns the correct value when dev server is behind a proxy.
 # Make sure proxy config sets this header correctly:
