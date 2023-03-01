@@ -17,6 +17,7 @@ class UserProfile(models.Model):
     GENDER_CHOICES = (
         ('F', 'Female'),
         ('M', 'Male'),
+        ('O', 'Other / Prefer Not to Say'),
     )
 
     PICTURES_LOCATION = 'user_profiles'
