@@ -3,3 +3,4 @@
 # from achievements import meta_achievements
 # from achievements import officership_achievements
 # from achievements import pr_achievements
+default_app_config = 'achievements.apps.AchievementConfig'

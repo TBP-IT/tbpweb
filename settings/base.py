@@ -227,7 +227,6 @@ PROJECT_APPS = [
     'utils',
     'vote',
 ]
-
 # Third-party apps belong here, since we won't use them for testing.
 THIRD_PARTY_APPS = [
     'chosen',
@@ -239,7 +238,6 @@ THIRD_PARTY_APPS = [
 
 # This is the actual variable that django looks at.
 INSTALLED_APPS = DJANGO_CONTRIB_APPS + PROJECT_APPS + THIRD_PARTY_APPS
-
 
 ###############################################################################
 # Import any extra settings to override default settings.

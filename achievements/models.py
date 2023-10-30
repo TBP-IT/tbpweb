@@ -7,7 +7,6 @@ from base.models import Term
 from notifications.models import Notification
 from shortcuts import get_object_or_none
 
-
 class Achievement(models.Model):
     """An achievement shows significant user accomplishment in some way."""
     # These are strings because they're easier to deal with in fixtures.
@@ -104,7 +103,7 @@ class Achievement(models.Model):
             achievement_icon = self.icon
             return achievement_icon.image
         except AchievementIcon.DoesNotExist:
-            return None
+            return 'images/achievements/errimg.png'
 
     def assign(self, user, acquired=True, progress=0, term=None,
                explanation='', assigner=None):
@@ -115,9 +114,16 @@ class Achievement(models.Model):
         # Get or create a new user achievement for this achievement given to
         # the specified user. if no previous achievement exists, the default
         # is to set acquired to false so that it is updated below
-        user_achievement, _ = UserAchievement.objects.get_or_create(
-            achievement=self, user=user)
 
+        # user_achievement, _ = UserAchievement.objects.get_or_create(
+        #     achievement=self, user=user)
+        user_achievement = UserAchievement.objects.filter(
+             achievement=self, user=user).order_by('created')
+        if not user_achievement.exists():
+            user_achievement = UserAchievement.objects.create(achievement=self, user=user)
+            user_achievement.save()
+            return True
+        user_achievement = user_achievement[0]
         if user_achievement.acquired is False:
             # If the achievement has not already been acquired by this user, set
             # the user achievement's progress, term, acquisition state, who the

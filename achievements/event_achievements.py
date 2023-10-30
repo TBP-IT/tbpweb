@@ -9,9 +9,12 @@ from events.models import Event
 from events.models import EventAttendance
 from shortcuts import get_object_or_none
 
+import pdb
+
 
 def event_achievements(sender, instance, created, **kwargs):
     # obtain lifetime attendance for the user
+    print('TEST')
     total_attendance = EventAttendance.objects.select_related(
         'event__term').filter(
         user=instance.user, event__cancelled=False).order_by('event__term__pk')
@@ -21,9 +24,13 @@ def event_achievements(sender, instance, created, **kwargs):
         cancelled=False, term=instance.event.term)
 
     # obtain the events that the user has attended in this term
+    # term_attendance = total_attendance.filter(
+    #     event__term=instance.event.term).select_related(
+    #     'term', 'event__event_type')
+
     term_attendance = total_attendance.filter(
         event__term=instance.event.term).select_related(
-        'term', 'event__event_type')
+        'event__term', 'event__event_type')
 
     # obtain the events in the term with the same type
     type_events = term_events.filter(event_type=instance.event.event_type)
@@ -35,9 +42,12 @@ def event_achievements(sender, instance, created, **kwargs):
 
     # remaining letters to track the achievement for attending events with
     # the letters a-z in their titles in a term
-    remaining_letters = set(string.lowercase)
+    remaining_letters = set(string.ascii_lowercase)
+
+    #breakpoint()
 
     for event_attendance in term_attendance:
+        print(event_attendance, term_attendance, '$$')
         remaining_letters.difference_update(
             event_attendance.event.name.lower())
         if len(remaining_letters) == 0:
@@ -51,6 +61,7 @@ def event_achievements(sender, instance, created, **kwargs):
 
 
 def assign_alphabet_achievement(instance, remaining_letters):
+    #print(remaining_letters)
     if len(remaining_letters) == 0:
         achievement = get_object_or_none(Achievement,
                                          short_name='alphabet_attendance')
@@ -142,6 +153,5 @@ def assign_specific_event_achievements(instance):
             Achievement, short_name='berkeley_explosion')
         if cm2013_achievement:
             cm2013_achievement.assign(instance.user, term=instance.event.term)
-
 
 models.signals.post_save.connect(event_achievements, sender=EventAttendance)
