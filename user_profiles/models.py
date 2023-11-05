@@ -92,7 +92,8 @@ class UserProfile(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     ###
-    alt_officer_email = models.EmailField(
+    alt_officer_email = models.CharField(
+        max_length=256,
         blank=True,
         verbose_name='Alternate officer email address',
         help_text=('Set an alternate email on the Officers page. Don\'t include the '
