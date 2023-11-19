@@ -6,7 +6,6 @@ from achievements.models import Achievement
 from base.models import Officer
 from shortcuts import get_object_or_none
 
-
 # officership-related achievements
 def officership_achievements(sender, instance, created, **kwargs):
     officerships = Officer.objects.filter(user=instance.user).exclude(
@@ -112,7 +111,8 @@ def assign_chair_achievements(instance, chair_terms):
         if chair1achievement:
             # for the first committee that was chaired, find the first term
             # that they were chair
-            chair1_terms = terms[0]
+            #chair1_terms = terms[0]
+            chair1_terms = next(iter(terms))
             chair1achievement.assign(
                 instance.user, term=chair1_terms[0])
 

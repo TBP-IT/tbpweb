@@ -8,7 +8,7 @@ from base.models import Term
 from events.models import Event
 from events.models import EventAttendance
 from shortcuts import get_object_or_none
-
+from datetime import timedelta
 
 def event_achievements(sender, instance, created, **kwargs):
     # obtain lifetime attendance for the user
@@ -21,9 +21,13 @@ def event_achievements(sender, instance, created, **kwargs):
         cancelled=False, term=instance.event.term)
 
     # obtain the events that the user has attended in this term
+    # term_attendance = total_attendance.filter(
+    #     event__term=instance.event.term).select_related(
+    #     'term', 'event__event_type')
+
     term_attendance = total_attendance.filter(
         event__term=instance.event.term).select_related(
-        'term', 'event__event_type')
+        'event__term', 'event__event_type')
 
     # obtain the events in the term with the same type
     type_events = term_events.filter(event_type=instance.event.event_type)
@@ -35,7 +39,7 @@ def event_achievements(sender, instance, created, **kwargs):
 
     # remaining letters to track the achievement for attending events with
     # the letters a-z in their titles in a term
-    remaining_letters = set(string.lowercase)
+    remaining_letters = set(string.ascii_lowercase)
 
     for event_attendance in term_attendance:
         remaining_letters.difference_update(
@@ -48,6 +52,8 @@ def event_achievements(sender, instance, created, **kwargs):
     assign_lifetime_achievements(instance, total_attendance)
     assign_salad_bowl_achievement(instance, types_attended, types_existing)
     assign_specific_event_achievements(instance)
+    assign_bee_achievement(instance, term_attendance)
+    assign_week_achievement(instance, term_attendance)
 
 
 def assign_alphabet_achievement(instance, remaining_letters):
@@ -143,5 +149,40 @@ def assign_specific_event_achievements(instance):
         if cm2013_achievement:
             cm2013_achievement.assign(instance.user, term=instance.event.term)
 
+
+def assign_bee_achievement(instance, term_attendance):
+    counter = 0
+    for event_attendance in term_attendance:
+        counter += 'b' in event_attendance.event.name.lower()
+    if counter >= 10:
+        bee_achievement = get_object_or_none(
+            Achievement, short_name='bee_enthusiast')
+        if bee_achievement:
+            bee_achievement.assign(instance.user, term=instance.event.term)
+
+
+def assign_week_achievement(instance, term_attendance):
+    last = None
+    counter = 0
+    for event_attendance in term_attendance.order_by('event__start_datetime'):
+        if not last:
+            last = event_attendance.event.start_datetime
+            counter = 1
+        else:
+            cur = event_attendance.event.start_datetime
+            lastdow = int(last.strftime('%u'))
+            curdow = int(cur.strftime('%u')) % 7
+            delta = cur - last
+            if delta < timedelta(days=2) and curdow == (lastdow + 1) % 7:
+                counter += 1
+                if counter == 7:
+                    week_achievement = get_object_or_none(
+                        Achievement, short_name='week_of_tbp')
+                    print(week_achievement)
+                    if week_achievement:
+                        week_achievement.assign(instance.user, term=instance.event.term)
+            else:
+                counter = 1
+            last = event_attendance.event.start_datetime
 
 models.signals.post_save.connect(event_achievements, sender=EventAttendance)

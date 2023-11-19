@@ -2,11 +2,13 @@ from django.contrib import admin
 
 from achievements.models import Achievement, AchievementIcon, UserAchievement
 
+#from achievements.event_achievements import *
+
 
 class AchievementAdmin(admin.ModelAdmin):
-    fields = (
-        'name', 'description', 'points', 'goal', 'privacy', 'manual', 'rank',
-        'sequence', 'category')
+    #fields = (
+    #    'name', 'description', 'points', 'goal', 'privacy', 'manual', 'rank',
+    #    'sequence', 'category', 'short_name')
     search_fields = ('name', 'points')
     list_filter = ('privacy', 'manual', 'repeatable')
     list_display = ('name', 'points', 'goal', 'privacy', 'manual', 'rank')
