@@ -106,7 +106,7 @@ def assign_chair_achievements(instance, chair_terms):
         Achievement, short_name='chair2committees')
     if num_committees_chaired >= 1:
         # terms is a list of lists
-        terms = chair_terms.values()
+        terms = list(chair_terms.values())
 
         if chair1achievement:
             # for the first committee that was chaired, find the first term
@@ -165,7 +165,7 @@ def assign_diffposition_achievements(instance, committee_terms):
         Achievement, short_name='three_unique_positions')
     if len(committee_terms) >= 3:
         # terms is a list of lists
-        terms = committee_terms.values()
+        terms = list(committee_terms.values())
 
         if three_unique_positions:
             # find the first semester that this person was on their third
