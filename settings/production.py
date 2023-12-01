@@ -67,6 +67,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ALLOWED_HOSTS = [
     'tbp.apphost.ocf.berkeley.edu',
+    'tbp.studentorg.berkeley.edu',
     'tbp-dev.apphost.ocf.berkeley.edu',
     'tbp.berkeley.edu'
 ]
