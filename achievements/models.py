@@ -103,7 +103,7 @@ class Achievement(models.Model):
             achievement_icon = self.icon
             return achievement_icon.image
         except AchievementIcon.DoesNotExist:
-            return 'images/achievements/errimg.png'
+            return None
 
     def assign(self, user, acquired=True, progress=0, term=None,
                explanation='', assigner=None):
