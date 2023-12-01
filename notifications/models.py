@@ -38,7 +38,7 @@ class Notification(models.Model):
                    'unlocked or how long a project report is overdue).'))
     image_url = models.CharField(
         blank=True,
-        null=False,
+        null=True,
         max_length=255,
         help_text=('The URL of any image for this notification (e.g. an '
                    'achievement icon).'))
