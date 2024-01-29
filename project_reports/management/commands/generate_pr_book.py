@@ -23,18 +23,21 @@ tblib.pickling_support.install()
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument('pr_book_id')
+
     def handle(self, *args, **options):
         # Save the PDF to the PR book object, or save the exception if there
         # there was a failure
         try:
             self.unwrapped_handle(*args, **options)
         except Exception as e:  # pylint: disable=broad-except
-            pr_book = ProjectReportBook.objects.get(id=args[0])
+            pr_book = ProjectReportBook.objects.get(id=options['pr_book_id'])
             pr_book.exception = DelayedException(e)
             pr_book.save()
 
     def unwrapped_handle(self, *args, **options):
-        pr_book = ProjectReportBook.objects.get(id=args[0])
+        pr_book = ProjectReportBook.objects.get(id=options['pr_book_id'])
 
         terms = pr_book.terms.order_by('id')
         president = Officer.objects.get(
