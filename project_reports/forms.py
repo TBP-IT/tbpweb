@@ -34,7 +34,7 @@ class ProjectReportBookExportForm(forms.Form):
     
     def __init__(self, *args, **kwargs):
         super(ProjectReportBookExportForm, self).__init__(*args, **kwargs)
-        self.terms.choices = self.get_term_choices()
+        self.fields['terms'].choices = self.get_term_choices()
         
     
     def get_term_choices(self):
