@@ -1,7 +1,11 @@
 name: tbpweb-prod
+channels:
+  - conda-forge
 dependencies:
   - python=3.7
   - pip
+  - pypandoc
+  - pdflatex
   - pip:
     - -r requirements.txt
     - mysqlclient==2.1.0

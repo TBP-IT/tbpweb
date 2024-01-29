@@ -1,7 +1,11 @@
 name: tbpweb-dev
+channels:
+  - conda-forge
 dependencies:
   - python=3.7
   - pip
+  - pypandoc
+  - pdflatex
   - pip:
     - -r requirements.txt
     - pre-commit==1.14.4
@@ -9,8 +13,6 @@ dependencies:
     - pytest-django==3.4.7
     - tox==3.7.0
     - livereload==2.6.0
-    # - coverage[toml]==6.3.2
-    # - black==22.3.0
 variables:
   TBPWEB_MODE: "dev"
   DJANGO_SETTINGS_MODULE: "settings"
