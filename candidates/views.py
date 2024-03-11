@@ -998,6 +998,8 @@ class CandidateProgressStatsView(TemplateView, CandidateProgressMixin):
         total_unfinished = 0
         for progress_item in progress.values():
             for req_progress in progress_item['requirements']:
+                if not req_progress['requirement']:
+                    continue
                 req_name = req_progress['requirement'].get_name()
                 completed = req_progress['completed']
                 required = req_progress['required']
