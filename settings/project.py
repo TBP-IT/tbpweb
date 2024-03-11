@@ -11,7 +11,7 @@ SITE_TAG = 'TBP'
 
 HOSTNAME = 'tbp.berkeley.edu'
 
-DEFAULT_FROM_EMAIL = 'tbpwebsite@' + HOSTNAME
+DEFAULT_FROM_EMAIL = 'tbpwebsite@' + 'tbp.studentorg.berkeley.edu'
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # An email address for receiving test emails

@@ -27,6 +27,7 @@ DATABASES = {
         'NAME': 'tbp',
         'HOST': 'mysql',
         'OPTIONS': {
+            'charset': "utf8mb4",
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'read_default_file': "~/.my.cnf",
         },
@@ -67,6 +68,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 ALLOWED_HOSTS = [
     'tbp.apphost.ocf.berkeley.edu',
+    'tbp.studentorg.berkeley.edu',
     'tbp-dev.apphost.ocf.berkeley.edu',
     'tbp.berkeley.edu'
 ]

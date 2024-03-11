@@ -2,6 +2,7 @@ from django import forms
 from django.conf import settings
 from django.contrib.auth import forms as auth_forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -41,27 +42,27 @@ class UserChangeForm(UserFormMixin, auth_forms.UserChangeForm):
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
     """An AuthenticationForm that takes into account Company users."""
-    def clean(self):
-        """Performs the usual clean steps and also ensures that Company users
-        and their Company's account expiration are taken into consideration.
-        First, call the superclass method (which notably checks the password
-        correctness and whether the given User is "active"). Then, if the user
-        corresponds to a company representative account, this method performs
-        the additional confirmation that the company account has not expired,
-        raising a ValidationError if so.
+    def confirm_login_allowed(self, user: AbstractBaseUser):
+        """Ensures that Company users and their Company's account expiration
+        are taken into consideration to allow login.
+        Cleaning and Authentication should already have happened (which notably
+        checks the password correctness and whether the given User is "active").
+        If the user corresponds to a company representative account,
+        this method performs the additional confirmation that the company account
+        has not expired, raising a ValidationError if so.
         """
-        cleaned_data = super(AuthenticationForm, self).clean()
+        company_rep = None
 
-        # TODO(sjdemartini): Move this logic to confirm_login_allowed once
-        # upgraded Django 1.7
         try:
             # Try to get a company account for the given user
-            company_rep = self.user_cache.companyrep
+            company_rep = user.companyrep
         except CompanyRep.DoesNotExist:
-            # If the user is not a company, allow login
-            return cleaned_data
+            # If the user is not a company, don't set company rep
+            #  Company Rep validation skipped (via None),
+            #  and direct to allow login
+            pass
 
-        if company_rep.company.is_expired():
+        if (company_rep is not None) and (company_rep.company.is_expired()):
             raise forms.ValidationError(
                 ('{}\'s subscription to this website has expired. '
                  'Please contact {} to arrange account renewal.'.format(
@@ -69,7 +70,7 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
                 code='expired'
             )
 
-        return cleaned_data
+        return super().confirm_login_allowed(user)
 
 class PasswordResetForm(forms.Form):
     """A form for users to enter their username or email address and have a
