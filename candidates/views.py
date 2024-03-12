@@ -953,7 +953,7 @@ class CandidateProgressByReqView(TemplateView, CandidateProgressMixin):
             for req_progress in progress_item['requirements']:
                 requirement = req_progress['requirement']
                 # Exclude progresses with the wrong requirement
-                if self.display_req and self.display_req != requirement:
+                if (not requirement) or (self.display_req and self.display_req != requirement):
                     continue
                 req_name = requirement.get_name()
                 if req_name not in progresses_by_req:
@@ -998,6 +998,8 @@ class CandidateProgressStatsView(TemplateView, CandidateProgressMixin):
         total_unfinished = 0
         for progress_item in progress.values():
             for req_progress in progress_item['requirements']:
+                if not req_progress['requirement']:
+                    continue
                 req_name = req_progress['requirement'].get_name()
                 completed = req_progress['completed']
                 required = req_progress['required']
