@@ -81,7 +81,6 @@ class Command(BaseCommand):
 
         def run(context):
             # Run LaTeX, storing information in the `context` dictionary
-            print("os.getcwd()", os.getcwd())
             pdflatex_command = ['pdflatex', 'book.tex']
             context['proc'] = subprocess.run(
                 pdflatex_command,
