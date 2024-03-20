@@ -1,4 +1,4 @@
-from django.core.files import File
+from django.conf import settings
 from django.core.management import BaseCommand
 from django.template.loader import render_to_string
 
@@ -117,19 +117,14 @@ class Command(BaseCommand):
         run_thread()
         run_thread()  # run LaTeX twice to create table of contents
 
-        with open('book.pdf', encoding='utf-8', errors='ignore') as pr_book_pdf:
-            print("os.getcwd() before save", os.getcwd(), dirname)
-            print(pr_book_pdf.name)
-            print("LOL")
-            # print( "isfile", os.path.isfile('book.pdf') )
-            print("LOL read")
-            pr_book.pdf.save(name='{}.pdf'.format(pr_book.pk), content=File(pr_book_pdf))
-            print("Saved")
+        pr_book_name = '{}.pdf'.format(pr_book.pk)
+        pr_book.pdf.name = pr_book.pdf.field.upload_to + pr_book_name
+        shutil.copyfile(src=os.path.join(os.getcwd(), 'book.pdf'), dst=os.path.join(settings.PRIVATE_STORAGE_ROOT, pr_book.pdf.name))
 
         pr_book.save()
 
         os.chdir(orig_dir)
-        # shutil.rmtree(dirname)
+        shutil.rmtree(dirname)
 
     def get_pandoc_header(self, terms):
         return render_to_string(
