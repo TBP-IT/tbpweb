@@ -33,9 +33,6 @@ class Command(BaseCommand):
             self.unwrapped_handle(*args, **options)
         except Exception as e:  # pylint: disable=broad-except
             pr_book = ProjectReportBook.objects.get(id=options['pr_book_id'])
-            # TODO Oscar 3-19-2024, DelayedException's subprocess.CalledProcessError not pickleable
-            #       - TypeError: __init__() missing 2 required positional arguments: 'returncode' and 'cmd'
-            # Not an issue, but seeing errors may be difficult
             pr_book.exception = DelayedException(e)
             pr_book.save()
 
@@ -45,7 +42,7 @@ class Command(BaseCommand):
         terms = pr_book.terms.order_by('id')
         president = Officer.objects.get(
             position__long_name='President',
-            term=list(terms)[-1])
+            term=terms.last())
 
         pandoc_header = self.get_pandoc_header(terms)
         presidents_letter = self.generate_presidents_letter(
@@ -93,7 +90,7 @@ class Command(BaseCommand):
                 input=b'R')
             proc = context['proc']
             if not os.path.isfile('book.pdf'):
-                output_result="NOTE: No book.log"
+                output_result="NOTE: No book.log - Generally means pdflatex failed to start"
                 if os.path.isfile('book.log'):
                     output_result = open('book.log').read()
                 context['exception'] = subprocess.CalledProcessError(
