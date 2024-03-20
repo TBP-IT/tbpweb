@@ -2,7 +2,7 @@ name: tbpweb-dev
 dependencies:
   - python=3.7
   - pip
-  - pypandoc
+  - pypandoc=1.6.3
   - pip:
     - -r requirements.txt
     - pre-commit==1.14.4
