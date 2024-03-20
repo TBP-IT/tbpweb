@@ -63,3 +63,4 @@ Other fabfile commands (including rollback) here: https://github.com/TBP-IT/tbpw
 ## Various links to understand some of the code structure and tools
 
 * fixtures/*.yaml -- https://docs.djangoproject.com/en/2.2/howto/initial-data/
+* Project Report pdflatex -- https://www.tug.org/texlive/ (need to install if you plan to develop on or generate a Project Report Books, otherwise you don't need to install it)
