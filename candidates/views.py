@@ -953,7 +953,7 @@ class CandidateProgressByReqView(TemplateView, CandidateProgressMixin):
             for req_progress in progress_item['requirements']:
                 requirement = req_progress['requirement']
                 # Exclude progresses with the wrong requirement
-                if (self.display_req and self.display_req != requirement):
+                if self.display_req and (self.display_req != requirement):
                     continue
                 req_name = requirement.get_name()
                 if req_name not in progresses_by_req:
