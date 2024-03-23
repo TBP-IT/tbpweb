@@ -9,9 +9,6 @@
 {% endblock intro %}
 
 {% block content %}
-
-<strong>NOTE: All accounts created before August 2022 will need to reset their password.</strong>
-
 <form method="post" action="{{ request.path }}" class="form-narrow">
   {% csrf_token %}
   {% include '_form.html' %}
