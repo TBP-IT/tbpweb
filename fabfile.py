@@ -155,6 +155,8 @@ def create_conda(c: Connection):
 def update_conda(c: Connection):
     print("-- Update Conda Environment and dependencies")
     with c.cd(c.release_path):
+        # If this command fails due to not enough OCF resources at the time,
+        #  ok to comment the line out
         c.run("conda env update -f config/tbpweb-prod.yml")
         c.run("conda info -a")  # Print post-creation properties
 
