@@ -142,53 +142,58 @@ class Candidate(models.Model):
 
         elective_req = None
         elective_event_types = EventType.objects.none()
+
+        # Get Elective requirement or otherwise have it as None
         try:
             elective_req = requirements.get(
                 eventcandidaterequirement__event_type__name='Elective')
-            requirements = requirements.exclude(id=elective_req.id)
+        except CandidateRequirement.DoesNotExist:
+            elective_req = None
+
+        if elective_req:
             required_event_types = requirements.filter(
                 requirement_type=CandidateRequirement.EVENT).values_list(
                 'eventcandidaterequirement__event_type', flat=True)
             elective_event_types = EventType.objects.filter(
                 eligible_elective=True).exclude(id__in=required_event_types)
-        except CandidateRequirement.DoesNotExist:
-            elective_req = None
-            elective_event_types = EventType.objects.none()
+            requirements = requirements.exclude(id=elective_req.id)
 
         progress_by_candidate = {candidate: [] for candidate in candidates}
 
         # Dictionary of elective progresses
         elective_progress_by_candidate = {}
 
-        # Calculate elective requirements satisfied by elective events (doesn't
-        # include extra required events that count for electives).
-        # TODO(ehy): this doesn't work when there isn't an elective requirement
-        remaining_elective_events = len(upcoming_events.filter(
-            event_type__in=elective_event_types))
-        for candidate in candidates:
-            elective_progress = {
-                'requirement': elective_req,
-                'completed': 0,
-                'signed_up': 0,
-                'warning': False,
-                'remaining': remaining_elective_events,
-                'required': elective_req.credits_needed if elective_req else 0
-            }
-            elective_progress_by_candidate[candidate] = elective_progress
-            for attendance in attendances_by_candidate[candidate]:
-                if attendance.event.event_type in elective_event_types:
-                    elective_progress['completed'] += 1
-            for event_type in elective_event_types:
-                signup_counter = signup_counters_by_candidate[candidate]
-                elective_progress['signed_up'] += signup_counter[
-                    event_type.name]
+        # Set up Elective requirement (via elective_req) progress,
+        #   if Elective requirement is set
+        if elective_req:
+            # Calculate elective requirements satisfied by elective events (doesn't
+            # include extra required events that count for electives).
+            remaining_elective_events = len(upcoming_events.filter(
+                event_type__in=elective_event_types))
+            for candidate in candidates:
+                elective_progress = {
+                    'requirement': elective_req,
+                    'completed': 0,
+                    'signed_up': 0,
+                    'warning': False,
+                    'remaining': remaining_elective_events,
+                    'required': elective_req.credits_needed if elective_req else 0
+                }
+                elective_progress_by_candidate[candidate] = elective_progress
+                for attendance in attendances_by_candidate[candidate]:
+                    if attendance.event.event_type in elective_event_types:
+                        elective_progress['completed'] += 1
+                for event_type in elective_event_types:
+                    signup_counter = signup_counters_by_candidate[candidate]
+                    elective_progress['signed_up'] += signup_counter[
+                        event_type.name]
 
-        # Handle per-candidate elective requirements
-        elective_crp_objects = crp_objects.filter(requirement=elective_req)
-        for crp in elective_crp_objects:
-            elective_progress = elective_progress_by_candidate[crp.candidate]
-            elective_progress['completed'] += crp.manually_recorded_credits
-            elective_progress['required'] = crp.alternate_credits_needed
+            # Handle per-candidate elective requirements
+            elective_crp_objects = crp_objects.filter(requirement=elective_req)
+            for crp in elective_crp_objects:
+                elective_progress = elective_progress_by_candidate[crp.candidate]
+                elective_progress['completed'] += crp.manually_recorded_credits
+                elective_progress['required'] = crp.alternate_credits_needed
 
         remaining = collections.Counter()
         for event in upcoming_events:
@@ -219,7 +224,10 @@ class Candidate(models.Model):
                         req_progress['remaining'] = remaining[req.get_name()]
                         progress_by_candidate[candidate].append(req_progress)
                     event_type = req.eventcandidaterequirement.event_type
-                    if event_type.eligible_elective:
+                    
+                    # Elective progress on eligible event types are only counted
+                    #   when an Elective requirement is set
+                    if elective_req and event_type.eligible_elective:
                         elective_progress = elective_progress_by_candidate[
                             candidate]
                         elective_progress['remaining'] += remaining[
@@ -239,18 +247,20 @@ class Candidate(models.Model):
                     req_progress['requirement'] = req
                     progress_by_candidate[candidate].append(req_progress)
 
-        # Trigger warnings for elective events
-        for elective_progress in elective_progress_by_candidate.values():
-            completed = elective_progress['completed']
-            remaining = elective_progress['remaining']
-            required = elective_progress['required']
-            if completed + remaining < required:
-                elective_progress['warning'] = True
+        # Final processing of Elective Events (if Elective requirement is set)
+        if elective_req:
+            # Trigger warnings for elective events
+            for elective_progress in elective_progress_by_candidate.values():
+                completed = elective_progress['completed']
+                remaining = elective_progress['remaining']
+                required = elective_progress['required']
+                if completed + remaining < required:
+                    elective_progress['warning'] = True
 
-        # Merge elective progresses with the others
-        for candidate in candidates:
-            elective_progress = elective_progress_by_candidate[candidate]
-            progress_by_candidate[candidate].append(elective_progress)
+            # Merge elective progresses with the others (only if an Elective Requirement is set)
+            for candidate in candidates:
+                elective_progress = elective_progress_by_candidate[candidate]
+                progress_by_candidate[candidate].append(elective_progress)
 
         return progress_by_candidate
 
