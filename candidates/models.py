@@ -211,6 +211,7 @@ class Candidate(models.Model):
                 for candidate, req_progress \
                         in req_progress_by_candidate.items():
                     req_progress['requirement'] = req
+                    completed = 0 # If not filled later, means candidate didn't even complete anything
                     required = req_progress['required']
                     req_progress['warning'] = False
                     if required > 0:
