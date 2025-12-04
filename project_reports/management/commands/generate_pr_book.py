@@ -1,4 +1,4 @@
-from django.core.files import File
+from django.conf import settings
 from django.core.management import BaseCommand
 from django.template.loader import render_to_string
 
@@ -23,23 +23,26 @@ tblib.pickling_support.install()
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument('pr_book_id')
+
     def handle(self, *args, **options):
         # Save the PDF to the PR book object, or save the exception if there
         # there was a failure
         try:
             self.unwrapped_handle(*args, **options)
         except Exception as e:  # pylint: disable=broad-except
-            pr_book = ProjectReportBook.objects.get(id=args[0])
+            pr_book = ProjectReportBook.objects.get(id=options['pr_book_id'])
             pr_book.exception = DelayedException(e)
             pr_book.save()
 
     def unwrapped_handle(self, *args, **options):
-        pr_book = ProjectReportBook.objects.get(id=args[0])
+        pr_book = ProjectReportBook.objects.get(id=options['pr_book_id'])
 
         terms = pr_book.terms.order_by('id')
         president = Officer.objects.get(
             position__long_name='President',
-            term=list(terms)[-1])
+            term=terms.last())
 
         pandoc_header = self.get_pandoc_header(terms)
         presidents_letter = self.generate_presidents_letter(
@@ -78,18 +81,21 @@ class Command(BaseCommand):
 
         def run(context):
             # Run LaTeX, storing information in the `context` dictionary
-            context['proc'] = subprocess.Popen(
-                ['pdflatex', 'book.tex'],
-                stdin=subprocess.PIPE,
+            pdflatex_command = ['pdflatex', 'book.tex']
+            context['proc'] = subprocess.run(
+                pdflatex_command,
                 stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE)
+                stderr=subprocess.PIPE,
+                input=b'R')
             proc = context['proc']
-            proc.communicate(input='R')  # ignore warnings
             if not os.path.isfile('book.pdf'):
+                output_result="NOTE: No book.log - Generally means pdflatex failed to start"
+                if os.path.isfile('book.log'):
+                    output_result = open('book.log').read()
                 context['exception'] = subprocess.CalledProcessError(
-                    cmd='pdflatex book.tex',
+                    cmd=" ".join(pdflatex_command),
                     returncode=proc.returncode,
-                    output=open('book.log').read(),
+                    output=output_result,
                 )
 
         def run_thread(timeout=100):
@@ -107,7 +113,9 @@ class Command(BaseCommand):
         run_thread()
         run_thread()  # run LaTeX twice to create table of contents
 
-        pr_book.pdf.save('{}.pdf'.format(pr_book.pk), File(open('book.pdf')))
+        pr_book_name = '{}.pdf'.format(pr_book.pk)
+        pr_book.pdf.name = pr_book.pdf.field.upload_to + pr_book_name
+        shutil.copyfile(src=os.path.join(os.getcwd(), 'book.pdf'), dst=os.path.join(settings.PRIVATE_STORAGE_ROOT, pr_book.pdf.name))
 
         pr_book.save()
 

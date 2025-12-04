@@ -222,6 +222,7 @@ class ProjectReportBookDownloadView(DetailView, PrivateStorageDetailView):
         elif not pr_book.pdf:
             return render(request, 'project_reports/download_book.html', {})
         else:
+            self.object = pr_book
             response = super(PrivateStorageDetailView, self).get(request, args, kwargs)
             response.content_type = 'application/pdf'
             response['Content-Disposition'] = \
