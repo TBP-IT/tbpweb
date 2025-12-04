@@ -18,10 +18,8 @@
     <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css">
-    {% compress css %}
     <link rel="stylesheet" href="{% static 'footable/css/footable.core.min.css' %}">
-    <link type="text/x-scss" rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endcompress %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     {% compress css %}
     {{ form.media.css }}
