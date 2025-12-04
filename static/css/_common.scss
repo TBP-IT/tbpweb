@@ -479,7 +479,7 @@ header {
   color: #000;
 
   #logo {
-    @include absolute-position(5px, 15px, $width:60px, $height:60px);
+    @include absolute-position("5px", "15px", $width:"60px", $height:"60px");
 
     @include respond-to(small) {
       position: relative;
@@ -494,7 +494,7 @@ header {
     font-size: 32px;
     font-weight: 600;
     white-space: nowrap;
-    @include absolute-position(75px, 15px);
+    @include absolute-position("75px", "15px");
     @include respond-to(small) {
       position: relative;
       left: 10px;
@@ -506,7 +506,7 @@ header {
     display: inline;
     font-size: 16px;
     white-space: nowrap;
-    @include absolute-position(78px, 52px);
+    @include absolute-position("78px", "52px");
 
     @include respond-to(small) {
       display: none;
@@ -516,11 +516,11 @@ header {
 
 #logo-overlay {
   z-index: 1;
-  @include absolute-position(0, $width: 260px, $height: $header-height);
+  @include absolute-position("0", $width: "260px", $height: "#{$header-height}");
   @include respond-to(small) {
     // 28px is the height of #login, which is a function of font-size.
-    @include absolute-position(0, $width: 220px,
-        $height: $header-height - 28px);
+    @include absolute-position("0", $width: "220px",
+        $height: "#{$header-height - 28px}");
   }
 }
 
@@ -647,7 +647,7 @@ header {
     z-index: 100;
     @include border-radius(.3em);
     @include box-shadow(0 0 0.4em rgba(0, 0, 0, 0.3), inset 0 0 0 #000);
-    @include absolute-position($top: 100%, $right: -11px);
+    @include absolute-position($top: "100%", $right: "-11px");
 
     // Make the dropdowns shift to the right of where it normally would be at
     // narrower viewports to ensure its lined up and onscreen
@@ -670,8 +670,8 @@ header {
       border-width: 9px;
       content: '';
       display: block;
-      @include absolute-position($top: -17px, $right: 30px, $width: 0,
-        $height: 0);
+      @include absolute-position($top: "-17px", $right: "30px", $width: "0",
+        $height: "0");
       @include respond-to(small) {
         right: 80px;
       }
