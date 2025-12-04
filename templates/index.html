@@ -12,7 +12,8 @@
 {% block subheader %}
 <style>
   #banner {
-    background: url("/static/images/banner.jpg") black top center no-repeat;
+    
+    background: url("{% static 'images/banner.jpg' %}") black top center no-repeat;
     margin: 0 auto;
     max-width: none;
     min-height: 338px; }
