@@ -49,7 +49,7 @@
   }
 
   img {
-    @include absolute-position(0, 0, $width:100%);
+    @include absolute-position("0", "0", $width:"100%");
   }
 }
 
