@@ -516,11 +516,11 @@ header {
 
 #logo-overlay {
   z-index: 1;
-  @include absolute-position("0", $width: "260px", $height: quote($header-height));
+  @include absolute-position("0", $width: "260px", $height: "#{$header-height}");
   @include respond-to(small) {
     // 28px is the height of #login, which is a function of font-size.
     @include absolute-position("0", $width: "220px",
-        $height: quote($header-height - 28px));
+        $height: "#{$header-height - 28px}");
   }
 }
 
