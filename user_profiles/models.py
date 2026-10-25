@@ -170,9 +170,12 @@ class UserProfile(models.Model):
 
     def get_public_name(self):
         """Return a version of a person's name to be visible publicly, with
-        short name followed by last name initial.
+        short name followed by last name initial, if available.
         """
-        return '{} {}.'.format(self.preferred_name, self.user.last_name[0])
+        last_name = self.user.last_name.strip()
+        if last_name:
+            return '{} {}.'.format(self.preferred_name, last_name[0])
+        return self.preferred_name
 
     def get_college_student_info(self):
         try:
